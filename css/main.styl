@@ -1,0 +1,117 @@
+// Helpful utilities stolen from the stylus docs:
+vendor(prop, args)
+  -webkit-{prop} args
+  -moz-{prop} args
+  {prop} args
+
+box-shadow()
+  vendor('box-shadow', arguments)
+transform()
+  vendor('transform', arguments)
+
+// Icon font:
+@font-face
+    font-family: 'icomoon'
+    src:url('/fonts/icomoon.eot')
+    src:url('/fonts/icomoon.eot?#iefix') format('embedded-opentype'), \
+        url('/fonts/icomoon.svg#icomoon') format('svg'), \
+        url('/fonts/icomoon.woff') format('woff'), \
+        url('/fonts/icomoon.ttf') format('truetype')
+    font-weight: normal
+    font-style: normal
+
+// Site CSS:
+body
+  font-family: Quantico, sans-serif
+  color: #334
+  background: #8BC84B
+  margin:0
+
+html, body
+  overflow:hidden
+
+h1
+  font: normal 40px Quantico
+  margin: 0 0 5px
+  line-height: 1
+
+p
+  margin: 0
+
+article
+  position: absolute
+  z-index: 2
+  left:40px
+  top:40px
+  padding: 20px
+  min-width: 370px
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6)
+  background: white
+  background: -webkit-linear-gradient(#eee, #bbb)
+  background: -moz-linear-gradient(#eee, #bbb)
+  background: linear-gradient(#eee, #bbb)
+
+#elsewhere
+    text-align: center
+    border-top: 1px solid #999
+    box-shadow: 0 1px 0 #ddd inset
+    padding: 20px 0 0
+    margin: 15px 0 0
+
+.work, .tools, .location, .github, .twitter
+    &:before
+      display: inline-block
+      width: 1em
+      text-align: center
+      margin-right: 7px
+      font: normal 1.4em 'icomoon'
+      font-style: normal
+      speak: none
+      -webkit-font-smoothing: antialiased
+
+      position: relative
+      top: 3px
+      color: #999
+
+a.twitter, a.github
+    display: inline-block
+    padding: 3px 8px 4px
+    margin: 0 15px
+    text-decoration: none
+    background: -webkit-linear-gradient(#ddd, #ccc)
+    background: -moz-linear-gradient(#ddd, #ccc)
+    background: linear-gradient(#ddd, #ccc)
+    border-radius: 3px
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2)
+    color: #333
+    text-shadow: 0 1px 1px #eee
+
+    &:before
+      color: #666
+      text-shadow: 0 1px 1px #ddd
+    &:hover, &:hover:before
+      color: #C57F33
+    &:active
+      box-shadow: 0 1px 4px #999 inset
+
+.work:before
+    content: "\21"
+.tools:before
+    content: "\22"
+.location:before
+    content: "\25"
+a.twitter:before
+    content: "\23"
+a.github:before
+    content: "\24"
+
+// Very basic modifications for phone-sized screens
+@media screen and (max-width: 480px)
+    article
+        top: 10px
+        left: 10px
+        font-size: 0.75em
+        width: 275px
+
+    canvas
+        transform: none
