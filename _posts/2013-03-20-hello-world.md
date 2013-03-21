@@ -3,8 +3,6 @@ layout: post
 title: Obligatory Hello World Post
 ---
 
-# Obligatory Hello World Post
-
 It lives! Yep, I actually got around to putting up a personal site. It's
 something I've thought about doing for a couple years, but have never
 quite gotten the ball rolling. Eventually I scrapped my grandiose plans

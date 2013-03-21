@@ -11,10 +11,6 @@ body {
   background: #8bc84b;
   margin: 0;
 }
-html,
-body {
-  overflow: hidden;
-}
 h1 {
   font: normal 40px Quantico;
   margin: 0 0 5px;
@@ -23,7 +19,12 @@ h1 {
 p {
   margin: 0;
 }
-article {
+.home_wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+article.contact {
   position: absolute;
   z-index: 2;
   left: 40px;
@@ -124,4 +125,20 @@ a.github:before {
     -moz-transform: none;
     transform: none;
   }
+}
+article.post {
+  padding: 20px;
+  margin: 20px;
+  max-width: 40em;
+  background: rgba(255,255,255,0.80);
+  -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.30);
+  -moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.30);
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.30);
+}
+article.post time[pubdate] {
+  display: block;
+  margin-bottom: 1.5em;
+}
+article.post p {
+  margin-bottom: 1em;
 }

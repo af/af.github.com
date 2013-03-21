@@ -27,9 +27,6 @@ body
   background: #8BC84B
   margin:0
 
-html, body
-  overflow:hidden
-
 h1
   font: normal 40px Quantico
   margin: 0 0 5px
@@ -38,7 +35,12 @@ h1
 p
   margin: 0
 
-article
+.home_wrapper
+  width: 100%
+  height: 100%
+  overflow: hidden
+
+article.contact
   position: absolute
   z-index: 2
   left:40px
@@ -115,3 +117,18 @@ a.github:before
 
     canvas
         transform: none
+
+
+article.post
+    padding: 20px
+    margin: 20px
+    max-width: 40em
+    background: rgba(#fff, 0.8)
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.3)
+
+    time[pubdate]
+        display: block
+        margin-bottom: 1.5em
+
+    p
+        margin-bottom: 1em
