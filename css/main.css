@@ -35,9 +35,9 @@ article.contact {
   -moz-box-shadow: 0 2px 8px rgba(0,0,0,0.60);
   box-shadow: 0 2px 8px rgba(0,0,0,0.60);
   background: #fff;
-  background: -webkit-linear-gradient(#eee, #bbb);
-  background: -moz-linear-gradient(#eee, #bbb);
-  background: linear-gradient(#eee, #bbb);
+  background: -webkit-linear-gradient(#eee, #ccc 40%);
+  background: -moz-linear-gradient(#eee, #ccc 40%);
+  background: linear-gradient(#eee, #ccc 40%);
 }
 #elsewhere {
   text-align: center;
