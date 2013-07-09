@@ -6,13 +6,13 @@
   font-style: normal;
 }
 body {
-  font-family: Quantico, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: #334;
   background: #8bc84b;
   margin: 0;
 }
 h1 {
-  font: normal 40px Quantico;
+  font: normal 40px 'Open Sans';
   margin: 0 0 5px;
   line-height: 1;
 }
