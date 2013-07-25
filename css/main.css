@@ -18,11 +18,12 @@ a:hover {
 }
 body {
   font-family: 'Fanwood Text', sans-serif;
-  font-size: 18px;
+  font-size: 19px;
   color: #334;
   background: #8bc84b;
   margin: 0;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 body > header {
   width: 300px;
@@ -56,10 +57,9 @@ body > header h1 {
   margin: 0.5em;
 }
 body > header h2 {
-  font-size: 1.5rem;
-  font-style: italic;
   margin: 2rem 0 0.5rem;
-  color: #222;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 body > header ul {
   margin: 0;
