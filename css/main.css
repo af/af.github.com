@@ -6,13 +6,13 @@
   font-style: normal;
 }
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Fanwood Text', sans-serif;
   color: #334;
   background: #8bc84b;
   margin: 0;
 }
 h1 {
-  font: 300 40px 'Open Sans';
+  font: 400 40px 'Fanwood Text';
   margin: 0 0 5px;
   line-height: 1;
 }
