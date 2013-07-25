@@ -5,6 +5,9 @@
   font-weight: normal;
   font-style: normal;
 }
+* {
+  box-sizing: border-box;
+}
 p {
   line-height: 1.4;
   margin: 0 0 1.4em;
@@ -22,16 +25,16 @@ body {
   color: #334;
   background: #8bc84b;
   margin: 0;
-  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
 }
 body > header {
-  width: 300px;
+  width: 340px;
   height: 100%;
   padding: 20px;
   background: #fff;
   opacity: 0.9;
   position: absolute;
+  z-index: 10;
   left: 0;
   box-shadow: 0 0 10px rgba(0,0,0,0.40);
 }
@@ -107,4 +110,12 @@ body > header ul {
 }
 .github:before {
   content: "\24";
+}
+.hp_canvas_wrap {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
 }
