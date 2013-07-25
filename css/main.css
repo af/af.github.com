@@ -5,48 +5,74 @@
   font-weight: normal;
   font-style: normal;
 }
+p {
+  line-height: 1.4;
+  margin: 0 0 1.4em;
+}
+a,
+a.visited {
+  color: #8bc84b;
+}
+a:hover {
+  color: #6fa933;
+}
 body {
   font-family: 'Fanwood Text', sans-serif;
+  font-size: 18px;
   color: #334;
   background: #8bc84b;
   margin: 0;
+  box-sizing: border-box;
 }
-h1 {
-  font: 400 40px 'Fanwood Text';
-  margin: 0 0 5px;
-  line-height: 1;
-}
-p {
-  margin: 0;
-}
-.home_wrapper {
-  width: 100%;
+body > header {
+  width: 300px;
   height: 100%;
-  overflow: hidden;
-}
-article.contact {
-  position: absolute;
-  z-index: 2;
-  left: 40px;
-  top: 40px;
-  padding: 2rem;
-  min-width: 370px;
-  -webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.60);
-  -moz-box-shadow: 0 2px 8px rgba(0,0,0,0.60);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.60);
+  padding: 20px;
   background: #fff;
-  background: -webkit-linear-gradient(#eee, #ccc 30%);
-  background: -moz-linear-gradient(#eee, #ccc 30%);
-  background: linear-gradient(#eee, #ccc 30%);
+  opacity: 0.9;
+  position: absolute;
+  left: 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.40);
 }
-#elsewhere {
-  text-align: center;
-  border-top: 1px solid #999;
-  -webkit-box-shadow: 0 1px 0 #ddd inset;
-  -moz-box-shadow: 0 1px 0 #ddd inset;
-  box-shadow: 0 1px 0 #ddd inset;
-  padding: 20px 0 0;
-  margin: 15px 0 0;
+body > header .title {
+  zoom: 1;
+}
+body > header .title:before,
+body > header .title:after {
+  content: "";
+  display: table;
+}
+body > header .title:after {
+  clear: both;
+}
+body > header .avatar {
+  float: left;
+  margin-right: 0.8rem;
+  position: relative;
+  border: 1px solid #999;
+}
+body > header h1 {
+  font-size: 2.1rem;
+  margin: 0.5em;
+}
+body > header h2 {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin: 2rem 0 0.5rem;
+  color: #222;
+}
+body > header ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.work,
+.tools,
+.location,
+.github,
+.twitter {
+  color: inherit;
+  text-decoration: none;
 }
 .work:before,
 .tools:before,
@@ -58,45 +84,14 @@ article.contact {
   text-align: center;
   margin-right: 7px;
   font: normal 1.4em 'icomoon';
+  text-decoration: none;
   font-style: normal;
   speak: none;
+  text-shadow: 0 1px 0 #eee;
   -webkit-font-smoothing: antialiased;
   position: relative;
   top: 3px;
   color: #999;
-}
-a.twitter,
-a.github {
-  display: inline-block;
-  padding: 3px 8px 4px;
-  margin: 0 15px;
-  text-decoration: none;
-  background: -webkit-linear-gradient(#ddd, #ccc);
-  background: -moz-linear-gradient(#ddd, #ccc);
-  background: linear-gradient(#ddd, #ccc);
-  border-radius: 3px;
-  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.20);
-  -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.20);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.20);
-  color: #333;
-  text-shadow: 0 1px 1px #eee;
-}
-a.twitter:before,
-a.github:before {
-  color: #666;
-  text-shadow: 0 1px 1px #ddd;
-}
-a.twitter:hover,
-a.github:hover,
-a.twitter:hover:before,
-a.github:hover:before {
-  color: #c57f33;
-}
-a.twitter:active,
-a.github:active {
-  -webkit-box-shadow: 0 1px 4px #999 inset;
-  -moz-box-shadow: 0 1px 4px #999 inset;
-  box-shadow: 0 1px 4px #999 inset;
 }
 .work:before {
   content: "\21";
@@ -107,38 +102,9 @@ a.github:active {
 .location:before {
   content: "\25";
 }
-a.twitter:before {
+.twitter:before {
   content: "\23";
 }
-a.github:before {
+.github:before {
   content: "\24";
-}
-@media screen and (max-width: 480px) {
-  article {
-    top: 10px;
-    left: 10px;
-    font-size: 0.75em;
-    width: 275px;
-  }
-  canvas {
-    -webkit-transform: none;
-    -moz-transform: none;
-    transform: none;
-  }
-}
-article.post {
-  padding: 20px;
-  margin: 20px;
-  max-width: 40em;
-  background: rgba(255,255,255,0.80);
-  -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.30);
-  -moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.30);
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.30);
-}
-article.post time[pubdate] {
-  display: block;
-  margin-bottom: 1.5em;
-}
-article.post p {
-  margin-bottom: 1em;
 }
