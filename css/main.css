@@ -31,8 +31,7 @@ body > header {
   width: 340px;
   height: 100%;
   padding: 20px;
-  background: #fff;
-  opacity: 0.9;
+  background: #eee;
   position: absolute;
   z-index: 10;
   left: 0;
