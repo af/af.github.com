@@ -21,9 +21,9 @@ a:hover {
 }
 body {
   font-family: 'Fanwood Text', sans-serif;
-  font-size: 19px;
+  font-size: 20px;
   color: #334;
-  background: #8bc84b;
+  background: #eee;
   margin: 0;
   -webkit-font-smoothing: antialiased;
 }
@@ -32,10 +32,11 @@ body > header {
   height: 100%;
   padding: 20px;
   background: #eee;
+  background: linear-gradient(#eee, #d6d6d6);
   position: absolute;
   z-index: 10;
   left: 0;
-  box-shadow: 0 0 10px rgba(0,0,0,0.40);
+  box-shadow: 0 0 10px rgba(0,0,0,0.30);
 }
 body > header .title {
   zoom: 1;
@@ -117,4 +118,20 @@ body > header ul {
   top: 0;
   left: 0;
   overflow: hidden;
+}
+.post {
+  margin-left: 380px;
+  padding: 1rem;
+  max-width: 35em;
+}
+.post h1 {
+  margin: 1.8rem 0 0.2rem;
+  font-style: italic;
+  line-height: 1;
+}
+.post time[pubdate] {
+  display: block;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  color: #999;
 }

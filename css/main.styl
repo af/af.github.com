@@ -1,4 +1,5 @@
 $green = #8BC84B
+$backgroundColour = #eee
 
 // Helpful utilities stolen from the stylus docs:
 vendor(prop, args)
@@ -41,9 +42,9 @@ a:hover
 
 body
     font-family: 'Fanwood Text', sans-serif
-    font-size: 19px
+    font-size: 20px
     color: #334
-    background: $green
+    background: $backgroundColour
     margin:0
     -webkit-font-smoothing: antialiased
 
@@ -52,11 +53,12 @@ body > header
     width: 340px
     height: 100%
     padding: 20px
-    background: #eee
+    background: $backgroundColour
+    background: linear-gradient($backgroundColour, darken($backgroundColour, 10%))
     position: absolute
     z-index: 10
     left: 0
-    box-shadow: 0 0 10px rgba(0,0,0,0.4)
+    box-shadow: 0 0 10px rgba(0,0,0,0.3)
 
     .title
         clearfix()
@@ -121,3 +123,20 @@ body > header
     top: 0
     left: 0
     overflow: hidden
+
+// Blog post article
+.post
+    margin-left: 380px
+    padding: 1rem
+    max-width: 35em
+
+    h1
+        margin: 1.8rem 0 0.2rem
+        font-style: italic
+        line-height: 1
+
+    time[pubdate]
+        display: block
+        margin-bottom: 2rem
+        font-weight: 600
+        color: #999
