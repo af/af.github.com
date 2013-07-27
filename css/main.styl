@@ -35,9 +35,17 @@ p
     margin: 0 0 1.4em
 
 a, a.visited
-    color: $green
+    color: inherit
+    text-decoration: none
+    background: lighten($green, 95%)
+    padding: 0 3px;
+    border-bottom: 1px solid $green
+    transition: border-width 0.3s
+
 a:hover
-    color: darken($green, 20%)
+    //color: #000
+    background: lighten($green, 88%)
+    border-width: 3px
 
 
 body
@@ -83,37 +91,38 @@ body > header
         padding: 0
         list-style-type: none
 
-
-.work, .tools, .location, .github, .twitter
-    color: inherit
-    text-decoration: none
-
-    &:before
-        display: inline-block
-        width: 1em
-        position: relative
-        top: 3px
-        text-align: center
-        margin-right: 7px
-        font: normal 1.3em 'icomoon'
+    .work, .tools, .location, .github, .twitter
+        color: inherit
         text-decoration: none
-        font-style: normal
-        speak: none
-        text-shadow: 0 1px 0 #aaa
-        color: #c5c5c5
-        -webkit-font-smoothing: antialiased
+        border: none
+        background: none
+
+        &:before
+            display: inline-block
+            width: 1em
+            position: relative
+            top: 3px
+            text-align: center
+            margin-right: 7px
+            font: normal 1.3em 'icomoon'
+            text-decoration: none
+            font-style: normal
+            speak: none
+            text-shadow: 0 1px 0 #aaa
+            color: #c5c5c5
+            -webkit-font-smoothing: antialiased
 
 
-.work:before
-    content: "\21"
-.tools:before
-    content: "\22"
-.location:before
-    content: "\25"
-.twitter:before
-    content: "\23"
-.github:before
-    content: "\24"
+    .work:before
+        content: "\21"
+    .tools:before
+        content: "\22"
+    .location:before
+        content: "\25"
+    .twitter:before
+        content: "\23"
+    .github:before
+        content: "\24"
 
 // Prevent the homepage canvas from introducing scrollbars
 .hp_canvas_wrap
