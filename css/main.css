@@ -18,12 +18,11 @@ a.visited {
   text-decoration: none;
   background: #f9fcf6;
   padding: 0 3px;
-  border-bottom: 1px solid #8bc84b;
-  transition: border-width 0.3s;
+  border-bottom: 1px solid #a2d36f;
+  transition: all 0.3s;
 }
 a:hover {
-  background: #f1f8e9;
-  border-width: 3px;
+  border-bottom: 3px solid #8bc84b;
 }
 body {
   font-family: 'Fanwood Text', sans-serif;
@@ -34,12 +33,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 body > header {
-  width: 340px;
+  width: 320px;
   height: 100%;
   padding: 20px;
   background: #eee;
   background: linear-gradient(#eee, #d6d6d6);
-  position: absolute;
+  position: fixed;
   z-index: 10;
   left: 0;
   box-shadow: 0 0 10px rgba(0,0,0,0.30);
@@ -63,7 +62,7 @@ body > header .avatar {
 }
 body > header h1 {
   font-size: 2.1rem;
-  margin: 0.5em;
+  margin: 0.5em 0;
 }
 body > header h2 {
   margin: 2rem 0 0.5rem;
@@ -74,6 +73,15 @@ body > header ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
+}
+body > header li a {
+  display: inline-block;
+  min-width: 70%;
+}
+body > header li a:hover {
+  width: 100%;
+  background: #f7fbf2;
+  border-bottom: 3px solid #8bc84b;
 }
 body > header .work,
 body > header .tools,
