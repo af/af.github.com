@@ -32,4 +32,4 @@ I’m sort of re-learning how to write, and trying to find a voice,
 so it will probably be ugly for a while. Anyways, this site’s source and posts are
 all [open source on github](https://github.com/af/af.github.com) so if you
 see anything wrong, or have any suggestions, let me know. If you are interested in
-keeping tabs on what I post, an [Atom feed is available](/atom.xml).
+keeping tabs on what I post, an [Atom feed is available](http://aaronfranks.com/atom.xml).
