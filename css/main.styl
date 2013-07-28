@@ -4,23 +4,29 @@
 
 
 body
+    position: relative
+    margin: 0
+    min-width: 320px
     background: $backgroundColour
-    margin:0
     -webkit-font-smoothing: antialiased
 
 // Main site sidebar:
 body > header
     width: 320px
     height: 100%
-    padding: 20px
+    padding: 1rem
     background: $backgroundColour
     background: linear-gradient($backgroundColour, darken($backgroundColour, 10%))
     position: fixed
     z-index: 10
+    top: 0
     left: 0
     box-shadow: 0 0 10px rgba(0,0,0,0.3)
 
     .title
+        display: block
+        border: none
+        background: none
         clearfix()
 
     .avatar
@@ -84,13 +90,11 @@ body > header
     .github:before
         content: "\24"
 
+
 // Prevent the homepage canvas from introducing scrollbars
 .hp_canvas_wrap
     height: 100%
     width: 100%
-    position: absolute
-    top: 0
-    left: 0
     overflow: hidden
 
 // Blog post article
@@ -109,3 +113,32 @@ body > header
         margin-bottom: 2rem
         font-weight: 600
         color: #999
+
+
+// Mobile header/footer:
+@media screen and (max-width: 600px)
+    body
+        padding-top: 110px   // Leave room for heading to be absolutely positioned here
+
+    body > header
+        position: static
+        height: auto
+        width: 100%
+        padding-top: 1px
+
+        // Move title to the top of the page
+        .title
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            padding: 1rem
+            background: #eee
+            box-shadow: 0 0 5px rgba(0,0,0, 0.3)
+
+    .hp_canvas_wrap
+        height: 250px       // Just show a bit of the canvas animation on mobile
+
+    .post
+        margin-left: 0
+        background: $backgroundColour

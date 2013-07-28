@@ -30,22 +30,28 @@ body {
   color: #334;
 }
 body {
-  background: #eee;
+  position: relative;
   margin: 0;
+  min-width: 320px;
+  background: #f7f7f7;
   -webkit-font-smoothing: antialiased;
 }
 body > header {
   width: 320px;
   height: 100%;
-  padding: 20px;
-  background: #eee;
-  background: linear-gradient(#eee, #d6d6d6);
+  padding: 1rem;
+  background: #f7f7f7;
+  background: linear-gradient(#f7f7f7, #dedede);
   position: fixed;
   z-index: 10;
+  top: 0;
   left: 0;
   box-shadow: 0 0 10px rgba(0,0,0,0.30);
 }
 body > header .title {
+  display: block;
+  border: none;
+  background: none;
   zoom: 1;
 }
 body > header .title:before,
@@ -132,9 +138,6 @@ body > header .github:before {
 .hp_canvas_wrap {
   height: 100%;
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
   overflow: hidden;
 }
 .post {
@@ -152,4 +155,31 @@ body > header .github:before {
   margin-bottom: 2rem;
   font-weight: 600;
   color: #999;
+}
+@media screen and (max-width: 600px) {
+  body {
+    padding-top: 110px;
+  }
+  body > header {
+    position: static;
+    height: auto;
+    width: 100%;
+    padding-top: 1px;
+  }
+  body > header .title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: #eee;
+    box-shadow: 0 0 5px rgba(0,0,0,0.30);
+  }
+  .hp_canvas_wrap {
+    height: 250px;
+  }
+  .post {
+    margin-left: 0;
+    background: #f7f7f7;
+  }
 }
