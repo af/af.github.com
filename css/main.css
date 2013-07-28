@@ -1,10 +1,3 @@
-@font-face {
-  font-family: 'icomoon';
-  src: url("/fonts/icomoon.eot");
-  src: url("/fonts/icomoon.eot?#iefix") format('embedded-opentype'), url("/fonts/icomoon.svg#icomoon") format('svg'), url("/fonts/icomoon.woff") format('woff'), url("/fonts/icomoon.ttf") format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
 * {
   box-sizing: border-box;
 }
@@ -24,10 +17,19 @@ a.visited {
 a:hover {
   border-bottom: 3px solid #8bc84b;
 }
+@font-face {
+  font-family: 'icomoon';
+  src: url("/fonts/icomoon.eot");
+  src: url("/fonts/icomoon.eot?#iefix") format('embedded-opentype'), url("/fonts/icomoon.svg#icomoon") format('svg'), url("/fonts/icomoon.woff") format('woff'), url("/fonts/icomoon.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   font-family: 'Fanwood Text', sans-serif;
   font-size: 20px;
   color: #334;
+}
+body {
   background: #eee;
   margin: 0;
   -webkit-font-smoothing: antialiased;
