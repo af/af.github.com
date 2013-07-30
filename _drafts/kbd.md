@@ -1,6 +1,7 @@
 ---
 title: Keyboard shortcuts
 published: false
+layout: post
 ---
 
 Philosophy
@@ -38,10 +39,10 @@ computer is in.
 One of Raskin’s alternatives to modes is the [quasimode][2], where a user uses deliberate
 modifiers in conjunctions with 
 
-[1] http://www.mprove.de/script/02/raskin/designrules.html
-[2] http://en.wikipedia.org/wiki/The_Humane_Interface
-[3] http://en.wikipedia.org/wiki/Mode_(computer_interface)#Quasimodes
-[4] http://stevelosh.com/blog/2012/10/a-modern-space-cadet/
+[1]: http://www.mprove.de/script/02/raskin/designrules.html
+[2]: http://en.wikipedia.org/wiki/The_Humane_Interface
+[3]: http://en.wikipedia.org/wiki/Mode_(computer_interface)#Quasimodes
+[4]: http://stevelosh.com/blog/2012/10/a-modern-space-cadet/
 
 
 Applications
@@ -62,7 +63,7 @@ You can do this remapping in OS X (System Preferences -> Keyboard -> Modifier Ke
 
 Quicksilver
     * app launcher
-    * <C-1> etc app shortcuts
+    * Ctrl-1 etc app shortcuts
     * iTunes shortcuts
 
 SizeUp
