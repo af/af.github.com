@@ -148,16 +148,34 @@ body > header .github:before {
   padding: 1rem;
   max-width: 35em;
 }
-.post h1 {
-  margin: 1.8rem 0 0.2rem;
+.post header h1 {
+  margin: 1.5rem 0 0.2rem;
+  font-size: 2rem;
   font-style: italic;
   line-height: 1;
 }
-.post time[pubdate] {
+.post header time[pubdate] {
   display: block;
   margin-bottom: 2rem;
   font-weight: 600;
   color: #999;
+}
+.post h1,
+.post h2,
+.post h3,
+.post h4 {
+  margin: 1rem 0 0.5rem;
+}
+.post h1 {
+  font-size: 1.5rem;
+}
+.post h2 {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+.post h3,
+.post h4 {
+  font-size: 1rem;
 }
 @media screen and (max-width: 600px) {
   body {

@@ -3,8 +3,10 @@ layout: base
 ---
 
 <article class="post">
-    <h1>{{ page.title }}</h1>
-    <time pubdate datetime="{{page.date}}">Posted on {{page.date | date: "%Y-%m-%d"}}</time>
+    <header>
+        <h1>{{ page.title }}</h1>
+        <time pubdate datetime="{{page.date}}">Posted on {{page.date | date: "%Y-%m-%d"}}</time>
+    </header>
 
     {{ content }}
 </article>
