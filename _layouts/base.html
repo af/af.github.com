@@ -18,7 +18,7 @@
         </a>
         <nav>
             <h2>About</h2>
-            <ul>
+            <ul class="about">
                 <li class="work">Software Engineer</li>
                 <li class="tools">Javascript, Python, Node.js</li>
                 <li class="location">Vancouver, Canada</li>
@@ -30,13 +30,12 @@
                 <li><a href="https://twitter.com/eh_eff" class="twitter">tweets</a></li>
             </ul>
 
-            <!--
-            <h2>Projects</h2>
-            <ul>
-                <li><a href="https://github.com/af/backprop" class="github">Backprop</a></li>
-                <li><a href="https://github.com/af/djangbone" class="github">Djangbone</a></li>
+            <h2>Posts</h2>
+            <ul class="posts">
+            {% for post in site.posts %}
+                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% endfor %}
             </ul>
-            -->
         </nav>
     </header>
 
