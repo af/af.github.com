@@ -143,8 +143,10 @@ body > header .github:before {
   width: 100%;
   overflow: hidden;
 }
-.post {
+.content {
   margin-left: 380px;
+}
+.post {
   padding: 1rem;
   max-width: 35em;
 }
