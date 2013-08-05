@@ -29,6 +29,10 @@ body {
   font-size: 20px;
   color: #334;
 }
+html,
+body {
+  height: 100%;
+}
 body {
   position: relative;
   margin: 0;
@@ -82,10 +86,6 @@ body > header ul {
   padding: 0;
   list-style-type: none;
 }
-body > header .posts {
-  list-style-type: disc;
-  padding-left: 1em;
-}
 body > header li a {
   display: block;
   background: none;
@@ -94,6 +94,9 @@ body > header li a {
 body > header li a:hover {
   background: #f7fbf2;
   border-bottom: 3px solid #8bc84b;
+}
+body > header .posts li {
+  margin-left: -3px;
 }
 body > header .work,
 body > header .tools,
@@ -144,10 +147,24 @@ body > header .github:before {
   overflow: hidden;
 }
 .content {
-  margin-left: 380px;
+  margin-left: 320px;
+  padding: 0 3rem;
+}
+ul.posts {
+  list-style-type: none;
+  padding-left: 0;
+}
+ul.posts time {
+  color: #888;
+  font-weight: bold;
+  margin-right: 5px;
+  font-size: 1.1rem;
+}
+ul.posts li {
+  margin-bottom: 5px;
 }
 .post {
-  padding: 1rem;
+  padding: 1rem 0;
   max-width: 35em;
 }
 .post header h1 {
@@ -201,8 +218,10 @@ body > header .github:before {
   .hp_canvas_wrap {
     height: 250px;
   }
-  .post {
+  .content {
     margin-left: 0;
+  }
+  .post {
     background: #f7f7f7;
   }
 }

@@ -2,6 +2,10 @@
 @import "_common"
 @import "_fonts"
 
+$sidebar_width = 320px
+
+html, body
+    height: 100%
 
 body
     position: relative
@@ -12,7 +16,7 @@ body
 
 // Main site sidebar:
 body > header
-    width: 320px
+    width: $sidebar_width
     height: 100%
     padding: 1rem
     background: $backgroundColour
@@ -49,10 +53,6 @@ body > header
         padding: 0
         list-style-type: none
 
-    .posts
-        list-style-type: disc
-        padding-left: 1em
-
     li a
         display: block
         background: none
@@ -61,6 +61,9 @@ body > header
         &:hover
             background: lighten($green, 93%)
             border-bottom: 3px solid $green
+
+    .posts li
+        margin-left: -3px
 
     .work, .tools, .location, .github, .twitter
         color: inherit
@@ -101,11 +104,25 @@ body > header
     overflow: hidden
 
 .content
-    margin-left: 380px
+    margin-left: $sidebar_width
+    padding: 0 3rem
+
+ul.posts
+    list-style-type: none
+    padding-left: 0
+
+    time
+        color: #888
+        font-weight: bold
+        margin-right: 5px
+        font-size: 1.1rem
+
+    li
+        margin-bottom: 5px
 
 // Blog post article
 .post
-    padding: 1rem
+    padding: 1rem 0
     max-width: 35em
 
     header
@@ -156,6 +173,8 @@ body > header
     .hp_canvas_wrap
         height: 250px       // Just show a bit of the canvas animation on mobile
 
-    .post
+    .content
         margin-left: 0
+
+    .post
         background: $backgroundColour
