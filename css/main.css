@@ -81,6 +81,15 @@ body > header h2 {
   font-size: 1rem;
   text-transform: uppercase;
 }
+body > header h2 a {
+  text-transform: none;
+  font-style: italic;
+}
+body > header h2 a:not(:hover) {
+  background: none;
+  border: none;
+  color: #999;
+}
 body > header ul {
   margin: 0;
   padding: 0;
