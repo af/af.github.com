@@ -32,7 +32,7 @@
 
             <h2>Latest posts <a href="/posts">(see all)</a></h2>
             <ul class="posts">
-            {% for post in site.posts %}
+            {% for post in site.posts limit:3 %}
                 <li><a href="{{ post.url }}">{{ post.title }}</a></li>
             {% endfor %}
             </ul>
