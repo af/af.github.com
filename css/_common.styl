@@ -1,5 +1,6 @@
 $green = #8BC84B
 $backgroundColour = #f7f7f7
+$codeBg = #eee
 
 *
     box-sizing: border-box
@@ -18,3 +19,14 @@ a, a.visited
 
 a:hover
     border-bottom: 3px solid $green
+
+pre
+    background: $codeBg
+    padding: 0.2em
+
+code
+    background: $codeBg
+    font-size: 1rem
+
+    p &
+        padding: 0.1em 0.2em

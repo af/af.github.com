@@ -17,6 +17,17 @@ a.visited {
 a:hover {
   border-bottom: 3px solid #8bc84b;
 }
+pre {
+  background: #eee;
+  padding: 0.2em;
+}
+code {
+  background: #eee;
+  font-size: 1rem;
+}
+p code {
+  padding: 0.1em 0.2em;
+}
 @font-face {
   font-family: 'icomoon';
   src: url("/fonts/icomoon.eot");
@@ -50,7 +61,7 @@ body > header {
   z-index: 10;
   top: 0;
   left: 0;
-  box-shadow: 0 0 10px rgba(0,0,0,0.30);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 body > header .title {
   display: block;
@@ -222,7 +233,7 @@ ul.posts li {
     width: 100%;
     padding: 1rem;
     background: #eee;
-    box-shadow: 0 0 5px rgba(0,0,0,0.30);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
   }
   .hp_canvas_wrap {
     height: 250px;
