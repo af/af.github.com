@@ -183,6 +183,8 @@ ul.posts {
   padding-left: 0;
 }
 ul.posts time {
+  display: inline-block;
+  width: 6em;
   color: #888;
   font-weight: bold;
   margin-right: 5px;
