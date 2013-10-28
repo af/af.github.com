@@ -118,6 +118,14 @@ body > header li a:hover {
 body > header .posts li {
   margin-left: -3px;
 }
+body > header .posts li a:before {
+  content: 'f';
+  font: normal 0.8em 'icomoon';
+  width: 1em;
+  text-align: center;
+  margin: 0 0.5em;
+  color: #aaa;
+}
 body > header .work,
 body > header .tools,
 body > header .location,
@@ -137,7 +145,7 @@ body > header .twitter:before {
   position: relative;
   top: 3px;
   text-align: center;
-  margin-right: 7px;
+  margin-right: 0.4em;
   font: normal 1.3em 'icomoon';
   text-decoration: none;
   font-style: normal;
