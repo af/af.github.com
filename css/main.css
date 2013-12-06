@@ -83,7 +83,7 @@ body > header .avatar {
 }
 body > header h1 {
   font-size: 2rem;
-  margin: 0.5em 0;
+  margin: 1rem 0;
   margin-right: -2rem;
 }
 body > header h2 {
@@ -175,7 +175,7 @@ body > header .github:before {
 }
 .content {
   margin-left: 320px;
-  padding: 0 3rem;
+  padding: 0 5rem;
 }
 ul.posts {
   list-style-type: none;
@@ -193,11 +193,11 @@ ul.posts li {
   margin-bottom: 5px;
 }
 .post {
-  padding: 1rem 0;
+  padding: 2rem 0;
   max-width: 35em;
 }
 .post header h1 {
-  margin: 1.5rem 0 0.2rem;
+  margin: 1.3rem 0 0.2rem;
   font-size: 2rem;
   font-style: italic;
   line-height: 1;
@@ -225,7 +225,7 @@ ul.posts li {
 .post h4 {
   font-size: 1rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   body {
     padding-top: 110px;
   }
@@ -240,7 +240,7 @@ ul.posts li {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 2rem;
     background: #eee;
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
   }
@@ -249,6 +249,7 @@ ul.posts li {
   }
   .content {
     margin-left: 0;
+    padding: 0 2rem;
   }
   .post {
     background: #f7f7f7;
