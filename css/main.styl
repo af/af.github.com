@@ -49,31 +49,22 @@ body > header
 
         a
             text-transform: none
-            font-style: italic
 
             &:not(:hover)
-                background: none
-                border: none
                 color: #999
+
+    a
+        color: inherit
 
     ul
         margin: 0
         padding: 0
         list-style-type: none
 
-    li a
-        display: block
-        background: none
-        border-bottom: 3px solid transparent
-
-        &:hover
-            background: lighten($green, 93%)
-            border-bottom: 3px solid $green
-
     .posts li
         margin-left: -3px
 
-        a:before
+        &:before
             content: 'f'
             font: normal 0.8em 'icomoon'
             width: 1em
@@ -83,10 +74,6 @@ body > header
 
 
     .work, .tools, .location, .github, .twitter
-        color: inherit
-        text-decoration: none
-        background: none
-
         &:before
             display: inline-block
             width: 1em
@@ -101,6 +88,10 @@ body > header
             text-shadow: 0 1px 0 #aaa
             color: #c5c5c5
             -webkit-font-smoothing: antialiased
+
+        a
+            color: inherit
+            text-decoration: none
 
     .work:before
         content: "\21"

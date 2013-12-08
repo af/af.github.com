@@ -7,15 +7,14 @@ p {
 }
 a,
 a.visited {
-  color: inherit;
+  color: #6fa933;
   text-decoration: none;
-  background: #f9fcf6;
-  padding: 0 3px;
-  border-bottom: 1px solid #a2d36f;
-  transition: all 0.3s;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s, border 0.3s, box-shadow 0.6s;
 }
 a:hover {
-  border-bottom: 3px solid #8bc84b;
+  border-bottom: 1px solid #8bc84b;
+  box-shadow: 0 -4px 5px -3px rgba(139,200,75,0.5) inset;
 }
 pre {
   background: #eee;
@@ -93,46 +92,28 @@ body > header h2 {
 }
 body > header h2 a {
   text-transform: none;
-  font-style: italic;
 }
 body > header h2 a:not(:hover) {
-  background: none;
-  border: none;
   color: #999;
+}
+body > header a {
+  color: inherit;
 }
 body > header ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
-body > header li a {
-  display: block;
-  background: none;
-  border-bottom: 3px solid transparent;
-}
-body > header li a:hover {
-  background: #f7fbf2;
-  border-bottom: 3px solid #8bc84b;
-}
 body > header .posts li {
   margin-left: -3px;
 }
-body > header .posts li a:before {
+body > header .posts li:before {
   content: 'f';
   font: normal 0.8em 'icomoon';
   width: 1em;
   text-align: center;
   margin: 0 0.5em;
   color: #aaa;
-}
-body > header .work,
-body > header .tools,
-body > header .location,
-body > header .github,
-body > header .twitter {
-  color: inherit;
-  text-decoration: none;
-  background: none;
 }
 body > header .work:before,
 body > header .tools:before,
@@ -152,6 +133,14 @@ body > header .twitter:before {
   text-shadow: 0 1px 0 #aaa;
   color: #c5c5c5;
   -webkit-font-smoothing: antialiased;
+}
+body > header .work a,
+body > header .tools a,
+body > header .location a,
+body > header .github a,
+body > header .twitter a {
+  color: inherit;
+  text-decoration: none;
 }
 body > header .work:before {
   content: "\21";
