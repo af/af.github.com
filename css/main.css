@@ -1,6 +1,17 @@
 * {
   box-sizing: border-box;
 }
+html,
+body {
+  height: 100%;
+}
+body {
+  position: relative;
+  margin: 0;
+  min-width: 320px;
+  background: #f7f7f7;
+  -webkit-font-smoothing: antialiased;
+}
 p {
   line-height: 1.4;
   margin: 0 0 1.4em;
@@ -39,22 +50,10 @@ body {
   font-size: 20px;
   color: #334;
 }
-html,
-body {
-  height: 100%;
-}
-body {
-  position: relative;
-  margin: 0;
-  min-width: 320px;
-  background: #f7f7f7;
-  -webkit-font-smoothing: antialiased;
-}
 body > header {
   width: 320px;
   height: 100%;
   padding: 2rem;
-  background: #f7f7f7;
   position: fixed;
   z-index: 10;
   top: 0;
@@ -244,8 +243,5 @@ ul.posts li {
   .content {
     margin-left: 0;
     padding: 0 2rem;
-  }
-  .post {
-    background: #f7f7f7;
   }
 }
