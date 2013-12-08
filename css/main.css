@@ -80,7 +80,7 @@ body > header .avatar {
   float: left;
   margin-right: 0.5rem;
   position: relative;
-  border: 1px solid #999;
+  border-radius: 50%;
 }
 body > header h1 {
   font-size: 2rem;
