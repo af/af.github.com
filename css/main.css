@@ -35,7 +35,7 @@ p code {
   font-style: normal;
 }
 body {
-  font-family: 'Fanwood Text', sans-serif;
+  font-family: 'Alegreya', serif;
   font-size: 20px;
   color: #334;
 }
@@ -65,6 +65,8 @@ body > header .title {
   border: none;
   background: none;
   zoom: 1;
+  border: none;
+  box-shadow: none;
 }
 body > header .title:before,
 body > header .title:after {
@@ -101,6 +103,7 @@ body > header a {
 }
 body > header ul {
   margin: 0;
+  margin-right: -1rem;
   padding: 0;
   list-style-type: none;
 }
@@ -161,6 +164,9 @@ body > header .github:before {
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+.hp_canvas_wrap ~ header {
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 .content {
   margin-left: 320px;
