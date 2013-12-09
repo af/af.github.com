@@ -58,6 +58,7 @@ body > header {
   z-index: 10;
   top: 0;
   left: 0;
+  background: #f7f7f7;
 }
 body > header .title {
   display: block;
