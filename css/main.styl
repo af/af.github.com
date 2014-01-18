@@ -23,6 +23,7 @@ body > header
         clearfix()
         border: none
         box-shadow: none
+        color: inherit !important
 
     .avatar
         float: left
@@ -42,12 +43,13 @@ body > header
 
         a
             text-transform: none
-
-            &:not(:hover)
-                color: #999
+            color: #999
 
     a
         color: inherit
+
+        &:hover
+            color: $actionColour
 
     ul
         margin: 0
@@ -82,10 +84,6 @@ body > header
             text-shadow: 0 1px 0 #aaa
             color: #c5c5c5
             -webkit-font-smoothing: antialiased
-
-        a
-            color: inherit
-            text-decoration: none
 
     .work:before
         content: "\21"
