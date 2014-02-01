@@ -1,0 +1,24 @@
+{
+  "name": "af.github.com",
+  "version": "0.0.0",
+  "description": "",
+  "browser": "./js/main.js",
+  "scripts": {
+    "build_js": "browserify js/main.js > js/build/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/af/af.github.com.git"
+  },
+  "author": "Aaron Franks (http://aaronfranks.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/af/af.github.com/issues"
+  },
+  "devDependencies": {
+    "browserify": "3.24.8"
+  },
+  "dependencies": {
+    "d3": "3.4.1"
+  }
+}

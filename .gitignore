@@ -1,2 +1,4 @@
 _site
 css/*.css
+js/build
+node_modules
