@@ -96,17 +96,6 @@ body > header
     .github:before
         content: "\24"
 
-
-// Prevent the homepage canvas from introducing scrollbars
-.hp_canvas_wrap
-    height: 100%
-    width: 100%
-    overflow: hidden
-
-    // Give sidebar a box shadow when the canvas is on the same page:
-    & ~ header
-        box-shadow: 0 0 10px rgba(0,0,0, 0.5)
-
 .content
     margin-left: $sidebar_width
     padding: 0 5rem
@@ -184,3 +173,7 @@ ul.posts
     .content
         margin-left: 0
         padding: 0 2rem
+
+// Homepage
+svg.code_graph, svg.links_graph
+    margin-left: $sidebar_width

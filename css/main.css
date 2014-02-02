@@ -153,14 +153,6 @@ body > header .twitter:before {
 body > header .github:before {
   content: "\24";
 }
-.hp_canvas_wrap {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-.hp_canvas_wrap ~ header {
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
 .content {
   margin-left: 320px;
   padding: 0 5rem;
@@ -238,4 +230,8 @@ ul.posts li {
     margin-left: 0;
     padding: 0 2rem;
   }
+}
+svg.code_graph,
+svg.links_graph {
+  margin-left: 320px;
 }
