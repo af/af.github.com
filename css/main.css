@@ -231,7 +231,14 @@ ul.posts li {
     padding: 0 2rem;
   }
 }
-svg.code_graph,
-svg.links_graph {
+svg.code_graph {
   margin-left: 320px;
+}
+svg.code_graph g.repo a {
+  fill: #1414be;
+  opacity: 0.5;
+  transition: all 0.4s;
+}
+svg.code_graph g.repo a:hover {
+  opacity: 0.8;
 }
