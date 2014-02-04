@@ -57,7 +57,6 @@ body > header {
   z-index: 10;
   top: 0;
   left: 0;
-  background: #f7f7f7;
 }
 body > header .title {
   display: block;
@@ -230,9 +229,6 @@ ul.posts li {
     margin-left: 0;
     padding: 0 2rem;
   }
-}
-svg.code_graph {
-  margin-left: 320px;
 }
 svg.code_graph g.repo a {
   fill: #1414be;
