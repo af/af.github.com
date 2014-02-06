@@ -19,20 +19,38 @@ var githubGraph = function(config) {
     var x = d3.time.scale().range([0, config.width])
                            .domain([START_DATE, new Date()]);
 
+    var createdAtX = function(d) {
+        var xVal = Math.floor(x(new Date(d.created_at)));
+        return Math.max(0, xVal);
+    };
+
     var myRepos = config.data.filter(function(r) { return !r.fork })
                              .sort(function(r1, r2) { return timestamp(r1.created_at) - timestamp(r2.created_at); });
 
     var all = svg.selectAll('g.repo').data(myRepos);
     var enter = all.enter().append('g').attr('class', 'repo');
-    enter.append('title')
-            .text(function(d) { return d.name });
+
+    // Add rects to expand the hoverable area:
+    enter.append('rect')
+            .attr('width', function(d, i) { return x(new Date(d.pushed_at)) - createdAtX(d) })
+            .attr('height', 20)
+            .attr('transform', function(d, i) {
+                return "translate(" + createdAtX(d) + "," + (20 + i*20) + ")";
+            });
+
+    enter.append('text')
+            .attr('transform', function(d, i) {
+                return "translate(" + createdAtX(d) + "," + (25 + i*20) + ")";
+            })
+            .text(function(d) { return d.name + ' – ' + d.language });
+
     var links = enter.append('a')
             .attr('xlink:href', function(d) { return d.html_url });
 
     // Draw "comet" shape for each repo:
     links.append('path')
             .attr('d', function(d) {
-                var width = x(new Date(d.pushed_at)) - x(new Date(d.created_at));
+                var width = x(new Date(d.pushed_at)) - createdAtX(d);
                 var height = 10 + Math.floor(Math.sqrt(d.stargazers_count));
                 var path = 'M0 2 ';
                 path += ('Q' + width + ' 0 ' + (width - 10) + ' ' + height + ' ');
@@ -42,8 +60,7 @@ var githubGraph = function(config) {
                 return path;
             })
             .attr('transform', function(d, i) {
-                var xVal = Math.floor(x(new Date(d.created_at)));
-                return "translate(" + xVal + "," + (30 + i*20) + ")";
+                return "translate(" + createdAtX(d) + "," + (30 + i*20) + ")";
             });
 };
 

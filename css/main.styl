@@ -178,10 +178,22 @@ ul.posts
 svg.code_graph
     //margin-left: $sidebar_width
 
-    g.repo a
-        fill: #aaa
-        opacity: 0.5
-        transition: all 0.4s
+    g.repo
+        a
+            fill: #aaa
+            opacity: 0.5
+            transition: all 0.4s
 
-        &:hover
-            opacity: 0.8
+            &:hover
+                opacity: 0.8
+
+        text
+            font-size: 1rem
+            opacity: 0
+            transition: all 0.4s
+
+        &:hover text
+            opacity: 1
+
+        rect
+            fill: transparent
