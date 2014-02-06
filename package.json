@@ -4,7 +4,8 @@
   "description": "",
   "browser": "./js/main.js",
   "scripts": {
-    "build_js": "browserify js/main.js > js/build/main.js"
+    "build_js": "browserify js/main.js > assets/main.js",
+    "build_css": "stylus css -o assets"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,8 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
-    "browserify": "3.24.8"
+    "browserify": "3.24.8",
+    "stylus": "0.42.2"
   },
   "dependencies": {
     "d3": "3.4.1"

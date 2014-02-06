@@ -231,7 +231,7 @@ ul.posts li {
   }
 }
 svg.code_graph g.repo a {
-  fill: #1414be;
+  fill: #aaa;
   opacity: 0.5;
   transition: all 0.4s;
 }
