@@ -2,19 +2,10 @@
 @import "_common"
 @import "_fonts"
 
-$sidebar_width = 320px
-
 
 // Main site sidebar:
 body > header
-    width: $sidebar_width
-    height: 100%
-    padding: 2rem
-    position: fixed
-    z-index: 10
-    top: 0
-    left: 0
-    //background: $backgroundColour
+    padding: 1rem
 
     .title
         display: block
@@ -36,68 +27,7 @@ body > header
         margin: 1rem 0
         margin-right: -2rem
 
-    h2
-        margin: 2rem 0 0.2rem
-        font-size: 1rem
-        text-transform: uppercase
-
-        a
-            text-transform: none
-            color: #999
-
-    a
-        color: inherit
-
-        &:hover
-            color: $actionColour
-
-    ul
-        margin: 0
-        margin-right: -1rem
-        padding: 0
-        list-style-type: none
-
-    .posts li
-        margin-left: -3px
-
-        &:before
-            content: 'f'
-            font: normal 0.8em 'icomoon'
-            width: 1em
-            text-align: center
-            margin: 0 0.5em
-            color: #aaa
-
-
-    .work, .tools, .location, .github, .twitter
-        &:before
-            display: inline-block
-            width: 1em
-            position: relative
-            top: 3px
-            text-align: center
-            margin-right: 0.4em
-            font: normal 1.3em 'icomoon'
-            text-decoration: none
-            font-style: normal
-            speak: none
-            text-shadow: 0 1px 0 #aaa
-            color: #c5c5c5
-            -webkit-font-smoothing: antialiased
-
-    .work:before
-        content: "\21"
-    .tools:before
-        content: "\22"
-    .location:before
-        content: "\25"
-    .twitter:before
-        content: "\23"
-    .github:before
-        content: "\24"
-
 .content
-    margin-left: $sidebar_width
     padding: 0 5rem
 
 ul.posts
@@ -175,8 +105,32 @@ ul.posts
         padding: 0 2rem
 
 // Homepage
-svg.code_graph
-    //margin-left: $sidebar_width
+section.homepage
+    padding: 1rem
+
+    > a
+        display: block
+        width: 20%
+        float: left
+        text-align: center
+        color: #999
+        padding: 2rem 0
+
+        &:before
+            font: normal 1.3em 'icomoon'
+            margin-right: 0.3em
+
+    h2
+        display: inline
+
+    &.code a:before
+        content: "\24"
+    &.links a:before
+        content: "\22"
+
+svg
+    width: 80%
+    height: 180px       // FIXME: this is arbitrary
 
     g.repo
         a

@@ -10,35 +10,14 @@
     <title>{{ page.title }}</title>
 </head>
 <body>
-    {{ content }}
-
     <header>
         <a class="title" href="/">
             <img class="avatar" src="/img/couch_tweaked.png" alt="" width="75" height="75" />
             <h1>Aaron Franks</h1>
         </a>
-        <nav>
-            <h2>About</h2>
-            <ul class="about">
-                <li class="work">Software Engineer</li>
-                <li class="tools">Javascript, Python, Node.js</li>
-                <li class="location">Vancouver, Canada</li>
-            </ul>
-
-            <h2>Elsewhere</h2>
-            <ul class="elsewhere">
-                <li class="github"><a href="https://github.com/af">af</a></li>
-                <li class="twitter"><a href="https://twitter.com/eh_eff">@eh_eff</a></li>
-            </ul>
-
-            <h2>Latest posts <a href="/posts">(see all)</a></h2>
-            <ul class="posts">
-            {% for post in site.posts limit:3 %}
-                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-            {% endfor %}
-            </ul>
-        </nav>
     </header>
+
+    {{ content }}
 
     <script>
     if (location.hostname !== 'localhost') {

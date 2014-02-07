@@ -26,6 +26,7 @@ var githubGraph = function(config) {
     };
 
     var myRepos = config.data.filter(function(r) { return !r.fork })
+                             .filter(function(r) { return (new Date(r.created_at)) > START_DATE })
                              .sort(function(r1, r2) { return timestamp(r1.created_at) - timestamp(r2.created_at); });
 
     var all = svg.selectAll('g.repo').data(myRepos);
@@ -79,12 +80,14 @@ var githubGraph = function(config) {
 };
 
 module.exports = function() {
+    var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
+
     d3.json(GITHUB_URL, function(err, data) {
         if (err) return alert('gh fail');
         githubGraph({
             data: data,
-            width: window.innerWidth - 20,
-            el: d3.select('.code_graph')
+            width: svgWidth,
+            el: d3.select('section.code svg')
         });
     });
 };

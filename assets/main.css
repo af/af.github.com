@@ -50,13 +50,7 @@ body {
   color: #334;
 }
 body > header {
-  width: 320px;
-  height: 100%;
-  padding: 2rem;
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
+  padding: 1rem;
 }
 body > header .title {
   display: block;
@@ -86,74 +80,7 @@ body > header h1 {
   margin: 1rem 0;
   margin-right: -2rem;
 }
-body > header h2 {
-  margin: 2rem 0 0.2rem;
-  font-size: 1rem;
-  text-transform: uppercase;
-}
-body > header h2 a {
-  text-transform: none;
-  color: #999;
-}
-body > header a {
-  color: inherit;
-}
-body > header a:hover {
-  color: #6fa933;
-}
-body > header ul {
-  margin: 0;
-  margin-right: -1rem;
-  padding: 0;
-  list-style-type: none;
-}
-body > header .posts li {
-  margin-left: -3px;
-}
-body > header .posts li:before {
-  content: 'f';
-  font: normal 0.8em 'icomoon';
-  width: 1em;
-  text-align: center;
-  margin: 0 0.5em;
-  color: #aaa;
-}
-body > header .work:before,
-body > header .tools:before,
-body > header .location:before,
-body > header .github:before,
-body > header .twitter:before {
-  display: inline-block;
-  width: 1em;
-  position: relative;
-  top: 3px;
-  text-align: center;
-  margin-right: 0.4em;
-  font: normal 1.3em 'icomoon';
-  text-decoration: none;
-  font-style: normal;
-  speak: none;
-  text-shadow: 0 1px 0 #aaa;
-  color: #c5c5c5;
-  -webkit-font-smoothing: antialiased;
-}
-body > header .work:before {
-  content: "\21";
-}
-body > header .tools:before {
-  content: "\22";
-}
-body > header .location:before {
-  content: "\25";
-}
-body > header .twitter:before {
-  content: "\23";
-}
-body > header .github:before {
-  content: "\24";
-}
 .content {
-  margin-left: 320px;
   padding: 0 5rem;
 }
 ul.posts {
@@ -230,30 +157,58 @@ ul.posts li {
     padding: 0 2rem;
   }
 }
-svg.code_graph g.repo a {
+section.homepage {
+  padding: 1rem;
+}
+section.homepage > a {
+  display: block;
+  width: 20%;
+  float: left;
+  text-align: center;
+  color: #999;
+  padding: 2rem 0;
+}
+section.homepage > a:before {
+  font: normal 1.3em 'icomoon';
+  margin-right: 0.3em;
+}
+section.homepage h2 {
+  display: inline;
+}
+section.homepage.code a:before {
+  content: "\24";
+}
+section.homepage.links a:before {
+  content: "\22";
+}
+svg {
+  width: 80%;
+  height: 180px;
+}
+svg g.repo a {
   fill: #aaa;
   opacity: 0.5;
   transition: all 0.4s;
 }
-svg.code_graph g.repo a:hover {
+svg g.repo a:hover {
   opacity: 0.8;
 }
-svg.code_graph g.repo text {
+svg g.repo text {
   font-size: 1rem;
   opacity: 0;
   transition: all 0.4s;
 }
-svg.code_graph g.repo text tspan.language {
+svg g.repo text tspan.language {
   fill: #999;
   font-size: 0.9em;
 }
-svg.code_graph g.repo text.description {
+svg g.repo text.description {
   fill: #333;
   font-size: 0.9rem;
 }
-svg.code_graph g.repo:hover text {
+svg g.repo:hover text {
   opacity: 1;
 }
-svg.code_graph g.repo rect {
+svg g.repo rect {
   fill: transparent;
 }
