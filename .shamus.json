@@ -1,0 +1,27 @@
+{
+    "window": {
+        "alwaysOnTop": true,
+        "top": 0,
+        "right": 0
+    },
+
+    "watcher": {
+        "paths": ["js", "css"]
+    },
+
+    "tasks": [
+        {
+            "name": "Browserify",
+            "command": "npm run build_js",
+            "parser": "exitcode",
+            "fileMatcher": "\\.js$"
+        },
+        {
+            "name": "Stylus",
+            "command": "npm run build_css",
+            "parser": "exitcode",
+            "fileMatcher": "\\.styl$"
+        }
+    ]
+}
+
