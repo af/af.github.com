@@ -30,22 +30,27 @@ var githubGraph = function(config) {
     var all = svg.selectAll('g.repo').data(myRepos);
     var enter = all.enter().append('g').attr('class', 'repo');
 
+    enter.append('text').attr('class', 'name')
+            .attr('transform', function(d, i) {
+                return "translate(" + createdAtX(d) + "," + (25 + i*20) + ")";
+            })
+            .text(function(d) { return d.name })
+            .append('tspan')
+                .attr('class', 'language')
+                .attr('dx', 10)
+                .text(function(d) { return d.language });
+
+    var links = enter.append('a')
+            .attr('xlink:href', function(d) { return d.html_url });
+
     // Add rects to expand the hoverable area:
-    enter.append('rect')
+    links.append('rect')
             .attr('width', function(d, i) { return x(new Date(d.pushed_at)) - createdAtX(d) })
             .attr('height', 20)
             .attr('transform', function(d, i) {
                 return "translate(" + createdAtX(d) + "," + (20 + i*20) + ")";
             });
 
-    enter.append('text')
-            .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (25 + i*20) + ")";
-            })
-            .text(function(d) { return d.name + ' – ' + d.language });
-
-    var links = enter.append('a')
-            .attr('xlink:href', function(d) { return d.html_url });
 
     // Draw "comet" shape for each repo:
     links.append('path')
@@ -62,6 +67,14 @@ var githubGraph = function(config) {
             .attr('transform', function(d, i) {
                 return "translate(" + createdAtX(d) + "," + (30 + i*20) + ")";
             });
+
+    // Add description text last, so it's above the comet path:
+    enter.append('text').attr('class', 'description')
+            .attr('transform', function(d, i) {
+                return "translate(" + createdAtX(d) + "," + (45 + i*20) + ")";
+            })
+            .text(function(d) { return d.description });
+
 };
 
 module.exports = function() {

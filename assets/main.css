@@ -243,6 +243,14 @@ svg.code_graph g.repo text {
   opacity: 0;
   transition: all 0.4s;
 }
+svg.code_graph g.repo text tspan.language {
+  fill: #999;
+  font-size: 0.9em;
+}
+svg.code_graph g.repo text.description {
+  fill: #333;
+  font-size: 0.9rem;
+}
 svg.code_graph g.repo:hover text {
   opacity: 1;
 }
