@@ -17,6 +17,12 @@
             "fileMatcher": "\\.js$"
         },
         {
+            "name": "JSHint",
+            "command": "jshint js",
+            "parser": "exitcode",
+            "fileMatcher": "\\.js$"
+        },
+        {
             "name": "Stylus",
             "command": "npm run build_css",
             "parser": "exitcode",
