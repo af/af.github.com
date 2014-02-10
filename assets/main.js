@@ -17,6 +17,7 @@ function timestamp(dateString) {
 // time axes
 var githubGraph = function(config) {
     var svg = config.el;
+    var COMET_SPACING = 22;
     var x = d3.time.scale().range([0, config.width])
                            .domain([START_DATE, new Date()]);
 
@@ -26,7 +27,7 @@ var githubGraph = function(config) {
     };
 
     var myRepos = config.data.filter(function(r) { return !r.fork })
-                             .filter(function(r) { return (new Date(r.created_at)) > START_DATE })
+                             .filter(function(r) { return (new Date(r.pushed_at)) > START_DATE })
                              .sort(function(r1, r2) { return timestamp(r1.created_at) - timestamp(r2.created_at); });
 
     var all = svg.selectAll('g.repo').data(myRepos);
@@ -34,7 +35,7 @@ var githubGraph = function(config) {
 
     enter.append('text').attr('class', 'name')
             .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (25 + i*20) + ")";
+                return "translate(" + createdAtX(d) + "," + (25 + i*COMET_SPACING) + ")";
             })
             .text(function(d) { return d.name })
             .append('tspan')
@@ -48,9 +49,9 @@ var githubGraph = function(config) {
     // Add rects to expand the hoverable area:
     links.append('rect')
             .attr('width', function(d, i) { return x(new Date(d.pushed_at)) - createdAtX(d) })
-            .attr('height', 20)
+            .attr('height', COMET_SPACING)
             .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (20 + i*20) + ")";
+                return "translate(" + createdAtX(d) + "," + (COMET_SPACING + i*COMET_SPACING) + ")";
             });
 
 
@@ -67,13 +68,13 @@ var githubGraph = function(config) {
                 return path;
             })
             .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (30 + i*20) + ")";
+                return "translate(" + createdAtX(d) + "," + (30 + i*COMET_SPACING) + ")";
             });
 
     // Add description text last, so it's above the comet path:
     enter.append('text').attr('class', 'description')
             .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (45 + i*20) + ")";
+                return "translate(" + createdAtX(d) + "," + (45 + i*COMET_SPACING) + ")";
             })
             .text(function(d) { return d.description });
 

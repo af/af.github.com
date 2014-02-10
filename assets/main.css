@@ -183,7 +183,7 @@ section.homepage.links a:before {
 }
 svg {
   width: 80%;
-  height: 180px;
+  height: 220px;
 }
 svg g.repo a {
   fill: #aaa;
@@ -197,6 +197,9 @@ svg g.repo text {
   font-size: 1rem;
   opacity: 0;
   transition: all 0.4s;
+}
+svg g.repo text.name {
+  opacity: 0.5;
 }
 svg g.repo text tspan.language {
   fill: #999;
