@@ -16,7 +16,7 @@ function timestamp(dateString) {
 // time axes
 var githubGraph = function(config) {
     var svg = config.el;
-    var COMET_SPACING = 22;
+    var COMET_SPACING = 25;
     var x = d3.time.scale().range([0, config.width])
                            .domain([START_DATE, new Date()]);
 
@@ -32,15 +32,6 @@ var githubGraph = function(config) {
     var all = svg.selectAll('g.repo').data(myRepos);
     var enter = all.enter().append('g').attr('class', 'repo');
 
-    enter.append('text').attr('class', 'name')
-            .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (25 + i*COMET_SPACING) + ")";
-            })
-            .text(function(d) { return d.name })
-            .append('tspan')
-                .attr('class', 'language')
-                .attr('dx', 10)
-                .text(function(d) { return d.language });
 
     var links = enter.append('a')
             .attr('xlink:href', function(d) { return d.html_url });
@@ -50,9 +41,18 @@ var githubGraph = function(config) {
             .attr('width', function(d, i) { return x(new Date(d.pushed_at)) - createdAtX(d) })
             .attr('height', COMET_SPACING)
             .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (COMET_SPACING + i*COMET_SPACING) + ")";
+                return "translate(" + createdAtX(d) + "," + (i*COMET_SPACING) + ")";
             });
 
+    links.append('text').attr('class', 'name')
+            .attr('transform', function(d, i) {
+                return "translate(" + createdAtX(d) + "," + (25 + i*COMET_SPACING) + ")";
+            })
+            .text(function(d) { return d.name })
+            .append('tspan')
+                .attr('class', 'language')
+                .attr('dx', 10)
+                .text(function(d) { return d.language });
 
     // Draw "comet" shape for each repo:
     links.append('path')
@@ -71,7 +71,7 @@ var githubGraph = function(config) {
             });
 
     // Add description text last, so it's above the comet path:
-    enter.append('text').attr('class', 'description')
+    links.append('text').attr('class', 'description')
             .attr('transform', function(d, i) {
                 return "translate(" + createdAtX(d) + "," + (45 + i*COMET_SPACING) + ")";
             })

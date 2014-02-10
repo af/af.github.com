@@ -183,17 +183,18 @@ section.homepage.links a:before {
 }
 svg {
   width: 80%;
-  height: 220px;
+  height: 280px;
 }
 svg g.repo a {
-  fill: #aaa;
+  fill: #bbb;
   opacity: 0.5;
   transition: all 0.4s;
 }
 svg g.repo a:hover {
-  opacity: 0.8;
+  opacity: 1;
 }
 svg g.repo text {
+  fill: #333;
   font-size: 1rem;
   opacity: 0;
   transition: all 0.4s;
@@ -206,8 +207,7 @@ svg g.repo text tspan.language {
   font-size: 0.9em;
 }
 svg g.repo text.description {
-  fill: #333;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 svg g.repo:hover text {
   opacity: 1;
