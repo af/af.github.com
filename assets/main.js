@@ -3,9 +3,7 @@ var d3 = require('d3');
 
 var START_DATE = (new Date('2013-01-01'));
 var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
-
-// FIXME: need CORS-enabeled proxy for Delicious
-//var DELICIOUS_URL = 'http://feeds.delicious.com/v2/json/aaron.franks?count=100';
+var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=linksCallback';
 
 function timestamp(dateString) {
     return (new Date(dateString)).getTime();
@@ -126,6 +124,52 @@ function postsGraph(config) {
             });
 }
 
+// Simple plot of links over time
+function linksGraph(config) {
+    var x = d3.time.scale().range([0, config.width])
+                           .domain([START_DATE, new Date()]);
+
+    var dateToX = function(options) {
+        options = options || {};
+        var offset = options.offset || 0;
+        var propName = options.propName || 'date';
+
+        return function(d) {
+            var xVal = Math.floor(x(new Date(d[propName])));
+            return Math.max(0, xVal + offset);
+        };
+    };
+
+    var all = config.el.selectAll('g').data(config.data);
+    var enter = all.enter().append('g').attr('class', 'link');
+
+    var links = enter.append('a')
+            .attr('xlink:href', function(d) { return d.u });
+
+    links.append('circle')
+            .attr('cx', dateToX({ propName: 'dt' }))
+            .attr('cy', 20)
+            .attr('r', 20);
+
+    links.append('line')
+            .attr('x1', dateToX({ propName: 'dt', offset: 0.5 }))
+            .attr('x2', dateToX({ propName: 'dt', offset: 0.5 }))
+            .attr('y1', 43)
+            .attr('y2', 85);
+
+    enter.append('text')
+            .text(function(d) { return d.d })
+            .attr('transform', function(d) {
+                return 'translate(' + dateToX({ propName: 'dt', offset: 5 })(d) + ',70)';
+            });
+    enter.append('text').attr('class', 'date')
+            .text(function(d) { return (new Date(d.dt)).toISOString().split('T')[0]; })
+            .attr('transform', function(d) {
+                return 'translate(' + dateToX({ propName: 'dt', offset: 5 })(d) + ',87)';
+            });
+}
+
+
 module.exports = function() {
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
 
@@ -143,6 +187,18 @@ module.exports = function() {
             el: d3.select('section.code svg')
         });
     });
+
+    // Load data via JSONP from the delicious API
+    var s = document.createElement('script');
+    s.src = DELICIOUS_URL;
+    document.body.appendChild(s);
+    window.linksCallback = function(links) {
+        linksGraph({
+            data: links,
+            width: svgWidth,
+            el: d3.select('section.links svg')
+        });
+    };
 };
 
 },{"d3":3}],2:[function(require,module,exports){

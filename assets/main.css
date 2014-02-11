@@ -184,31 +184,45 @@ section.homepage.links a:before {
 svg {
   width: 80%;
 }
-.posts svg {
-  height: 100%;
+.posts svg,
+.links svg {
+  height: 100px;
 }
-.posts svg g text {
+.posts svg g text,
+.links svg g text {
   opacity: 0;
   transition: all 0.5s;
 }
-.posts svg g text.date {
+.posts svg g text.date,
+.links svg g text.date {
   font-size: 0.8rem;
 }
-.posts svg g:hover text {
+.posts svg g:hover text,
+.links svg g:hover text {
   opacity: 1;
 }
-.posts svg g line {
+.posts svg g line,
+.links svg g line {
   opacity: 0;
   stroke: #000;
 }
-.posts svg g:hover line {
+.posts svg g:hover line,
+.links svg g:hover line {
   opacity: 1;
 }
-.posts svg circle {
+.posts svg circle,
+.links svg circle {
   fill: rgba(30,45,90,0.5);
 }
-.posts svg circle:hover {
+.posts svg circle:hover,
+.links svg circle:hover {
   fill: #1e2d5a;
+}
+.links svg circle {
+  fill: rgba(30,145,90,0.5);
+}
+.links svg circle:hover {
+  fill: #1e915a;
 }
 .code svg {
   height: 280px;

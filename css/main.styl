@@ -131,8 +131,8 @@ section.homepage
 svg
     width: 80%
 
-.posts svg
-    height: 100%
+.posts svg, .links svg
+    height: 100px
 
     g
         text
@@ -150,12 +150,19 @@ svg
         &:hover line
             opacity: 1
 
-
     circle
         fill: rgba(30, 45, 90, 0.5)
 
         &:hover
             fill: rgba(30, 45, 90, 1)
+
+.links svg
+    circle
+        fill: rgba(30, 145, 90, 0.5)
+
+        &:hover
+            fill: rgba(30, 145, 90, 1)
+
 
 .code svg
     height: 280px       // FIXME: this is arbitrary
