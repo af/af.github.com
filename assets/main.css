@@ -250,10 +250,11 @@ svg {
   fill: #999;
   font-size: 0.9em;
 }
-.code svg g.repo text.description {
+.code svg g.repo text .description {
+  opacity: 0;
   font-size: 0.8rem;
 }
-.code svg g.repo:hover text {
+.code svg g.repo:hover .description {
   opacity: 1;
 }
 .code svg g.repo rect {

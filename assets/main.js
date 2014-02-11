@@ -20,18 +20,22 @@ var githubGraph = function(config) {
             .attr('width', function(d, i) { return x(new Date(d.pushed_at)) - createdAtX(d) })
             .attr('height', COMET_SPACING)
             .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (i*COMET_SPACING) + ")";
+                return "translate(" + createdAtX(d) + "," + (15 + i*COMET_SPACING) + ")";
             });
 
-    links.append('text').attr('class', 'name')
+    var text = links.append('text').attr('class', 'name')
             .attr('transform', function(d, i) {
                 return "translate(" + createdAtX(d) + "," + (25 + i*COMET_SPACING) + ")";
             })
             .text(function(d) { return d.name })
-            .append('tspan')
-                .attr('class', 'language')
-                .attr('dx', 10)
-                .text(function(d) { return d.language });
+    text.append('tspan')
+        .attr('class', 'language')
+        .attr('dx', 10)
+        .text(function(d) { return d.language });
+    text.append('tspan')
+        .attr('class', 'description')
+        .attr('dx', 10)
+        .text(function(d) { return d.description });
 
     // Draw "comet" shape for each repo:
     links.append('path')
@@ -48,14 +52,6 @@ var githubGraph = function(config) {
             .attr('transform', function(d, i) {
                 return "translate(" + createdAtX(d) + "," + (30 + i*COMET_SPACING) + ")";
             });
-
-    // Add description text last, so it's above the comet path:
-    links.append('text').attr('class', 'description')
-            .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (45 + i*COMET_SPACING) + ")";
-            })
-            .text(function(d) { return d.description });
-
 };
 
 
