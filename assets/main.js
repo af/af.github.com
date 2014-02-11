@@ -1,28 +1,13 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var d3 = require('d3');
 
-var START_DATE = (new Date('2013-01-01'));
-var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
-var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=linksCallback';
 
-function timestamp(dateString) {
-    return (new Date(dateString)).getTime();
-}
-
-// TODOs
-// better shape for repo entries
-// scale graph to browser width
-// time axes
 var githubGraph = function(config) {
     var COMET_SPACING = 25;
     var x = config.xScale;
     var createdAtX = config.dateToX({ propName: 'created_at' });
 
-    var myRepos = config.data.filter(function(r) { return !r.fork })
-                             .filter(function(r) { return (new Date(r.pushed_at)) > START_DATE })
-                             .sort(function(r1, r2) { return timestamp(r1.created_at) - timestamp(r2.created_at); });
-
-    var all = config.el.selectAll('g.repo').data(myRepos);
+    var all = config.el.selectAll('g.repo').data(config.data);
     var enter = all.enter().append('g').attr('class', 'repo');
 
 
@@ -73,75 +58,54 @@ var githubGraph = function(config) {
 };
 
 
-// Simple plot of blogposts over time
-function postsGraph(config) {
+// Simple chart mapping content as circles along a time axis.
+// Config params:
+//  data
+//  el
+//  dateToX
+//  groupClass
+//  timeProp
+//  urlProp
+//  titleProp
+function circleChart(config) {
     var dateToX = config.dateToX;
 
     var all = config.el.selectAll('g').data(config.data);
-    var enter = all.enter().append('g').attr('class', 'post');
+    var enter = all.enter().append('g').attr('class', config.groupClass || '');
 
     var links = enter.append('a')
-            .attr('xlink:href', function(d) { return d.url });
+            .attr('xlink:href', function(d) { return d[config.urlProp] });
 
     links.append('circle')
-            .attr('cx', dateToX())
+            .attr('cx', dateToX({ propName: config.timeProp }))
             .attr('cy', 20)
             .attr('r', 20);
 
     links.append('line')
-            .attr('x1', dateToX({ offset: 0.5 }))
-            .attr('x2', dateToX({ offset: 0.5 }))
+            .attr('x1', dateToX({ propName: config.timeProp, offset: 0.5 }))
+            .attr('x2', dateToX({ propName: config.timeProp, offset: 0.5 }))
             .attr('y1', 43)
             .attr('y2', 85);
 
     enter.append('text')
-            .text(function(d) { return d.title })
+            .text(function(d) { return d[config.titleProp] })
             .attr('transform', function(d) {
-                return 'translate(' + dateToX({ offset: 5 })(d) + ',70)';
+                return 'translate(' + dateToX({ propName: config.timeProp, offset: 5 })(d) + ',70)';
             });
     enter.append('text').attr('class', 'date')
-            .text(function(d) { return (new Date(d.date)).toISOString().split('T')[0]; })
+            .text(function(d) { return (new Date(d[config.timeProp])).toISOString().split('T')[0]; })
             .attr('transform', function(d) {
-                return 'translate(' + dateToX({ offset: 5 })(d) + ',87)';
-            });
-}
-
-// Simple plot of links over time
-function linksGraph(config) {
-    var dateToX = config.dateToX;
-
-    var all = config.el.selectAll('g').data(config.data);
-    var enter = all.enter().append('g').attr('class', 'link');
-
-    var links = enter.append('a')
-            .attr('xlink:href', function(d) { return d.u });
-
-    links.append('circle')
-            .attr('cx', dateToX({ propName: 'dt' }))
-            .attr('cy', 20)
-            .attr('r', 20);
-
-    links.append('line')
-            .attr('x1', dateToX({ propName: 'dt', offset: 0.5 }))
-            .attr('x2', dateToX({ propName: 'dt', offset: 0.5 }))
-            .attr('y1', 43)
-            .attr('y2', 85);
-
-    enter.append('text')
-            .text(function(d) { return d.d })
-            .attr('transform', function(d) {
-                return 'translate(' + dateToX({ propName: 'dt', offset: 5 })(d) + ',70)';
-            });
-    enter.append('text').attr('class', 'date')
-            .text(function(d) { return (new Date(d.dt)).toISOString().split('T')[0]; })
-            .attr('transform', function(d) {
-                return 'translate(' + dateToX({ propName: 'dt', offset: 5 })(d) + ',87)';
+                return 'translate(' + dateToX({ propName: config.timeProp, offset: 5 })(d) + ',87)';
             });
 }
 
 
 module.exports = function() {
+    var START_DATE = (new Date('2013-01-01'));
+    var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
+    var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=linksCallback';
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
+
     var x = d3.time.scale().range([0, svgWidth])
                            .domain([START_DATE, new Date()]);
     var dateToX = function(options) {
@@ -155,17 +119,28 @@ module.exports = function() {
         };
     };
 
-    postsGraph({
+    // Plot the blogposts that are dumped as window._posts in the homepage template
+    circleChart({
         data: window._posts,
         width: svgWidth,
         dateToX: dateToX,
-        el: d3.select('section.posts svg')
+        el: d3.select('section.posts svg'),
+        groupClass: 'post',
+        timeProp: 'date',
+        urlProp: 'url',
+        titleProp: 'title'
     });
 
+    // Plot Github source repos, using their CORS-enabled public API
     d3.json(GITHUB_URL, function(err, data) {
         if (err) return alert('gh fail');
+        var myRepos = data.filter(function(r) { return !r.fork })
+                          .filter(function(r) { return (new Date(r.pushed_at)) > START_DATE })
+                          .sort(function(r1, r2) {
+                            return (r1.created_at > r2.created_at) ? 1 : -1;
+                          });
         githubGraph({
-            data: data,
+            data: myRepos,
             width: svgWidth,
             xScale: x,
             dateToX: dateToX,
@@ -173,17 +148,20 @@ module.exports = function() {
         });
     });
 
-    // Load data via JSONP from the delicious API
+    // Plot saved links from delicious's JSONP API
     var s = document.createElement('script');
     s.src = DELICIOUS_URL;
     document.body.appendChild(s);
     window.linksCallback = function(links) {
-        linksGraph({
+        circleChart({
             data: links,
             width: svgWidth,
-            xScale: x,
             dateToX: dateToX,
-            el: d3.select('section.links svg')
+            el: d3.select('section.links svg'),
+            groupClass: 'link',
+            timeProp: 'dt',
+            urlProp: 'u',
+            titleProp: 'd'
         });
     };
 };
