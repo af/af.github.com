@@ -15,14 +15,8 @@ function timestamp(dateString) {
 // time axes
 var githubGraph = function(config) {
     var COMET_SPACING = 25;
-
-    var x = d3.time.scale().range([0, config.width])
-                           .domain([START_DATE, new Date()]);
-
-    var createdAtX = function(d) {
-        var xVal = Math.floor(x(new Date(d.created_at)));
-        return Math.max(0, xVal);
-    };
+    var x = config.xScale;
+    var createdAtX = config.dateToX({ propName: 'created_at' });
 
     var myRepos = config.data.filter(function(r) { return !r.fork })
                              .filter(function(r) { return (new Date(r.pushed_at)) > START_DATE })
@@ -81,19 +75,7 @@ var githubGraph = function(config) {
 
 // Simple plot of blogposts over time
 function postsGraph(config) {
-    var x = d3.time.scale().range([0, config.width])
-                           .domain([START_DATE, new Date()]);
-
-    var dateToX = function(options) {
-        options = options || {};
-        var offset = options.offset || 0;
-        var propName = options.propName || 'date';
-
-        return function(d) {
-            var xVal = Math.floor(x(new Date(d[propName])));
-            return Math.max(0, xVal + offset);
-        };
-    };
+    var dateToX = config.dateToX;
 
     var all = config.el.selectAll('g').data(config.data);
     var enter = all.enter().append('g').attr('class', 'post');
@@ -126,19 +108,7 @@ function postsGraph(config) {
 
 // Simple plot of links over time
 function linksGraph(config) {
-    var x = d3.time.scale().range([0, config.width])
-                           .domain([START_DATE, new Date()]);
-
-    var dateToX = function(options) {
-        options = options || {};
-        var offset = options.offset || 0;
-        var propName = options.propName || 'date';
-
-        return function(d) {
-            var xVal = Math.floor(x(new Date(d[propName])));
-            return Math.max(0, xVal + offset);
-        };
-    };
+    var dateToX = config.dateToX;
 
     var all = config.el.selectAll('g').data(config.data);
     var enter = all.enter().append('g').attr('class', 'link');
@@ -172,10 +142,23 @@ function linksGraph(config) {
 
 module.exports = function() {
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
+    var x = d3.time.scale().range([0, svgWidth])
+                           .domain([START_DATE, new Date()]);
+    var dateToX = function(options) {
+        options = options || {};
+        var offset = options.offset || 0;
+        var propName = options.propName || 'date';
+
+        return function(d) {
+            var xVal = Math.floor(x(new Date(d[propName])));
+            return Math.max(0, xVal + offset);
+        };
+    };
 
     postsGraph({
         data: window._posts,
         width: svgWidth,
+        dateToX: dateToX,
         el: d3.select('section.posts svg')
     });
 
@@ -184,6 +167,8 @@ module.exports = function() {
         githubGraph({
             data: data,
             width: svgWidth,
+            xScale: x,
+            dateToX: dateToX,
             el: d3.select('section.code svg')
         });
     });
@@ -196,6 +181,8 @@ module.exports = function() {
         linksGraph({
             data: links,
             width: svgWidth,
+            xScale: x,
+            dateToX: dateToX,
             el: d3.select('section.links svg')
         });
     };
