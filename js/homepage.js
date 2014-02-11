@@ -7,8 +7,9 @@ var githubGraph = function(config) {
     var createdAtX = config.dateToX({ propName: 'created_at' });
 
     var all = config.el.selectAll('g.repo').data(config.data);
-    var enter = all.enter().append('g').attr('class', 'repo');
-
+    var enter = all.enter().append('g')
+                    .attr('class', 'repo')
+                    .attr('transform', 'translate(0,20)');  // clears space for x-axis at top
 
     var links = enter.append('a')
             .attr('xlink:href', function(d) { return d.html_url });
@@ -100,13 +101,21 @@ function circleChart(config) {
 
 
 module.exports = function() {
-    var START_DATE = (new Date('2013-01-01'));
+    var START_DATE = new Date(new Date() - 548*24*3600*1000);   // ~ 1.5 years of history
     var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
     var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=linksCallback';
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
 
     var x = d3.time.scale().range([0, svgWidth])
                            .domain([START_DATE, new Date()]);
+
+    // Set up an x axis and put it on the code chart:
+    var xAxis = d3.svg.axis().scale(x)
+                    .tickSize(1)
+                    .ticks(d3.time.years, 1);
+    d3.select('section.code svg').append('g').call(xAxis);
+
+    // Helper function to convert an ISO date string to an x pixel value
     var dateToX = function(options) {
         options = options || {};
         var offset = options.offset || 0;
@@ -130,6 +139,23 @@ module.exports = function() {
         titleProp: 'title'
     });
 
+    // Plot saved links from delicious's JSONP API
+    var s = document.createElement('script');
+    s.src = DELICIOUS_URL;
+    document.body.appendChild(s);
+    window.linksCallback = function(links) {
+        circleChart({
+            data: links,
+            width: svgWidth,
+            dateToX: dateToX,
+            el: d3.select('section.links svg'),
+            groupClass: 'link',
+            timeProp: 'dt',
+            urlProp: 'u',
+            titleProp: 'd'
+        });
+    };
+
     // Plot Github source repos, using their CORS-enabled public API
     d3.json(GITHUB_URL, function(err, data) {
         if (err) return alert('gh fail');
@@ -147,20 +173,4 @@ module.exports = function() {
         });
     });
 
-    // Plot saved links from delicious's JSONP API
-    var s = document.createElement('script');
-    s.src = DELICIOUS_URL;
-    document.body.appendChild(s);
-    window.linksCallback = function(links) {
-        circleChart({
-            data: links,
-            width: svgWidth,
-            dateToX: dateToX,
-            el: d3.select('section.links svg'),
-            groupClass: 'link',
-            timeProp: 'dt',
-            urlProp: 'u',
-            titleProp: 'd'
-        });
-    };
 };
