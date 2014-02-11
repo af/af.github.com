@@ -163,7 +163,7 @@ module.exports = function() {
         var myRepos = data.filter(function(r) { return !r.fork })
                           .filter(function(r) { return (new Date(r.pushed_at)) > START_DATE })
                           .sort(function(r1, r2) {
-                            return (r1.created_at > r2.created_at) ? 1 : -1;
+                            return (r1.pushed_at < r2.pushed_at) ? 1 : -1;
                           });
         githubGraph({
             data: myRepos,

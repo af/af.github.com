@@ -154,26 +154,28 @@ svg
         fill: rgba(30, 45, 90, 0.5)
 
         &:hover
-            fill: rgba(30, 45, 90, 1)
+            fill: black
 
 .links svg
     circle
-        fill: rgba(30, 145, 90, 0.5)
+        fill: rgba(220, 180, 50, 0.5)
 
         &:hover
-            fill: rgba(30, 145, 90, 1)
+            fill: black
 
 
 .code svg
-    height: 280px       // FIXME: this is arbitrary
+    height: 300px       // FIXME: this is arbitrary
 
     g.repo
-        a
-            fill: #bbb
+        path
             opacity: 0.5
+            fill: rgba(30, 145, 90, 0.5)
+
+        a
             transition: all 0.4s
 
-            &:hover
+            &:hover *
                 opacity: 1
 
         text
@@ -183,7 +185,7 @@ svg
             transition: all 0.4s
 
             &.name
-                opacity: 0.5
+                opacity: 1
 
             tspan.language
                 fill: #999

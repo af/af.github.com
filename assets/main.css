@@ -216,23 +216,25 @@ svg {
 }
 .posts svg circle:hover,
 .links svg circle:hover {
-  fill: #1e2d5a;
+  fill: #000;
 }
 .links svg circle {
-  fill: rgba(30,145,90,0.5);
+  fill: rgba(220,180,50,0.5);
 }
 .links svg circle:hover {
-  fill: #1e915a;
+  fill: #000;
 }
 .code svg {
-  height: 280px;
+  height: 300px;
+}
+.code svg g.repo path {
+  opacity: 0.5;
+  fill: rgba(30,145,90,0.5);
 }
 .code svg g.repo a {
-  fill: #bbb;
-  opacity: 0.5;
   transition: all 0.4s;
 }
-.code svg g.repo a:hover {
+.code svg g.repo a:hover * {
   opacity: 1;
 }
 .code svg g.repo text {
@@ -242,7 +244,7 @@ svg {
   transition: all 0.4s;
 }
 .code svg g.repo text.name {
-  opacity: 0.5;
+  opacity: 1;
 }
 .code svg g.repo text tspan.language {
   fill: #999;
