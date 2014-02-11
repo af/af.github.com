@@ -8,7 +8,20 @@ title: Aaron Franks
     <svg></svg>
 </section>
 
+<section class="homepage posts">
+    <a href="/posts"><h2>Posts</h2></a>
+    <svg></svg>
+</section>
+
 <section class="homepage links">
     <a href="http://delicious.com/aaron.franks"><h2>Links</h2></a>
     <svg></svg>
 </section>
+
+<script>
+    window._posts = [
+    {% for post in site.posts %}
+        { date: "{{ post.date }}", title: "{{ post.title }}", url: "{{ post.url }}" },
+    {% endfor %}
+    ];
+</script>

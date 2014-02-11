@@ -183,35 +183,63 @@ section.homepage.links a:before {
 }
 svg {
   width: 80%;
+}
+.posts svg {
+  height: 100%;
+}
+.posts svg g text {
+  opacity: 0;
+  transition: all 0.5s;
+}
+.posts svg g text.date {
+  font-size: 0.8rem;
+}
+.posts svg g:hover text {
+  opacity: 1;
+}
+.posts svg g line {
+  opacity: 0;
+  stroke: #000;
+}
+.posts svg g:hover line {
+  opacity: 1;
+}
+.posts svg circle {
+  fill: rgba(30,45,90,0.5);
+}
+.posts svg circle:hover {
+  fill: #1e2d5a;
+}
+.code svg {
   height: 280px;
 }
-svg g.repo a {
+.code svg g.repo a {
   fill: #bbb;
   opacity: 0.5;
   transition: all 0.4s;
 }
-svg g.repo a:hover {
+.code svg g.repo a:hover {
   opacity: 1;
 }
-svg g.repo text {
+.code svg g.repo text {
   fill: #333;
   font-size: 1rem;
   opacity: 0;
   transition: all 0.4s;
 }
-svg g.repo text.name {
+.code svg g.repo text.name {
   opacity: 0.5;
 }
-svg g.repo text tspan.language {
+.code svg g.repo text tspan.language {
   fill: #999;
   font-size: 0.9em;
 }
-svg g.repo text.description {
+.code svg g.repo text.description {
   font-size: 0.8rem;
 }
-svg g.repo:hover text {
+.code svg g.repo:hover text {
   opacity: 1;
 }
-svg g.repo rect {
+.code svg g.repo rect {
   fill: transparent;
 }

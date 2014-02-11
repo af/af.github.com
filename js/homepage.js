@@ -15,8 +15,8 @@ function timestamp(dateString) {
 // scale graph to browser width
 // time axes
 var githubGraph = function(config) {
-    var svg = config.el;
     var COMET_SPACING = 25;
+
     var x = d3.time.scale().range([0, config.width])
                            .domain([START_DATE, new Date()]);
 
@@ -29,7 +29,7 @@ var githubGraph = function(config) {
                              .filter(function(r) { return (new Date(r.pushed_at)) > START_DATE })
                              .sort(function(r1, r2) { return timestamp(r1.created_at) - timestamp(r2.created_at); });
 
-    var all = svg.selectAll('g.repo').data(myRepos);
+    var all = config.el.selectAll('g.repo').data(myRepos);
     var enter = all.enter().append('g').attr('class', 'repo');
 
 
@@ -79,8 +79,60 @@ var githubGraph = function(config) {
 
 };
 
+
+// Simple plot of blogposts over time
+function postsGraph(config) {
+    var x = d3.time.scale().range([0, config.width])
+                           .domain([START_DATE, new Date()]);
+
+    var dateToX = function(options) {
+        options = options || {};
+        var offset = options.offset || 0;
+        var propName = options.propName || 'date';
+
+        return function(d) {
+            var xVal = Math.floor(x(new Date(d[propName])));
+            return Math.max(0, xVal + offset);
+        };
+    };
+
+    var all = config.el.selectAll('g').data(config.data);
+    var enter = all.enter().append('g').attr('class', 'post');
+
+    var links = enter.append('a')
+            .attr('xlink:href', function(d) { return d.url });
+
+    links.append('circle')
+            .attr('cx', dateToX())
+            .attr('cy', 20)
+            .attr('r', 20);
+
+    links.append('line')
+            .attr('x1', dateToX({ offset: 0.5 }))
+            .attr('x2', dateToX({ offset: 0.5 }))
+            .attr('y1', 43)
+            .attr('y2', 85);
+
+    enter.append('text')
+            .text(function(d) { return d.title })
+            .attr('transform', function(d) {
+                return 'translate(' + dateToX({ offset: 5 })(d) + ',70)';
+            });
+    enter.append('text').attr('class', 'date')
+            .text(function(d) { return (new Date(d.date)).toISOString().split('T')[0]; })
+            .attr('transform', function(d) {
+                return 'translate(' + dateToX({ offset: 5 })(d) + ',87)';
+            });
+}
+
 module.exports = function() {
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
+
+    postsGraph({
+        data: window._posts,
+        width: svgWidth,
+        el: d3.select('section.posts svg')
+    });
 
     d3.json(GITHUB_URL, function(err, data) {
         if (err) return alert('gh fail');
