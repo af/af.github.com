@@ -27,7 +27,7 @@ var githubGraph = function(config) {
             .attr('transform', function(d, i) {
                 return "translate(" + createdAtX(d) + "," + (25 + i*COMET_SPACING) + ")";
             })
-            .text(function(d) { return d.name })
+            .text(function(d) { return d.name });
     text.append('tspan')
         .attr('class', 'language')
         .attr('dx', 10)
@@ -64,8 +64,11 @@ var githubGraph = function(config) {
 //  timeProp
 //  urlProp
 //  titleProp
+//  radius
 function circleChart(config) {
     var dateToX = config.dateToX;
+    var yBaseline = config.yBaseline || 20;
+    var radius = config.radius || 20;
 
     var all = config.el.selectAll('g').data(config.data);
     var enter = all.enter().append('g').attr('class', config.groupClass || '');
@@ -75,13 +78,16 @@ function circleChart(config) {
 
     links.append('circle')
             .attr('cx', dateToX({ propName: config.timeProp }))
-            .attr('cy', 20)
-            .attr('r', 20);
+            .attr('cy', yBaseline)
+            .attr('r', radius);
 
     links.append('line')
             .attr('x1', dateToX({ propName: config.timeProp, offset: 0.5 }))
             .attr('x2', dateToX({ propName: config.timeProp, offset: 0.5 }))
-            .attr('y1', 43)
+            .attr('y1', function(d) {
+                var radius = parseFloat(d3.select(this.parentElement.firstChild).attr('r'));
+                return yBaseline + radius + 3;
+            })
             .attr('y2', 85);
 
     enter.append('text')
@@ -129,7 +135,9 @@ module.exports = function() {
         data: window._posts,
         width: svgWidth,
         dateToX: dateToX,
+        yBaseline: 30,
         el: d3.select('section.posts svg'),
+        radius: function(d) { return 15 + Math.sqrt(d.length)/5; },
         groupClass: 'post',
         timeProp: 'date',
         urlProp: 'url',
