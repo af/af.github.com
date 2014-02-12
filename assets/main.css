@@ -186,7 +186,7 @@ svg {
 }
 .posts svg,
 .links svg {
-  height: 100px;
+  height: 150px;
 }
 .posts svg g text,
 .links svg g text {
@@ -197,8 +197,8 @@ svg {
 .links svg g text.date {
   font-size: 0.8rem;
 }
-.posts svg g:hover text,
-.links svg g:hover text {
+.posts svg g a:hover ~ text,
+.links svg g a:hover ~ text {
   opacity: 1;
 }
 .posts svg g line,
@@ -206,8 +206,8 @@ svg {
   opacity: 0;
   stroke: #000;
 }
-.posts svg g:hover line,
-.links svg g:hover line {
+.posts svg g a:hover line,
+.links svg g a:hover line {
   opacity: 1;
 }
 .posts svg circle,

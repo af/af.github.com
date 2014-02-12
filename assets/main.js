@@ -65,12 +65,18 @@ var githubGraph = function(config) {
 //  urlProp
 //  titleProp
 //  radius
+//  yBaseline
 function circleChart(config) {
     var dateToX = config.dateToX;
     var yBaseline = config.yBaseline || 20;
     var radius = config.radius || 20;
+    if (typeof radius !== 'function') {
+        var r = radius;
+        radius = function() { return r };
+    }
 
-    var all = config.el.selectAll('g').data(config.data);
+    var selector = 'g' + (config.groupClass ? '.' + config.groupClass : '');
+    var all = config.el.selectAll(selector).data(config.data);
     var enter = all.enter().append('g').attr('class', config.groupClass || '');
 
     var links = enter.append('a')
@@ -88,17 +94,21 @@ function circleChart(config) {
                 var radius = parseFloat(d3.select(this.parentElement.firstChild).attr('r'));
                 return yBaseline + radius + 3;
             })
-            .attr('y2', 85);
+            .attr('y2', function(d) { return parseFloat(d3.select(this).attr('y1')) + 30; });
 
     enter.append('text')
             .text(function(d) { return d[config.titleProp] })
             .attr('transform', function(d) {
-                return 'translate(' + dateToX({ propName: config.timeProp, offset: 5 })(d) + ',70)';
+                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
+                var y = yBaseline + radius(d) + 20;
+                return 'translate(' + [x,y].join(',') + ')';
             });
     enter.append('text').attr('class', 'date')
             .text(function(d) { return (new Date(d[config.timeProp])).toISOString().split('T')[0]; })
             .attr('transform', function(d) {
-                return 'translate(' + dateToX({ propName: config.timeProp, offset: 5 })(d) + ',87)';
+                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
+                var y = yBaseline + radius(d) + 35;
+                return 'translate(' + [x,y].join(',') + ')';
             });
 }
 
@@ -149,15 +159,31 @@ module.exports = function() {
     s.src = DELICIOUS_URL;
     document.body.appendChild(s);
     window.linksCallback = function(links) {
-        circleChart({
-            data: links,
-            width: svgWidth,
-            dateToX: dateToX,
-            el: d3.select('section.links svg'),
-            groupClass: 'link',
-            timeProp: 'dt',
-            urlProp: 'u',
-            titleProp: 'd'
+        // Divide links into tag group "buckets":
+        var tagGroups = {'javascript': [], 'programming': [], 'other': []};
+        var tags = Object.keys(tagGroups);
+        links.forEach(function(l) {
+            for (var i=0; i < tags.length; i++) {
+                var t = tags[i];
+                if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l);
+                else if (i === tags.length - 1) tagGroups[t].push(l);   // Push to 'other' if no other matches
+            }
+        });
+
+        // Plot a row of circles for each tag group
+        tags.forEach(function(t, i) {
+            circleChart({
+                data: tagGroups[t],
+                width: svgWidth,
+                dateToX: dateToX,
+                yBaseline: 20 + i*20,
+                radius: 10,
+                el: d3.select('section.links svg'),
+                groupClass: t,
+                timeProp: 'dt',
+                urlProp: 'u',
+                titleProp: 'd'
+            });
         });
     };
 
