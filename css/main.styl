@@ -2,8 +2,7 @@
 @import "_common"
 @import "_fonts"
 
-
-// Main site sidebar:
+// Main site header
 body > header
     padding: 1rem
 
@@ -104,99 +103,4 @@ ul.posts
         margin-left: 0
         padding: 0 2rem
 
-// Homepage
-section.homepage
-    padding: 1rem
-
-    > a
-        display: block
-        width: 20%
-        float: left
-        text-align: center
-        color: #999
-        padding: 2rem 0
-
-        &:before
-            font: normal 1.3em 'icomoon'
-            margin-right: 0.3em
-
-    h2
-        display: inline
-
-    &.code a:before
-        content: "\24"
-    &.links a:before
-        content: "\22"
-
-svg
-    width: 80%
-
-.posts svg, .links svg
-    height: 150px
-
-    g
-        text
-            display: none
-
-            &.date
-                font-size: 0.8rem
-        a:hover ~ text
-            display: block
-
-        line
-            display: none
-            stroke: black
-        a:hover line
-            display: block
-
-    circle
-        fill: rgba(30, 45, 90, 0.5)
-
-        &:hover
-            fill: black
-
-.links svg
-    circle
-        fill: rgba(220, 180, 50, 0.5)
-
-        &:hover
-            fill: black
-
-
-.code svg
-    height: 300px       // FIXME: this is arbitrary
-
-    g.repo
-        path
-            transition: opacity 0.5s
-            opacity: 0.5
-            fill: rgba(30, 145, 90, 0.5)
-
-        a
-            transition: all 0.4s
-
-            &:hover *
-                opacity: 1
-
-        text
-            fill: #333
-            font-size: 1rem
-            opacity: 0
-            transition: all 0.4s
-
-            &.name
-                opacity: 1
-
-            tspan.language
-                fill: #999
-                font-size: 0.9em
-
-            .description
-                opacity: 0
-                font-size: 0.8rem
-
-        &:hover .description
-            opacity: 1
-
-        rect
-            fill: transparent
+@import "homepage"

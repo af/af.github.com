@@ -157,6 +157,45 @@ ul.posts li {
     padding: 0 2rem;
   }
 }
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  position: relative;
+  margin: 0;
+  min-width: 320px;
+  background: #f7f7f7;
+  -webkit-font-smoothing: antialiased;
+}
+p {
+  line-height: 1.4;
+  margin: 0 0 1.4em;
+}
+a,
+a.visited {
+  color: #6fa933;
+  text-decoration: none;
+  transition: color 0.3s, border 0.3s, box-shadow 0.6s;
+}
+a a:hover,
+a.visited a:hover {
+  text-decoration: underline;
+}
+pre {
+  background: #eee;
+  padding: 0.2em;
+}
+code {
+  background: #eee;
+  font-size: 1rem;
+}
+p code {
+  padding: 0.1em 0.2em;
+}
 section.homepage {
   padding: 1rem;
 }
