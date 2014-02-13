@@ -170,20 +170,21 @@ module.exports = function() {
         });
 
         // Plot a row of circles for each tag group
-        tags.forEach(function(t, i) {
+        for (var j=tags.length-1; j >= 0; j--) {
+            var tag = tags[j];
             circleChart({
-                data: tagGroups[t],
+                data: tagGroups[tag],
                 width: svgWidth,
                 dateToX: dateToX,
-                yBaseline: 20 + i*20,
+                yBaseline: 20 + j*20,
                 radius: 10,
                 el: d3.select('section.links svg'),
-                groupClass: t,
+                groupClass: tag,
                 timeProp: 'dt',
                 urlProp: 'u',
                 titleProp: 'd'
             });
-        });
+        }
     };
 
     // Plot Github source repos, using their CORS-enabled public API

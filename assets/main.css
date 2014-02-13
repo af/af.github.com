@@ -190,8 +190,7 @@ svg {
 }
 .posts svg g text,
 .links svg g text {
-  opacity: 0;
-  transition: all 0.5s;
+  display: none;
 }
 .posts svg g text.date,
 .links svg g text.date {
@@ -199,16 +198,16 @@ svg {
 }
 .posts svg g a:hover ~ text,
 .links svg g a:hover ~ text {
-  opacity: 1;
+  display: block;
 }
 .posts svg g line,
 .links svg g line {
-  opacity: 0;
+  display: none;
   stroke: #000;
 }
 .posts svg g a:hover line,
 .links svg g a:hover line {
-  opacity: 1;
+  display: block;
 }
 .posts svg circle,
 .links svg circle {
@@ -228,6 +227,7 @@ svg {
   height: 300px;
 }
 .code svg g.repo path {
+  transition: opacity 0.5s;
   opacity: 0.5;
   fill: rgba(30,145,90,0.5);
 }

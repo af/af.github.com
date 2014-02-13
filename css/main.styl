@@ -136,19 +136,18 @@ svg
 
     g
         text
-            opacity: 0
-            transition: all 0.5s
+            display: none
 
             &.date
                 font-size: 0.8rem
         a:hover ~ text
-            opacity: 1
+            display: block
 
         line
-            opacity: 0
+            display: none
             stroke: black
         a:hover line
-            opacity: 1
+            display: block
 
     circle
         fill: rgba(30, 45, 90, 0.5)
@@ -169,6 +168,7 @@ svg
 
     g.repo
         path
+            transition: opacity 0.5s
             opacity: 0.5
             fill: rgba(30, 145, 90, 0.5)
 
