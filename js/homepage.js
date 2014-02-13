@@ -159,7 +159,7 @@ module.exports = function() {
     document.body.appendChild(s);
     window.linksCallback = function(links) {
         // Divide links into tag group "buckets":
-        var tagGroups = {'javascript': [], 'programming': [], 'other': []};
+        var tagGroups = {javascript: [], programming: [], design: [], other: []};
         var tags = Object.keys(tagGroups);
         links.forEach(function(l) {
             for (var i=0; i < tags.length; i++) {
