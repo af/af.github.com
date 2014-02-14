@@ -38,15 +38,39 @@ p code {
   padding: 0.1em 0.2em;
 }
 section.homepage {
-  padding: 1rem;
+  margin-bottom: 2rem;
+}
+section.homepage.code {
+  height: 300px;
+}
+section.homepage.code > a {
+  color: rgba(30,145,90,0.5);
+  border-color: rgba(30,145,90,0.5);
+}
+section.homepage.posts {
+  height: 120px;
+}
+section.homepage.posts > a {
+  color: rgba(30,45,90,0.5);
+  border-color: rgba(30,45,90,0.5);
+}
+section.homepage.links {
+  height: 150px;
+}
+section.homepage.links > a {
+  color: rgba(220,180,50,0.5);
+  border-color: rgba(220,180,50,0.5);
 }
 section.homepage > a {
   display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20%;
   float: left;
   text-align: center;
-  color: #999;
-  padding: 2rem 0;
+  height: 100%;
+  border-left: 1rem solid rgba(255,255,255,0.3);
 }
 section.homepage > a:before {
   font: normal 1.3em 'icomoon';
@@ -63,10 +87,6 @@ section.homepage.links a:before {
 }
 svg {
   width: 80%;
-}
-.posts svg,
-.links svg {
-  height: 150px;
 }
 .posts svg g text,
 .links svg g text {
@@ -102,9 +122,6 @@ svg {
 }
 .links svg circle:hover {
   fill: #000;
-}
-.code svg {
-  height: 300px;
 }
 .code svg g.repo path {
   transition: opacity 0.5s;

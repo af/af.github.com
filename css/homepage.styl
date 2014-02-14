@@ -4,18 +4,43 @@ $postsColour = rgba(30, 45, 90, 0.5)
 $linksColour = rgba(220, 180, 50, 0.5)
 $codeColour = rgba(30, 145, 90, 0.5)
 
+flexboxCenter()
+    display: flex
+    justify-content: center
+    align-items: center
+
 
 // Homepage styles
 section.homepage
-    padding: 1rem
+    margin-bottom: 2rem
+
+    &.code
+        height: 300px
+
+        > a
+            color: $codeColour
+            border-color: $codeColour
+    &.posts
+        height: 120px
+
+        > a
+            color: $postsColour
+            border-color: $postsColour
+    &.links
+        height: 150px
+
+        > a
+            color: $linksColour
+            border-color: $linksColour
 
     > a
         display: block
+        flexboxCenter()
         width: 20%
         float: left
         text-align: center
-        color: #999
-        padding: 2rem 0
+        height: 100%
+        border-left: 1rem solid rgba(255,255,255,0.3)
 
         &:before
             font: normal 1.3em 'icomoon'
@@ -33,8 +58,6 @@ svg
     width: 80%
 
 .posts svg, .links svg
-    height: 150px
-
     g
         text
             display: none
@@ -65,8 +88,6 @@ svg
 
 
 .code svg
-    height: 300px       // FIXME: this is arbitrary
-
     g.repo
         path
             transition: opacity 0.5s
