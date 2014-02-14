@@ -119,14 +119,18 @@ module.exports = function() {
     var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=linksCallback';
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
 
-    var x = d3.time.scale().range([0, svgWidth])
+    var margin = {top: 20, right: 20, left: 20};
+    var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()]);
+    var leavePadding = 'translate(' + margin.left + ',' + margin.top + ')';
 
     // Set up an x axis and put it on the code chart:
     var xAxis = d3.svg.axis().scale(x)
                     .tickSize(1)
                     .ticks(d3.time.years, 1);
-    d3.select('section.code svg').append('g').call(xAxis);
+    d3.select('section.code svg').append('g')
+        .attr('transform', 'translate(' + margin.left + ',0)')
+        .call(xAxis);
 
     // Helper function to convert an ISO date string to an x pixel value
     var dateToX = function(options) {
@@ -146,7 +150,8 @@ module.exports = function() {
         width: svgWidth,
         dateToX: dateToX,
         yBaseline: 30,
-        el: d3.select('section.posts svg'),
+        el: d3.select('section.posts svg')
+                .append('g').attr('transform', leavePadding),
         radius: function(d) { return 15 + Math.sqrt(d.length)/5; },
         groupClass: 'post',
         timeProp: 'date',
@@ -179,7 +184,8 @@ module.exports = function() {
                 dateToX: dateToX,
                 yBaseline: 20 + j*20,
                 radius: 10,
-                el: d3.select('section.links svg'),
+                el: d3.select('section.links svg')
+                        .append('g').attr('transform', leavePadding),
                 groupClass: tag,
                 timeProp: 'dt',
                 urlProp: 'u',
@@ -202,6 +208,7 @@ module.exports = function() {
             xScale: x,
             dateToX: dateToX,
             el: d3.select('section.code svg')
+                    .append('g').attr('transform', leavePadding),
         });
     });
 
