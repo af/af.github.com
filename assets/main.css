@@ -245,6 +245,7 @@ section.homepage.links a:before {
   content: "\22";
 }
 svg {
+  display: block;
   width: 80%;
 }
 .posts svg g text,

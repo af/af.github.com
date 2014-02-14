@@ -21,7 +21,8 @@ title: Aaron Franks
 <script>
     window._posts = [
     {% for post in site.posts %}
-{ date: "{{ post.date }}", title: "{{ post.title }}", url: "{{ post.url }}", length: {{ post.content | size }} },
+        { date: "{{ post.date | date: "%Y-%m-%dT%H:%M:%S" }}", title: "{{ post.title }}",
+          url: "{{ post.url }}", length: {{ post.content | size }} },
     {% endfor %}
     ];
 </script>
