@@ -198,6 +198,20 @@ p code {
 }
 section.homepage {
   margin-bottom: 2rem;
+  position: relative;
+}
+section.homepage.loading:before {
+  content: 'Loading data...';
+  position: absolute;
+  width: 100%;
+  margin: 5rem;
+  pointer-events: none;
+  opacity: 0.5;
+  text-align: center;
+  font-style: italic;
+}
+section.homepage.loading.failed:before {
+  content: "Sorry, failed to load the data. Refresh and try again?";
 }
 section.homepage.code {
   height: 300px;

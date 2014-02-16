@@ -121,7 +121,17 @@ var codeChart = require('./codeChart');
 
 var START_DATE = new Date(new Date() - 548*24*3600*1000);   // ~ 1.5 years of history
 var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
-var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=linksCallback';
+var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=';
+
+// Helper for loading jsonp data.
+// The given url should not include the callback function's name (it will be appended)
+function jsonp(url, callback) {
+    var callbackName = 'jsonp_cb' + (new Date).getTime();
+    var s = document.createElement('script');
+    s.src = url + callbackName;
+    document.body.appendChild(s);
+    window[callbackName] = callback;
+}
 
 
 module.exports = function() {
@@ -166,14 +176,12 @@ module.exports = function() {
         titleProp: 'title'
     });
 
-    var linksSvg = d3.select('section.links svg')
-                        .append('g').attr('transform', leavePadding);
-
     // Plot saved links from delicious's JSONP API
-    var s = document.createElement('script');
-    s.src = DELICIOUS_URL;
-    document.body.appendChild(s);
-    window.linksCallback = function(links) {
+    jsonp(DELICIOUS_URL, function(links) {
+        d3.select('section.links').classed('loading', false);
+        var linksSvg = d3.select('section.links svg')
+                            .append('g').attr('transform', leavePadding);
+
         // Divide links into tag group "buckets":
         var tagGroups = {javascript: [], programming: [], design: [], other: []};
         var tags = Object.keys(tagGroups);
@@ -209,11 +217,14 @@ module.exports = function() {
                 .attr('y', yBaseline + radius/2)
                 .text(tag);
         }
-    };
+    });
 
     // Plot Github source repos, using their CORS-enabled public API
     d3.json(GITHUB_URL, function(err, data) {
-        if (err) return alert('gh fail');
+        var $section = d3.select('section.code');
+        if (err) return $section.classed('failed', true);
+
+        $section.classed('loading', false);
         var myRepos = data.filter(function(r) { return !r.fork })
                           .filter(function(r) { return (new Date(r.pushed_at)) > START_DATE })
                           .sort(function(r1, r2) {
