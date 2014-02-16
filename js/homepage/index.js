@@ -49,6 +49,9 @@ module.exports = function() {
         titleProp: 'title'
     });
 
+    var linksSvg = d3.select('section.links svg')
+                        .append('g').attr('transform', leavePadding);
+
     // Plot saved links from delicious's JSONP API
     var s = document.createElement('script');
     s.src = DELICIOUS_URL;
@@ -66,21 +69,28 @@ module.exports = function() {
         });
 
         // Plot a row of circles for each tag group
+        var radius = 10;
         for (var j=tags.length-1; j >= 0; j--) {
             var tag = tags[j];
+            var yBaseline = radius * (2*j + 1);
+
             circleChart({
                 data: tagGroups[tag],
                 width: svgWidth,
                 xScale: x,
-                yBaseline: 20 + j*20,
+                yBaseline: yBaseline,
                 radius: 10,
-                el: d3.select('section.links svg')
-                        .append('g').attr('transform', leavePadding),
+                el: linksSvg,
                 groupClass: tag,
                 timeProp: 'dt',
                 urlProp: 'u',
                 titleProp: 'd'
             });
+
+            linksSvg.append('text').attr('class', 'linkLabel')
+                .attr('x', x(new Date()) + radius)
+                .attr('y', yBaseline + radius/2)
+                .text(tag);
         }
     };
 

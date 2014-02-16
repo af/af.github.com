@@ -124,6 +124,11 @@ section.homepage.links a:before {
 .links svg circle:hover {
   fill: #000;
 }
+.links svg .linkLabel {
+  font-size: 0.9rem;
+  display: block;
+  fill: rgba(161,130,28,0.5);
+}
 .code svg g.repo path {
   transition: opacity 0.5s;
   opacity: 0.5;
