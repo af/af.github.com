@@ -1,8 +1,8 @@
 @import "_common"
 
-$postsColour = rgba(30, 45, 90, 0.5)
-$linksColour = rgba(220, 180, 50, 0.5)
-$codeColour = rgba(30, 145, 90, 0.5)
+$codeColour = #5a6
+$postsColour = #56a
+$linksColour = rgb(220, 180, 50)
 
 flexboxCenter()
     display: flex
@@ -32,20 +32,26 @@ section.homepage
         height: 300px
 
         > a
-            color: $codeColour
             border-color: $codeColour
+
+            &:hover
+                background: rgba($codeColour, 0.2)
     &.posts
         height: 120px
 
         > a
-            color: $postsColour
             border-color: $postsColour
+
+            &:hover
+                background: rgba($postsColour, 0.2)
     &.links
         height: 150px
 
         > a
-            color: $linksColour
             border-color: $linksColour
+
+            &:hover
+                background: rgba($linksColour, 0.2)
 
     > a
         display: block
@@ -55,6 +61,11 @@ section.homepage
         text-align: center
         height: 100%
         border-left: 1rem solid rgba(255,255,255,0.3)
+        color: #555
+        transition: all 0.3s
+
+        &:hover
+            border-width: 20px
 
         &:before
             font: normal 1.3em 'icomoon'
@@ -89,14 +100,14 @@ section.homepage
             display: block
 
     circle
-        fill: $postsColour
+        fill: rgba($postsColour, 0.8)
 
         &:hover
             fill: black
 
 .links svg
     circle
-        fill: $linksColour
+        fill: rgba($linksColour, 0.5)
 
         &:hover
             fill: black
@@ -104,7 +115,7 @@ section.homepage
     .linkLabel
         font-size: 0.9rem
         display: block
-        fill: darken($linksColour, 30%)
+        fill: $linksColour
 
 
 .code svg
@@ -112,7 +123,7 @@ section.homepage
         path
             transition: opacity 0.5s
             opacity: 0.5
-            fill: $codeColour
+            fill: rgba($codeColour, 0.8)
 
         a
             transition: all 0.4s

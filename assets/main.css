@@ -217,22 +217,28 @@ section.homepage.code {
   height: 300px;
 }
 section.homepage.code > a {
-  color: rgba(30,145,90,0.5);
-  border-color: rgba(30,145,90,0.5);
+  border-color: #5a6;
+}
+section.homepage.code > a:hover {
+  background: rgba(85,170,102,0.2);
 }
 section.homepage.posts {
   height: 120px;
 }
 section.homepage.posts > a {
-  color: rgba(30,45,90,0.5);
-  border-color: rgba(30,45,90,0.5);
+  border-color: #56a;
+}
+section.homepage.posts > a:hover {
+  background: rgba(85,102,170,0.2);
 }
 section.homepage.links {
   height: 150px;
 }
 section.homepage.links > a {
-  color: rgba(220,180,50,0.5);
-  border-color: rgba(220,180,50,0.5);
+  border-color: #dcb432;
+}
+section.homepage.links > a:hover {
+  background: rgba(220,180,50,0.2);
 }
 section.homepage > a {
   display: block;
@@ -244,6 +250,11 @@ section.homepage > a {
   text-align: center;
   height: 100%;
   border-left: 1rem solid rgba(255,255,255,0.3);
+  color: #555;
+  transition: all 0.3s;
+}
+section.homepage > a:hover {
+  border-width: 20px;
 }
 section.homepage > a:before {
   font: normal 1.3em 'icomoon';
@@ -285,7 +296,7 @@ section.homepage.links a:before {
 }
 .posts svg circle,
 .links svg circle {
-  fill: rgba(30,45,90,0.5);
+  fill: rgba(85,102,170,0.8);
 }
 .posts svg circle:hover,
 .links svg circle:hover {
@@ -300,12 +311,12 @@ section.homepage.links a:before {
 .links svg .linkLabel {
   font-size: 0.9rem;
   display: block;
-  fill: rgba(161,130,28,0.5);
+  fill: #dcb432;
 }
 .code svg g.repo path {
   transition: opacity 0.5s;
   opacity: 0.5;
-  fill: rgba(30,145,90,0.5);
+  fill: rgba(85,170,102,0.8);
 }
 .code svg g.repo a {
   transition: all 0.4s;
