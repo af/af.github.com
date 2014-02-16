@@ -9,22 +9,13 @@ var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&call
 
 module.exports = function() {
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
-
     var margin = {top: 20, right: 150, left: 20};
-    var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
-                           .domain([START_DATE, new Date()]);
     var leavePadding = 'translate(' + margin.left + ',' + margin.top + ')';
 
-    // Set up an x axis and put it on the code chart:
-    var xAxis = d3.svg.axis().scale(x)
-                    .tickSize(1)
-                    .ticks(d3.time.years, 1);
-    d3.select('section.code svg').append('g')
-        .attr('transform', 'translate(' + margin.left + ',0)')
-        .call(xAxis);
-
-    // Helper function to convert an ISO date string to an x pixel value
-    var dateToX = function(options) {
+    var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
+                           .domain([START_DATE, new Date()]);
+    // Helper scale function to convert an ISO date string to an x pixel value:
+    x.fromDateString = function(options) {
         options = options || {};
         var offset = options.offset || 0;
         var propName = options.propName || 'date';
@@ -35,11 +26,19 @@ module.exports = function() {
         };
     };
 
+    // Set up an x axis and put it on the top chart:
+    var xAxis = d3.svg.axis().scale(x)
+                    .tickSize(1)
+                    .ticks(d3.time.years, 1);
+    d3.select('section:first-of-type svg').append('g')
+        .attr('transform', 'translate(' + margin.left + ',0)')
+        .call(xAxis);
+
     // Plot the blogposts that are dumped as window._posts in the homepage template
     circleChart({
         data: window._posts,
         width: svgWidth,
-        dateToX: dateToX,
+        xScale: x,
         yBaseline: 30,
         el: d3.select('section.posts svg')
                 .append('g').attr('transform', leavePadding),
@@ -72,7 +71,7 @@ module.exports = function() {
             circleChart({
                 data: tagGroups[tag],
                 width: svgWidth,
-                dateToX: dateToX,
+                xScale: x,
                 yBaseline: 20 + j*20,
                 radius: 10,
                 el: d3.select('section.links svg')
@@ -97,7 +96,6 @@ module.exports = function() {
             data: myRepos,
             width: svgWidth,
             xScale: x,
-            dateToX: dateToX,
             el: d3.select('section.code svg')
                     .append('g').attr('transform', leavePadding),
         });

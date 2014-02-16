@@ -4,7 +4,7 @@ var d3 = require('d3');
 // Config params:
 //  data
 //  el
-//  dateToX
+//  xScale
 //  groupClass
 //  timeProp
 //  urlProp
@@ -12,7 +12,7 @@ var d3 = require('d3');
 //  radius
 //  yBaseline
 module.exports = function circleChart(config) {
-    var dateToX = config.dateToX;
+    var x = config.xScale;
     var yBaseline = config.yBaseline || 20;
     var radius = config.radius || 20;
     if (typeof radius !== 'function') {
@@ -28,13 +28,13 @@ module.exports = function circleChart(config) {
             .attr('xlink:href', function(d) { return d[config.urlProp] });
 
     links.append('circle')
-            .attr('cx', dateToX({ propName: config.timeProp }))
+            .attr('cx', x.fromDateString({ propName: config.timeProp }))
             .attr('cy', yBaseline)
             .attr('r', radius);
 
     links.append('line')
-            .attr('x1', dateToX({ propName: config.timeProp, offset: 0.5 }))
-            .attr('x2', dateToX({ propName: config.timeProp, offset: 0.5 }))
+            .attr('x1', x.fromDateString({ propName: config.timeProp, offset: 0.5 }))
+            .attr('x2', x.fromDateString({ propName: config.timeProp, offset: 0.5 }))
             .attr('y1', function(d) {
                 var radius = parseFloat(d3.select(this.parentElement.firstChild).attr('r'));
                 return yBaseline + radius + 3;
@@ -44,15 +44,15 @@ module.exports = function circleChart(config) {
     enter.append('text')
             .text(function(d) { return d[config.titleProp] })
             .attr('transform', function(d) {
-                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
+                var xVal = x.fromDateString({ propName: config.timeProp, offset: 5 })(d);
                 var y = yBaseline + radius(d) + 20;
-                return 'translate(' + [x,y].join(',') + ')';
+                return 'translate(' + [xVal,y].join(',') + ')';
             });
     enter.append('text').attr('class', 'date')
             .text(function(d) { return (new Date(d[config.timeProp])).toISOString().split('T')[0]; })
             .attr('transform', function(d) {
-                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
+                var xVal = x.fromDateString({ propName: config.timeProp, offset: 5 })(d);
                 var y = yBaseline + radius(d) + 35;
-                return 'translate(' + [x,y].join(',') + ')';
+                return 'translate(' + [xVal,y].join(',') + ')';
             });
 };

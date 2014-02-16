@@ -3,7 +3,7 @@ var COMET_SPACING = 25;
 // Convert Github repository API data into a "comet" date chart
 module.exports = function(config) {
     var x = config.xScale;
-    var createdAtX = config.dateToX({ propName: 'created_at' });
+    var createdAtX = x.fromDateString({ propName: 'created_at' });
 
     var all = config.el.selectAll('g.repo').data(config.data);
     var enter = all.enter().append('g')

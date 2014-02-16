@@ -5,7 +5,7 @@ var d3 = require('d3');
 // Config params:
 //  data
 //  el
-//  dateToX
+//  xScale
 //  groupClass
 //  timeProp
 //  urlProp
@@ -13,7 +13,7 @@ var d3 = require('d3');
 //  radius
 //  yBaseline
 module.exports = function circleChart(config) {
-    var dateToX = config.dateToX;
+    var x = config.xScale;
     var yBaseline = config.yBaseline || 20;
     var radius = config.radius || 20;
     if (typeof radius !== 'function') {
@@ -29,13 +29,13 @@ module.exports = function circleChart(config) {
             .attr('xlink:href', function(d) { return d[config.urlProp] });
 
     links.append('circle')
-            .attr('cx', dateToX({ propName: config.timeProp }))
+            .attr('cx', x.fromDateString({ propName: config.timeProp }))
             .attr('cy', yBaseline)
             .attr('r', radius);
 
     links.append('line')
-            .attr('x1', dateToX({ propName: config.timeProp, offset: 0.5 }))
-            .attr('x2', dateToX({ propName: config.timeProp, offset: 0.5 }))
+            .attr('x1', x.fromDateString({ propName: config.timeProp, offset: 0.5 }))
+            .attr('x2', x.fromDateString({ propName: config.timeProp, offset: 0.5 }))
             .attr('y1', function(d) {
                 var radius = parseFloat(d3.select(this.parentElement.firstChild).attr('r'));
                 return yBaseline + radius + 3;
@@ -45,16 +45,16 @@ module.exports = function circleChart(config) {
     enter.append('text')
             .text(function(d) { return d[config.titleProp] })
             .attr('transform', function(d) {
-                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
+                var xVal = x.fromDateString({ propName: config.timeProp, offset: 5 })(d);
                 var y = yBaseline + radius(d) + 20;
-                return 'translate(' + [x,y].join(',') + ')';
+                return 'translate(' + [xVal,y].join(',') + ')';
             });
     enter.append('text').attr('class', 'date')
             .text(function(d) { return (new Date(d[config.timeProp])).toISOString().split('T')[0]; })
             .attr('transform', function(d) {
-                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
+                var xVal = x.fromDateString({ propName: config.timeProp, offset: 5 })(d);
                 var y = yBaseline + radius(d) + 35;
-                return 'translate(' + [x,y].join(',') + ')';
+                return 'translate(' + [xVal,y].join(',') + ')';
             });
 };
 
@@ -64,7 +64,7 @@ var COMET_SPACING = 25;
 // Convert Github repository API data into a "comet" date chart
 module.exports = function(config) {
     var x = config.xScale;
-    var createdAtX = config.dateToX({ propName: 'created_at' });
+    var createdAtX = x.fromDateString({ propName: 'created_at' });
 
     var all = config.el.selectAll('g.repo').data(config.data);
     var enter = all.enter().append('g')
@@ -126,22 +126,13 @@ var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&call
 
 module.exports = function() {
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
-
     var margin = {top: 20, right: 150, left: 20};
-    var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
-                           .domain([START_DATE, new Date()]);
     var leavePadding = 'translate(' + margin.left + ',' + margin.top + ')';
 
-    // Set up an x axis and put it on the code chart:
-    var xAxis = d3.svg.axis().scale(x)
-                    .tickSize(1)
-                    .ticks(d3.time.years, 1);
-    d3.select('section.code svg').append('g')
-        .attr('transform', 'translate(' + margin.left + ',0)')
-        .call(xAxis);
-
-    // Helper function to convert an ISO date string to an x pixel value
-    var dateToX = function(options) {
+    var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
+                           .domain([START_DATE, new Date()]);
+    // Helper scale function to convert an ISO date string to an x pixel value:
+    x.fromDateString = function(options) {
         options = options || {};
         var offset = options.offset || 0;
         var propName = options.propName || 'date';
@@ -152,11 +143,19 @@ module.exports = function() {
         };
     };
 
+    // Set up an x axis and put it on the top chart:
+    var xAxis = d3.svg.axis().scale(x)
+                    .tickSize(1)
+                    .ticks(d3.time.years, 1);
+    d3.select('section:first-of-type svg').append('g')
+        .attr('transform', 'translate(' + margin.left + ',0)')
+        .call(xAxis);
+
     // Plot the blogposts that are dumped as window._posts in the homepage template
     circleChart({
         data: window._posts,
         width: svgWidth,
-        dateToX: dateToX,
+        xScale: x,
         yBaseline: 30,
         el: d3.select('section.posts svg')
                 .append('g').attr('transform', leavePadding),
@@ -189,7 +188,7 @@ module.exports = function() {
             circleChart({
                 data: tagGroups[tag],
                 width: svgWidth,
-                dateToX: dateToX,
+                xScale: x,
                 yBaseline: 20 + j*20,
                 radius: 10,
                 el: d3.select('section.links svg')
@@ -214,7 +213,6 @@ module.exports = function() {
             data: myRepos,
             width: svgWidth,
             xScale: x,
-            dateToX: dateToX,
             el: d3.select('section.code svg')
                     .append('g').attr('transform', leavePadding),
         });
