@@ -85,7 +85,7 @@ section.homepage.code a:before {
 section.homepage.links a:before {
   content: "\22";
 }
-svg {
+.homepage svg {
   display: block;
   width: 80%;
 }

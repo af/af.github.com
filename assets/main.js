@@ -119,7 +119,7 @@ module.exports = function() {
     var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=linksCallback';
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
 
-    var margin = {top: 20, right: 20, left: 20};
+    var margin = {top: 20, right: 150, left: 20};
     var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()]);
     var leavePadding = 'translate(' + margin.left + ',' + margin.top + ')';
