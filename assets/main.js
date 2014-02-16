@@ -1,9 +1,68 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var d3 = require('d3');
 
+// Simple chart mapping content as circles along a time axis.
+// Config params:
+//  data
+//  el
+//  dateToX
+//  groupClass
+//  timeProp
+//  urlProp
+//  titleProp
+//  radius
+//  yBaseline
+module.exports = function circleChart(config) {
+    var dateToX = config.dateToX;
+    var yBaseline = config.yBaseline || 20;
+    var radius = config.radius || 20;
+    if (typeof radius !== 'function') {
+        var r = radius;
+        radius = function() { return r };
+    }
 
-var githubGraph = function(config) {
-    var COMET_SPACING = 25;
+    var selector = 'g' + (config.groupClass ? '.' + config.groupClass : '');
+    var all = config.el.selectAll(selector).data(config.data);
+    var enter = all.enter().append('g').attr('class', config.groupClass || '');
+
+    var links = enter.append('a')
+            .attr('xlink:href', function(d) { return d[config.urlProp] });
+
+    links.append('circle')
+            .attr('cx', dateToX({ propName: config.timeProp }))
+            .attr('cy', yBaseline)
+            .attr('r', radius);
+
+    links.append('line')
+            .attr('x1', dateToX({ propName: config.timeProp, offset: 0.5 }))
+            .attr('x2', dateToX({ propName: config.timeProp, offset: 0.5 }))
+            .attr('y1', function(d) {
+                var radius = parseFloat(d3.select(this.parentElement.firstChild).attr('r'));
+                return yBaseline + radius + 3;
+            })
+            .attr('y2', function(d) { return parseFloat(d3.select(this).attr('y1')) + 30; });
+
+    enter.append('text')
+            .text(function(d) { return d[config.titleProp] })
+            .attr('transform', function(d) {
+                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
+                var y = yBaseline + radius(d) + 20;
+                return 'translate(' + [x,y].join(',') + ')';
+            });
+    enter.append('text').attr('class', 'date')
+            .text(function(d) { return (new Date(d[config.timeProp])).toISOString().split('T')[0]; })
+            .attr('transform', function(d) {
+                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
+                var y = yBaseline + radius(d) + 35;
+                return 'translate(' + [x,y].join(',') + ')';
+            });
+};
+
+},{"d3":5}],2:[function(require,module,exports){
+var COMET_SPACING = 25;
+
+// Convert Github repository API data into a "comet" date chart
+module.exports = function(config) {
     var x = config.xScale;
     var createdAtX = config.dateToX({ propName: 'created_at' });
 
@@ -55,68 +114,17 @@ var githubGraph = function(config) {
 };
 
 
-// Simple chart mapping content as circles along a time axis.
-// Config params:
-//  data
-//  el
-//  dateToX
-//  groupClass
-//  timeProp
-//  urlProp
-//  titleProp
-//  radius
-//  yBaseline
-function circleChart(config) {
-    var dateToX = config.dateToX;
-    var yBaseline = config.yBaseline || 20;
-    var radius = config.radius || 20;
-    if (typeof radius !== 'function') {
-        var r = radius;
-        radius = function() { return r };
-    }
+},{}],3:[function(require,module,exports){
+var d3 = require('d3');
+var circleChart = require('./circleChart');
+var codeChart = require('./codeChart');
 
-    var selector = 'g' + (config.groupClass ? '.' + config.groupClass : '');
-    var all = config.el.selectAll(selector).data(config.data);
-    var enter = all.enter().append('g').attr('class', config.groupClass || '');
-
-    var links = enter.append('a')
-            .attr('xlink:href', function(d) { return d[config.urlProp] });
-
-    links.append('circle')
-            .attr('cx', dateToX({ propName: config.timeProp }))
-            .attr('cy', yBaseline)
-            .attr('r', radius);
-
-    links.append('line')
-            .attr('x1', dateToX({ propName: config.timeProp, offset: 0.5 }))
-            .attr('x2', dateToX({ propName: config.timeProp, offset: 0.5 }))
-            .attr('y1', function(d) {
-                var radius = parseFloat(d3.select(this.parentElement.firstChild).attr('r'));
-                return yBaseline + radius + 3;
-            })
-            .attr('y2', function(d) { return parseFloat(d3.select(this).attr('y1')) + 30; });
-
-    enter.append('text')
-            .text(function(d) { return d[config.titleProp] })
-            .attr('transform', function(d) {
-                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
-                var y = yBaseline + radius(d) + 20;
-                return 'translate(' + [x,y].join(',') + ')';
-            });
-    enter.append('text').attr('class', 'date')
-            .text(function(d) { return (new Date(d[config.timeProp])).toISOString().split('T')[0]; })
-            .attr('transform', function(d) {
-                var x = dateToX({ propName: config.timeProp, offset: 5 })(d);
-                var y = yBaseline + radius(d) + 35;
-                return 'translate(' + [x,y].join(',') + ')';
-            });
-}
+var START_DATE = new Date(new Date() - 548*24*3600*1000);   // ~ 1.5 years of history
+var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
+var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=linksCallback';
 
 
 module.exports = function() {
-    var START_DATE = new Date(new Date() - 548*24*3600*1000);   // ~ 1.5 years of history
-    var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
-    var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=linksCallback';
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
 
     var margin = {top: 20, right: 150, left: 20};
@@ -202,7 +210,7 @@ module.exports = function() {
                           .sort(function(r1, r2) {
                             return (r1.pushed_at < r2.pushed_at) ? 1 : -1;
                           });
-        githubGraph({
+        codeChart({
             data: myRepos,
             width: svgWidth,
             xScale: x,
@@ -211,16 +219,15 @@ module.exports = function() {
                     .append('g').attr('transform', leavePadding),
         });
     });
-
 };
 
-},{"d3":3}],2:[function(require,module,exports){
+},{"./circleChart":1,"./codeChart":2,"d3":5}],4:[function(require,module,exports){
 var homepage = require('./homepage');
 
 // Quick and dirty "router":
 if (location.pathname === '/') homepage();
 
-},{"./homepage":1}],3:[function(require,module,exports){
+},{"./homepage":3}],5:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.4.1"
@@ -9495,4 +9502,4 @@ if (location.pathname === '/') homepage();
     this.d3 = d3;
   }
 }();
-},{}]},{},[2])
+},{}]},{},[4])
