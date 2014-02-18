@@ -49,17 +49,18 @@ body {
   font-size: 20px;
   color: #334;
 }
-body > header {
-  padding: 1rem;
-}
 body > header .title {
   display: block;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
   border: none;
   background: none;
   zoom: 1;
   border: none;
   box-shadow: none;
   color: inherit !important;
+  background: #eee;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 body > header .title:before,
 body > header .title:after {
@@ -105,7 +106,6 @@ ul.posts li {
 }
 .post_list,
 .post {
-  padding: 2rem 0;
   max-width: 35em;
 }
 .post header h1 {
@@ -131,27 +131,6 @@ ul.posts li {
   font-size: 1rem;
 }
 @media screen and (max-width: 800px) {
-  body {
-    padding-top: 110px;
-  }
-  body > header {
-    position: static;
-    height: auto;
-    width: 100%;
-    padding-top: 1px;
-  }
-  body > header .title {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem 2rem;
-    background: #eee;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-  }
-  .hp_canvas_wrap {
-    height: 250px;
-  }
   .content {
     margin-left: 0;
     padding: 0 2rem;

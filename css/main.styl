@@ -4,16 +4,18 @@
 
 // Main site header
 body > header
-    padding: 1rem
-
     .title
         display: block
+        padding: 1rem 2rem
+        margin-bottom: 2rem
         border: none
         background: none
         clearfix()
         border: none
         box-shadow: none
         color: inherit !important
+        background: #eee
+        box-shadow: 0 0 5px rgba(0,0,0, 0.3)
 
     .avatar
         float: left
@@ -51,7 +53,6 @@ ul.posts
     line-height: 1
 
 .post_list, .post
-    padding: 2rem 0
     max-width: 35em
 
 // Blog post article styles
@@ -75,30 +76,8 @@ ul.posts
         font-size: 1rem
 
 
-// Mobile header/footer:
+// Mobile content
 @media screen and (max-width: 800px)
-    body
-        padding-top: 110px   // Leave room for heading to be absolutely positioned here
-
-    body > header
-        position: static
-        height: auto
-        width: 100%
-        padding-top: 1px
-
-        // Move title to the top of the page
-        .title
-            position: absolute
-            top: 0
-            left: 0
-            width: 100%
-            padding: 1rem 2rem
-            background: #eee
-            box-shadow: 0 0 5px rgba(0,0,0, 0.3)
-
-    .hp_canvas_wrap
-        height: 250px       // Just show a bit of the canvas animation on mobile
-
     .content
         margin-left: 0
         padding: 0 2rem
