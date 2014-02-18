@@ -59,8 +59,6 @@ section.homepage.code {
 }
 section.homepage.code > a {
   border-color: #5a6;
-}
-section.homepage.code > a:hover {
   background: rgba(85,170,102,0.2);
 }
 section.homepage.posts {
@@ -68,8 +66,6 @@ section.homepage.posts {
 }
 section.homepage.posts > a {
   border-color: #56a;
-}
-section.homepage.posts > a:hover {
   background: rgba(85,102,170,0.2);
 }
 section.homepage.links {
@@ -77,8 +73,6 @@ section.homepage.links {
 }
 section.homepage.links > a {
   border-color: #dcb432;
-}
-section.homepage.links > a:hover {
   background: rgba(220,180,50,0.2);
 }
 section.homepage > a {
@@ -93,9 +87,13 @@ section.homepage > a {
   border-left: 1rem solid rgba(255,255,255,0.3);
   color: #555;
   transition: all 0.3s;
+  box-shadow: 7px 0 7px -8px rgba(100,100,100,0.3);
+  text-shadow: 0 1px 2px #eee;
+  font-style: italic;
 }
 section.homepage > a:hover {
-  border-width: 20px;
+  box-shadow: 11px 0 15px -8px rgba(100,100,100,0.5);
+  color: #333;
 }
 section.homepage > a:before {
   font: normal 1.3em 'icomoon';
@@ -103,12 +101,6 @@ section.homepage > a:before {
 }
 section.homepage h2 {
   display: inline;
-}
-section.homepage.code a:before {
-  content: "\24";
-}
-section.homepage.links a:before {
-  content: "\22";
 }
 .homepage svg {
   display: block;
