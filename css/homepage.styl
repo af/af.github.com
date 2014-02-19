@@ -5,6 +5,11 @@ $postsColour = #56a
 $linksColour = rgb(220, 180, 50)
 
 flexboxCenter()
+    // Prefixed versions for safari:
+    display: -webkit-flex
+    -webkit-justify-content: center
+    -webkit-align-items: center
+
     display: flex
     justify-content: center
     align-items: center
@@ -14,6 +19,7 @@ flexboxCenter()
 section.homepage
     margin-bottom: 2rem
     position: relative
+    background: linear-gradient(#f7f7f7, #eee)
 
     &.loading:before
         content: 'Loading data...'
@@ -33,20 +39,30 @@ section.homepage
 
         > a
             border-color: $codeColour
-            background: rgba($codeColour, 0.2)
+            background: rgba($codeColour, 0.1)
+
+            &:hover
+                background: rgba($codeColour, 0.2)
 
     &.posts
         height: 120px
 
         > a
             border-color: $postsColour
-            background: rgba($postsColour, 0.2)
+            background: rgba($postsColour, 0.1)
+
+            &:hover
+                background: rgba($postsColour, 0.2)
+
     &.links
-        height: 150px
+        height: 120px
 
         > a
             border-color: $linksColour
-            background: rgba($linksColour, 0.2)
+            background: rgba($linksColour, 0.1)
+
+            &:hover
+                background: rgba($linksColour, 0.2)
 
     > a
         display: block
@@ -58,12 +74,10 @@ section.homepage
         border-left: 1rem solid rgba(255,255,255,0.3)
         color: #555
         transition: all 0.3s
-        box-shadow: 7px 0 7px -8px rgba(100,100,100, 0.3)
         text-shadow: 0 1px 2px #eee
         font-style: italic
 
         &:hover
-            box-shadow: 11px 0 15px -8px rgba(100,100,100, 0.5)
             color: #333
 
         &:before
@@ -76,6 +90,7 @@ section.homepage
 .homepage svg
     display: block
     width: 80%
+    height: 100%
 
 .posts svg, .links svg
     g

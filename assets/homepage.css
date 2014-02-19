@@ -40,6 +40,7 @@ p code {
 section.homepage {
   margin-bottom: 2rem;
   position: relative;
+  background: linear-gradient(#f7f7f7, #eee);
 }
 section.homepage.loading:before {
   content: 'Loading data...';
@@ -59,6 +60,9 @@ section.homepage.code {
 }
 section.homepage.code > a {
   border-color: #5a6;
+  background: rgba(85,170,102,0.1);
+}
+section.homepage.code > a:hover {
   background: rgba(85,170,102,0.2);
 }
 section.homepage.posts {
@@ -66,17 +70,26 @@ section.homepage.posts {
 }
 section.homepage.posts > a {
   border-color: #56a;
+  background: rgba(85,102,170,0.1);
+}
+section.homepage.posts > a:hover {
   background: rgba(85,102,170,0.2);
 }
 section.homepage.links {
-  height: 150px;
+  height: 120px;
 }
 section.homepage.links > a {
   border-color: #dcb432;
+  background: rgba(220,180,50,0.1);
+}
+section.homepage.links > a:hover {
   background: rgba(220,180,50,0.2);
 }
 section.homepage > a {
   display: block;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,12 +100,10 @@ section.homepage > a {
   border-left: 1rem solid rgba(255,255,255,0.3);
   color: #555;
   transition: all 0.3s;
-  box-shadow: 7px 0 7px -8px rgba(100,100,100,0.3);
   text-shadow: 0 1px 2px #eee;
   font-style: italic;
 }
 section.homepage > a:hover {
-  box-shadow: 11px 0 15px -8px rgba(100,100,100,0.5);
   color: #333;
 }
 section.homepage > a:before {
@@ -105,6 +116,7 @@ section.homepage h2 {
 .homepage svg {
   display: block;
   width: 80%;
+  height: 100%;
 }
 .posts svg g text,
 .links svg g text {
