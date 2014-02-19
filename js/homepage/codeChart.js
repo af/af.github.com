@@ -5,6 +5,17 @@ module.exports = function(config) {
     var x = config.xScale;
     var createdAtX = x.fromDateString({ propName: 'created_at' });
 
+    var drawComet = function(d) {
+        var width = x(new Date(d.pushed_at)) - createdAtX(d);
+        var height = 10 + Math.floor(Math.sqrt(d.stargazers_count));
+        var path = 'M0 2 ';
+        path += ('Q' + width + ' 0 ' + (width - 10) + ' ' + height + ' ');
+        path += ('L' + width + ' 0 ');
+        path += ('L' + (width - 10) + ' ' + (-height) + ' ');
+        path += ('Q' + width + ' 0 0 -2');
+        return path;
+    };
+
     var all = config.el.selectAll('g.repo').data(config.data);
     var enter = all.enter().append('g')
                     .attr('class', 'repo')
@@ -21,6 +32,14 @@ module.exports = function(config) {
                 return "translate(" + createdAtX(d) + "," + (15 + i*COMET_SPACING) + ")";
             });
 
+    // Draw "comet" shape for each repo:
+    links.append('path')
+            .attr('d', drawComet)
+            .attr('transform', function(d, i) {
+                return "translate(" + createdAtX(d) + "," + (30 + i*COMET_SPACING) + ")";
+            });
+
+    // Repo text is in one <text> element with several <tspan>s
     var text = links.append('text').attr('class', 'name')
             .attr('transform', function(d, i) {
                 return "translate(" + createdAtX(d) + "," + (25 + i*COMET_SPACING) + ")";
@@ -34,21 +53,5 @@ module.exports = function(config) {
         .attr('class', 'description')
         .attr('dx', 10)
         .text(function(d) { return d.description });
-
-    // Draw "comet" shape for each repo:
-    links.append('path')
-            .attr('d', function(d) {
-                var width = x(new Date(d.pushed_at)) - createdAtX(d);
-                var height = 10 + Math.floor(Math.sqrt(d.stargazers_count));
-                var path = 'M0 2 ';
-                path += ('Q' + width + ' 0 ' + (width - 10) + ' ' + height + ' ');
-                path += ('L' + width + ' 0 ');
-                path += ('L' + (width - 10) + ' ' + (-height) + ' ');
-                path += ('Q' + width + ' 0 0 -2');
-                return path;
-            })
-            .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (30 + i*COMET_SPACING) + ")";
-            });
 };
 
