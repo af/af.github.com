@@ -37,6 +37,17 @@ code {
 p code {
   padding: 0.1em 0.2em;
 }
+@font-face {
+  font-family: 'icons';
+  src: url("/fonts/icons.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: 'Alegreya', serif;
+  font-size: 20px;
+  color: #334;
+}
 section.homepage {
   margin-bottom: 2rem;
   position: relative;
@@ -54,27 +65,6 @@ section.homepage.loading:before {
 }
 section.homepage.loading.failed:before {
   content: "Sorry, failed to load the data. Refresh and try again?";
-}
-section.homepage.code {
-  height: 300px;
-}
-section.homepage.code > a {
-  border-color: #5a6;
-  background: linear-gradient(rgba(85,170,102,0.8), #5a6);
-}
-section.homepage.posts {
-  height: 120px;
-}
-section.homepage.posts > a {
-  border-color: #56a;
-  background: linear-gradient(rgba(85,102,170,0.8), #56a);
-}
-section.homepage.links {
-  height: 120px;
-}
-section.homepage.links > a {
-  border-color: #dcb432;
-  background: linear-gradient(rgba(220,180,50,0.8), #dcb432);
 }
 section.homepage > a {
   display: block;
@@ -98,8 +88,38 @@ section.homepage > a:hover {
   box-shadow: -2px 0 7px 1px rgba(0,0,0,0.3) inset;
 }
 section.homepage > a:before {
-  font: normal 1.3em 'icomoon';
+  font: normal 1.3em 'icons';
   margin-right: 0.3em;
+}
+section.homepage.code {
+  height: 300px;
+}
+section.homepage.code > a {
+  border-color: #5a6;
+  background: linear-gradient(rgba(85,170,102,0.8), #5a6);
+}
+section.homepage.code > a:before {
+  content: '\e800';
+}
+section.homepage.posts {
+  height: 120px;
+}
+section.homepage.posts > a {
+  border-color: #56a;
+  background: linear-gradient(rgba(85,102,170,0.8), #56a);
+}
+section.homepage.posts > a:before {
+  content: '\e803';
+}
+section.homepage.links {
+  height: 120px;
+}
+section.homepage.links > a {
+  border-color: #dcb432;
+  background: linear-gradient(rgba(220,180,50,0.8), #dcb432);
+}
+section.homepage.links > a:before {
+  content: '\e804';
 }
 section.homepage h2 {
   display: inline;
