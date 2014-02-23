@@ -37,6 +37,7 @@ section.homepage
 
     > a
         display: block
+        position: relative
         flexboxCenter()
         width: 20%
         float: left
@@ -46,14 +47,30 @@ section.homepage
         color: #eee
         text-shadow: 0 1px 2px rgba(0,0,0,0.7)
         font-style: italic
-        border-left: 1rem solid transparent
+        overflow: hidden
 
         &:hover
-            box-shadow: -2px 0 7px 1px rgba(0,0,0,0.3) inset
+            color: white
+
+            &:before
+                color: rgba(#fff, 0.45)
 
         &:before
-            font: normal 1.3em 'icons'
-            margin-right: 0.3em
+            flexboxCenter()
+            font: normal 10em 'icons'
+            transition: color 0.3s
+            text-shadow: none
+            color: rgba(#fff, 0.35)
+
+    h2
+        position: absolute
+        top: 35%
+        left: 0
+        width: 100%
+        margin: 0
+        text-align: center
+
+
 
     &.code
         height: 300px
@@ -64,6 +81,10 @@ section.homepage
 
             &:before
                 $githubIcon()
+                font-size: 22rem
+
+        h2
+            top: 45%
 
     &.posts
         height: 120px
@@ -74,6 +95,8 @@ section.homepage
 
             &:before
                 $pencilIcon()
+                position: relative
+                top: -1rem
 
     &.links
         height: 120px
@@ -84,9 +107,7 @@ section.homepage
 
             &:before
                 $linkIcon()
-
-    h2
-        display: inline
+                font-size: 9rem
 
 .homepage svg
     display: block
