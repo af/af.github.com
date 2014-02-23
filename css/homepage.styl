@@ -39,30 +39,21 @@ section.homepage
 
         > a
             border-color: $codeColour
-            background: rgba($codeColour, 0.1)
-
-            &:hover
-                background: rgba($codeColour, 0.2)
+            background: linear-gradient(rgba($codeColour, 0.8), $codeColour)
 
     &.posts
         height: 120px
 
         > a
             border-color: $postsColour
-            background: rgba($postsColour, 0.1)
-
-            &:hover
-                background: rgba($postsColour, 0.2)
+            background: linear-gradient(rgba($postsColour, 0.8), $postsColour)
 
     &.links
         height: 120px
 
         > a
             border-color: $linksColour
-            background: rgba($linksColour, 0.1)
-
-            &:hover
-                background: rgba($linksColour, 0.2)
+            background: linear-gradient(rgba($linksColour, 0.8), $linksColour)
 
     > a
         display: block
@@ -71,14 +62,14 @@ section.homepage
         float: left
         text-align: center
         height: 100%
-        border-left: 1rem solid rgba(255,255,255,0.3)
-        color: #555
         transition: all 0.3s
-        text-shadow: 0 1px 2px #eee
+        color: #eee
+        text-shadow: 0 1px 2px rgba(0,0,0,0.7)
         font-style: italic
+        border-left: 1rem solid transparent
 
         &:hover
-            color: #333
+            box-shadow: -2px 0 7px 1px rgba(0,0,0,0.3) inset
 
         &:before
             font: normal 1.3em 'icomoon'

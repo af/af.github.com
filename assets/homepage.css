@@ -60,30 +60,21 @@ section.homepage.code {
 }
 section.homepage.code > a {
   border-color: #5a6;
-  background: rgba(85,170,102,0.1);
-}
-section.homepage.code > a:hover {
-  background: rgba(85,170,102,0.2);
+  background: linear-gradient(rgba(85,170,102,0.8), #5a6);
 }
 section.homepage.posts {
   height: 120px;
 }
 section.homepage.posts > a {
   border-color: #56a;
-  background: rgba(85,102,170,0.1);
-}
-section.homepage.posts > a:hover {
-  background: rgba(85,102,170,0.2);
+  background: linear-gradient(rgba(85,102,170,0.8), #56a);
 }
 section.homepage.links {
   height: 120px;
 }
 section.homepage.links > a {
   border-color: #dcb432;
-  background: rgba(220,180,50,0.1);
-}
-section.homepage.links > a:hover {
-  background: rgba(220,180,50,0.2);
+  background: linear-gradient(rgba(220,180,50,0.8), #dcb432);
 }
 section.homepage > a {
   display: block;
@@ -97,14 +88,14 @@ section.homepage > a {
   float: left;
   text-align: center;
   height: 100%;
-  border-left: 1rem solid rgba(255,255,255,0.3);
-  color: #555;
   transition: all 0.3s;
-  text-shadow: 0 1px 2px #eee;
+  color: #eee;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
   font-style: italic;
+  border-left: 1rem solid transparent;
 }
 section.homepage > a:hover {
-  color: #333;
+  box-shadow: -2px 0 7px 1px rgba(0,0,0,0.3) inset;
 }
 section.homepage > a:before {
   font: normal 1.3em 'icomoon';
