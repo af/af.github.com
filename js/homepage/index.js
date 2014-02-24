@@ -38,10 +38,12 @@ module.exports = function() {
 
     // Set up an x axis and put it on the top chart:
     var xAxis = d3.svg.axis().scale(x)
-                    .tickSize(1)
+                    .innerTickSize(6)
+                    .outerTickSize(0)
                     .ticks(d3.time.years, 1);
     d3.select('section:first-of-type svg').append('g')
         .attr('transform', 'translate(' + margin.left + ',0)')
+        .attr('class', 'xAxis')
         .call(xAxis);
 
     // Plot the blogposts that are dumped as window._posts in the homepage template

@@ -153,6 +153,18 @@ section.homepage.links > a:before {
   width: 80%;
   height: 100%;
 }
+.homepage svg .xAxis {
+  fill: #ccc;
+  font-weight: bold;
+}
+.homepage svg .xAxis path {
+  stroke: #ccc;
+  stroke-width: 4px;
+}
+.homepage svg .xAxis line {
+  stroke: #ccc;
+  stroke-width: 2px;
+}
 .posts svg g text,
 .links svg g text {
   display: none;
