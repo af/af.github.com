@@ -68,7 +68,7 @@ module.exports = function(config) {
 
     var drawComet = function(d) {
         var width = x(new Date(d.pushed_at)) - createdAtX(d);
-        var height = 10 + Math.floor(Math.sqrt(d.stargazers_count));
+        var height = 4 + Math.floor(Math.sqrt(d.size)/2);
         var path = 'M0 2 ';
         path += ('Q' + width + ' 0 ' + (width - 10) + ' ' + height + ' ');
         path += ('L' + width + ' 0 ');
