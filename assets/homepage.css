@@ -116,10 +116,14 @@ section.homepage.code {
 }
 section.homepage.code > a {
   border-color: #5a6;
-  background: linear-gradient(rgba(85,170,102,0.8), #5a6);
+  background: linear-gradient(rgba(85,170,102,0.6), #5a6);
 }
 section.homepage.code > a:before {
   content: '\e800';
+  color: 'inherit';
+  font-family: 'icons';
+  font-style: normal;
+  margin-right: 0.3em;
   font-size: 22rem;
 }
 section.homepage.code h2 {
@@ -130,10 +134,14 @@ section.homepage.posts {
 }
 section.homepage.posts > a {
   border-color: #56a;
-  background: linear-gradient(rgba(85,102,170,0.8), #56a);
+  background: linear-gradient(rgba(85,102,170,0.6), #56a);
 }
 section.homepage.posts > a:before {
   content: '\e803';
+  color: 'inherit';
+  font-family: 'icons';
+  font-style: normal;
+  margin-right: 0.3em;
   position: relative;
   top: -1rem;
 }
@@ -142,10 +150,14 @@ section.homepage.links {
 }
 section.homepage.links > a {
   border-color: #dcb432;
-  background: linear-gradient(rgba(220,180,50,0.8), #dcb432);
+  background: linear-gradient(rgba(220,180,50,0.6), #dcb432);
 }
 section.homepage.links > a:before {
   content: '\e804';
+  color: 'inherit';
+  font-family: 'icons';
+  font-style: normal;
+  margin-right: 0.3em;
   font-size: 9rem;
 }
 .homepage svg {
@@ -156,6 +168,7 @@ section.homepage.links > a:before {
 .homepage svg .xAxis {
   fill: #ccc;
   font-weight: bold;
+  font-size: 1.6rem;
 }
 .homepage svg .xAxis path {
   stroke: #ccc;

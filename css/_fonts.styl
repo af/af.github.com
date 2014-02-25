@@ -5,16 +5,23 @@
     font-weight: normal
     font-style: normal
 
-$githubIcon()
-    content: '\e800'
-$pencilIcon()
-    content: '\e803'
-$linkIcon()
-    content: '\e804'
-$briefcaseIcon()
-    content: '\e802'
-$locationIcon()
-    content: '\e801'
+includeIcon($char, $color)
+    content: $char
+    color: $color
+    font-family: 'icons'
+    font-style: normal
+    margin-right: 0.3em
+
+$githubIcon($color='inherit')
+    includeIcon('\e800', $color)
+$pencilIcon($color='inherit')
+    includeIcon('\e803', $color)
+$linkIcon($color='inherit')
+    includeIcon('\e804', $color)
+$briefcaseIcon($color='inherit')
+    includeIcon('\e802', $color)
+$locationIcon($color='inherit')
+    includeIcon('\e801', $color)
 
 body
     font-family: 'Alegreya', serif
