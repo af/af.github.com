@@ -39,7 +39,7 @@ section.homepage
         display: block
         position: relative
         flexboxCenter()
-        width: 20%
+        width: 15%
         float: left
         text-align: center
         height: 100%
@@ -48,6 +48,9 @@ section.homepage
         text-shadow: 0 1px 2px rgba(0,0,0,0.7)
         font-style: italic
         overflow: hidden
+
+        @media screen and (max-width: 400px)
+            font-size: 0.8rem
 
         &:hover
             color: white
@@ -111,7 +114,7 @@ section.homepage
 
 .homepage svg
     display: block
-    width: 80%
+    width: 85%
     height: 100%
 
     .xAxis

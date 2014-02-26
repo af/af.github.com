@@ -23,6 +23,11 @@ body > header
         position: relative
         border-radius: 50%
 
+        @media screen and (max-width: 400px)
+            width: 50px
+            height: 50px
+            top: 0.8rem
+
     h1
         font-size: 2rem
         margin: 1rem 0 0
@@ -34,13 +39,16 @@ body > header
         font-style: italic
         color: #888
 
+        @media screen and (max-width: 400px)
+            font-size: 0.9rem
+
     .job:before
         $briefcaseIcon(#aaa)
     .location:before
         $locationIcon(#aaa)
 
 .content
-    padding: 0 5rem
+    padding: 0 7rem
 
 ul.posts
     list-style-type: none
@@ -99,8 +107,11 @@ ul.posts
 
 // Mobile content
 @media screen and (max-width: 800px)
+    body > header .title
+        padding: 1rem
+
     .content
         margin-left: 0
-        padding: 0 2rem
+        padding: 0 1rem
 
 @import "homepage"
