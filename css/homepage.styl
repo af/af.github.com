@@ -18,7 +18,7 @@ flexboxCenter()
 
 // Homepage styles
 section.homepage
-    margin-bottom: 2rem
+    margin: 2rem 0
     position: relative
     background: linear-gradient(#f7f7f7, #eee)
 
@@ -76,11 +76,10 @@ section.homepage
 
 
     &.code
-        height: 300px
+        height: 350px
 
         > a
-            border-color: $codeColour
-            background: linear-gradient(rgba($codeColour, 0.6), $codeColour)
+            background: rgba($codeColour, 0.9)
 
             &:before
                 $githubIcon()
@@ -93,8 +92,7 @@ section.homepage
         height: 120px
 
         > a
-            border-color: $postsColour
-            background: linear-gradient(rgba($postsColour, 0.6), $postsColour)
+            background: rgba($postsColour, 0.9)
 
             &:before
                 $pencilIcon()
@@ -105,8 +103,7 @@ section.homepage
         height: 120px
 
         > a
-            border-color: $linksColour
-            background: linear-gradient(rgba($linksColour, 0.6), $linksColour)
+            background: rgba($linksColour, 0.9)
 
             &:before
                 $linkIcon()

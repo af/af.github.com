@@ -233,7 +233,7 @@ body {
   color: #334;
 }
 section.homepage {
-  margin-bottom: 2rem;
+  margin: 2rem 0;
   position: relative;
   background: linear-gradient(#f7f7f7, #eee);
 }
@@ -301,11 +301,10 @@ section.homepage h2 {
   text-align: center;
 }
 section.homepage.code {
-  height: 300px;
+  height: 350px;
 }
 section.homepage.code > a {
-  border-color: #5a6;
-  background: linear-gradient(rgba(85,170,102,0.6), #5a6);
+  background: rgba(85,170,102,0.9);
 }
 section.homepage.code > a:before {
   content: '\e800';
@@ -322,8 +321,7 @@ section.homepage.posts {
   height: 120px;
 }
 section.homepage.posts > a {
-  border-color: #56a;
-  background: linear-gradient(rgba(85,102,170,0.6), #56a);
+  background: rgba(85,102,170,0.9);
 }
 section.homepage.posts > a:before {
   content: '\e803';
@@ -338,8 +336,7 @@ section.homepage.links {
   height: 120px;
 }
 section.homepage.links > a {
-  border-color: #dcb432;
-  background: linear-gradient(rgba(220,180,50,0.6), #dcb432);
+  background: rgba(220,180,50,0.9);
 }
 section.homepage.links > a:before {
   content: '\e804';
