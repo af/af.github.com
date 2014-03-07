@@ -12,6 +12,7 @@ var d3 = require('d3');
 //  titleProp
 //  radius
 //  yBaseline
+//  loadingDelay
 module.exports = function circleChart(config) {
     var x = config.xScale;
     var yBaseline = config.yBaseline || 20;
@@ -28,10 +29,16 @@ module.exports = function circleChart(config) {
     var links = enter.append('a')
             .attr('xlink:href', function(d) { return d[config.urlProp] });
 
-    links.append('circle')
+    var circles = links.append('circle')
             .attr('cx', x.fromDateString({ propName: config.timeProp }))
             .attr('cy', yBaseline)
-            .attr('r', radius);
+            .attr('r', 0);
+
+    var loadingDelay = config.loadingDelay || 0;
+    circles.transition()
+            .delay(function(d) { return loadingDelay + Math.random()*1000 })
+            .duration(1000).attr('r', radius);
+
 
     links.append('line')
             .attr('x1', x.fromDateString({ propName: config.timeProp, offset: 0.5 }))
@@ -80,7 +87,11 @@ module.exports = function(config) {
     var all = config.el.selectAll('g.repo').data(config.data);
     var enter = all.enter().append('g')
                     .attr('class', 'repo')
-                    .attr('transform', 'translate(0,20)');  // clears space for x-axis at top
+                    .attr('transform', 'translate(-800,20)');  // clears space for x-axis at top
+    enter.transition()
+            .delay(function(d, i) { return i*100 })
+            .duration(1000).attr('transform', 'translate(0,20)');
+
 
     var links = enter.append('a')
             .attr('xlink:href', function(d) { return d.html_url });
@@ -175,6 +186,7 @@ module.exports = function() {
         el: d3.select('section.posts svg')
                 .append('g').attr('transform', leavePadding),
         radius: function(d) { return 15 + Math.sqrt(d.length)/5; },
+        loadingDelay: 1500,
         groupClass: 'post',
         timeProp: 'date',
         urlProp: 'url',
@@ -214,7 +226,8 @@ module.exports = function() {
                 groupClass: tag,
                 timeProp: 'dt',
                 urlProp: 'u',
-                titleProp: 'd'
+                titleProp: 'd',
+                loadingDelay: 2000
             });
 
             linksSvg.append('text').attr('class', 'linkLabel')

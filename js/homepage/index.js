@@ -55,6 +55,7 @@ module.exports = function() {
         el: d3.select('section.posts svg')
                 .append('g').attr('transform', leavePadding),
         radius: function(d) { return 15 + Math.sqrt(d.length)/5; },
+        loadingDelay: 1500,
         groupClass: 'post',
         timeProp: 'date',
         urlProp: 'url',
@@ -94,7 +95,8 @@ module.exports = function() {
                 groupClass: tag,
                 timeProp: 'dt',
                 urlProp: 'u',
-                titleProp: 'd'
+                titleProp: 'd',
+                loadingDelay: 2000
             });
 
             linksSvg.append('text').attr('class', 'linkLabel')

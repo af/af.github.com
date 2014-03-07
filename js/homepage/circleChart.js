@@ -11,6 +11,7 @@ var d3 = require('d3');
 //  titleProp
 //  radius
 //  yBaseline
+//  loadingDelay
 module.exports = function circleChart(config) {
     var x = config.xScale;
     var yBaseline = config.yBaseline || 20;
@@ -27,10 +28,16 @@ module.exports = function circleChart(config) {
     var links = enter.append('a')
             .attr('xlink:href', function(d) { return d[config.urlProp] });
 
-    links.append('circle')
+    var circles = links.append('circle')
             .attr('cx', x.fromDateString({ propName: config.timeProp }))
             .attr('cy', yBaseline)
-            .attr('r', radius);
+            .attr('r', 0);
+
+    var loadingDelay = config.loadingDelay || 0;
+    circles.transition()
+            .delay(function(d) { return loadingDelay + Math.random()*1000 })
+            .duration(1000).attr('r', radius);
+
 
     links.append('line')
             .attr('x1', x.fromDateString({ propName: config.timeProp, offset: 0.5 }))

@@ -19,7 +19,11 @@ module.exports = function(config) {
     var all = config.el.selectAll('g.repo').data(config.data);
     var enter = all.enter().append('g')
                     .attr('class', 'repo')
-                    .attr('transform', 'translate(0,20)');  // clears space for x-axis at top
+                    .attr('transform', 'translate(-800,20)');  // clears space for x-axis at top
+    enter.transition()
+            .delay(function(d, i) { return i*100 })
+            .duration(1000).attr('transform', 'translate(0,20)');
+
 
     var links = enter.append('a')
             .attr('xlink:href', function(d) { return d.html_url });
