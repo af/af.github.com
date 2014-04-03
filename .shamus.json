@@ -11,6 +11,11 @@
 
     "tasks": [
         {
+            "name": "jekyll",
+            "command": "jekyll serve --watch",
+            "daemon": true
+        },
+        {
             "name": "Browserify",
             "command": "npm run build_js",
             "parser": "exitcode",
