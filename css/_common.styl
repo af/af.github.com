@@ -23,10 +23,10 @@ p
 a, a.visited
     color: $actionColour
     text-decoration: none
-    transition: color 0.3s, border 0.3s, box-shadow 0.6s
+    transition: color 0.3s
 
-    a:hover
-        text-decoration: underline
+    &:hover
+        color: lighten($actionColour, 30%)
 
 pre
     background: $codeBg
