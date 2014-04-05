@@ -333,7 +333,7 @@ section.homepage.posts > a:before {
   top: -1rem;
 }
 section.homepage.links {
-  height: 120px;
+  height: 140px;
 }
 section.homepage.links > a {
   background: rgba(220,180,50,0.9);
