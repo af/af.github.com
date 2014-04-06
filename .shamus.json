@@ -12,7 +12,7 @@
     "tasks": [
         {
             "name": "jekyll",
-            "command": "jekyll serve --watch",
+            "command": "jekyll serve --watch --drafts",
             "daemon": true
         },
         {
