@@ -34,8 +34,9 @@ code {
   background: #eee;
   font-size: 1rem;
 }
-p code {
-  padding: 0.1em 0.2em;
+pre code {
+  display: block;
+  padding: 0.5rem 1rem;
 }
 @font-face {
   font-family: 'icons';
@@ -153,10 +154,10 @@ ul.posts li {
 .post h2,
 .post h3,
 .post h4 {
-  margin: 1rem 0 0.5rem;
+  margin: 2rem 0 1rem;
 }
 .post h2 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-style: italic;
 }
 .post h3,
@@ -218,8 +219,9 @@ code {
   background: #eee;
   font-size: 1rem;
 }
-p code {
-  padding: 0.1em 0.2em;
+pre code {
+  display: block;
+  padding: 0.5rem 1rem;
 }
 @font-face {
   font-family: 'icons';
