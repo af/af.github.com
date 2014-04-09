@@ -27,11 +27,12 @@ a.visited:hover {
   color: #9ad063;
 }
 pre {
-  background: #eee;
+  background: #eeeee7;
   padding: 0.2em;
 }
 code {
-  background: #eee;
+  background: #eeeee7;
+  padding: 3px;
   font-size: 1rem;
 }
 pre code {
@@ -167,9 +168,9 @@ ul.posts li {
 .post footer {
   margin: 2rem 0;
   padding: 0.5rem 0 3rem;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #bba;
   font-size: 1rem;
-  color: #bba;
+  color: #997;
 }
 .post footer p {
   margin: 0;
@@ -212,11 +213,12 @@ a.visited:hover {
   color: #9ad063;
 }
 pre {
-  background: #eee;
+  background: #eeeee7;
   padding: 0.2em;
 }
 code {
-  background: #eee;
+  background: #eeeee7;
+  padding: 3px;
   font-size: 1rem;
 }
 pre code {
