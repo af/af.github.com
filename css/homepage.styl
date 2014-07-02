@@ -20,7 +20,6 @@ flexboxCenter()
 section.homepage
     margin: 2rem 0
     position: relative
-    background: linear-gradient(#f7f7f7, #eee)
 
     &.loading:before
         content: 'Loading data...'
@@ -45,7 +44,7 @@ section.homepage
         height: 100%
         transition: all 0.3s
         color: #eee
-        text-shadow: 0 1px 2px rgba(0,0,0,0.7)
+        text-shadow: 0 1px 3px rgba(0,0,0,0.7)
         font-style: italic
         overflow: hidden
 
@@ -74,16 +73,17 @@ section.homepage
         text-align: center
 
 
-
     &.code
         height: 350px
 
         > a
-            background: rgba($codeColour, 0.9)
+            margin-top: 40px
+            height: 310px
 
-            &:before
-                $githubIcon()
-                font-size: 22rem
+        > a:before
+            $githubIcon()
+            color: rgba($codeColour, 0.5)
+            font-size: 22rem
 
         h2
             top: 45%
@@ -91,23 +91,21 @@ section.homepage
     &.posts
         height: 120px
 
-        > a
-            background: rgba($postsColour, 0.9)
-
-            &:before
-                $pencilIcon()
-                position: relative
-                top: -1rem
+        > a:before
+            $pencilIcon()
+            color: rgba($postsColour, 0.5)
+            position: relative
+            font-size: 14rem
+            top: -2.7rem
+            right: -2rem
 
     &.links
         height: 140px
 
-        > a
-            background: rgba($linksColour, 0.9)
-
-            &:before
-                $linkIcon()
-                font-size: 9rem
+        > a:before
+            $linkIcon()
+            color: rgba($linksColour, 0.5)
+            font-size: 12rem
 
 .homepage svg
     display: block
@@ -121,7 +119,7 @@ section.homepage
 
         path
             stroke: #ccc
-            stroke-width: 4px
+            stroke-width: 2px
         line
             stroke: #ccc
             stroke-width: 2px
@@ -158,7 +156,7 @@ section.homepage
     .linkLabel
         font-size: 0.9rem
         display: block
-        fill: $linksColour
+        fill: #999
 
 
 .code svg

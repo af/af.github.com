@@ -239,7 +239,6 @@ body {
 section.homepage {
   margin: 2rem 0;
   position: relative;
-  background: linear-gradient(#f7f7f7, #eee);
 }
 section.homepage.loading:before {
   content: 'Loading data...';
@@ -269,7 +268,7 @@ section.homepage > a {
   height: 100%;
   transition: all 0.3s;
   color: #eee;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
   font-style: italic;
   overflow: hidden;
 }
@@ -308,7 +307,8 @@ section.homepage.code {
   height: 350px;
 }
 section.homepage.code > a {
-  background: rgba(85,170,102,0.9);
+  margin-top: 40px;
+  height: 310px;
 }
 section.homepage.code > a:before {
   content: '\e800';
@@ -316,6 +316,7 @@ section.homepage.code > a:before {
   font-family: 'icons';
   font-style: normal;
   margin-right: 0.3em;
+  color: rgba(85,170,102,0.5);
   font-size: 22rem;
 }
 section.homepage.code h2 {
@@ -324,23 +325,20 @@ section.homepage.code h2 {
 section.homepage.posts {
   height: 120px;
 }
-section.homepage.posts > a {
-  background: rgba(85,102,170,0.9);
-}
 section.homepage.posts > a:before {
   content: '\e803';
   color: 'inherit';
   font-family: 'icons';
   font-style: normal;
   margin-right: 0.3em;
+  color: rgba(85,102,170,0.5);
   position: relative;
-  top: -1rem;
+  font-size: 14rem;
+  top: -2rem;
+  right: -2rem;
 }
 section.homepage.links {
   height: 140px;
-}
-section.homepage.links > a {
-  background: rgba(220,180,50,0.9);
 }
 section.homepage.links > a:before {
   content: '\e804';
@@ -348,7 +346,8 @@ section.homepage.links > a:before {
   font-family: 'icons';
   font-style: normal;
   margin-right: 0.3em;
-  font-size: 9rem;
+  color: rgba(220,180,50,0.5);
+  font-size: 12rem;
 }
 .homepage svg {
   display: block;
@@ -362,7 +361,7 @@ section.homepage.links > a:before {
 }
 .homepage svg .xAxis path {
   stroke: #ccc;
-  stroke-width: 4px;
+  stroke-width: 2px;
 }
 .homepage svg .xAxis line {
   stroke: #ccc;
@@ -406,7 +405,7 @@ section.homepage.links > a:before {
 .links svg .linkLabel {
   font-size: 0.9rem;
   display: block;
-  fill: #dcb432;
+  fill: #999;
 }
 .code svg g.repo path {
   transition: opacity 0.5s;

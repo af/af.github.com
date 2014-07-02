@@ -152,7 +152,7 @@ function jsonp(url, callback) {
 
 module.exports = function() {
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
-    var margin = {top: 20, right: 150, left: 20};
+    var margin = {top: 40, right: 150, left: 20};
     var leavePadding = 'translate(' + margin.left + ',' + margin.top + ')';
 
     var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
@@ -170,12 +170,12 @@ module.exports = function() {
     };
 
     // Set up an x axis and put it on the top chart:
-    var xAxis = d3.svg.axis().scale(x)
+    var xAxis = d3.svg.axis().scale(x).orient('top')
                     .innerTickSize(6)
                     .outerTickSize(0)
                     .ticks(d3.time.years, 1);
     d3.select('section:first-of-type svg').append('g')
-        .attr('transform', 'translate(' + margin.left + ',0)')
+        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
         .attr('class', 'xAxis')
         .call(xAxis);
 
