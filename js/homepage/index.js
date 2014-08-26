@@ -4,7 +4,7 @@ var codeChart = require('./codeChart');
 
 var START_DATE = new Date(new Date() - 548*24*3600*1000);   // ~ 1.5 years of history
 var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
-var DELICIOUS_URL = 'https://api.del.icio.us/v2/json/aaron.franks?count=100&callback=';
+var LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=100&cb=';
 
 // Helper for loading jsonp data.
 // The given url should not include the callback function's name (it will be appended)
@@ -63,7 +63,7 @@ module.exports = function() {
     });
 
     // Plot saved links from delicious's JSONP API
-    jsonp(DELICIOUS_URL, function(links) {
+    jsonp(LINKS_URL, function(links) {
         d3.select('section.links').classed('loading', false);
         var linksSvg = d3.select('section.links svg')
                             .append('g').attr('transform', leavePadding);
