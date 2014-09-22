@@ -52,7 +52,7 @@ body {
 }
 body > header .title {
   display: block;
-  padding: 1rem 2rem;
+  padding: 1rem 0;
   margin-bottom: 2rem;
   border: none;
   background: none;
@@ -73,15 +73,19 @@ body > header .title:after {
 }
 body > header .avatar {
   float: left;
-  margin-right: 0.5rem;
-  position: relative;
+  display: inline-block;
+  width: 20%;
+  margin-right: 1rem;
+  text-align: right;
+}
+body > header .avatar img {
   border-radius: 50%;
 }
 @media screen and (max-width: 400px) {
-  body > header .avatar {
+  body > header .avatar img {
     width: 50px;
     height: 50px;
-    top: 0.8rem;
+    margin-top: 0.8rem;
   }
 }
 body > header h1 {
@@ -117,7 +121,9 @@ body > header .location:before {
   margin-right: 0.3em;
 }
 .content {
-  padding: 0 7rem;
+  margin-left: 20%;
+  margin-left: calc(20% + 1rem);
+  padding-right: 0 7rem;
 }
 ul.posts {
   list-style-type: none;
@@ -176,9 +182,6 @@ ul.posts li {
   margin: 0;
 }
 @media screen and (max-width: 800px) {
-  body > header .title {
-    padding: 1rem;
-  }
   .content {
     margin-left: 0;
     padding: 0 1rem;
@@ -262,7 +265,7 @@ section.homepage > a {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 20%;
   float: left;
   text-align: center;
   height: 100%;
@@ -334,7 +337,7 @@ section.homepage.posts > a:before {
   color: rgba(85,102,170,0.5);
   position: relative;
   font-size: 14rem;
-  top: -2rem;
+  top: -2.7rem;
   right: -2rem;
 }
 section.homepage.links {
@@ -351,7 +354,7 @@ section.homepage.links > a:before {
 }
 .homepage svg {
   display: block;
-  width: 85%;
+  width: 80%;
   height: 100%;
 }
 .homepage svg .xAxis {

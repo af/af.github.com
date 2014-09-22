@@ -76,7 +76,7 @@ section.homepage > a {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 20%;
   float: left;
   text-align: center;
   height: 100%;
@@ -148,7 +148,7 @@ section.homepage.posts > a:before {
   color: rgba(85,102,170,0.5);
   position: relative;
   font-size: 14rem;
-  top: -2rem;
+  top: -2.7rem;
   right: -2rem;
 }
 section.homepage.links {
@@ -165,7 +165,7 @@ section.homepage.links > a:before {
 }
 .homepage svg {
   display: block;
-  width: 85%;
+  width: 80%;
   height: 100%;
 }
 .homepage svg .xAxis {
