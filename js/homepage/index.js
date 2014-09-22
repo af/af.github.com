@@ -4,7 +4,7 @@ var codeChart = require('./codeChart');
 
 var START_DATE = new Date(new Date() - 548*24*3600*1000);   // ~ 1.5 years of history
 var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
-var LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=100&cb=';
+var LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=300&cb=';
 
 // Helper for loading jsonp data.
 // The given url should not include the callback function's name (it will be appended)
