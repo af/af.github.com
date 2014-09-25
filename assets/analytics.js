@@ -8,7 +8,7 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-26427038-2', 'aaronfranks.com');
-    ga('set', 'dimension1', !!isAuthor);
+    ga('set', 'dimension1', isAuthor ? 'author' : 'viewer');
     ga('send', 'pageview');
 }());
 
