@@ -46,7 +46,7 @@ pre code {
   font-style: normal;
 }
 body {
-  font-family: 'Alegreya', serif;
+  font-family: 'Klinic Slab', serif;
   font-size: 20px;
   color: #334;
 }
@@ -149,9 +149,6 @@ ul.posts li {
 .post {
   max-width: 35em;
 }
-.post header h1 {
-  font-style: italic;
-}
 .post header time[pubdate] {
   display: block;
   margin-bottom: 2rem;
@@ -165,7 +162,6 @@ ul.posts li {
 }
 .post h2 {
   font-size: 1.5rem;
-  font-style: italic;
 }
 .post h3,
 .post h4 {
@@ -235,7 +231,7 @@ pre code {
   font-style: normal;
 }
 body {
-  font-family: 'Alegreya', serif;
+  font-family: 'Klinic Slab', serif;
   font-size: 20px;
   color: #334;
 }
