@@ -1,0 +1,112 @@
+// Main site header
+body > header
+    .title
+        display: block
+        padding: 1rem 0
+        margin-bottom: 2rem
+        border: none
+        background: none
+        clearfix()
+        border: none
+        box-shadow: none
+        color: inherit !important
+        background: #f6f5f2
+        box-shadow: 0 -1px 7px rgba(0,0,0, 0.1) inset
+
+    .avatar
+        float: left
+        display: inline-block
+        width: $leftColumnWidth
+        margin-right: $gutterWidth
+        text-align: right
+
+        img
+            border-radius: 50%
+
+        @media screen and (max-width: 400px)
+            img
+                width: 50px
+                height: 50px
+                margin-top: 0.8rem
+
+    h1
+        font-size: 2rem
+        margin: 1rem 0 0
+        line-height: 0.8
+
+    .job, .location
+        margin-right: 0.5rem
+        font-size: 1rem
+        font-style: italic
+        color: #aa9
+
+        @media screen and (max-width: 400px)
+            font-size: 0.9rem
+
+    .job:before
+        $briefcaseIcon(#aaa)
+    .location:before
+        $locationIcon(#aaa)
+
+.content
+    margin-left: $leftColumnWidth       // Fallback for old browsers
+    margin-left: "calc(%s + %s)" % ($leftColumnWidth $gutterWidth)
+    padding-right: 0 7rem
+
+ul.posts
+    list-style-type: none
+    padding-left: 0
+
+    time
+        display: inline-block
+        width: 6em
+        color: #888
+        font-weight: bold
+        margin-right: 5px
+        font-size: 1.1rem
+
+    li
+        margin-bottom: 5px
+
+// Attempt to align all h1s in the content with the left sidebar's h1:
+.content h1
+    margin: 1.4rem 0 0.2rem
+    font-size: 2rem
+    line-height: 1
+
+.post_list, .post
+    max-width: 35em
+
+// Blog post article styles
+.post
+    header
+        time[pubdate]
+            display: block
+            margin-bottom: 2rem
+            font-weight: 600
+            color: #bba
+
+    h2, h3, h4
+        margin: 2rem 0 1rem
+    h2
+        font-size: 1.5rem
+    h3, h4
+        font-size: 1rem
+
+    footer
+        margin: 2rem 0
+        padding: 0.5rem 0 3rem
+        border-top: 1px solid #bba
+        font-size: 1rem
+        color: #997
+
+        p
+            margin: 0
+
+
+// Mobile content
+@media screen and (max-width: 800px)
+    .content
+        margin-left: 0
+        padding: 0 1rem
+
