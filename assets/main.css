@@ -40,6 +40,30 @@ pre code {
   padding: 0.5rem 1rem;
 }
 @font-face {
+  font-family: 'Klinic Slab';
+  src: url("/fonts/klinic/KlinicSlabBook.otf") format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Klinic Slab';
+  src: url("/fonts/klinic/KlinicSlabBookIt.otf") format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Klinic Slab';
+  src: url("/fonts/klinic/KlinicSlabBold.otf") format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Klinic Slab';
+  src: url("/fonts/klinic/KlinicSlabBoldIt.otf") format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
   font-family: 'icons';
   src: url("/fonts/icons.woff") format('woff');
   font-weight: normal;
@@ -111,14 +135,14 @@ body > header .job:before {
   color: #aaa;
   font-family: 'icons';
   font-style: normal;
-  margin-right: 0.3em;
+  margin-right: 0.5rem;
 }
 body > header .location:before {
   content: '\e801';
   color: #aaa;
   font-family: 'icons';
   font-style: normal;
-  margin-right: 0.3em;
+  margin-right: 0.5rem;
 }
 .content {
   margin-left: 20%;
@@ -225,6 +249,30 @@ pre code {
   padding: 0.5rem 1rem;
 }
 @font-face {
+  font-family: 'Klinic Slab';
+  src: url("/fonts/klinic/KlinicSlabBook.otf") format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Klinic Slab';
+  src: url("/fonts/klinic/KlinicSlabBookIt.otf") format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Klinic Slab';
+  src: url("/fonts/klinic/KlinicSlabBold.otf") format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Klinic Slab';
+  src: url("/fonts/klinic/KlinicSlabBoldIt.otf") format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
   font-family: 'icons';
   src: url("/fonts/icons.woff") format('woff');
   font-weight: normal;
@@ -314,7 +362,7 @@ section.homepage.code > a:before {
   color: 'inherit';
   font-family: 'icons';
   font-style: normal;
-  margin-right: 0.3em;
+  margin-right: 0.5rem;
   color: rgba(85,170,102,0.5);
   font-size: 22rem;
 }
@@ -329,7 +377,7 @@ section.homepage.posts > a:before {
   color: 'inherit';
   font-family: 'icons';
   font-style: normal;
-  margin-right: 0.3em;
+  margin-right: 0.5rem;
   color: rgba(85,102,170,0.5);
   position: relative;
   font-size: 14rem;
@@ -344,7 +392,7 @@ section.homepage.links > a:before {
   color: 'inherit';
   font-family: 'icons';
   font-style: normal;
-  margin-right: 0.3em;
+  margin-right: 0.5rem;
   color: rgba(220,180,50,0.5);
   font-size: 12rem;
 }
