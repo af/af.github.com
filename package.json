@@ -5,7 +5,7 @@
   "browser": "./js/main.js",
   "scripts": {
     "build_js": "browserify js/main.js > assets/main.js",
-    "build_css": "stylus css -o assets"
+    "build_css": "stylus styles -o assets"
   },
   "repository": {
     "type": "git",

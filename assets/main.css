@@ -38,6 +38,7 @@ code {
 pre code {
   display: block;
   padding: 0.5rem 1rem;
+  overflow: auto;
 }
 @font-face {
   font-family: 'Klinic Slab';
@@ -247,6 +248,7 @@ code {
 pre code {
   display: block;
   padding: 0.5rem 1rem;
+  overflow: auto;
 }
 @font-face {
   font-family: 'Klinic Slab';
