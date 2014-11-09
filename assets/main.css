@@ -35,8 +35,7 @@ code {
   padding: 3px;
   font-size: 1rem;
 }
-pre code,
-p > code:only-child {
+pre code {
   display: block;
   padding: 0.5rem;
   overflow: auto;
@@ -248,8 +247,7 @@ code {
   padding: 3px;
   font-size: 1rem;
 }
-pre code,
-p > code:only-child {
+pre code {
   display: block;
   padding: 0.5rem;
   overflow: auto;
