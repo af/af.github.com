@@ -196,6 +196,9 @@ ul.posts li {
 .post h4 {
   font-size: 1rem;
 }
+.post img {
+  max-width: 100%;
+}
 .post footer {
   margin: 2rem 0;
   padding: 0.5rem 0 3rem;
@@ -349,13 +352,13 @@ section.homepage.code a {
   color: rgba(85,170,102,0.6);
 }
 section.homepage.posts {
-  height: 120px;
+  height: 140px;
 }
 section.homepage.posts a {
   color: #56a;
 }
 section.homepage.links {
-  height: 140px;
+  height: 160px;
 }
 section.homepage.links a {
   color: #dcb432;
