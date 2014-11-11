@@ -37,75 +37,43 @@ section.homepage
     > a
         display: block
         position: relative
-        flexboxCenter()
         width: $leftColumnWidth
         float: left
         text-align: center
         height: 100%
-        transition: all 0.3s
-        color: #eee
-        text-shadow: 0 1px 3px rgba(0,0,0,0.7)
-        font-style: italic
         overflow: hidden
 
         @media screen and (max-width: 400px)
             font-size: 0.8rem
 
-        &:hover
-            color: white
-
-            &:before
-                color: rgba(#fff, 0.45)
-
-        &:before
-            flexboxCenter()
-            font: normal 10em 'icons'
-            transition: color 0.3s
-            text-shadow: none
-            color: rgba(#fff, 0.35)
-
     h2
         position: absolute
-        top: 35%
         left: 0
-        width: 100%
+        width: 80%
         margin: 0
-        text-align: center
-
+        text-align: right
+        text-transform: lowercase
+        color: #444
+        font-weight: 300
+        border-bottom: 4px solid
 
     &.code
         height: 350px
 
-        > a
-            margin-top: 40px
-            height: 310px
-
-        > a:before
-            $githubIcon()
-            color: rgba($codeColour, 0.5)
-            font-size: 22rem
-
         h2
-            top: 45%
+            border-color: rgba($codeColour, 0.6)
 
     &.posts
         height: 120px
 
-        > a:before
-            $pencilIcon()
-            color: rgba($postsColour, 0.5)
-            position: relative
-            font-size: 14rem
-            top: -2.7rem
-            right: -2rem
+        h2
+            border-color: $postsColour
 
     &.links
         height: 140px
 
-        > a:before
-            $linkIcon()
-            color: rgba($linksColour, 0.5)
-            font-size: 12rem
+        h2
+            border-color: $linksColour
 
 .homepage svg
     display: block
