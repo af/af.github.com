@@ -133,17 +133,19 @@ body > header .location {
 }
 body > header .job:before {
   content: '\e802';
+  position: relative;
   color: #aaa;
   font-family: 'icons';
   font-style: normal;
-  margin-right: 0.5rem;
+  margin-right: 0.2em;
 }
 body > header .location:before {
   content: '\e801';
+  position: relative;
   color: #aaa;
   font-family: 'icons';
   font-style: normal;
-  margin-right: 0.5rem;
+  margin-right: 0.2em;
 }
 .content {
   margin-left: 20%;
@@ -304,48 +306,59 @@ section.homepage.loading:before {
 section.homepage.loading.failed:before {
   content: "Sorry, failed to load the data. Refresh and try again?";
 }
-section.homepage > a {
+section.homepage > header {
   display: block;
   position: relative;
   width: 20%;
+  padding-right: 2rem;
   float: left;
-  text-align: center;
+  text-align: right;
   height: 100%;
   overflow: hidden;
 }
 @media screen and (max-width: 400px) {
-  section.homepage > a {
+  section.homepage > header {
     font-size: 0.8rem;
   }
 }
+section.homepage > header a {
+  display: block;
+  color: #999;
+  font-style: italic;
+  padding: 0.3em 0;
+  border-top: 4px solid;
+  transition: margin-right 0.3s;
+}
+section.homepage > header a:hover {
+  margin-right: -1rem;
+}
+section.homepage > header a:before {
+  content: '» ';
+  vertical-align: top;
+}
 section.homepage h2 {
-  position: absolute;
-  left: 0;
-  width: 80%;
   margin: 0;
-  text-align: right;
   text-transform: lowercase;
   color: #444;
   font-weight: 300;
-  border-bottom: 4px solid;
 }
 section.homepage.code {
   height: 350px;
 }
-section.homepage.code h2 {
-  border-color: rgba(85,170,102,0.6);
+section.homepage.code a {
+  color: rgba(85,170,102,0.6);
 }
 section.homepage.posts {
   height: 120px;
 }
-section.homepage.posts h2 {
-  border-color: #56a;
+section.homepage.posts a {
+  color: #56a;
 }
 section.homepage.links {
   height: 140px;
 }
-section.homepage.links h2 {
-  border-color: #dcb432;
+section.homepage.links a {
+  color: #dcb432;
 }
 .homepage svg {
   display: block;
