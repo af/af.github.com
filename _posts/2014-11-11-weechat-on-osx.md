@@ -51,7 +51,7 @@ app of choice. After that, things can be a bit bewildering. The first time run d
 you any hints for how to connect to a server, configure the program, or
 do much of anything. The magic command to get you started is `/help`. This lists
 the available commands used to interact with WeeChat. Each command should be
-prefixed with a `/`, and you can (and should) run `/help <command>` to get more
+prefixed with a `/`, and you can (and should) run `/help {command}` to get more
 information about the important ones.
 
 A few essential commands and hotkeys:
@@ -65,7 +65,7 @@ A few essential commands and hotkeys:
 * `/close` closes the current "buffer". If you're familiar with vim, WeeChat's
   concept of buffers is similar. Otherwise, just assume that a buffer maps
   one-to-one to a connected IRC channel for now.
-* `/join <channel>` joins an IRC channel (once you're connected to a server;
+* `/join {channel}` joins an IRC channel (once you're connected to a server;
   more on that in the next section).
 * Use Alt + arrow keys to switch buffers
 * Use PageUp/PageDown to scroll text in the current buffer
@@ -86,10 +86,10 @@ applicable):
 ```
 /set irc.server.freenode.addresses chat.freenode.net/7000
 /set irc.server.freenode.autoconnect on
-/set irc.server.freenode.autojoin <comma-separated list of channels to join>
-/set irc.server.freenode.nicks <nicks to use>
-/set irc.server.freenode.sasl_password <your freenode password>
-/set irc.server.freenode.sasl_username <your freenode username>
+/set irc.server.freenode.autojoin {comma-separated list of channels to join}
+/set irc.server.freenode.nicks {nicks to use}
+/set irc.server.freenode.sasl_password {your freenode password}
+/set irc.server.freenode.sasl_username {your freenode username}
 /set irc.server.freenode.ssl on
 /set irc.server.freenode.ssl_dhkey_size 1024
 ```
