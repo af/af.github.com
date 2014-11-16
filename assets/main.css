@@ -125,6 +125,10 @@ body > header .location {
   font-style: italic;
   color: #aa9;
 }
+body > header .job:last-child,
+body > header .location:last-child {
+  margin-right: 0;
+}
 @media screen and (max-width: 400px) {
   body > header .job,
   body > header .location {
@@ -321,7 +325,8 @@ section.homepage > header {
 }
 @media screen and (max-width: 400px) {
   section.homepage > header {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    padding-right: 0.3rem;
   }
 }
 section.homepage > header a {
