@@ -18,14 +18,15 @@ module.exports = function(config) {
         return path;
     };
 
+    var dataLength = (config.data || []).length;
     var all = config.el.selectAll('g.repo').data(config.data);
     var enter = all.enter().append('g')
                     .attr('class', 'repo')
-                    .attr('transform', 'scale(0,2000)');
+                    .attr('transform-origin', createdAtX + ' 0')
+                    .attr('transform', 'scale(0,1)');
     enter.transition()
-            .delay(function(d, i) { return i*100 })
-            .duration(1000).attr('transform', 'translate(0,20)'); // 20px clears space for x-axis at top
-
+            .delay(function(d, i) { return (dataLength - i)*100 })
+            .duration(1000).attr('transform', 'scale(1,1)');
 
     var links = enter.append('a')
             .attr('xlink:href', function(d) { return d.html_url });
