@@ -32,7 +32,7 @@ module.exports = function() {
 
         return function(d) {
             var xVal = Math.floor(x(new Date(d[propName])));
-            return Math.max(0, xVal + offset);
+            return xVal + offset;
         };
     };
 

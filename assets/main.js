@@ -117,7 +117,8 @@ module.exports = function(config) {
     // Repo text is in one <text> element with several <tspan>s
     var text = links.append('text').attr('class', 'name')
             .attr('transform', function(d, i) {
-                return "translate(" + createdAtX(d) + "," + (25 + i*COMET_SPACING) + ")";
+                var x = Math.max(createdAtX(d), -20);   // -20 negates left-side padding
+                return "translate(" + x + "," + (25 + i*COMET_SPACING) + ")";
             })
             .text(function(d) { return d.name });
     text.append('tspan')
@@ -166,7 +167,7 @@ module.exports = function() {
 
         return function(d) {
             var xVal = Math.floor(x(new Date(d[propName])));
-            return Math.max(0, xVal + offset);
+            return xVal + offset;
         };
     };
 
