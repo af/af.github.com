@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Setting up WeeChat on OS X
+keywords: "weechat, tutorial, Mac, OS X, SSL Certificate, scripts"
 ---
 
 Hanging out in IRC channels is a great way to learn the nooks and crannies of

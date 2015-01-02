@@ -6,6 +6,13 @@
     <link href="/img/favicon.png" type="image/png" rel="shortcut icon">
     <meta name="viewport" content="width=320">
     <link href="http://aaronfranks.com/atom.xml" rel="alternate" title="Aaron Franks" type="application/atom+xml" />
+
+    {% if page.keywords %}
+    <meta name="keywords" content="{{ page.keywords }}" />
+    {% else %}
+    <meta name="keywords" content="Aaron Franks, programming, JavaScript, Vancouver" />
+    {% endif %}
+
     <title>{{ page.title }}</title>
 </head>
 <body>
