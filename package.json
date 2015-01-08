@@ -4,8 +4,9 @@
   "description": "",
   "browser": "./js/main.js",
   "scripts": {
-    "build_js": "browserify js/main.js > assets/main.js",
-    "build_css": "stylus styles -o assets"
+    "watch": "jekyll serve --watch & npm run watch_js & npm run watch_css",
+    "watch_js": "webpack --watch js/main.js assets/main.js",
+    "watch_css": "stylus -w styles -o assets"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,8 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
-    "browserify": "3.24.8",
-    "stylus": "0.42.2"
+    "stylus": "0.42.2",
+    "webpack": "^1.4.15"
   },
   "dependencies": {
     "d3": "3.4.1"
