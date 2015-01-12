@@ -46,7 +46,7 @@ module.exports = function circleChart(config) {
                 var radius = parseFloat(d3.select(this.parentElement.firstChild).attr('r'));
                 return yBaseline + radius + 3;
             })
-            .attr('y2', function(d) { return parseFloat(d3.select(this).attr('y1')) + 30; });
+            .attr('y2', function(d) { return parseFloat(d3.select(this).attr('y1')) + 40; });
 
     enter.append('text')
             .text(function(d) { return d[config.titleProp] })
