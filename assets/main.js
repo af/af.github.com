@@ -44,149 +44,140 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
 	var homepage = __webpack_require__(1);
 
 	// Quick and dirty "router":
-	if (location.pathname === '/') homepage();
-
+	if (location.pathname === "/") homepage();
 
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
 	var d3 = __webpack_require__(4);
 	var circleChart = __webpack_require__(2);
 	var codeChart = __webpack_require__(3);
 
-	var START_DATE = new Date(new Date() - 548*24*3600*1000);   // ~ 1.5 years of history
-	var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
-	var LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=300&cb=';
+	var START_DATE = new Date(new Date() - 548 * 24 * 3600 * 1000); // ~ 1.5 years of history
+	var GITHUB_URL = "https://api.github.com/users/af/repos?per_page=60";
+	var LINKS_URL = "https://feeds.pinboard.in/json/u:_af?count=300&cb=";
 
 	// Helper for loading jsonp data.
 	// The given url should not include the callback function's name (it will be appended)
 	function jsonp(url, callback) {
-	    var callbackName = 'jsonp_cb' + (new Date).getTime();
-	    var s = document.createElement('script');
-	    s.src = url + callbackName;
-	    document.body.appendChild(s);
-	    window[callbackName] = callback;
+	  var callbackName = "jsonp_cb" + new Date().getTime();
+	  var s = document.createElement("script");
+	  s.src = url + callbackName;
+	  document.body.appendChild(s);
+	  window[callbackName] = callback;
 	}
 
 
-	module.exports = function() {
-	    var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width);
-	    var margin = {top: 40, right: 150, left: 20};
-	    var leavePadding = 'translate(' + margin.left + ',' + margin.top + ')';
+	module.exports = function () {
+	  var svgWidth = parseInt(getComputedStyle(document.querySelector("svg")).width);
+	  var margin = { top: 40, right: 150, left: 20 };
+	  var leavePadding = "translate(" + margin.left + "," + margin.top + ")";
 
-	    var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
-	                           .domain([START_DATE, new Date()]);
-	    // Helper scale function to convert an ISO date string to an x pixel value:
-	    x.fromDateString = function(options) {
-	        options = options || {};
-	        var offset = options.offset || 0;
-	        var propName = options.propName || 'date';
+	  var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right]).domain([START_DATE, new Date()]);
+	  // Helper scale function to convert an ISO date string to an x pixel value:
+	  x.fromDateString = function () {
+	    var options = arguments[0] === undefined ? {} : arguments[0];
+	    var offset = options.offset || 0;
+	    var propName = options.propName || "date";
 
-	        return function(d) {
-	            var xVal = Math.floor(x(new Date(d[propName])));
-	            return xVal + offset;
-	        };
+	    return function (d) {
+	      return offset + Math.floor(x(new Date(d[propName])));
 	    };
+	  };
 
-	    // Set up an x axis and put it on the top chart:
-	    var xAxis = d3.svg.axis().scale(x).orient('top')
-	                    .innerTickSize(6)
-	                    .outerTickSize(0)
-	                    .ticks(d3.time.years, 1);
-	    d3.select('section:first-of-type svg').append('g')
-	        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
-	        .attr('class', 'xAxis')
-	        .call(xAxis);
+	  // Set up an x axis and put it on the top chart:
+	  var xAxis = d3.svg.axis().scale(x).orient("top").innerTickSize(6).outerTickSize(0).ticks(d3.time.years, 1);
+	  d3.select("section:first-of-type svg").append("g").attr("transform", "translate(" + margin.left + ", " + margin.top + ")").attr("class", "xAxis").call(xAxis);
 
-	    // Plot the blogposts that are dumped as window._posts in the homepage template
-	    circleChart({
-	        data: window._posts,
+	  // Plot the blogposts that are dumped as window._posts in the homepage template
+	  circleChart({
+	    data: window._posts,
+	    width: svgWidth,
+	    xScale: x,
+	    yBaseline: 30,
+	    el: d3.select("section.posts svg").append("g").attr("transform", leavePadding),
+	    radius: function (d) {
+	      return 15 + Math.sqrt(d.length) / 5;
+	    },
+	    loadingDelay: 1500,
+	    groupClass: "post",
+	    timeProp: "date",
+	    urlProp: "url",
+	    titleProp: "title"
+	  });
+
+	  // Plot saved links from delicious's JSONP API
+	  jsonp(LINKS_URL, function (links) {
+	    d3.select("section.links").classed("loading", false);
+	    var linksSvg = d3.select("section.links svg").append("g").attr("transform", leavePadding);
+
+	    // Divide links into tag group "buckets":
+	    var tagGroups = { javascript: [], programming: [], design: [], other: [] };
+	    var tags = Object.keys(tagGroups);
+	    links.forEach(function (l) {
+	      tags.forEach(function (t, i) {
+	        if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l);else if (i === tags.length - 1) tagGroups[t].push(l); // Push to 'other' if no other matches
+	      });
+	    });
+
+	    // Plot a row of circles for each tag group
+	    var radius = 10;
+	    for (var j = tags.length - 1; j >= 0; j--) {
+	      var tag = tags[j];
+	      var yBaseline = radius * (2 * j + 1);
+
+	      circleChart({
+	        data: tagGroups[tag],
 	        width: svgWidth,
 	        xScale: x,
-	        yBaseline: 30,
-	        el: d3.select('section.posts svg')
-	                .append('g').attr('transform', leavePadding),
-	        radius: function(d) { return 15 + Math.sqrt(d.length)/5; },
-	        loadingDelay: 1500,
-	        groupClass: 'post',
-	        timeProp: 'date',
-	        urlProp: 'url',
-	        titleProp: 'title'
+	        yBaseline: yBaseline,
+	        radius: 10,
+	        el: linksSvg,
+	        groupClass: tag,
+	        timeProp: "dt",
+	        urlProp: "u",
+	        titleProp: "d",
+	        loadingDelay: 2000
+	      });
+
+	      linksSvg.append("text").attr("class", "linkLabel").attr("x", x(new Date()) + radius).attr("y", yBaseline + radius / 2).text(tag);
+	    }
+	  });
+
+	  // Plot Github source repos, using their CORS-enabled public API
+	  d3.json(GITHUB_URL, function (err, data) {
+	    var $section = d3.select("section.code");
+	    if (err) return $section.classed("failed", true);
+
+	    $section.classed("loading", false);
+	    var myRepos = data.filter(function (r) {
+	      return !r.fork;
+	    }).filter(function (r) {
+	      return new Date(r.pushed_at) > START_DATE;
+	    }).sort(function (r1, r2) {
+	      return r1.pushed_at < r2.pushed_at ? 1 : -1;
 	    });
-
-	    // Plot saved links from delicious's JSONP API
-	    jsonp(LINKS_URL, function(links) {
-	        d3.select('section.links').classed('loading', false);
-	        var linksSvg = d3.select('section.links svg')
-	                            .append('g').attr('transform', leavePadding);
-
-	        // Divide links into tag group "buckets":
-	        var tagGroups = {javascript: [], programming: [], design: [], other: []};
-	        var tags = Object.keys(tagGroups);
-	        links.forEach(function(l) {
-	            for (var i=0; i < tags.length; i++) {
-	                var t = tags[i];
-	                if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l);
-	                else if (i === tags.length - 1) tagGroups[t].push(l);   // Push to 'other' if no other matches
-	            }
-	        });
-
-	        // Plot a row of circles for each tag group
-	        var radius = 10;
-	        for (var j=tags.length-1; j >= 0; j--) {
-	            var tag = tags[j];
-	            var yBaseline = radius * (2*j + 1);
-
-	            circleChart({
-	                data: tagGroups[tag],
-	                width: svgWidth,
-	                xScale: x,
-	                yBaseline: yBaseline,
-	                radius: 10,
-	                el: linksSvg,
-	                groupClass: tag,
-	                timeProp: 'dt',
-	                urlProp: 'u',
-	                titleProp: 'd',
-	                loadingDelay: 2000
-	            });
-
-	            linksSvg.append('text').attr('class', 'linkLabel')
-	                .attr('x', x(new Date()) + radius)
-	                .attr('y', yBaseline + radius/2)
-	                .text(tag);
-	        }
-	    });
-
-	    // Plot Github source repos, using their CORS-enabled public API
-	    d3.json(GITHUB_URL, function(err, data) {
-	        var $section = d3.select('section.code');
-	        if (err) return $section.classed('failed', true);
-
-	        $section.classed('loading', false);
-	        var myRepos = data.filter(function(r) { return !r.fork })
-	                          .filter(function(r) { return (new Date(r.pushed_at)) > START_DATE })
-	                          .sort(function(r1, r2) {
-	                            return (r1.pushed_at < r2.pushed_at) ? 1 : -1;
-	                          });
-	        codeChart({
-	            data: myRepos,
-	            width: svgWidth,
-	            xScale: x,
-	            el: d3.select('section.code svg')
-	                    .append('g').attr('transform', leavePadding),
-	        });
-	    });
+	    codeChart({
+	      data: myRepos,
+	      width: svgWidth,
+	      xScale: x,
+	      el: d3.select("section.code svg").append("g").attr("transform", leavePadding) });
+	  });
 	};
-
 
 /***/ },
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 
 	var d3 = __webpack_require__(4);
 
@@ -203,128 +194,113 @@
 	//  yBaseline
 	//  loadingDelay
 	module.exports = function circleChart(config) {
-	    var x = config.xScale;
-	    var yBaseline = config.yBaseline || 20;
-	    var radius = config.radius || 20;
-	    if (typeof radius !== 'function') {
-	        var r = radius;
-	        radius = function() { return r };
-	    }
+	  var x = config.xScale;
+	  var yBaseline = config.yBaseline || 20;
+	  var radius = config.radius || 20;
+	  if (typeof radius !== "function") {
+	    var r = radius;
+	    radius = function () {
+	      return r;
+	    };
+	  }
 
-	    var selector = 'g' + (config.groupClass ? '.' + config.groupClass : '');
-	    var all = config.el.selectAll(selector).data(config.data);
-	    var enter = all.enter().append('g').attr('class', config.groupClass || '');
+	  var selector = "g" + (config.groupClass ? "." + config.groupClass : "");
+	  var all = config.el.selectAll(selector).data(config.data);
+	  var enter = all.enter().append("g").attr("class", config.groupClass || "");
 
-	    var links = enter.append('a')
-	            .attr('xlink:href', function(d) { return d[config.urlProp] });
+	  var links = enter.append("a").attr("xlink:href", function (d) {
+	    return d[config.urlProp];
+	  });
 
-	    var circles = links.append('circle')
-	            .attr('cx', x.fromDateString({ propName: config.timeProp }))
-	            .attr('cy', yBaseline)
-	            .attr('r', 0);
+	  var circles = links.append("circle").attr("cx", x.fromDateString({ propName: config.timeProp })).attr("cy", yBaseline).attr("r", 0);
 
-	    var loadingDelay = config.loadingDelay || 0;
-	    circles.transition()
-	            .delay(function(d) { return loadingDelay + Math.random()*1000 })
-	            .duration(1000).attr('r', radius);
+	  var loadingDelay = config.loadingDelay || 0;
+	  circles.transition().delay(function () {
+	    return loadingDelay + Math.random() * 1000;
+	  }).duration(1000).attr("r", radius);
 
+	  links.append("line").attr("x1", x.fromDateString({ propName: config.timeProp, offset: 0.5 })).attr("x2", x.fromDateString({ propName: config.timeProp, offset: 0.5 })).attr("y1", function (d) {
+	    var radius = parseFloat(d3.select(this.parentElement.firstChild).attr("r"));
+	    return yBaseline + radius + 3;
+	  }).attr("y2", function () {
+	    parseFloat(d3.select(this).attr("y1")) + 40;
+	  });
 
-	    links.append('line')
-	            .attr('x1', x.fromDateString({ propName: config.timeProp, offset: 0.5 }))
-	            .attr('x2', x.fromDateString({ propName: config.timeProp, offset: 0.5 }))
-	            .attr('y1', function(d) {
-	                var radius = parseFloat(d3.select(this.parentElement.firstChild).attr('r'));
-	                return yBaseline + radius + 3;
-	            })
-	            .attr('y2', function(d) { return parseFloat(d3.select(this).attr('y1')) + 40; });
-
-	    enter.append('text')
-	            .text(function(d) { return d[config.titleProp] })
-	            .attr('transform', function(d) {
-	                var xVal = x.fromDateString({ propName: config.timeProp, offset: 5 })(d);
-	                var y = yBaseline + radius(d) + 20;
-	                return 'translate(' + [xVal,y].join(',') + ')';
-	            });
-	    enter.append('text').attr('class', 'date')
-	            .text(function(d) { return (new Date(d[config.timeProp])).toISOString().split('T')[0]; })
-	            .attr('transform', function(d) {
-	                var xVal = x.fromDateString({ propName: config.timeProp, offset: 5 })(d);
-	                var y = yBaseline + radius(d) + 35;
-	                return 'translate(' + [xVal,y].join(',') + ')';
-	            });
+	  enter.append("text").text(function (d) {
+	    return d[config.titleProp];
+	  }).attr("transform", function (d) {
+	    var xVal = x.fromDateString({ propName: config.timeProp, offset: 5 })(d);
+	    var y = yBaseline + radius(d) + 20;
+	    return "translate(" + [xVal, y].join(",") + ")";
+	  });
+	  enter.append("text").attr("class", "date").text(function (d) {
+	    return new Date(d[config.timeProp]).toISOString().split("T")[0];
+	  }).attr("transform", function (d) {
+	    var xVal = x.fromDateString({ propName: config.timeProp, offset: 5 })(d);
+	    var y = yBaseline + radius(d) + 35;
+	    return "translate(" + [xVal, y].join(",") + ")";
+	  });
 	};
-
 
 /***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
 	var COMET_SPACING = 25;
 
 	// Convert Github repository API data into a "comet" date chart
-	module.exports = function(config) {
-	    var x = config.xScale;
-	    var createdAtX = x.fromDateString({ propName: 'created_at' });
+	module.exports = function (config) {
+	  var x = config.xScale;
+	  var createdAtX = x.fromDateString({ propName: "created_at" });
 
-	    var drawComet = function(d) {
-	        var path = 'M0 2 ';
-	        var height = 4 + Math.floor(Math.sqrt(d.size)/2);
-	        var width = x(new Date(d.pushed_at)) - createdAtX(d);
-	        width = Math.max(20, width);
+	  var drawComet = function (d) {
+	    var height = 4 + Math.floor(Math.sqrt(d.size) / 2);
+	    var width = x(new Date(d.pushed_at)) - createdAtX(d);
+	    width = Math.max(20, width);
 
-	        path += ('Q' + width + ' 0 ' + (width - 10) + ' ' + height + ' ');
-	        path += ('L' + width + ' 0 ');
-	        path += ('L' + (width - 10) + ' ' + (-height) + ' ');
-	        path += ('Q' + width + ' 0 0 -2');
-	        return path;
-	    };
+	    // Use a template string to express the "d" attribute for the comet's path
+	    return "M0 2 Q" + width + " 0 " + (width - 10) + " " + height + " " + ("L" + width + " 0 L" + (width - 10) + " " + -1 * height + " Q" + width + " 0 0 -2");
+	  };
 
-	    var dataLength = (config.data || []).length;
-	    var all = config.el.selectAll('g.repo').data(config.data);
-	    var enter = all.enter().append('g')
-	                    .attr('class', 'repo')
-	                    .attr('transform-origin', createdAtX + ' 0')
-	                    .attr('transform', 'scale(0,1)');
-	    enter.transition()
-	            .delay(function(d, i) { return (dataLength - i)*100 })
-	            .duration(1000).attr('transform', 'scale(1,1)');
+	  var dataLength = (config.data || []).length;
+	  var all = config.el.selectAll("g.repo").data(config.data);
+	  var enter = all.enter().append("g").attr("class", "repo").attr("transform-origin", createdAtX + " 0").attr("transform", "scale(0,1)");
+	  enter.transition().delay(function (d, i) {
+	    return (dataLength - i) * 100;
+	  }).duration(1000).attr("transform", "scale(1,1)");
 
-	    var links = enter.append('a')
-	            .attr('xlink:href', function(d) { return d.html_url });
+	  var links = enter.append("a").attr("xlink:href", function (d) {
+	    return d.html_url;
+	  });
 
-	    // Add rects to expand the hoverable area:
-	    links.append('rect')
-	            .attr('width', function(d, i) { return x(new Date(d.pushed_at)) - createdAtX(d) })
-	            .attr('height', COMET_SPACING)
-	            .attr('transform', function(d, i) {
-	                return "translate(" + createdAtX(d) + "," + (15 + i*COMET_SPACING) + ")";
-	            });
+	  // Add rects to expand the hoverable area:
+	  links.append("rect").attr("width", function (d, i) {
+	    return x(new Date(d.pushed_at)) - createdAtX(d);
+	  }).attr("height", COMET_SPACING).attr("transform", function (d, i) {
+	    return "translate(" + createdAtX(d) + "," + (15 + i * COMET_SPACING) + ")";
+	  });
 
-	    // Draw "comet" shape for each repo:
-	    links.append('path')
-	            .attr('d', drawComet)
-	            .attr('transform', function(d, i) {
-	                return "translate(" + createdAtX(d) + "," + (30 + i*COMET_SPACING) + ")";
-	            });
+	  // Draw "comet" shape for each repo:
+	  links.append("path").attr("d", drawComet).attr("transform", function (d, i) {
+	    return "translate(" + createdAtX(d) + "," + (30 + i * COMET_SPACING) + ")";
+	  });
 
-	    // Repo text is in one <text> element with several <tspan>s
-	    var text = links.append('text').attr('class', 'name')
-	            .attr('transform', function(d, i) {
-	                var x = Math.max(createdAtX(d), -20);   // -20 negates left-side padding
-	                return "translate(" + x + "," + (25 + i*COMET_SPACING) + ")";
-	            })
-	            .text(function(d) { return d.name });
-	    text.append('tspan')
-	        .attr('class', 'language')
-	        .attr('dx', 10)
-	        .text(function(d) { return d.language });
-	    text.append('tspan')
-	        .attr('class', 'description')
-	        .attr('dx', 10)
-	        .text(function(d) { return d.description });
+	  // Repo text is in one <text> element with several <tspan>s
+	  var text = links.append("text").attr("class", "name").attr("transform", function (d, i) {
+	    var x = Math.max(createdAtX(d), -20); // -20 negates left-side padding
+	    return "translate(" + x + "," + (25 + i * COMET_SPACING) + ")";
+	  }).text(function (d) {
+	    return d.name;
+	  });
+	  text.append("tspan").attr("class", "language").attr("dx", 10).text(function (d) {
+	    return d.language;
+	  });
+	  text.append("tspan").attr("class", "description").attr("dx", 10).text(function (d) {
+	    return d.description;
+	  });
 	};
-
-
 
 /***/ },
 /* 4 */

@@ -2,9 +2,9 @@ var d3 = require('d3');
 var circleChart = require('./circleChart');
 var codeChart = require('./codeChart');
 
-var START_DATE = new Date(new Date() - 548*24*3600*1000);   // ~ 1.5 years of history
-var GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
-var LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=300&cb=';
+const START_DATE = new Date(new Date() - 548*24*3600*1000);   // ~ 1.5 years of history
+const GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60';
+const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=300&cb=';
 
 // Helper for loading jsonp data.
 // The given url should not include the callback function's name (it will be appended)
@@ -25,15 +25,11 @@ module.exports = function() {
     var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()]);
     // Helper scale function to convert an ISO date string to an x pixel value:
-    x.fromDateString = function(options) {
-        options = options || {};
+    x.fromDateString = function(options={}) {
         var offset = options.offset || 0;
         var propName = options.propName || 'date';
 
-        return function(d) {
-            var xVal = Math.floor(x(new Date(d[propName])));
-            return xVal + offset;
-        };
+        return d => offset + Math.floor(x(new Date(d[propName])));
     };
 
     // Set up an x axis and put it on the top chart:
@@ -54,7 +50,7 @@ module.exports = function() {
         yBaseline: 30,
         el: d3.select('section.posts svg')
                 .append('g').attr('transform', leavePadding),
-        radius: function(d) { return 15 + Math.sqrt(d.length)/5; },
+        radius: d => (15 + Math.sqrt(d.length)/5),
         loadingDelay: 1500,
         groupClass: 'post',
         timeProp: 'date',
@@ -72,15 +68,14 @@ module.exports = function() {
         var tagGroups = {javascript: [], programming: [], design: [], other: []};
         var tags = Object.keys(tagGroups);
         links.forEach(function(l) {
-            for (var i=0; i < tags.length; i++) {
-                var t = tags[i];
+            tags.forEach(function(t, i) {
                 if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l);
                 else if (i === tags.length - 1) tagGroups[t].push(l);   // Push to 'other' if no other matches
-            }
+            })
         });
 
         // Plot a row of circles for each tag group
-        var radius = 10;
+        const radius = 10;
         for (var j=tags.length-1; j >= 0; j--) {
             var tag = tags[j];
             var yBaseline = radius * (2*j + 1);
@@ -112,11 +107,9 @@ module.exports = function() {
         if (err) return $section.classed('failed', true);
 
         $section.classed('loading', false);
-        var myRepos = data.filter(function(r) { return !r.fork })
-                          .filter(function(r) { return (new Date(r.pushed_at)) > START_DATE })
-                          .sort(function(r1, r2) {
-                            return (r1.pushed_at < r2.pushed_at) ? 1 : -1;
-                          });
+        var myRepos = data.filter(r => !r.fork)
+                          .filter(r => (new Date(r.pushed_at)) > START_DATE)
+                          .sort((r1, r2) => (r1.pushed_at < r2.pushed_at) ? 1 : -1)
         codeChart({
             data: myRepos,
             width: svgWidth,
