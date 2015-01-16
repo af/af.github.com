@@ -124,7 +124,7 @@
 	    var tags = Object.keys(tagGroups);
 	    links.forEach(function (l) {
 	      tags.forEach(function (t, i) {
-	        if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l);else if (i === tags.length - 1) tagGroups[t].push(l); // Push to 'other' if no other matches
+	        if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l);else if (i === tags.length - 1) tagGroups[t].push(l);
 	      });
 	    });
 
@@ -172,6 +172,7 @@
 	      el: d3.select("section.code svg").append("g").attr("transform", leavePadding) });
 	  });
 	};
+	// Push to 'other' if no other matches
 
 /***/ },
 /* 2 */
