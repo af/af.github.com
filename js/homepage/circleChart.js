@@ -31,12 +31,7 @@ module.exports = function circleChart(config) {
     var circles = links.append('circle')
             .attr('cx', x.fromDateString({ propName: config.timeProp }))
             .attr('cy', yBaseline)
-            .attr('r', 0)
-
-    var loadingDelay = config.loadingDelay || 0
-    circles.transition()
-            .delay(() => loadingDelay + Math.random()*1000)
-            .duration(1000).attr('r', radius)
+            .attr('r', radius)
 
     links.append('line')
             .attr('x1', x.fromDateString({ propName: config.timeProp, offset: 0.5 }))
@@ -45,7 +40,15 @@ module.exports = function circleChart(config) {
                 var radius = parseFloat(d3.select(this.parentElement.firstChild).attr('r'))
                 return yBaseline + radius + 3
             })
-            .attr('y2', function() { parseFloat(d3.select(this).attr('y1')) + 40 })
+            .attr('y2', function() { return parseFloat(d3.select(this).attr('y1')) + 40 })
+
+    // Adjust circle radii to 0 and transition up after the lines are drawn:
+    var loadingDelay = config.loadingDelay || 0
+    circles.attr('r', 0)
+        .transition()
+            .delay(() => loadingDelay + Math.random()*1000)
+            .duration(1000).attr('r', radius)
+
 
     enter.append('text')
             .text(d => d[config.titleProp])
