@@ -26,7 +26,7 @@ Before you start messing around with plugins, it is imperative that you choose
 and install a Vim plugin manager. Dealing with installing, upgrading, and deleting
 Vim plugins by hand will leave you in a world of pain. It's one of the things
 about Vim that is really terrible out of the box. Fortunately, there are quite
-a few good plugin managers out there, but I use and strongly recommend
+a few good plugin managers out there, and I use and strongly recommend
 **[NeoBundle](https://github.com/Shougo/neobundle.vim)**. Its
 killer feature is the ability to pin each of your plugin dependencies to a
 specific Git commit– as far as I know, none of the alternatives do this. Pinning
@@ -43,7 +43,7 @@ See also: [pathogen](https://github.com/tpope/vim-pathogen),
 After using vanilla Vim for a while, navigating between and launching files can
 still be a pain point. Probably the most popular plugin for addressing this is
 the mighty **[ctrlp.vim](https://github.com/kien/ctrlp.vim)**. It does the
-project-wide fuzzy file matching that you'd come to expect from Textmate or
+project-wide fuzzy file matching you may have come to expect from Textmate or
 Sublime, as well as fast MRU and buffer switching. I use all 3 modes dozens of
 times daily, and ctrlp is probably my most indispensible plugin. If there's a
 downside, it's that ctrlp hasn't seen an update in almost two years, but there
@@ -54,7 +54,7 @@ Another common use case is searching file contents within your project. I've jus
 started using **[Ags.vim](https://github.com/gabesoft/vim-ags)** for this, which
 uses the excellent [silver
 searcher](https://github.com/ggreer/the_silver_searcher) tool under the covers.
-It's really fast and makes navigating the results easy. I've used a couple of other
+It's really fast and makes navigating the results easy. I've used a few other
 plugins for this, but Ags seems to hit the sweet spot for me.
 
 See also: [Ack.vim](https://github.com/mileszs/ack.vim), [Command-T](https://github.com/wincent/Command-T), [FuzzyFinder](http://www.vim.org/scripts/script.php?script_id=1984), [Unite.vim](https://github.com/Shougo/unite.vim)
@@ -62,17 +62,17 @@ See also: [Ack.vim](https://github.com/mileszs/ack.vim), [Command-T](https://git
 
 ## Syntax/Error Highlighting
 
-Having good, up-to-date syntax highlighting is a must
+Comprehensive, up-to-date syntax highlighting is a must
 for any programmer. **[vim-polyglot](https://github.com/sheerun/vim-polyglot)**
-gives you up-to-date syntax highlighting for a ton of different languages, while
-minimizing the increased startup time of having them all installed.
+gives you great syntax highlighting for a ton of different languages, while
+minimizing the increased startup time from having them all installed.
 
 Also, getting quick feedback on errors as you type saves a ton of debugging time,
 especially if you're writing in a dynamic programming language.
 **[Syntastic](https://github.com/scrooloose/syntastic)** runs linters and other
 checkers as you save your code for quick feedback. It does cause some lag with
 slower linters (looking at you, JSHint), but that's a limitation of Vim's purely
-synchronous APIs and it's still more than worth your time.
+synchronous APIs, and despite this it's still more than worth your time.
 
 
 ## Version Control Integration
