@@ -91,6 +91,7 @@ but I could honestly not go back to editing without this information available
 at a glance. It also enables the following key mappings in my vimrc, which allow
 me to jump to the closest modified "hunk" in the current file, without needing
 to know anything about where that is. Super handy!
+
 ```
 map <C-j> :GitGutterNextHunk<CR>
 map <C-k> :GitGutterPrevHunk<CR>
