@@ -78,7 +78,7 @@ body {
 body > header .title {
   display: block;
   padding: 1rem 0;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   border: none;
   background: none;
   zoom: 1;
@@ -141,7 +141,7 @@ body > header .job:before {
   color: #aaa;
   font-family: 'icons';
   font-style: normal;
-  margin-right: 0.2em;
+  margin-right: 0.4em;
 }
 body > header .location:before {
   content: '\e801';
@@ -149,7 +149,7 @@ body > header .location:before {
   color: #aaa;
   font-family: 'icons';
   font-style: normal;
-  margin-right: 0.2em;
+  margin-right: 0.4em;
 }
 .content {
   margin-left: 20%;
