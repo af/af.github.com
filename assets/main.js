@@ -120,7 +120,11 @@
 	    var linksSvg = d3.select("section.links svg").append("g").attr("transform", leavePadding);
 
 	    // Divide links into tag group "buckets":
-	    var tagGroups = { javascript: [], programming: [], design: [], other: [] };
+	    var tagGroups = {
+	      top20: [], javascript: [], programming: [],
+	      dataviz: [], design: [], css: [],
+	      vim: [], music: [], other: []
+	    };
 	    var tags = Object.keys(tagGroups);
 	    links.forEach(function (l) {
 	      tags.forEach(function (t, i) {
