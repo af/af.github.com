@@ -100,7 +100,7 @@ body > header .avatar {
   float: left;
   display: inline-block;
   width: 20%;
-  margin-right: 1rem;
+  padding-right: 2rem;
   text-align: right;
 }
 body > header .avatar img {
@@ -153,7 +153,6 @@ body > header .location:before {
 }
 .content {
   margin-left: 20%;
-  margin-left: calc(20% + 1rem);
   padding-right: 0 7rem;
 }
 ul.posts {

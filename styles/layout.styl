@@ -17,7 +17,7 @@ body > header
         float: left
         display: inline-block
         width: $leftColumnWidth
-        margin-right: $gutterWidth
+        padding-right: $gutterWidth
         text-align: right
 
         img
@@ -52,8 +52,7 @@ body > header
         $locationIcon(#aaa)
 
 .content
-    margin-left: $leftColumnWidth       // Fallback for old browsers
-    margin-left: "calc(%s + %s)" % ($leftColumnWidth $gutterWidth)
+    margin-left: $leftColumnWidth
     padding-right: 0 7rem
 
 ul.posts
