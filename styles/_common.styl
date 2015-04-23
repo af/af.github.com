@@ -1,9 +1,19 @@
-$green = #8BC84B
-$actionColour = darken($green, 20%)
-$backgroundColour = #f7f7f7
-$codeBg = #eeeee7
-$leftColumnWidth = 20%
-$gutterWidth = 2rem
+$colours = {
+    cta: darken(#8BC84B, 20%),
+    bodyBg: #f7f7f7,
+    codeBg: #eeeee7,
+
+    sections: {
+        code: #5a6,
+        posts: #56a,
+        links: rgb(220, 180, 50)
+    }
+}
+
+$dimensions = {
+    leftColWidth: 20%,
+    gutterWidth: 2rem
+}
 
 
 *
@@ -16,7 +26,7 @@ body
     position: relative
     margin: 0
     min-width: 320px
-    background: $backgroundColour
+    background: $colours.bodyBg
     -webkit-font-smoothing: antialiased
 
 p
@@ -24,19 +34,19 @@ p
     margin: 0 0 1.4em
 
 a, a.visited
-    color: $actionColour
+    color: $colours.cta
     text-decoration: none
     transition: color 0.3s
 
     &:hover
-        color: lighten($actionColour, 30%)
+        color: lighten($colours.cta, 30%)
 
 pre
-    background: $codeBg
+    background: $colours.codeBg
     padding: 0.2em
 
 code
-    background: $codeBg
+    background: $colours.codeBg
     padding: 3px
     font-size: 1rem
 

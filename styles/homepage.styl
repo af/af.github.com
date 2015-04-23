@@ -1,9 +1,5 @@
-@import "_common"
-@import "_fonts"
+@require "_common"
 
-$codeColour = #5a6
-$postsColour = #56a
-$linksColour = rgb(220, 180, 50)
 
 flexboxCenter()
     // Prefixed versions for safari:
@@ -37,7 +33,7 @@ section.homepage
     > header
         display: block
         position: relative
-        width: $leftColumnWidth
+        width: $dimensions.leftColWidth
         padding-right: 2rem
         float: left
         text-align: right
@@ -73,23 +69,23 @@ section.homepage
         height: 350px
 
         a
-            color: rgba($codeColour, 0.6)
+            color: rgba($colours.sections.code, 0.6)
 
     &.posts
         height: 150px
 
         a
-            color: $postsColour
+            color: $colours.sections.posts
 
     &.links
         height: 280px
 
         a
-            color: $linksColour
+            color: $colours.sections.links
 
 .homepage svg
     display: block
-    width: 100% - $leftColumnWidth
+    width: 100% - $dimensions.leftColWidth
     height: 100%
 
     .xAxis
@@ -121,14 +117,14 @@ section.homepage
             display: block
 
     circle
-        fill: rgba($postsColour, 0.8)
+        fill: rgba($colours.sections.posts, 0.8)
 
         &:hover
             fill: black
 
 .links svg
     circle
-        fill: rgba($linksColour, 0.5)
+        fill: rgba($colours.sections.links, 0.5)
 
         &:hover
             fill: black
@@ -144,7 +140,7 @@ section.homepage
         path
             transition: opacity 0.5s
             opacity: 0.5
-            fill: rgba($codeColour, 0.8)
+            fill: rgba($colours.sections.code, 0.8)
 
         a
             transition: all 0.4s

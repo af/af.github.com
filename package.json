@@ -18,7 +18,7 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
-    "stylus": "0.42.2",
+    "stylus": "0.50.0",
     "webpack": "^1.4.15"
   },
   "dependencies": {
