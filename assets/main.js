@@ -61,7 +61,9 @@
 	var circleChart = __webpack_require__(2);
 	var codeChart = __webpack_require__(3);
 
-	var START_DATE = new Date(new Date() - 548 * 24 * 3600 * 1000); // ~ 1.5 years of history
+	var WIN_WIDTH = window.innerWidth;
+	var DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190; // 1.5 or 0.5 years of history
+	var START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000);
 	var GITHUB_URL = "https://api.github.com/users/af/repos?per_page=60";
 	var LINKS_URL = "https://feeds.pinboard.in/json/u:_af?count=300&cb=";
 

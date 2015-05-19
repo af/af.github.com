@@ -2,7 +2,9 @@ var d3 = require('d3')
 var circleChart = require('./circleChart')
 var codeChart = require('./codeChart')
 
-const START_DATE = new Date(new Date() - 548*24*3600*1000)   // ~ 1.5 years of history
+const WIN_WIDTH = window.innerWidth
+const DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190         // 1.5 or 0.5 years of history
+const START_DATE = new Date(new Date() - DAYS_OF_HISTORY*24*3600*1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60'
 const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=300&cb='
 
