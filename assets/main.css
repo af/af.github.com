@@ -212,6 +212,17 @@ ul.posts li {
 .post footer p {
   margin: 0;
 }
+.post footer > h2 {
+  font-weight: bold;
+  font-size: 1em;
+  margin: 1rem 0 0.2rem;
+  font-style: normal;
+}
+.post footer .viewall {
+  font-size: 0.9em;
+  font-weight: normal;
+  margin-left: 1rem;
+}
 @media screen and (max-width: 800px) {
   .content {
     margin-left: 0;
