@@ -276,10 +276,10 @@
 
 	  var dataLength = (config.data || []).length;
 	  var all = config.el.selectAll("g.repo").data(config.data);
-	  var enter = all.enter().append("g").attr("class", "repo").attr("transform-origin", createdAtX + " 0").attr("transform", "scale(0,1)");
+	  var enter = all.enter().append("g").attr("class", "repo").attr("transform-origin", createdAtX + " 0").attr("opacity", 0);
 	  enter.transition().delay(function (d, i) {
 	    return (dataLength - i) * 100;
-	  }).duration(1000).attr("transform", "scale(1,1)");
+	  }).duration(500).attr("opacity", 1);
 
 	  var links = enter.append("a").attr("xlink:href", function (d) {
 	    return d.html_url;
