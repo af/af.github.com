@@ -212,16 +212,33 @@ ul.posts li {
 .post footer p {
   margin: 0;
 }
-.post footer > h2 {
-  font-weight: bold;
-  font-size: 1em;
-  margin: 1rem 0 0.2rem;
+.post .latest {
+  margin: 2rem 0 0;
+}
+.post .latest > h2 {
+  font-weight: normal;
+  font-size: 1.4em;
+  margin: 0 0 0.3rem;
   font-style: normal;
 }
-.post footer .viewall {
+@media screen and (min-width: 800px) {
+  .post .latest > h2 {
+    width: 250px;
+    margin-left: -250px;
+    padding-right: 2rem;
+    text-align: right;
+    float: left;
+    line-height: 0.8;
+  }
+  .post .latest > h2:after {
+    content: ' »';
+  }
+}
+.post .latest .item {
+  line-height: 1.4;
+}
+.post .latest .viewall {
   font-size: 0.9em;
-  font-weight: normal;
-  margin-left: 1rem;
 }
 @media screen and (max-width: 800px) {
   .content {

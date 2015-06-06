@@ -19,13 +19,13 @@ layout: base
         <p>Feedback? Contact me via <a href="https://twitter.com/eh_eff">Twitter</a>,
         or send a pull request <a href="https://www.github.com/af/af.github.com">on Github</a></p>
 
-        <h2>
-            Latest posts
+        <section class="latest">
+            <h2>Latest posts</h2>
+            {% for post in site.posts limit:3 %}
+                <div class="item"><a href="{{ post.url }}">{{ post.title }}</a></div>
+            {% endfor %}
             <a class="viewall" href="/posts">&raquo; view all</a>
-        </h2>
-        {% for post in site.posts limit:3 %}
-            <div><a href="{{ post.url }}">{{ post.title }}</a></div>
-        {% endfor %}
+        </section>
     </footer>
 </article>
 </div>
