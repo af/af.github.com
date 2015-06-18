@@ -29,6 +29,7 @@ a.visited:hover {
 pre {
   background: #eeeee7;
   padding: 0.2em;
+  border-radius: 3px;
 }
 code {
   background: #eeeee7;
@@ -238,6 +239,11 @@ ul.posts li {
   line-height: 1.4;
 }
 .post .latest .viewall {
+  display: inline-block;
+  padding: 3px 10px;
+  margin-top: 0.5rem;
+  border: 1px solid #bba;
+  border-radius: 3px;
   font-size: 0.9em;
 }
 @media screen and (max-width: 800px) {
