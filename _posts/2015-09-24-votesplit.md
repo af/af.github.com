@@ -6,34 +6,28 @@ keywords: "politics, Canadian election, vote splitting, data visualization, d3js
 
 
 *TL;DR: I made [this visualization](http://aaronfranks.com/votesplit2011) about
-vote splitting in the last Canadian election.*
+vote splitting in the 2011 Canadian election.*
 
 
-It's election season here in the Great White North. When we're not reading about
+If you're a Canadian and haven't been hiding under a rock, you're probably aware
+there's an election coming up. When we're not hearing about
 candidates [peeing in mugs](http://www.cbc.ca/news/trending/canada-election-2015-peegate-jerry-bance-1.3218157) or [how Bill C-51 reflects the teachings of Jesus](http://www.cbc.ca/news/canada/british-columbia/holy-tweets-b-c-mp-compares-conservative-party-to-jesus-1.3152178),
-we're trying to figure out who's going to win this thing.
+we're knee-deep in speculation over who's going to be in power later this fall.
 
-Unless you support the Conservative party *(full disclosure: I do not)*, there's a good chance
-you're either pessimistic or full-on defeatist about the odds of your party
-winning your riding. That's because we have three left-of-center major
-parties (Liberal, NDP, and Green) vying for much of the same electorate, while
-the Conservatives have the right wing all to themselves. In our [first-past-the-post](https://en.wikipedia.org/wiki/First-past-the-post_voting) voting system,
-this gives rise to what people call "vote splitting" of the left, and [tactical/strategic](https://en.wikipedia.org/wiki/First-past-the-post_voting#Criticisms) voting amongst progressives.
+Unless you support the Conservative party *(full disclosure: I do not)*, there's
+a good chance you've lamented the "vote splitting" of the left, and the
+[tactical/strategic](https://en.wikipedia.org/wiki/First-past-the-post_voting#Criticisms)
+voting (a result of our our [first-past-the-post](https://en.wikipedia.org/wiki/First-past-the-post_voting) system) that seems necessary to prevent Conservative (CPC) rule.
 
 The spectre of vote splitting is invoked countless times in the run-up to each
 election, but we rarely get a chance to see how it actually impacts the results.
 Meanwhile, the poll numbers we see in the press are almost always the
-nation-wide popular vote, which give no insight into what's happening
-at the riding level.
-
-Since first-past-the-post means our election is really several hundred separate
-contests, it's complicated and counterintuitive to see how changes in popular vote
-translate to movement in seats. For example, a 5% increase in popular
-vote for a party would be unlikely to give them a 5% increase in seats­
-it could give them zero additional seats if their support was concentrated
-in a small set of ridings. Conversely, a 5% popular
-vote increase could boost a party's seat take by 10% or more if they were the
-runner-up in many tight races across the country.
+nation-wide popular vote, which [give no
+insight](http://thetyee.ca/Mediacheck/2015/09/16/Stop-Sharing-Nationwide-Election-Polls/)
+into what's happening at the riding level.
+Since first-past-the-post means our election is really
+hundreds of separate contests, it's complicated and counterintuitive to see how
+changes in popular vote translate to movement in seats.
 
 I took an interest in this topic and built a [data
 visualization](http://aaronfranks.com/votesplit2011) that allows you to modify the
@@ -59,6 +53,9 @@ Some pointers on using the visualization:
 * Each riding is colour-coded with the winner, and the strength of the colouring
   indicates which percentage of the vote the winner had. Translation: the lighter
   ridings are more hotly contested.
+* "Battleground" ridings show up with a hatched pattern. These are ridings where the
+  difference between the Conservatives and the top progressive party was less than
+  5% of the riding's total votes.
 * Things will kinda/sorta work on mobile/tablet, but a desktop browser is recommended
   if you have one.
 
@@ -85,8 +82,9 @@ we can see that even if all 2011 Green voters voted [for the second-place
 NDP](http://aaronfranks.com/votesplit2011/#split=GPC-100-NDP), or [voted perfectly
 strategically](http://aaronfranks.com/votesplit2011/#split=GPC-100-Strategic), we
 would have still ended up with a Conservative government, and still a majority in
-the first case. This lends some credence to Elizabeth May's [rebuttal](http://thetyee.ca/Opinion/2015/06/27/May-Green-Party-Does-Not-Split-Vote/) that the Greens do not split the vote
-appreciably.
+the first case. This lends some credence to Elizabeth May's [rebuttal](http://thetyee.ca/Opinion/2015/06/27/May-Green-Party-Does-Not-Split-Vote/) that the Greens did not split the vote
+appreciably. But could it be different this year with the top three parties closer
+in the polls?
 
 
 ## The Liberals and NDP
@@ -127,28 +125,25 @@ election, but it seems unlikely and the [current polls](http://www.threehundrede
 From trying out various scenarios, it seems there are three major classes of ridings
 for the would-be strategic voter to consider:
 
-* A: The Conservative stronghold (see all of the dark-blue in Alberta). There's
-  a pretty good chance these ridings will go CPC once again.
-* B: The safe progressive riding. Two or more of the progressive parties have a
+* A: The Conservative stronghold (see all of the dark-blue in Alberta). Polls indicate
+  there's a good chance many of these ridings will go CPC once again.
+* B: The safe progressive riding. 2+ progressive parties are projected to have a
   higher vote count than the Conservatives, so vote-splitting is less of a factor.
-* C: The battlegrounds. The Conservatives and one or more progressive party have
+* C: The battlegrounds. The Conservatives and one or more progressive parties have
   a tight race. This is where strategic voting could really make a difference.
 
 If you were to go back in time to re-cast your ballot in 2011, it seems clear that
-in the majority of ridings, you wouldn't need to worry about vote splitting at all,
+the majority of ridings are of type A or B. If you lived in one of them, you wouldn't
+need to worry about vote splitting at all,
 and should vote for the party that best aligns with your values. However, in the
-20% of ridings that are shaping up to be tight contests, you may want to vote
+20% of ridings that are shaping up to be battlegrounds, you may want to vote
 strategically, with the help of [VoteTogether](http://www.votetogether.ca/) and
 the [current polls in your riding](http://www.threehundredeight.com/p/canada.html).
+If you're not in one of the targeted swing ridings, you probably don't have to
+worry about strategic voting.
 
-* The Green party did not split the vote enough to put CPC in power
-* If you want to vote strategically against the Conservatives, *know your riding*
-  and don't let the popular vote influence your decision.
-* [VoteTogether](http://www.votetogether.ca/) is a great resource for figuring out
-  whether you should consider voting strategically. If you're not in one of their
-  "battleground" ridings, you probably don't have to worry about it.
 
-Two more things that deserve attention for October 2015:
+A few more things that deserve attention for October 2015:
 
 * All major parties beside the CPC have
 [pledged](https://www.thestar.com/news/canada/2015/06/16/trudeau-would-end-first-past-the-post-electoral-system.html) to end first-past-the-post if
@@ -157,6 +152,8 @@ Two more things that deserve attention for October 2015:
 * Improving 2011's poor voter turnout numbers (61%) could also have a dramatic effect
   on the results, particularly if [more young people
   voted](https://en.wikipedia.org/wiki/Young_voter_turnout_in_Canada)
+* Once again, if you want to vote strategically against the Conservatives, *know your riding*
+  and don't let the popular vote influence your decision.
 
 On a final note, the [source code](https://github.com/af/votesplit2011) for the
 visualization is available. Please file an issue on Github if you have any suggestions
