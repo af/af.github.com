@@ -136,11 +136,9 @@ If you were to go back in time to re-cast your ballot in 2011, it seems clear th
 the majority of ridings are of type A or B. If you lived in one of them, you wouldn't
 need to worry about vote splitting at all,
 and should vote for the party that best aligns with your values. However, in the
-20% of ridings that are shaping up to be battlegrounds, you may want to vote
+ridings that are [shaping up to be battlegrounds](http://www.votetogether.ca/riding/list/), you may want to vote
 strategically, with the help of [VoteTogether](http://www.votetogether.ca/) and
 the [current polls in your riding](http://www.threehundredeight.com/p/canada.html).
-If you're not in one of the targeted swing ridings, you probably don't have to
-worry about strategic voting.
 
 
 A few more things that deserve attention for October 2015:
