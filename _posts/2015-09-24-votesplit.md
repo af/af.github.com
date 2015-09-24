@@ -17,7 +17,7 @@ we're knee-deep in speculation over who's going to be in power later this fall.
 Unless you support the Conservative party *(full disclosure: I do not)*, there's
 a good chance you've lamented the "vote splitting" of the left, and the
 [tactical/strategic](https://en.wikipedia.org/wiki/First-past-the-post_voting#Criticisms)
-voting (a result of our our [first-past-the-post](https://en.wikipedia.org/wiki/First-past-the-post_voting) system) that seems necessary to prevent Conservative (CPC) rule.
+voting that seems necessary to prevent Conservative (CPC) rule.
 
 The spectre of vote splitting is invoked countless times in the run-up to each
 election, but we rarely get a chance to see how it actually impacts the results.
@@ -25,7 +25,8 @@ Meanwhile, the poll numbers we see in the press are almost always the
 nation-wide popular vote, which [give no
 insight](http://thetyee.ca/Mediacheck/2015/09/16/Stop-Sharing-Nationwide-Election-Polls/)
 into what's happening at the riding level.
-Since first-past-the-post means our election is really
+Since our [first-past-the-post](https://en.wikipedia.org/wiki/First-past-the-post_voting)
+voting system means our elections are really
 hundreds of separate contests, it's complicated and counterintuitive to see how
 changes in popular vote translate to movement in seats.
 
