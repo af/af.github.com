@@ -161,12 +161,19 @@ ul.posts {
   padding-left: 0;
 }
 ul.posts time {
-  display: inline-block;
-  width: 6em;
+  display: block;
+  float: left;
   color: #888;
   font-weight: bold;
-  margin-right: 5px;
   font-size: 1.1rem;
+  padding-right: 2rem;
+}
+@media screen and (min-width: 800px) {
+  ul.posts time {
+    margin-left: -7em;
+    width: 7em;
+    text-align: right;
+  }
 }
 ul.posts li {
   margin-bottom: 5px;

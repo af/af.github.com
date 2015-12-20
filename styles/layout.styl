@@ -65,12 +65,17 @@ ul.posts
     padding-left: 0
 
     time
-        display: inline-block
-        width: 6em
+        display: block
+        float: left
         color: #888
         font-weight: bold
-        margin-right: 5px
         font-size: 1.1rem
+        padding-right: $dimensions.gutterWidth
+
+        @media screen and (min-width: 800px)
+            margin-left: -7em
+            width: 7em
+            text-align: right
 
     li
         margin-bottom: 5px

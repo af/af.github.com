@@ -9,7 +9,7 @@ title: All Posts
     <ul class="posts">
     {% for post in site.posts %}
     <li>
-        <time>{{ post.date | date_to_string }}</time>
+        <time>{{ post.date | date: "%Y-%m-%d" }}</time>
         <a href="{{ post.url }}">{{ post.title }}</a>
     </li>
     {% endfor %}
