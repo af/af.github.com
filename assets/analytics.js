@@ -7,7 +7,7 @@
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-26427038-2', 'aaronfranks.com');
+    ga('create', 'UA-26427038-2', 'aaronfranks.com', { siteSpeedSampleRate: 50 });
     ga('set', 'dimension1', isAuthor ? 'author' : 'viewer');
     ga('send', 'pageview');
 }());
