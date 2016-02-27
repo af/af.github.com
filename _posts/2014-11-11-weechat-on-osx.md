@@ -133,7 +133,9 @@ The WeeChat FAQ [has an entry on
 this](http://weechat.org/files/doc/weechat_faq.en.html#irc_ssl_connection), but
 the `curl-ca-bundle` package it mentions doesn't seem to be available in homebrew.
 Instead, you can follow [this gist](https://gist.github.com/1stvamp/2158128) to
-install the CA bundle that you need.
+install the CA bundle that you need. **Update: on OS X 10.11 and later, follow [the
+instructions in this comment](https://gist.github.com/1stvamp/2158128#gistcomment-1573222)
+instead**
 
 Back in WeeChat, the following command will point to the CA file that you just
 created:
