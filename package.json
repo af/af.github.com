@@ -4,7 +4,7 @@
   "description": "",
   "browser": "./js/main.js",
   "scripts": {
-    "watch": "jekyll serve --watch & npm run watch_js & npm run watch_css",
+    "start": "jekyll serve --watch & npm run watch_js & npm run watch_css",
     "watch_js": "webpack --watch js/main.js assets/main.js",
     "watch_css": "stylus -w styles -o assets"
   },
