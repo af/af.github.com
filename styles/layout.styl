@@ -123,6 +123,12 @@ ul.posts
     .latest
         margin: 2rem 0 0
 
+        time
+            display: inline-block
+            font-weight: bold
+            opacity: 0.5
+            min-width: 5em
+
         > h2
             font-weight: normal
             font-size: 1.4em
@@ -147,9 +153,13 @@ ul.posts
             display: inline-block
             padding: 3px 10px
             margin-top: 0.5rem
-            border: 1px solid #bba
+            border: 1px solid currentColor
             border-radius: 3px
             font-size: 0.9em
+
+            &:hover
+                color: white
+                background: $colours.cta
 
 
 // Mobile content

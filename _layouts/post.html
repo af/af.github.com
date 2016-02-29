@@ -22,7 +22,10 @@ layout: base
         <section class="latest">
             <h2>Latest posts</h2>
             {% for post in site.posts limit:3 %}
-                <div class="item"><a href="{{ post.url }}">{{ post.title }}</a></div>
+                <div class="item">
+                    <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+                    <a href="{{ post.url }}">{{ post.title }}</a>
+                </div>
             {% endfor %}
             <a class="viewall" href="/posts">view all</a>
         </section>

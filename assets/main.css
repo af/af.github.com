@@ -223,6 +223,12 @@ ul.posts li {
 .post .latest {
   margin: 2rem 0 0;
 }
+.post .latest time {
+  display: inline-block;
+  font-weight: bold;
+  opacity: 0.5;
+  min-width: 5em;
+}
 .post .latest > h2 {
   font-weight: normal;
   font-size: 1.4em;
@@ -249,9 +255,13 @@ ul.posts li {
   display: inline-block;
   padding: 3px 10px;
   margin-top: 0.5rem;
-  border: 1px solid #bba;
+  border: 1px solid currentColor;
   border-radius: 3px;
   font-size: 0.9em;
+}
+.post .latest .viewall:hover {
+  color: #fff;
+  background: #6fa933;
 }
 @media screen and (max-width: 800px) {
   .content {
