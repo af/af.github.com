@@ -6,7 +6,7 @@ const WIN_WIDTH = window.innerWidth
 const DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190         // 1.5 or 0.5 years of history
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY*24*3600*1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60'
-const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=300&cb='
+const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
 
 // Helper for loading jsonp data.
 // The given url should not include the callback function's name (it will be appended)
@@ -68,7 +68,7 @@ module.exports = function() {
 
         // Divide links into tag group "buckets":
         var tagGroups = {
-            top20: [], javascript: [], programming: [],
+            top: [], javascript: [], programming: [],
             dataviz: [], design: [], css: [],
             vim: [], music: [], other: []
         };
