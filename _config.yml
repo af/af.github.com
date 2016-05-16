@@ -1,3 +1,11 @@
 permalink:  /posts/:title/
 markdown: kramdown
 extensions: [fenced_code_blocks]
+gems:
+    - jekyll-seo-tag
+author:
+    twitter: eh_eff
+twitter:
+    username: eh_eff
+title: Aaron Franks’s blog
+description: Some guy rambles about programming
