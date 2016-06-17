@@ -22,12 +22,14 @@ module.exports = function circleChart(config) {
 
     var bubbleChart = forceChart()
         .size([config.width, 300])  // FIXME
-        .x(x.fromDateString({ propName: config.timeProp }))
         .padding(1)
+        .x(x.fromDateString({ propName: config.timeProp }))
+        .xStart(x.fromDateString({ propName: config.timeProp }))
         .y(yBaseline)
+        .yStart(d => yBaseline + 10 - (20 * Math.random()))
         .r(radius)
-        .xGravity(3)    // make the x-position more accurate
-        .yGravity(1)    // ...and the y-position more flexible
+        .xGravity(8)    // make the x-position more accurate
+        .yGravity(5)    // ...and the y-position more flexible
 
     var groups = config.el.append('g').call(bubbleChart, config.data)
         .attr('class', 'bubbles')

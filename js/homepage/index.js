@@ -59,7 +59,7 @@ module.exports = function() {
         titleProp: 'title'
     })
 
-    // Plot saved links from delicious's JSONP API
+    // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, function(links) {
         d3.select('section.links').classed('loading', false)
         var linksSvg = d3.select('section.links svg')
