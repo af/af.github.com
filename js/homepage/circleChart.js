@@ -10,13 +10,12 @@ const forceChart = require('../forceChart')
 //  timeProp
 //  urlProp
 //  titleProp
-//  radius
+//  radius (function)
 //  yBaseline
 module.exports = function circleChart(config) {
     var x = config.xScale
     var yBaseline = config.yBaseline || 20
     var radius = config.radius || 5
-    if (typeof radius !== 'function') radius = () => config.radius
 
     var selector = 'g' + (config.groupClass ? '.' + config.groupClass : '')
     var all = config.el.selectAll(selector).data(config.data)

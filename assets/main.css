@@ -330,13 +330,13 @@ section.homepage.code a {
   color: rgba(85,170,102,0.6);
 }
 section.homepage.posts {
-  height: 150px;
+  height: 200px;
 }
 section.homepage.posts a {
   color: #56a;
 }
 section.homepage.links {
-  height: 280px;
+  height: 380px;
 }
 section.homepage.links a {
   color: #dcb432;

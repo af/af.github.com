@@ -67,7 +67,7 @@ module.exports = function() {
 
         // Divide links into tag group "buckets":
         var tagGroups = {
-            top: [], javascript: [], programming: [],
+            javascript: [], programming: [],
             dataviz: [], design: [], css: [], other: []
         };
         var tags = Object.keys(tagGroups)
@@ -83,19 +83,20 @@ module.exports = function() {
         const radius = 5
         for (var j=tags.length-1; j >= 0; j--) {
             var tag = tags[j]
-            var yBaseline = 3 * radius * (2*j + 1)
+            var yBaseline = 4 * radius * (2*j + 1)
 
             circleChart({
                 data: tagGroups[tag],
                 width: svgWidth,
                 xScale: x,
                 yBaseline,
-                radius,
+                // links with the "top" tag appear larger in the chart:
+                radius: d => (d.t.indexOf('top') === -1 ? radius : radius * 1.8),
                 el: linksSvg,
                 groupClass: tag,
                 timeProp: 'dt',
                 urlProp: 'u',
-                titleProp: 'd',
+                titleProp: 'd'
             })
 
             linksSvg.append('text').attr('class', 'linkLabel')
