@@ -53,7 +53,6 @@ module.exports = function() {
         el: d3.select('section.posts svg')
                 .append('g').attr('transform', leavePadding),
         radius: d => (15 + Math.sqrt(d.length)/5),
-        loadingDelay: 1500,
         groupClass: 'post',
         timeProp: 'date',
         urlProp: 'url',
@@ -69,8 +68,7 @@ module.exports = function() {
         // Divide links into tag group "buckets":
         var tagGroups = {
             top: [], javascript: [], programming: [],
-            dataviz: [], design: [], css: [],
-            vim: [], music: [], other: []
+            dataviz: [], design: [], css: [], other: []
         };
         var tags = Object.keys(tagGroups)
         links.forEach(function(l) {
@@ -82,23 +80,22 @@ module.exports = function() {
         })
 
         // Plot a row of circles for each tag group
-        const radius = 10
+        const radius = 5
         for (var j=tags.length-1; j >= 0; j--) {
             var tag = tags[j]
-            var yBaseline = radius * (2*j + 1)
+            var yBaseline = 3 * radius * (2*j + 1)
 
             circleChart({
                 data: tagGroups[tag],
                 width: svgWidth,
                 xScale: x,
-                yBaseline: yBaseline,
-                radius: 10,
+                yBaseline,
+                radius,
                 el: linksSvg,
                 groupClass: tag,
                 timeProp: 'dt',
                 urlProp: 'u',
                 titleProp: 'd',
-                loadingDelay: 2000
             })
 
             linksSvg.append('text').attr('class', 'linkLabel')
@@ -122,7 +119,7 @@ module.exports = function() {
             width: svgWidth,
             xScale: x,
             el: d3.select('section.code svg')
-                    .append('g').attr('transform', leavePadding),
+                    .append('g').attr('transform', leavePadding)
         })
     })
 }

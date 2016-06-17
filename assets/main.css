@@ -367,8 +367,8 @@ section.homepage.links a {
 .links svg g text.date {
   font-size: 0.8rem;
 }
-.posts svg g a:hover ~ text,
-.links svg g a:hover ~ text {
+.posts svg g a:hover text,
+.links svg g a:hover text {
   display: block;
 }
 .posts svg g line,
