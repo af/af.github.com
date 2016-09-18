@@ -16446,6 +16446,8 @@ const homepage = function() {
 /* harmony export (immutable) */ exports["a"] = circleChart;
 
 
+const SIM_STEPS = 200
+
 // Simple chart mapping content as circles along a time axis.
 // Config params:
 //  data
@@ -16462,6 +16464,15 @@ function circleChart(config) {
     var yBaseline = config.yBaseline || 20
     var radius = config.radius || 5
 
+    // For force sim beeswarm example, see
+    // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
+    const sim = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])(config.data)
+        .force('x', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceX"])(x.fromDateString({ propName: config.timeProp })).strength(1))
+        .force('y', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceY"])(yBaseline))
+        .force('collide', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCollide"])(5.5))
+        .stop()
+    for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
+
     const groups = config.el.append('g')
         .selectAll('g.item')
         .data(config.data)
@@ -16470,6 +16481,7 @@ function circleChart(config) {
 
     const links = groups.append('a')
             .attr('xlink:href', d => d[config.urlProp])
+            .attr('transform', d => `translate(${d.x}, ${d.y})`)
 
     links.append('circle')
             .attr('r', radius)
@@ -16498,20 +16510,6 @@ function circleChart(config) {
                 var y = radius(d) + 35
                 return 'translate(' + [xVal,y].join(',') + ')'
             })
-
-    // For force sim example, see https://bl.ocks.org/mbostock/4062045
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])()
-        .nodes(config.data)
-        .force('charge', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceManyBody"])())
-        .force('center', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCenter"])())
-        .on('tick', () => {
-            // TODO: figure out how force layout actually works and update
-            // this part (may need to use links as well)
-            links.attr('transform', d => {
-                const xVal = x.fromDateString({ propName: config.timeProp })(d)
-                return `translate(${xVal}, ${yBaseline})`
-            })
-        })
 }
 
 

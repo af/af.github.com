@@ -1,4 +1,6 @@
-import {forceSimulation, forceManyBody, forceCenter, select} from 'd3'
+import {forceSimulation, forceX, forceY, forceCollide, select} from 'd3'
+
+const SIM_STEPS = 200
 
 // Simple chart mapping content as circles along a time axis.
 // Config params:
@@ -16,6 +18,15 @@ export default function circleChart(config) {
     var yBaseline = config.yBaseline || 20
     var radius = config.radius || 5
 
+    // For force sim beeswarm example, see
+    // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
+    const sim = forceSimulation(config.data)
+        .force('x', forceX(x.fromDateString({ propName: config.timeProp })).strength(1))
+        .force('y', forceY(yBaseline))
+        .force('collide', forceCollide(5.5))
+        .stop()
+    for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
+
     const groups = config.el.append('g')
         .selectAll('g.item')
         .data(config.data)
@@ -24,6 +35,7 @@ export default function circleChart(config) {
 
     const links = groups.append('a')
             .attr('xlink:href', d => d[config.urlProp])
+            .attr('transform', d => `translate(${d.x}, ${d.y})`)
 
     links.append('circle')
             .attr('r', radius)
@@ -52,18 +64,4 @@ export default function circleChart(config) {
                 var y = radius(d) + 35
                 return 'translate(' + [xVal,y].join(',') + ')'
             })
-
-    // For force sim example, see https://bl.ocks.org/mbostock/4062045
-    forceSimulation()
-        .nodes(config.data)
-        .force('charge', forceManyBody())
-        .force('center', forceCenter())
-        .on('tick', () => {
-            // TODO: figure out how force layout actually works and update
-            // this part (may need to use links as well)
-            links.attr('transform', d => {
-                const xVal = x.fromDateString({ propName: config.timeProp })(d)
-                return `translate(${xVal}, ${yBaseline})`
-            })
-        })
 }
