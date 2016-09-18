@@ -61,7 +61,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -16304,8 +16304,8 @@ var   y0$3;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_d3__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__circleChart__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__codeChart__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__circleChart__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__codeChart__ = __webpack_require__(3);
 
 
 
@@ -16437,8 +16437,7 @@ const homepage = function() {
 
 
 /***/ },
-/* 2 */,
-/* 3 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16463,70 +16462,61 @@ function circleChart(config) {
     var yBaseline = config.yBaseline || 20
     var radius = config.radius || 5
 
-    const circles = config.el.append('g')
-        .selectAll('circle')
+    const groups = config.el.append('g')
+        .selectAll('g.item')
         .data(config.data)
-        .enter().append('circle')
+        .enter().append('g')
+            .attr('className', 'item')
+
+    const links = groups.append('a')
+            .attr('xlink:href', d => d[config.urlProp])
+
+    links.append('circle')
             .attr('r', radius)
             .attr('fill', 'blue')
 
+    links.append('line')
+            .attr('x1', 1)
+            .attr('x2', 1)
+            .attr('y1', function() {
+                const circle = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])(this.parentElement.firstChild)
+                return 3 + parseFloat(circle.attr('r'))
+            })
+            .attr('y2', function() { return parseFloat(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])(this).attr('y1')) + 40 })
+
+    links.append('text')
+            .text(d => d[config.titleProp])
+            .attr('transform', function(d) {
+                var xVal = 5
+                var y = radius(d) + 20
+                return 'translate(' + [xVal,y].join(',') + ')'
+            })
+    links.append('text').attr('class', 'date')
+            .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
+            .attr('transform', function(d) {
+                var xVal = 5
+                var y = radius(d) + 35
+                return 'translate(' + [xVal,y].join(',') + ')'
+            })
+
     // For force sim example, see https://bl.ocks.org/mbostock/4062045
-    const sim = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])()
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])()
         .nodes(config.data)
         .force('charge', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceManyBody"])())
         .force('center', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCenter"])())
         .on('tick', () => {
-            circles.attr('cx', d => d.x)
-                   .attr('cy', d => d.y)
+            // TODO: figure out how force layout actually works and update
+            // this part (may need to use links as well)
+            links.attr('transform', d => {
+                const xVal = x.fromDateString({ propName: config.timeProp })(d)
+                return `translate(${xVal}, ${yBaseline})`
+            })
         })
-// 
-//     var bubbleChart = forceChart()
-//         .size([config.width, 300])  // FIXME
-//         .padding(1)
-//         .x(x.fromDateString({ propName: config.timeProp }))
-//         .xStart(x.fromDateString({ propName: config.timeProp }))
-//         .y(yBaseline)
-//         .yStart(d => yBaseline + 10 - (20 * Math.random()))
-//         .r(radius)
-//         .xGravity(8)    // make the x-position more accurate
-//         .yGravity(5)    // ...and the y-position more flexible
-// 
-
-    // var links = groups.append('a')
-    //         .attr('xlink:href', d => d[config.urlProp])
-
-    // links.append('circle')
-    //     .attr('r', d => d.r0)
-    //     .attr('fill', 'slategrey')
-
-    // links.append('line')
-    //         .attr('x1', 1)
-    //         .attr('x2', 1)
-    //         .attr('y1', function(d) {
-    //             var radius = parseFloat(select(this.parentElement.firstChild).attr('r'))
-    //             return radius + 3
-    //         })
-    //         .attr('y2', function() { return parseFloat(select(this).attr('y1')) + 40 })
-
-    // links.append('text')
-    //         .text(d => d[config.titleProp])
-    //         .attr('transform', function(d) {
-    //             var xVal = 5
-    //             var y = radius(d) + 20
-    //             return 'translate(' + [xVal,y].join(',') + ')'
-    //         })
-    // links.append('text').attr('class', 'date')
-    //         .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
-    //         .attr('transform', function(d) {
-    //             var xVal = 5
-    //             var y = radius(d) + 35
-    //             return 'translate(' + [xVal,y].join(',') + ')'
-    //         })
 }
 
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16593,7 +16583,7 @@ const COMET_SPACING = 25
 
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
