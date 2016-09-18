@@ -1,7 +1,7 @@
 const COMET_SPACING = 25
 
 // Convert Github repository API data into a "comet" date chart
-module.exports = function(config) {
+export default function(config) {
     var x = config.xScale
     var createdAtX = x.fromDateString({ propName: 'created_at' })
 
@@ -29,7 +29,7 @@ module.exports = function(config) {
 
     // Add rects to expand the hoverable area:
     links.append('rect')
-            .attr('width', (d, i) => x(new Date(d.pushed_at)) - createdAtX(d))
+            .attr('width', (d) => x(new Date(d.pushed_at)) - createdAtX(d))
             .attr('height', COMET_SPACING)
             .attr('transform', (d, i) =>
                 "translate(" + createdAtX(d) + "," + (15 + i*COMET_SPACING) + ")"

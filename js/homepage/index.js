@@ -1,6 +1,6 @@
-var d3 = require('d3')
-var circleChart = require('./circleChart')
-var codeChart = require('./codeChart')
+import {axisTop, json, select, scaleTime, timeYear} from 'd3'
+import circleChart from './circleChart'
+import codeChart from './codeChart'
 
 const WIN_WIDTH = window.innerWidth
 const DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190         // 1.5 or 0.5 years of history
@@ -19,12 +19,12 @@ function jsonp(url, callback) {
 }
 
 
-module.exports = function() {
+const homepage = function() {
     var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width)
     var margin = {top: 40, right: 150, left: 20}
     var leavePadding = 'translate(' + margin.left + ',' + margin.top + ')'
 
-    var x = d3.time.scale().range([0, svgWidth - margin.left - margin.right])
+    var x = scaleTime().range([0, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
     x.fromDateString = function(options={}) {
@@ -35,11 +35,11 @@ module.exports = function() {
     }
 
     // Set up an x axis and put it on the top chart:
-    var xAxis = d3.svg.axis().scale(x).orient('top')
-                    .innerTickSize(6)
-                    .outerTickSize(0)
-                    .ticks(d3.time.years, 1)
-    d3.select('section:first-of-type svg').append('g')
+    var xAxis = axisTop(x)
+                    .tickSizeInner(6)
+                    .tickSizeOuter(0)
+                    .ticks(timeYear, 1)
+    select('section:first-of-type svg').append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
         .attr('class', 'xAxis')
         .call(xAxis)
@@ -50,7 +50,7 @@ module.exports = function() {
         width: svgWidth,
         xScale: x,
         yBaseline: 30,
-        el: d3.select('section.posts svg')
+        el: select('section.posts svg')
                 .append('g').attr('transform', leavePadding),
         radius: d => (15 + Math.sqrt(d.length)/5),
         groupClass: 'post',
@@ -61,8 +61,8 @@ module.exports = function() {
 
     // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, function(links) {
-        d3.select('section.links').classed('loading', false)
-        var linksSvg = d3.select('section.links svg')
+        select('section.links').classed('loading', false)
+        var linksSvg = select('section.links svg')
                             .append('g').attr('transform', leavePadding)
 
         // Divide links into tag group "buckets":
@@ -107,8 +107,8 @@ module.exports = function() {
     })
 
     // Plot Github source repos, using their CORS-enabled public API
-    d3.json(GITHUB_URL, function(err, data) {
-        var $section = d3.select('section.code')
+    json(GITHUB_URL, function(err, data) {
+        var $section = select('section.code')
         if (err) return $section.classed('failed', true)
 
         $section.classed('loading', false)
@@ -119,8 +119,10 @@ module.exports = function() {
             data: myRepos,
             width: svgWidth,
             xScale: x,
-            el: d3.select('section.code svg')
+            el: select('section.code svg')
                     .append('g').attr('transform', leavePadding)
         })
     })
 }
+
+export default homepage

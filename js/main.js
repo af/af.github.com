@@ -1,4 +1,4 @@
-var homepage = require('./homepage');
+import homepage from './homepage'
 
 // Quick and dirty "router":
-if (location.pathname === '/') homepage();
+if (location.pathname === '/') homepage()
