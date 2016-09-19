@@ -1,3 +1,5 @@
+@require "_common"
+
 @font-face
     font-family: 'Klinic Slab'
     src:url('/fonts/klinic/KlinicSlabBook.otf') format('opentype')
@@ -46,6 +48,6 @@ $locationIcon($color='inherit')
     includeIcon('\e801', $color)
 
 body
-    font-family: 'Klinic Slab', serif
+    font-family: $mainFont
     font-size: 20px
     color: #334

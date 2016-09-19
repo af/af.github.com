@@ -16346,9 +16346,9 @@ const homepage = function() {
     const xAxis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["axisTop"])(x)
                     .tickSizeInner(6)
                     .tickSizeOuter(0)
-                    .ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"], 1)
+                    .ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"])
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section:first-of-type svg').append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top}`)
+        .attr('transform', `translate(${margin.left}, ${margin.top})`)
         .attr('class', 'xAxis')
         .call(xAxis)
 

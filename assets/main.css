@@ -72,7 +72,7 @@ pre code {
   font-style: normal;
 }
 body {
-  font-family: 'Klinic Slab', serif;
+  font-family: 'Klinic Slab', sans-serif;
   font-size: 20px;
   color: #334;
 }
@@ -348,8 +348,12 @@ section.homepage.links a {
 }
 .homepage svg .xAxis {
   fill: #ccc;
+}
+.homepage svg .xAxis text {
+  fill: #ccc;
   font-weight: bold;
   font-size: 1.6rem;
+  font-family: 'Klinic Slab', sans-serif;
 }
 .homepage svg .xAxis path {
   stroke: #ccc;

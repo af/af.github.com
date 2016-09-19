@@ -38,9 +38,9 @@ const homepage = function() {
     const xAxis = axisTop(x)
                     .tickSizeInner(6)
                     .tickSizeOuter(0)
-                    .ticks(timeYear, 1)
+                    .ticks(timeYear)
     select('section:first-of-type svg').append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top}`)
+        .attr('transform', `translate(${margin.left}, ${margin.top})`)
         .attr('class', 'xAxis')
         .call(xAxis)
 
