@@ -11,8 +11,8 @@ const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
 // Helper for loading jsonp data.
 // The given url should not include the callback function's name (it will be appended)
 function jsonp(url, callback) {
-    var callbackName = 'jsonp_cb' + (new Date).getTime()
-    var s = document.createElement('script')
+    const callbackName = 'jsonp_cb' + (new Date).getTime()
+    const s = document.createElement('script')
     s.src = url + callbackName
     document.body.appendChild(s)
     window[callbackName] = callback
@@ -20,27 +20,27 @@ function jsonp(url, callback) {
 
 
 const homepage = function() {
-    var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width)
-    var margin = {top: 40, right: 150, left: 20}
-    var leavePadding = 'translate(' + margin.left + ',' + margin.top + ')'
+    const svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width)
+    const margin = {top: 40, right: 150, left: 20}
+    const leavePadding = `translate(${margin.left}, ${margin.top})`
 
-    var x = scaleTime().range([0, svgWidth - margin.left - margin.right])
+    const x = scaleTime().range([0, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
     x.fromDateString = function(options={}) {
-        var offset = options.offset || 0
-        var propName = options.propName || 'date'
+        const offset = options.offset || 0
+        const propName = options.propName || 'date'
 
         return d => offset + Math.floor(x(new Date(d[propName])))
     }
 
     // Set up an x axis and put it on the top chart:
-    var xAxis = axisTop(x)
+    const xAxis = axisTop(x)
                     .tickSizeInner(6)
                     .tickSizeOuter(0)
                     .ticks(timeYear, 1)
     select('section:first-of-type svg').append('g')
-        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+        .attr('transform', `translate(${margin.left}, ${margin.top}`)
         .attr('class', 'xAxis')
         .call(xAxis)
 
@@ -62,18 +62,18 @@ const homepage = function() {
     // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, function(links) {
         select('section.links').classed('loading', false)
-        var linksSvg = select('section.links svg')
+        const linksSvg = select('section.links svg')
                             .append('g').attr('transform', leavePadding)
 
         // Divide links into tag group "buckets":
-        var tagGroups = {
+        const tagGroups = {
             javascript: [], programming: [],
             dataviz: [], design: [], css: [], other: []
         };
-        var tags = Object.keys(tagGroups)
+        const tags = Object.keys(tagGroups)
         links.forEach(function(l) {
-            for (var i=0; i<tags.length; i++) {
-                var t = tags[i]
+            for (let i=0; i<tags.length; i++) {
+                const t = tags[i]
                 if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l)
                 else if (i === tags.length - 1) tagGroups[t].push(l)   // Push to 'other' if no other matches
             }
@@ -81,9 +81,9 @@ const homepage = function() {
 
         // Plot a row of circles for each tag group
         const radius = 5
-        for (var j=tags.length-1; j >= 0; j--) {
-            var tag = tags[j]
-            var yBaseline = 4 * radius * (2*j + 1)
+        for (let j=tags.length-1; j >= 0; j--) {
+            const tag = tags[j]
+            const yBaseline = 4 * radius * (2*j + 1)
 
             circleChart({
                 data: tagGroups[tag],
@@ -108,11 +108,11 @@ const homepage = function() {
 
     // Plot Github source repos, using their CORS-enabled public API
     json(GITHUB_URL, function(err, data) {
-        var $section = select('section.code')
+        const $section = select('section.code')
         if (err) return $section.classed('failed', true)
 
         $section.classed('loading', false)
-        var myRepos = data.filter(r => !r.fork)
+        const myRepos = data.filter(r => !r.fork)
                           .filter(r => (new Date(r.pushed_at)) > START_DATE)
                           .sort((r1, r2) => (r1.pushed_at < r2.pushed_at) ? 1 : -1)
         codeChart({

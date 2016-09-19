@@ -14,9 +14,9 @@ const SIM_STEPS = 200
 //  radius (function)
 //  yBaseline
 export default function circleChart(config) {
-    var x = config.xScale
-    var yBaseline = config.yBaseline || 20
-    var radius = config.radius || 5
+    const x = config.xScale
+    const yBaseline = config.yBaseline || 20
+    const radius = config.radius || 5
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
@@ -52,16 +52,8 @@ export default function circleChart(config) {
 
     links.append('text')
             .text(d => d[config.titleProp])
-            .attr('transform', function(d) {
-                var xVal = 5
-                var y = radius(d) + 20
-                return 'translate(' + [xVal,y].join(',') + ')'
-            })
+            .attr('transform', d => `translate(5, ${radius(d) + 20})`)
     links.append('text').attr('class', 'date')
             .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
-            .attr('transform', function(d) {
-                var xVal = 5
-                var y = radius(d) + 35
-                return 'translate(' + [xVal,y].join(',') + ')'
-            })
+            .attr('transform', d => `translate(5, ${radius(d) + 35})`)
 }

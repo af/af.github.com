@@ -16319,8 +16319,8 @@ const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
 // Helper for loading jsonp data.
 // The given url should not include the callback function's name (it will be appended)
 function jsonp(url, callback) {
-    var callbackName = 'jsonp_cb' + (new Date).getTime()
-    var s = document.createElement('script')
+    const callbackName = 'jsonp_cb' + (new Date).getTime()
+    const s = document.createElement('script')
     s.src = url + callbackName
     document.body.appendChild(s)
     window[callbackName] = callback
@@ -16328,27 +16328,27 @@ function jsonp(url, callback) {
 
 
 const homepage = function() {
-    var svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width)
-    var margin = {top: 40, right: 150, left: 20}
-    var leavePadding = 'translate(' + margin.left + ',' + margin.top + ')'
+    const svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width)
+    const margin = {top: 40, right: 150, left: 20}
+    const leavePadding = `translate(${margin.left}, ${margin.top})`
 
-    var x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([0, svgWidth - margin.left - margin.right])
+    const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([0, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
     x.fromDateString = function(options={}) {
-        var offset = options.offset || 0
-        var propName = options.propName || 'date'
+        const offset = options.offset || 0
+        const propName = options.propName || 'date'
 
         return d => offset + Math.floor(x(new Date(d[propName])))
     }
 
     // Set up an x axis and put it on the top chart:
-    var xAxis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["axisTop"])(x)
+    const xAxis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["axisTop"])(x)
                     .tickSizeInner(6)
                     .tickSizeOuter(0)
                     .ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"], 1)
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section:first-of-type svg').append('g')
-        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+        .attr('transform', `translate(${margin.left}, ${margin.top}`)
         .attr('class', 'xAxis')
         .call(xAxis)
 
@@ -16370,18 +16370,18 @@ const homepage = function() {
     // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, function(links) {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section.links').classed('loading', false)
-        var linksSvg = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section.links svg')
+        const linksSvg = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section.links svg')
                             .append('g').attr('transform', leavePadding)
 
         // Divide links into tag group "buckets":
-        var tagGroups = {
+        const tagGroups = {
             javascript: [], programming: [],
             dataviz: [], design: [], css: [], other: []
         };
-        var tags = Object.keys(tagGroups)
+        const tags = Object.keys(tagGroups)
         links.forEach(function(l) {
-            for (var i=0; i<tags.length; i++) {
-                var t = tags[i]
+            for (let i=0; i<tags.length; i++) {
+                const t = tags[i]
                 if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l)
                 else if (i === tags.length - 1) tagGroups[t].push(l)   // Push to 'other' if no other matches
             }
@@ -16389,9 +16389,9 @@ const homepage = function() {
 
         // Plot a row of circles for each tag group
         const radius = 5
-        for (var j=tags.length-1; j >= 0; j--) {
-            var tag = tags[j]
-            var yBaseline = 4 * radius * (2*j + 1)
+        for (let j=tags.length-1; j >= 0; j--) {
+            const tag = tags[j]
+            const yBaseline = 4 * radius * (2*j + 1)
 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
                 data: tagGroups[tag],
@@ -16416,11 +16416,11 @@ const homepage = function() {
 
     // Plot Github source repos, using their CORS-enabled public API
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["json"])(GITHUB_URL, function(err, data) {
-        var $section = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section.code')
+        const $section = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section.code')
         if (err) return $section.classed('failed', true)
 
         $section.classed('loading', false)
-        var myRepos = data.filter(r => !r.fork)
+        const myRepos = data.filter(r => !r.fork)
                           .filter(r => (new Date(r.pushed_at)) > START_DATE)
                           .sort((r1, r2) => (r1.pushed_at < r2.pushed_at) ? 1 : -1)
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__codeChart__["a" /* default */])({
@@ -16460,9 +16460,9 @@ const SIM_STEPS = 200
 //  radius (function)
 //  yBaseline
 function circleChart(config) {
-    var x = config.xScale
-    var yBaseline = config.yBaseline || 20
-    var radius = config.radius || 5
+    const x = config.xScale
+    const yBaseline = config.yBaseline || 20
+    const radius = config.radius || 5
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
@@ -16498,18 +16498,10 @@ function circleChart(config) {
 
     links.append('text')
             .text(d => d[config.titleProp])
-            .attr('transform', function(d) {
-                var xVal = 5
-                var y = radius(d) + 20
-                return 'translate(' + [xVal,y].join(',') + ')'
-            })
+            .attr('transform', d => `translate(5, ${radius(d) + 20})`)
     links.append('text').attr('class', 'date')
             .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
-            .attr('transform', function(d) {
-                var xVal = 5
-                var y = radius(d) + 35
-                return 'translate(' + [xVal,y].join(',') + ')'
-            })
+            .attr('transform', d => `translate(5, ${radius(d) + 35})`)
 }
 
 
@@ -16522,51 +16514,50 @@ const COMET_SPACING = 25
 
 // Convert Github repository API data into a "comet" date chart
 /* harmony default export */ exports["a"] = function(config) {
-    var x = config.xScale
-    var createdAtX = x.fromDateString({ propName: 'created_at' })
+    const x = config.xScale
+    const createdAtX = x.fromDateString({ propName: 'created_at' })
 
-    var drawComet = function(d) {
-        var height = 4 + Math.floor(Math.sqrt(d.size)/2)
-        var width = x(new Date(d.pushed_at)) - createdAtX(d)
-        width = Math.max(20, width)
+    const drawComet = function(d) {
+        const height = 4 + Math.floor(Math.sqrt(d.size)/2)
+        const width = Math.max(20, x(new Date(d.pushed_at)) - createdAtX(d))
 
         // Use a template string to express the "d" attribute for the comet's path
         return `M0 2 Q${width} 0 ${width-10} ${height} ` +
                `L${width} 0 L${width-10} ${-1*height} Q${width} 0 0 -2`
     }
 
-    var dataLength = (config.data || []).length
-    var all = config.el.selectAll('g.repo').data(config.data)
-    var enter = all.enter().append('g')
+    const dataLength = (config.data || []).length
+    const all = config.el.selectAll('g.repo').data(config.data)
+    const enter = all.enter().append('g')
                     .attr('class', 'repo')
-                    .attr('transform-origin', createdAtX + ' 0')
+                    .attr('transform-origin', `${createdAtX} 0`)
                     .attr('opacity', 0)
     enter.transition()
             .delay((d, i) => (dataLength - i)*100)
             .duration(500).attr('opacity', 1)
 
-    var links = enter.append('a').attr('xlink:href', d => d.html_url)
+    const links = enter.append('a').attr('xlink:href', d => d.html_url)
 
     // Add rects to expand the hoverable area:
     links.append('rect')
             .attr('width', (d) => x(new Date(d.pushed_at)) - createdAtX(d))
             .attr('height', COMET_SPACING)
             .attr('transform', (d, i) =>
-                "translate(" + createdAtX(d) + "," + (15 + i*COMET_SPACING) + ")"
+                `translate(${createdAtX(d)}, ${15 + i*COMET_SPACING})`
             )
 
     // Draw "comet" shape for each repo:
     links.append('path')
             .attr('d', drawComet)
             .attr('transform', (d, i) =>
-                "translate(" + createdAtX(d) + "," + (30 + i*COMET_SPACING) + ")"
+                `translate(${createdAtX(d)}, ${30 + i*COMET_SPACING})`
             )
 
     // Repo text is in one <text> element with several <tspan>s
-    var text = links.append('text').attr('class', 'name')
+    const text = links.append('text').attr('class', 'name')
             .attr('transform', (d, i) => {
-                var x = Math.max(createdAtX(d), -20)   // -20 negates left-side padding
-                return "translate(" + x + "," + (25 + i*COMET_SPACING) + ")"
+                const x = Math.max(createdAtX(d), -20)   // -20 negates left-side padding
+                return `translate(${x}, ${25 + i*COMET_SPACING})`
             })
             .text(d => d.name)
     text.append('tspan')
