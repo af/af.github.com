@@ -16447,6 +16447,7 @@ const homepage = function() {
 
 
 const SIM_STEPS = 200
+const PADDING = 0.5
 
 // Simple chart mapping content as circles along a time axis.
 // Config params:
@@ -16466,10 +16467,11 @@ function circleChart(config) {
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
+    const collisionForce = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCollide"])().radius(d => radius(d) + PADDING)
     const sim = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])(config.data)
         .force('x', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceX"])(x.fromDateString({ propName: config.timeProp })).strength(1))
         .force('y', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceY"])(yBaseline))
-        .force('collide', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCollide"])(5.5))
+        .force('collide', collisionForce)
         .stop()
     for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
 

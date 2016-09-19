@@ -1,6 +1,7 @@
 import {forceSimulation, forceX, forceY, forceCollide, select} from 'd3'
 
 const SIM_STEPS = 200
+const PADDING = 0.5
 
 // Simple chart mapping content as circles along a time axis.
 // Config params:
@@ -20,10 +21,11 @@ export default function circleChart(config) {
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
+    const collisionForce = forceCollide().radius(d => radius(d) + PADDING)
     const sim = forceSimulation(config.data)
         .force('x', forceX(x.fromDateString({ propName: config.timeProp })).strength(1))
         .force('y', forceY(yBaseline))
-        .force('collide', forceCollide(5.5))
+        .force('collide', collisionForce)
         .stop()
     for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
 
