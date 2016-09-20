@@ -21,7 +21,7 @@ function jsonp(url, callback) {
 
 const homepage = function() {
     const svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width)
-    const margin = {top: 40, right: 20, left: 20}
+    const margin = {top: 40, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
     const x = scaleTime().range([0, svgWidth - margin.left - margin.right])
@@ -100,8 +100,8 @@ const homepage = function() {
             })
 
             linksSvg.append('text').attr('class', 'linkLabel')
-                .attr('x', x(new Date()) + radius)
-                .attr('y', yBaseline + radius/2)
+                .attr('x', x(START_DATE) - margin.left)
+                .attr('y', yBaseline - radius * 2)
                 .text(tag)
         }
     })
