@@ -3,6 +3,7 @@ import {forceSimulation, forceX, forceY, forceCollide, select} from 'd3'
 const SIM_STEPS = 200
 const PADDING = 0.5
 
+
 // Simple chart mapping content as circles along a time axis.
 // Config params:
 //  data
@@ -15,15 +16,18 @@ const PADDING = 0.5
 //  radius (function)
 //  yBaseline
 export default function circleChart(config) {
-    const x = config.xScale
+    const x = config.xScale.fromDateString({ propName: config.timeProp })
     const yBaseline = config.yBaseline || 20
     const radius = config.radius || 5
+
+    // TODO: 300 is a fudged value, should be half of svg width
+    const toRight = d => (x(d) > 300)
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
     const collisionForce = forceCollide().radius(d => radius(d) + PADDING)
     const sim = forceSimulation(config.data)
-        .force('x', forceX(x.fromDateString({ propName: config.timeProp })).strength(1))
+        .force('x', forceX(x).strength(1))
         .force('y', forceY(yBaseline))
         .force('collide', collisionForce)
         .stop()
@@ -54,8 +58,11 @@ export default function circleChart(config) {
 
     links.append('text')
             .text(d => d[config.titleProp])
-            .attr('transform', d => `translate(5, ${radius(d) + 20})`)
-    links.append('text').attr('class', 'date')
+            .attr('text-anchor', d => toRight(d) ? 'end' : 'start')
+            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 20})`)
+    links.append('text')
+            .attr('class', 'date')
+            .attr('text-anchor', d => toRight(d) ? 'end' : 'start')
             .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
-            .attr('transform', d => `translate(5, ${radius(d) + 35})`)
+            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 35})`)
 }

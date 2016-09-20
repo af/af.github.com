@@ -16329,7 +16329,7 @@ function jsonp(url, callback) {
 
 const homepage = function() {
     const svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width)
-    const margin = {top: 40, right: 150, left: 20}
+    const margin = {top: 40, right: 20, left: 20}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
     const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([0, svgWidth - margin.left - margin.right])
@@ -16449,6 +16449,7 @@ const homepage = function() {
 const SIM_STEPS = 200
 const PADDING = 0.5
 
+
 // Simple chart mapping content as circles along a time axis.
 // Config params:
 //  data
@@ -16461,15 +16462,18 @@ const PADDING = 0.5
 //  radius (function)
 //  yBaseline
 function circleChart(config) {
-    const x = config.xScale
+    const x = config.xScale.fromDateString({ propName: config.timeProp })
     const yBaseline = config.yBaseline || 20
     const radius = config.radius || 5
+
+    // TODO: 300 is a fudged value, should be half of svg width
+    const toRight = d => (x(d) > 300)
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
     const collisionForce = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCollide"])().radius(d => radius(d) + PADDING)
     const sim = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])(config.data)
-        .force('x', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceX"])(x.fromDateString({ propName: config.timeProp })).strength(1))
+        .force('x', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceX"])(x).strength(1))
         .force('y', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceY"])(yBaseline))
         .force('collide', collisionForce)
         .stop()
@@ -16500,10 +16504,13 @@ function circleChart(config) {
 
     links.append('text')
             .text(d => d[config.titleProp])
-            .attr('transform', d => `translate(5, ${radius(d) + 20})`)
-    links.append('text').attr('class', 'date')
+            .attr('text-anchor', d => toRight(d) ? 'end' : 'start')
+            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 20})`)
+    links.append('text')
+            .attr('class', 'date')
+            .attr('text-anchor', d => toRight(d) ? 'end' : 'start')
             .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
-            .attr('transform', d => `translate(5, ${radius(d) + 35})`)
+            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 35})`)
 }
 
 

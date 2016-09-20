@@ -21,7 +21,7 @@ function jsonp(url, callback) {
 
 const homepage = function() {
     const svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width)
-    const margin = {top: 40, right: 150, left: 20}
+    const margin = {top: 40, right: 20, left: 20}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
     const x = scaleTime().range([0, svgWidth - margin.left - margin.right])
