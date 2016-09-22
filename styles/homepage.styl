@@ -104,34 +104,41 @@ section.homepage
             stroke: #ccc
             stroke-width: 2px
 
+    circle
+        transition: fill 0.3s
+
+        &:hover
+            fill: black
+
 .posts svg, .links svg
-    g
-        text
-            display: none
+    .tooltip
+        opacity: 0
+        pointer-events: none
+        transform: translateX(-5px)
+        transition: all 0.4s 0.1s
 
-            &.date
-                font-size: 0.8rem
-        a:hover text
-            display: block
+    .date
+        font-size: 0.8rem
 
-        line
-            display: none
-            stroke: black
-        a:hover line
-            display: block
+    a:hover .tooltip
+        opacity: 1
+        transform: translateX(0)
+
+    line
+        pointer-events: none
+        transform-origin: top
+        transform: scaleY(0)
+        transition: all 0.2s
+        stroke: black
+    a:hover line
+        transform: scaleY(1)
 
     circle
         fill: rgba($colours.sections.posts, 0.8)
 
-        &:hover
-            fill: black
-
 .links svg
     circle
         fill: rgba($colours.sections.links, 0.5)
-
-        &:hover
-            fill: black
 
     .linkLabel
         font-size: 0.9rem

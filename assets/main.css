@@ -363,40 +363,46 @@ section.homepage.links a {
   stroke: #ccc;
   stroke-width: 2px;
 }
-.posts svg g text,
-.links svg g text {
-  display: none;
+.homepage svg circle {
+  transition: fill 0.3s;
 }
-.posts svg g text.date,
-.links svg g text.date {
+.homepage svg circle:hover {
+  fill: #000;
+}
+.posts svg .tooltip,
+.links svg .tooltip {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-5px);
+  transition: all 0.4s 0.1s;
+}
+.posts svg .date,
+.links svg .date {
   font-size: 0.8rem;
 }
-.posts svg g a:hover text,
-.links svg g a:hover text {
-  display: block;
+.posts svg a:hover .tooltip,
+.links svg a:hover .tooltip {
+  opacity: 1;
+  transform: translateX(0);
 }
-.posts svg g line,
-.links svg g line {
-  display: none;
+.posts svg line,
+.links svg line {
+  pointer-events: none;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: all 0.2s;
   stroke: #000;
 }
-.posts svg g a:hover line,
-.links svg g a:hover line {
-  display: block;
+.posts svg a:hover line,
+.links svg a:hover line {
+  transform: scaleY(1);
 }
 .posts svg circle,
 .links svg circle {
   fill: rgba(85,102,170,0.8);
 }
-.posts svg circle:hover,
-.links svg circle:hover {
-  fill: #000;
-}
 .links svg circle {
   fill: rgba(220,180,50,0.5);
-}
-.links svg circle:hover {
-  fill: #000;
 }
 .links svg .linkLabel {
   font-size: 0.9rem;
