@@ -16448,12 +16448,13 @@ const homepage = function() {
 
 const SIM_STEPS = 200
 const PADDING = 0.5
+const HALF_WIDTH = window.innerWidth / 2
 
 
 // Simple chart mapping content as circles along a time axis.
 // Config params:
 //  data
-//  el
+//  el (d3 selection object)
 //  xScale
 //  groupClass
 //  timeProp
@@ -16465,9 +16466,7 @@ function circleChart(config) {
     const x = config.xScale.fromDateString({ propName: config.timeProp })
     const yBaseline = config.yBaseline || 20
     const radius = config.radius || 5
-
-    // TODO: 300 is a fudged value, should be half of svg width
-    const toRight = d => (x(d) > 300)
+    const toRight = d => (x(d) > HALF_WIDTH)
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
