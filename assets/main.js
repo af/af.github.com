@@ -16504,7 +16504,12 @@ function circleChart(config) {
 
     const tooltips = links.append('g').attr('class', 'tooltip')
     tooltips.append('text')
-            .text(d => d[config.titleProp])
+            .text(d => {
+                // Manually ellipsis out titles, since we can't really on <text> via css
+                const t = d[config.titleProp]
+                const MAX_LENGTH = 50
+                return t.length > MAX_LENGTH ? `${t.slice(0, MAX_LENGTH)}…` : t
+            })
             .attr('class', 'tooltipText')
             .attr('text-anchor', d => toRight(d) ? 'end' : 'start')
             .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 20})`)
