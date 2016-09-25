@@ -1,15 +1,18 @@
 @require "_common"
 
+@keyframes pulseSize
+    0%
+        transform: scale(1)
+    30%
+        transform: scale(1.2)
+    70%
+        transform: scale(1)
 
-flexboxCenter()
-    // Prefixed versions for safari:
-    display: -webkit-flex
-    -webkit-justify-content: center
-    -webkit-align-items: center
-
-    display: flex
-    justify-content: center
-    align-items: center
+@keyframes pulseOpacity
+    0%
+        opacity: 1
+    100%
+        opacity: 0.6
 
 
 // Homepage styles
@@ -19,11 +22,12 @@ section.homepage
 
     &.loading:before
         content: 'Loading data...'
+        animation: 1s pulseOpacity alternate infinite
+        color: #999
         position: absolute
         width: 100%
         margin: 5rem
         pointer-events: none
-        opacity: 0.5
         text-align: center
         font-style: italic
 
@@ -108,6 +112,7 @@ section.homepage
         transition: fill 0.3s
 
         &:hover
+            animation: 0.5s pulseSize
             fill: black
 
 .posts svg, .links svg

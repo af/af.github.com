@@ -275,11 +275,12 @@ section.homepage {
 }
 section.homepage.loading:before {
   content: 'Loading data...';
+  animation: 1s pulseOpacity alternate infinite;
+  color: #999;
   position: absolute;
   width: 100%;
   margin: 5rem;
   pointer-events: none;
-  opacity: 0.5;
   text-align: center;
   font-style: italic;
 }
@@ -367,6 +368,7 @@ section.homepage.links a {
   transition: fill 0.3s;
 }
 .homepage svg circle:hover {
+  animation: 0.5s pulseSize;
   fill: #000;
 }
 .posts svg .tooltip,
@@ -442,4 +444,80 @@ section.homepage.links a {
 }
 .code svg g.repo rect {
   fill: transparent;
+}
+@-moz-keyframes pulseSize {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes pulseSize {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes pulseSize {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+@keyframes pulseSize {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+@-moz-keyframes pulseOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+@-webkit-keyframes pulseOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+@-o-keyframes pulseOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+@keyframes pulseOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
