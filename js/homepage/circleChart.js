@@ -34,7 +34,7 @@ export default function circleChart(config) {
 
     const groups = config.el.append('g')
         .selectAll('g.item')
-        .data(config.data)
+        .data(config.data.filter(d => x(d) > 0))
         .enter().append('g')
             .attr('className', 'item')
 

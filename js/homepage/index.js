@@ -24,7 +24,7 @@ const homepage = function() {
     const margin = {top: 40, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
-    const x = scaleTime().range([0, svgWidth - margin.left - margin.right])
+    const x = scaleTime().range([margin.left, svgWidth - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
     x.fromDateString = function(options={}) {
@@ -40,7 +40,7 @@ const homepage = function() {
                     .tickSizeOuter(0)
                     .ticks(timeYear)
     select('section:first-of-type svg').append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`)
+        .attr('transform', `translate(0, 40)`)
         .attr('class', 'xAxis')
         .call(xAxis)
 

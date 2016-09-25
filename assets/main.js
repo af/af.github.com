@@ -16332,7 +16332,7 @@ const homepage = function() {
     const margin = {top: 40, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
-    const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([0, svgWidth - margin.left - margin.right])
+    const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([margin.left, svgWidth - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
     x.fromDateString = function(options={}) {
@@ -16348,7 +16348,7 @@ const homepage = function() {
                     .tickSizeOuter(0)
                     .ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"])
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section:first-of-type svg').append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`)
+        .attr('transform', `translate(0, 40)`)
         .attr('class', 'xAxis')
         .call(xAxis)
 
@@ -16480,7 +16480,7 @@ function circleChart(config) {
 
     const groups = config.el.append('g')
         .selectAll('g.item')
-        .data(config.data)
+        .data(config.data.filter(d => x(d) > 0))
         .enter().append('g')
             .attr('className', 'item')
 
@@ -16528,24 +16528,23 @@ function circleChart(config) {
 const COMET_SPACING = 25
 
 // Convert Github repository API data into a "comet" date chart
-/* harmony default export */ exports["a"] = function(config) {
-    const x = config.xScale
-    const createdAtX = x.fromDateString({ propName: 'created_at' })
+/* harmony default export */ exports["a"] = function({ xScale, data, el }) {
+    const createdAtX = xScale.fromDateString({ propName: 'created_at' })
+    const leftEdge = d => Math.max(0, createdAtX(d))
 
     const drawComet = function(d) {
         const height = 4 + Math.floor(Math.sqrt(d.size)/2)
-        const width = Math.max(20, x(new Date(d.pushed_at)) - createdAtX(d))
+        const width = Math.max(20, xScale(new Date(d.pushed_at)) - leftEdge(d))
 
         // Use a template string to express the "d" attribute for the comet's path
         return `M0 2 Q${width} 0 ${width-10} ${height} ` +
                `L${width} 0 L${width-10} ${-1*height} Q${width} 0 0 -2`
     }
 
-    const dataLength = (config.data || []).length
-    const all = config.el.selectAll('g.repo').data(config.data)
+    const dataLength = (data || []).length
+    const all = el.selectAll('g.repo').data(data)
     const enter = all.enter().append('g')
                     .attr('class', 'repo')
-                    .attr('transform-origin', `${createdAtX} 0`)
                     .attr('opacity', 0)
     enter.transition()
             .delay((d, i) => (dataLength - i)*100)
@@ -16555,24 +16554,23 @@ const COMET_SPACING = 25
 
     // Add rects to expand the hoverable area:
     links.append('rect')
-            .attr('width', (d) => x(new Date(d.pushed_at)) - createdAtX(d))
+            .attr('width', (d) => xScale(new Date(d.pushed_at)) - leftEdge(d))
             .attr('height', COMET_SPACING)
             .attr('transform', (d, i) =>
-                `translate(${createdAtX(d)}, ${15 + i*COMET_SPACING})`
+                `translate(${leftEdge(d)}, ${15 + i*COMET_SPACING})`
             )
 
     // Draw "comet" shape for each repo:
     links.append('path')
             .attr('d', drawComet)
             .attr('transform', (d, i) =>
-                `translate(${createdAtX(d)}, ${30 + i*COMET_SPACING})`
+                `translate(${leftEdge(d)}, ${30 + i*COMET_SPACING})`
             )
 
     // Repo text is in one <text> element with several <tspan>s
     const text = links.append('text').attr('class', 'name')
             .attr('transform', (d, i) => {
-                const x = Math.max(createdAtX(d), -20)   // -20 negates left-side padding
-                return `translate(${x}, ${25 + i*COMET_SPACING})`
+                return `translate(${leftEdge(d)}, ${25 + i*COMET_SPACING})`
             })
             .text(d => d.name)
     text.append('tspan')

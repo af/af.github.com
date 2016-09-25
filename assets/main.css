@@ -291,7 +291,6 @@ section.homepage > header {
   display: block;
   position: relative;
   width: 20%;
-  padding-right: 2rem;
   float: left;
   text-align: right;
   height: 100%;
@@ -300,7 +299,6 @@ section.homepage > header {
 @media screen and (max-width: 400px) {
   section.homepage > header {
     font-size: 0.9rem;
-    padding-right: 0.3rem;
   }
 }
 section.homepage > header a {
