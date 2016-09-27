@@ -24,7 +24,7 @@ const homepage = function() {
     const margin = {top: 40, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
-    const x = scaleTime().range([margin.left, svgWidth - margin.right])
+    const x = scaleTime().range([margin.left, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
     x.fromDateString = function(options={}) {

@@ -16332,7 +16332,7 @@ const homepage = function() {
     const margin = {top: 40, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
-    const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([margin.left, svgWidth - margin.right])
+    const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([margin.left, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
     x.fromDateString = function(options={}) {
