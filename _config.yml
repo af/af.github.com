@@ -3,9 +3,12 @@ markdown: kramdown
 extensions: [fenced_code_blocks]
 gems:
     - jekyll-seo-tag
+    - jekyll-feed
 author:
     twitter: eh_eff
 twitter:
     username: eh_eff
-title: Aaron Franks’s blog
-description: Some guy rambles about programming
+title: Le Blog
+description: Local area man rambles about programming
+feed:
+    path: atom.xml
