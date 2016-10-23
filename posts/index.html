@@ -6,13 +6,13 @@ title: All Posts
 <div class="content">
 <div class="post_list">
     <h1>All Posts</h1>
-    <ul class="posts">
+    <table class="posts">
     {% for post in site.posts %}
-    <li>
-        <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
+    <tr>
+        <td><time>{{ post.date | date: "%Y-%m-%d" }}</time></td>
+        <td class="titleCell"><a href="{{ post.url }}">{{ post.title }}</a></td>
+    </tr>
     {% endfor %}
-    </ul>
+    </table>
 </div>
 </div>

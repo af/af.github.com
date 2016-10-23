@@ -156,27 +156,22 @@ body > header .location:before {
   margin-left: 20%;
   padding-right: 0 7rem;
 }
-ul.posts {
-  list-style-type: none;
-  padding-left: 0;
+table.posts {
+  margin-top: 1rem;
+  line-height: 1.2;
 }
-ul.posts time {
+table.posts td:first-child {
+  min-width: 5em;
+  vertical-align: top;
+}
+table.posts .titleCell {
+  padding-bottom: 1rem;
+}
+table.posts time {
   display: block;
-  float: left;
-  color: #888;
+  color: #bbb;
   font-weight: bold;
   font-size: 1.1rem;
-  padding-right: 2rem;
-}
-@media screen and (min-width: 800px) {
-  ul.posts time {
-    margin-left: -7em;
-    width: 7em;
-    text-align: right;
-  }
-}
-ul.posts li {
-  margin-bottom: 5px;
 }
 .content h1 {
   margin: 1.4rem 0 0.2rem;
@@ -286,30 +281,6 @@ section.homepage.loading:before {
 }
 section.homepage.loading.failed:before {
   content: "Sorry, failed to load the data. Refresh and try again?";
-}
-section.homepage h2 {
-  margin: 0;
-  text-transform: lowercase;
-  color: #444;
-  font-weight: 300;
-}
-section.homepage.code {
-  height: 350px;
-}
-section.homepage.code a {
-  color: rgba(85,170,102,0.6);
-}
-section.homepage.posts {
-  height: 200px;
-}
-section.homepage.posts a {
-  color: #56a;
-}
-section.homepage.links {
-  height: 380px;
-}
-section.homepage.links a {
-  color: #dcb432;
 }
 svg.homeChart {
   display: block;

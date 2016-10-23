@@ -60,25 +60,22 @@ body > header
     margin-left: $dimensions.leftColWidth
     padding-right: 0 7rem
 
-ul.posts
-    list-style-type: none
-    padding-left: 0
+table.posts
+    margin-top: 1rem
+    line-height: 1.2
+
+    td:first-child
+        min-width: 5em
+        vertical-align: top
+
+    .titleCell
+        padding-bottom: 1rem
 
     time
         display: block
-        float: left
-        color: #888
+        color: #bbb
         font-weight: bold
         font-size: 1.1rem
-        padding-right: $dimensions.gutterWidth
-
-        @media screen and (min-width: 800px)
-            margin-left: -7em
-            width: 7em
-            text-align: right
-
-    li
-        margin-bottom: 5px
 
 // Attempt to align all h1s in the content with the left sidebar's h1:
 .content h1
