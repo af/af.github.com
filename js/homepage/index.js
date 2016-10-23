@@ -20,7 +20,8 @@ function jsonp(url, callback) {
 
 
 const homepage = function() {
-    const svgWidth = parseInt(getComputedStyle(document.querySelector('svg')).width)
+    const svg = document.querySelector('.homeChart')
+    const svgWidth = parseInt(getComputedStyle(svg).width)
     const margin = {top: 40, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
@@ -39,7 +40,7 @@ const homepage = function() {
                     .tickSizeInner(6)
                     .tickSizeOuter(0)
                     .ticks(timeYear)
-    select('section:first-of-type svg').append('g')
+    select('.timeAxis')
         .attr('transform', `translate(0, 40)`)
         .attr('class', 'xAxis')
         .call(xAxis)
@@ -50,9 +51,9 @@ const homepage = function() {
         width: svgWidth,
         xScale: x,
         yBaseline: 30,
-        el: select('section.posts svg')
-                .append('g').attr('transform', leavePadding),
-        radius: d => (15 + Math.sqrt(d.length)/5),
+        el: select('.postChart')
+                    .append('g').attr('transform', leavePadding),
+        radius: d => (5 + Math.sqrt(d.length)/5),
         groupClass: 'post',
         timeProp: 'date',
         urlProp: 'url',
@@ -61,8 +62,8 @@ const homepage = function() {
 
     // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, function(links) {
-        select('section.links').classed('loading', false)
-        const linksSvg = select('section.links svg')
+        select('.linkChart').classed('loading', false)
+        const linksSvg = select('.linkChart')
                             .append('g').attr('transform', leavePadding)
 
         // Divide links into tag group "buckets":
@@ -108,6 +109,8 @@ const homepage = function() {
 
     // Plot Github source repos, using their CORS-enabled public API
     json(GITHUB_URL, function(err, data) {
+        const codeSvg = select('.codeChart')
+                            .append('g').attr('transform', leavePadding)
         const $section = select('section.code')
         if (err) return $section.classed('failed', true)
 
@@ -119,8 +122,7 @@ const homepage = function() {
             data: myRepos,
             width: svgWidth,
             xScale: x,
-            el: select('section.code svg')
-                    .append('g').attr('transform', leavePadding)
+            el: codeSvg
         })
     })
 }

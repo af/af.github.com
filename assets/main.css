@@ -287,35 +287,6 @@ section.homepage.loading:before {
 section.homepage.loading.failed:before {
   content: "Sorry, failed to load the data. Refresh and try again?";
 }
-section.homepage > header {
-  display: block;
-  position: relative;
-  width: 20%;
-  float: left;
-  text-align: right;
-  height: 100%;
-  overflow: hidden;
-}
-@media screen and (max-width: 400px) {
-  section.homepage > header {
-    font-size: 0.9rem;
-  }
-}
-section.homepage > header a {
-  display: block;
-  color: #999;
-  font-style: italic;
-  padding: 0.3em 0;
-  border-top: 4px solid;
-  transition: margin-right 0.3s;
-}
-section.homepage > header a:hover {
-  margin-right: -1rem;
-}
-section.homepage > header a:before {
-  content: '» ';
-  vertical-align: top;
-}
 section.homepage h2 {
   margin: 0;
   text-transform: lowercase;
@@ -340,107 +311,114 @@ section.homepage.links {
 section.homepage.links a {
   color: #dcb432;
 }
-.homepage svg {
+svg.homeChart {
   display: block;
-  width: 80%;
+  width: 100%;
   height: 100%;
 }
-.homepage svg .xAxis {
+svg.homeChart .xAxis {
   fill: #ccc;
 }
-.homepage svg .xAxis text {
+svg.homeChart .xAxis text {
   fill: #ccc;
   font-weight: bold;
   font-size: 1.6rem;
   font-family: 'Klinic Slab', sans-serif;
 }
-.homepage svg .xAxis path {
+svg.homeChart .xAxis path {
   stroke: #ccc;
   stroke-width: 2px;
 }
-.homepage svg .xAxis line {
+svg.homeChart .xAxis line {
   stroke: #ccc;
   stroke-width: 2px;
 }
-.homepage svg circle {
+svg.homeChart circle {
   transition: fill 0.3s;
 }
-.homepage svg circle:hover {
+svg.homeChart circle:hover {
   animation: 0.5s pulseSize;
   fill: #000;
 }
-.posts svg .tooltip,
-.links svg .tooltip {
+.postChart,
+.linkChart {
+  transform: translate(0, 35vh);
+}
+.postChart .tooltip,
+.linkChart .tooltip {
   opacity: 0;
   pointer-events: none;
   transform: translateX(-5px);
   transition: all 0.4s 0.1s;
 }
-.posts svg .date,
-.links svg .date {
+.postChart .date,
+.linkChart .date {
   font-size: 0.8rem;
 }
-.posts svg a:hover .tooltip,
-.links svg a:hover .tooltip {
+.postChart a:hover .tooltip,
+.linkChart a:hover .tooltip {
   opacity: 1;
   transform: translateX(0);
 }
-.posts svg line,
-.links svg line {
+.postChart line,
+.linkChart line {
   pointer-events: none;
   transform-origin: top;
   transform: scaleY(0);
   transition: all 0.2s;
   stroke: #000;
 }
-.posts svg a:hover line,
-.links svg a:hover line {
+.postChart a:hover line,
+.linkChart a:hover line {
   transform: scaleY(1);
 }
-.posts svg circle,
-.links svg circle {
+.postChart circle,
+.linkChart circle {
   fill: rgba(85,102,170,0.8);
 }
-.links svg circle {
+.linkChart {
+  transform: translate(0, 50vh);
+}
+.linkChart circle {
   fill: rgba(220,180,50,0.5);
 }
-.links svg .linkLabel {
+.linkChart .linkLabel {
   font-size: 0.9rem;
   display: block;
   fill: #999;
 }
-.code svg g.repo path {
+.codeChart g.repo path {
   transition: opacity 0.5s;
   opacity: 0.5;
   fill: rgba(85,170,102,0.8);
 }
-.code svg g.repo a {
+.codeChart g.repo a {
   transition: all 0.4s;
 }
-.code svg g.repo a:hover * {
+.codeChart g.repo a:hover * {
   opacity: 1;
 }
-.code svg g.repo text {
+.codeChart g.repo text {
   fill: #333;
   font-size: 1rem;
   opacity: 0;
   transition: all 0.4s;
 }
-.code svg g.repo text.name {
+.codeChart g.repo text.name {
   opacity: 1;
 }
-.code svg g.repo text tspan.language {
+.codeChart g.repo text tspan.language {
   fill: #999;
   font-size: 0.9em;
 }
-.code svg g.repo text .description {
+.codeChart g.repo text .description {
   opacity: 0;
   font-size: 0.8rem;
 }
-.code svg g.repo:hover .description {
+.codeChart g.repo:hover .description {
   opacity: 1;
 }
-.code svg g.repo rect {
+.codeChart g.repo rect {
   fill: transparent;
 }
 @-moz-keyframes pulseSize {

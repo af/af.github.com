@@ -34,33 +34,6 @@ section.homepage
     &.loading.failed:before
         content: "Sorry, failed to load the data. Refresh and try again?"
 
-    > header
-        display: block
-        position: relative
-        width: $dimensions.leftColWidth
-        float: left
-        text-align: right
-        height: 100%
-        overflow: hidden
-
-        @media screen and (max-width: 400px)
-            font-size: 0.9rem
-
-        a
-            display: block
-            color: #999
-            font-style: italic
-            padding: 0.3em 0
-            border-top: 4px solid
-            transition: margin-right 0.3s
-
-            &:hover
-                margin-right: -1rem
-
-            &:before
-                content: '» '
-                vertical-align: top
-
     h2
         margin: 0
         text-transform: lowercase
@@ -85,9 +58,9 @@ section.homepage
         a
             color: $colours.sections.links
 
-.homepage svg
+svg.homeChart
     display: block
-    width: 100% - $dimensions.leftColWidth
+    width: 100%
     height: 100%
 
     .xAxis
@@ -113,7 +86,9 @@ section.homepage
             animation: 0.5s pulseSize
             fill: black
 
-.posts svg, .links svg
+.postChart, .linkChart
+    transform: translate(0, 35vh)
+
     .tooltip
         opacity: 0
         pointer-events: none
@@ -139,7 +114,9 @@ section.homepage
     circle
         fill: rgba($colours.sections.posts, 0.8)
 
-.links svg
+.linkChart
+    transform: translate(0, 50vh)
+
     circle
         fill: rgba($colours.sections.links, 0.5)
 
@@ -149,7 +126,7 @@ section.homepage
         fill: #999
 
 
-.code svg
+.codeChart
     g.repo
         path
             transition: opacity 0.5s

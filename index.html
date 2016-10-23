@@ -3,29 +3,25 @@ layout: base
 title: Aaron Franks
 ---
 
-<section class="homepage code loading">
-    <header>
-        <h2>Code</h2>
-        <a href="https://github.com/af">view all</a>
-    </header>
-    <svg></svg>
-</section>
+<svg class="homeChart">
+    <g class="timeAxis"></g>
 
-<section class="homepage posts">
-    <header>
-        <h2>Posts</h2>
-        <a href="/posts">view all</a>
-    </header>
-    <svg></svg>
-</section>
+    <a class="title" xlink:href="https://github.com/af">
+        <text>Code</text>
+    </a>
+    <g class="codeChart"></g>
 
-<section class="homepage links loading">
-    <header>
-        <h2>Links</h2>
-        <a href="https://pinboard.in/u:_af">view all</a>
-    </header>
-    <svg></svg>
-</section>
+    <!-- TODO: group links and <g> inside another <g> and transform them -->
+    <a class="title" xlink:href="/posts">
+        <text>Posts</text>
+    </a>
+    <g class="postChart"></g>
+
+    <a class="title" xlink:href="https://pinboard.in/u:_af">
+        <text>Links</text>
+    </a>
+    <g class="linkChart"></g>
+</svg>
 
 <footer>&nbsp;</footer>
 
