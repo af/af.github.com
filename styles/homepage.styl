@@ -64,20 +64,19 @@ svg.homeChart
     height: 100%
 
     .xAxis
-        fill: #ccc
+        fill: #ddd
 
         text
-            fill: #ccc
-            font-weight: bold
-            font-size: 1.6rem
+            fill: #ddd
+            font-size: 1.5rem
             font-family: $mainFont
 
         path
-            stroke: #ccc
-            stroke-width: 2px
+            stroke: none   // Disable long horizontal line
+            fill: none
         line
-            stroke: #ccc
-            stroke-width: 2px
+            stroke: #eee
+            stroke-width: 1px
 
     circle
         transition: fill 0.3s
@@ -86,9 +85,22 @@ svg.homeChart
             animation: 0.5s pulseSize
             fill: black
 
-.postChart, .linkChart
-    transform: translate(0, 35vh)
+.codeWrapper
+    transform: translate(0, 5vh)
+.postWrapper
+    transform: translate(0, 40vh)
+.linkWrapper
+    transform: translate(0, 60vh)
 
+.chartTitle
+    opacity: 0.2
+    transform: translate(2rem, 0)
+    font-weight: 300
+    font-size: 2rem
+    font-style: italic
+
+
+.postChart, .linkChart
     .tooltip
         opacity: 0
         pointer-events: none
@@ -115,8 +127,6 @@ svg.homeChart
         fill: rgba($colours.sections.posts, 0.8)
 
 .linkChart
-    transform: translate(0, 50vh)
-
     circle
         fill: rgba($colours.sections.links, 0.5)
 

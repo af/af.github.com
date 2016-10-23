@@ -317,21 +317,20 @@ svg.homeChart {
   height: 100%;
 }
 svg.homeChart .xAxis {
-  fill: #ccc;
+  fill: #ddd;
 }
 svg.homeChart .xAxis text {
-  fill: #ccc;
-  font-weight: bold;
-  font-size: 1.6rem;
+  fill: #ddd;
+  font-size: 1.5rem;
   font-family: 'Klinic Slab', sans-serif;
 }
 svg.homeChart .xAxis path {
-  stroke: #ccc;
-  stroke-width: 2px;
+  stroke: none;
+  fill: none;
 }
 svg.homeChart .xAxis line {
-  stroke: #ccc;
-  stroke-width: 2px;
+  stroke: #eee;
+  stroke-width: 1px;
 }
 svg.homeChart circle {
   transition: fill 0.3s;
@@ -340,9 +339,21 @@ svg.homeChart circle:hover {
   animation: 0.5s pulseSize;
   fill: #000;
 }
-.postChart,
-.linkChart {
-  transform: translate(0, 35vh);
+.codeWrapper {
+  transform: translate(0, 5vh);
+}
+.postWrapper {
+  transform: translate(0, 40vh);
+}
+.linkWrapper {
+  transform: translate(0, 60vh);
+}
+.chartTitle {
+  opacity: 0.2;
+  transform: translate(2rem, 0);
+  font-weight: 300;
+  font-size: 2rem;
+  font-style: italic;
 }
 .postChart .tooltip,
 .linkChart .tooltip {
@@ -375,9 +386,6 @@ svg.homeChart circle:hover {
 .postChart circle,
 .linkChart circle {
   fill: rgba(85,102,170,0.8);
-}
-.linkChart {
-  transform: translate(0, 50vh);
 }
 .linkChart circle {
   fill: rgba(220,180,50,0.5);

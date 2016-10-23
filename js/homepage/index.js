@@ -22,7 +22,7 @@ function jsonp(url, callback) {
 const homepage = function() {
     const svg = document.querySelector('.homeChart')
     const svgWidth = parseInt(getComputedStyle(svg).width)
-    const margin = {top: 40, right: 20, left: 30}
+    const margin = {top: 10, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
     const x = scaleTime().range([margin.left, svgWidth - margin.left - margin.right])
@@ -37,7 +37,7 @@ const homepage = function() {
 
     // Set up an x axis and put it on the top chart:
     const xAxis = axisTop(x)
-                    .tickSizeInner(6)
+                    .tickSizeInner(-1 * window.innerHeight)
                     .tickSizeOuter(0)
                     .ticks(timeYear)
     select('.timeAxis')
@@ -109,6 +109,7 @@ const homepage = function() {
 
     // Plot Github source repos, using their CORS-enabled public API
     json(GITHUB_URL, function(err, data) {
+        const NUM_REPOS_TO_SHOW = 7
         const codeSvg = select('.codeChart')
                             .append('g').attr('transform', leavePadding)
         const $section = select('section.code')
@@ -118,6 +119,7 @@ const homepage = function() {
         const myRepos = data.filter(r => !r.fork)
                           .filter(r => (new Date(r.pushed_at)) > START_DATE)
                           .sort((r1, r2) => (r1.pushed_at < r2.pushed_at) ? 1 : -1)
+                          .slice(0, NUM_REPOS_TO_SHOW)
         codeChart({
             data: myRepos,
             width: svgWidth,

@@ -16330,7 +16330,7 @@ function jsonp(url, callback) {
 const homepage = function() {
     const svg = document.querySelector('.homeChart')
     const svgWidth = parseInt(getComputedStyle(svg).width)
-    const margin = {top: 40, right: 20, left: 30}
+    const margin = {top: 10, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
     const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([margin.left, svgWidth - margin.left - margin.right])
@@ -16345,7 +16345,7 @@ const homepage = function() {
 
     // Set up an x axis and put it on the top chart:
     const xAxis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["axisTop"])(x)
-                    .tickSizeInner(6)
+                    .tickSizeInner(-1 * window.innerHeight)
                     .tickSizeOuter(0)
                     .ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"])
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.timeAxis')
@@ -16417,6 +16417,7 @@ const homepage = function() {
 
     // Plot Github source repos, using their CORS-enabled public API
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["json"])(GITHUB_URL, function(err, data) {
+        const NUM_REPOS_TO_SHOW = 7
         const codeSvg = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.codeChart')
                             .append('g').attr('transform', leavePadding)
         const $section = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section.code')
@@ -16426,6 +16427,7 @@ const homepage = function() {
         const myRepos = data.filter(r => !r.fork)
                           .filter(r => (new Date(r.pushed_at)) > START_DATE)
                           .sort((r1, r2) => (r1.pushed_at < r2.pushed_at) ? 1 : -1)
+                          .slice(0, NUM_REPOS_TO_SHOW)
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__codeChart__["a" /* default */])({
             data: myRepos,
             width: svgWidth,
