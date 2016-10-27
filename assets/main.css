@@ -101,7 +101,7 @@ body > header .avatar {
   float: left;
   display: inline-block;
   width: 20%;
-  padding-right: 2rem;
+  padding-right: 1rem;
   text-align: right;
 }
 body > header .avatar img {
@@ -234,7 +234,7 @@ table.posts time {
   .post .latest > h2 {
     width: 250px;
     margin-left: -250px;
-    padding-right: 2rem;
+    padding-right: 1rem;
     text-align: right;
     float: left;
     line-height: 0.8;
