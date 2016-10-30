@@ -16330,7 +16330,7 @@ function jsonp(url, callback) {
 const homepage = function() {
     const svg = document.querySelector('.homeChart')
     const svgWidth = parseInt(getComputedStyle(svg).width)
-    const margin = {top: 10, right: 20, left: 30}
+    const margin = {top: 20, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
     const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([margin.left, svgWidth - margin.left - margin.right])

@@ -40,10 +40,10 @@ svg.homeChart
     height: 100%
 
     .xAxis
-        fill: #ddd
+        fill: #ccc
 
         text
-            fill: #ddd
+            fill: #ccc
             font-size: 1.5rem
             font-family: $mainFont
 
@@ -51,7 +51,7 @@ svg.homeChart
             stroke: none   // Disable long horizontal line
             fill: none
         line
-            stroke: #eee
+            stroke: #e5e5e5
             stroke-width: 1px
 
     circle
@@ -69,11 +69,16 @@ svg.homeChart
     transform: translate(0, 60vh)
 
 .chartTitle
-    opacity: 0.2
+    fill: #aaa
     transform: translate(2rem, 0)
     font-weight: 300
     font-size: 2rem
     font-style: italic
+
+    tspan
+        fill: #bbb
+        font-size: 0.5em
+        text-decoration: underline
 
 
 .postChart, .linkChart
