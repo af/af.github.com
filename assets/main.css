@@ -311,13 +311,13 @@ svg.homeChart circle:hover {
   fill: #000;
 }
 .codeWrapper {
-  transform: translate(0, 5vh);
+  transform: translate(0, 40px);
 }
 .postWrapper {
-  transform: translate(0, 40vh);
+  transform: translate(0, 300px);
 }
 .linkWrapper {
-  transform: translate(0, 60vh);
+  transform: translate(0, 450px);
 }
 .chartTitle {
   fill: #aaa;
