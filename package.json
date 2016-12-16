@@ -4,9 +4,9 @@
   "description": "Silly little personal website",
   "browser": "./js/main.js",
   "scripts": {
-    "start": "jekyll serve --watch & npm run watch_js & npm run watch_css",
-    "watch_js": "webpack -w",
-    "watch_css": "stylus -w styles -o assets"
+    "serve": "jekyll serve --watch",
+    "start": "npm run serve & npm run watch",
+    "watch": "webpack -w"
   },
   "repository": {
     "type": "git",
@@ -18,11 +18,12 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
+    "eslint": "2.12.0",
     "stylus": "0.50.0",
     "webpack": "2.2.0-rc.0"
   },
   "dependencies": {
     "d3": "4.2.2",
-    "eslint": "2.12.0"
+    "stylepack": "af/stylepack#webpack2"
   }
 }
