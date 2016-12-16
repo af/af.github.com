@@ -5,7 +5,7 @@
   "browser": "./js/main.js",
   "scripts": {
     "start": "jekyll serve --watch & npm run watch_js & npm run watch_css",
-    "watch_js": "webpack --watch js/main.js assets/main.js",
+    "watch_js": "webpack -w",
     "watch_css": "stylus -w styles -o assets"
   },
   "repository": {
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "stylus": "0.50.0",
-    "webpack": "2.1.0-beta.22"
+    "webpack": "2.2.0-rc.0"
   },
   "dependencies": {
     "d3": "4.2.2",
