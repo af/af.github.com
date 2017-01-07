@@ -6,8 +6,17 @@ const config = {
     output: {
         filename: 'assets/main.js'
     },
-    module: {}
+    module: {},
+    plugins: [],
+
+    performance: {
+        hints: isDev ? false : 'warning'
+    }
 }
+
+// Unfortunately can't enable uglify because it doesn't support ES6 yet :(
+// const webpack = require('webpack')
+// if (!isDev) config.plugins.push(new webpack.optimize.UglifyJsPlugin())
 
 module.exports = stylepack({
     cssModules: false,

@@ -4,6 +4,7 @@
   "description": "Silly little personal website",
   "browser": "./js/main.js",
   "scripts": {
+    "build": "NODE_ENV=production webpack",
     "serve": "jekyll serve --watch",
     "start": "npm run serve & npm run watch",
     "watch": "webpack -w"

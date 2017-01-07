@@ -137,7 +137,7 @@ body > header .location:last-child {
   }
 }
 body > header .job:before {
-  content: '\e802';
+  content: '\E802';
   position: relative;
   color: #aaa;
   font-family: 'icons';
@@ -145,7 +145,7 @@ body > header .job:before {
   margin-right: 0.4em;
 }
 body > header .location:before {
-  content: '\e801';
+  content: '\E801';
   position: relative;
   color: #aaa;
   font-family: 'icons';
@@ -240,7 +240,7 @@ table.posts time {
     line-height: 0.8;
   }
   .post .latest > h2:after {
-    content: ' »';
+    content: ' \BB';
   }
 }
 .post .latest .item {
