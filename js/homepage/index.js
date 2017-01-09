@@ -4,14 +4,14 @@ import codeChart from './codeChart'
 
 const WIN_WIDTH = window.innerWidth
 const DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190         // 1.5 or 0.5 years of history
-const START_DATE = new Date(new Date() - DAYS_OF_HISTORY*24*3600*1000)
+const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60'
 const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
 
 // Helper for loading jsonp data.
 // The given url should not include the callback function's name (it will be appended)
 function jsonp(url, callback) {
-    const callbackName = 'jsonp_cb' + (new Date).getTime()
+    const callbackName = `jsonp_cb_${(new Date).getTime()}`
     const s = document.createElement('script')
     s.src = url + callbackName
     document.body.appendChild(s)
@@ -28,7 +28,7 @@ const homepage = function() {
     const x = scaleTime().range([margin.left, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
-    x.fromDateString = function(options={}) {
+    x.fromDateString = function(options = {}) {
         const offset = options.offset || 0
         const propName = options.propName || 'date'
 
@@ -53,7 +53,7 @@ const homepage = function() {
         yBaseline: 30,
         el: select('.postChart')
                     .append('g').attr('transform', leavePadding),
-        radius: d => (5 + Math.sqrt(d.length)/5),
+        radius: d => (5 + Math.sqrt(d.length) / 5),
         groupClass: 'post',
         timeProp: 'date',
         urlProp: 'url',
@@ -61,19 +61,23 @@ const homepage = function() {
     })
 
     // Plot saved links from pinboard's JSONP API
-    jsonp(LINKS_URL, function(links) {
+    jsonp(LINKS_URL, links => {
         select('.linkChart').classed('loading', false)
         const linksSvg = select('.linkChart')
                             .append('g').attr('transform', leavePadding)
 
         // Divide links into tag group "buckets":
         const tagGroups = {
-            javascript: [], programming: [],
-            dataviz: [], design: [], css: [], other: []
-        };
+            javascript: [],
+            programming: [],
+            dataviz: [],
+            design: [],
+            css: [],
+            other: []
+        }
         const tags = Object.keys(tagGroups)
-        links.forEach(function(l) {
-            for (let i=0; i<tags.length; i++) {
+        links.forEach(l => {
+            for (let i = 0; i < tags.length; i++) {
                 const t = tags[i]
                 if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l)
                 else if (i === tags.length - 1) tagGroups[t].push(l)   // Push to 'other' if no other matches
@@ -82,9 +86,9 @@ const homepage = function() {
 
         // Plot a row of circles for each tag group
         const radius = 5
-        for (let j=tags.length-1; j >= 0; j--) {
+        for (let j = tags.length - 1; j >= 0; j--) {
             const tag = tags[j]
-            const yBaseline = 4 * radius * (2*j + 1)
+            const yBaseline = 4 * radius * (2 * j + 1)
 
             circleChart({
                 data: tagGroups[tag],
@@ -108,7 +112,7 @@ const homepage = function() {
     })
 
     // Plot Github source repos, using their CORS-enabled public API
-    json(GITHUB_URL, function(err, data) {
+    json(GITHUB_URL, (err, data) => {
         const NUM_REPOS_TO_SHOW = 7
         const codeSvg = select('.codeChart')
                             .append('g').attr('transform', leavePadding)
