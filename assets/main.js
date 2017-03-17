@@ -68,7 +68,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 // https://d3js.org Version 4.2.2. Copyright 2016 Mike Bostock.
 (function (global, factory) {
@@ -16299,9 +16299,9 @@ var   y0$3;
 
 })));
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(0);
@@ -16314,14 +16314,14 @@ var   y0$3;
 
 const WIN_WIDTH = window.innerWidth
 const DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190         // 1.5 or 0.5 years of history
-const START_DATE = new Date(new Date() - DAYS_OF_HISTORY*24*3600*1000)
+const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60'
 const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
 
 // Helper for loading jsonp data.
 // The given url should not include the callback function's name (it will be appended)
 function jsonp(url, callback) {
-    const callbackName = 'jsonp_cb' + (new Date).getTime()
+    const callbackName = `jsonp_cb_${(new Date).getTime()}`
     const s = document.createElement('script')
     s.src = url + callbackName
     document.body.appendChild(s)
@@ -16338,7 +16338,7 @@ const homepage = function() {
     const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([margin.left, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
-    x.fromDateString = function(options={}) {
+    x.fromDateString = function(options = {}) {
         const offset = options.offset || 0
         const propName = options.propName || 'date'
 
@@ -16363,7 +16363,7 @@ const homepage = function() {
         yBaseline: 30,
         el: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.postChart')
                     .append('g').attr('transform', leavePadding),
-        radius: d => (5 + Math.sqrt(d.length)/5),
+        radius: d => (5 + Math.sqrt(d.length) / 5),
         groupClass: 'post',
         timeProp: 'date',
         urlProp: 'url',
@@ -16371,19 +16371,23 @@ const homepage = function() {
     })
 
     // Plot saved links from pinboard's JSONP API
-    jsonp(LINKS_URL, function(links) {
+    jsonp(LINKS_URL, links => {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.linkChart').classed('loading', false)
         const linksSvg = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.linkChart')
                             .append('g').attr('transform', leavePadding)
 
         // Divide links into tag group "buckets":
         const tagGroups = {
-            javascript: [], programming: [],
-            dataviz: [], design: [], css: [], other: []
-        };
+            javascript: [],
+            programming: [],
+            dataviz: [],
+            design: [],
+            css: [],
+            other: []
+        }
         const tags = Object.keys(tagGroups)
-        links.forEach(function(l) {
-            for (let i=0; i<tags.length; i++) {
+        links.forEach(l => {
+            for (let i = 0; i < tags.length; i++) {
                 const t = tags[i]
                 if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l)
                 else if (i === tags.length - 1) tagGroups[t].push(l)   // Push to 'other' if no other matches
@@ -16392,9 +16396,9 @@ const homepage = function() {
 
         // Plot a row of circles for each tag group
         const radius = 5
-        for (let j=tags.length-1; j >= 0; j--) {
+        for (let j = tags.length - 1; j >= 0; j--) {
             const tag = tags[j]
-            const yBaseline = 4 * radius * (2*j + 1)
+            const yBaseline = 4 * radius * (2 * j + 1)
 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
                 data: tagGroups[tag],
@@ -16418,7 +16422,7 @@ const homepage = function() {
     })
 
     // Plot Github source repos, using their CORS-enabled public API
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["json"])(GITHUB_URL, function(err, data) {
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["json"])(GITHUB_URL, (err, data) => {
         const NUM_REPOS_TO_SHOW = 7
         const codeSvg = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.codeChart')
                             .append('g').attr('transform', leavePadding)
@@ -16439,23 +16443,23 @@ const homepage = function() {
     })
 }
 
-/* harmony default export */ exports["a"] = homepage;
+/* harmony default export */ __webpack_exports__["a"] = homepage;
 
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_d3__);
-/* harmony export (immutable) */ exports["a"] = circleChart;
+/* harmony export (immutable) */ __webpack_exports__["a"] = circleChart;
 
 
 const SIM_STEPS = 200
@@ -16532,25 +16536,25 @@ function circleChart(config) {
 }
 
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 const COMET_SPACING = 25
 
 // Convert Github repository API data into a "comet" date chart
-/* harmony default export */ exports["a"] = function({ xScale, data, el }) {
+/* harmony default export */ __webpack_exports__["a"] = function({ xScale, data, el }) {
     const createdAtX = xScale.fromDateString({ propName: 'created_at' })
     const leftEdge = d => Math.max(0, createdAtX(d))
 
     const drawComet = function(d) {
-        const height = 4 + Math.floor(Math.sqrt(d.size)/2)
+        const height = 4 + Math.floor(Math.sqrt(d.size) / 2)
         const width = Math.max(20, xScale(new Date(d.pushed_at)) - leftEdge(d))
 
         // Use a template string to express the "d" attribute for the comet's path
-        return `M0 2 Q${width} 0 ${width-10} ${height} ` +
-               `L${width} 0 L${width-10} ${-1*height} Q${width} 0 0 -2`
+        return `M0 2 Q${width} 0 ${width - 10} ${height} ` +
+               `L${width} 0 L${width - 10} ${-1 * height} Q${width} 0 0 -2`
     }
 
     const dataLength = (data || []).length
@@ -16559,7 +16563,7 @@ const COMET_SPACING = 25
                     .attr('class', 'repo')
                     .attr('opacity', 0)
     enter.transition()
-            .delay((d, i) => (dataLength - i)*100)
+            .delay((d, i) => (dataLength - i) * 100)
             .duration(500).attr('opacity', 1)
 
     const links = enter.append('a').attr('xlink:href', d => d.html_url)
@@ -16569,20 +16573,20 @@ const COMET_SPACING = 25
             .attr('width', (d) => xScale(new Date(d.pushed_at)) - leftEdge(d))
             .attr('height', COMET_SPACING)
             .attr('transform', (d, i) =>
-                `translate(${leftEdge(d)}, ${15 + i*COMET_SPACING})`
+                `translate(${leftEdge(d)}, ${15 + i * COMET_SPACING})`
             )
 
     // Draw "comet" shape for each repo:
     links.append('path')
             .attr('d', drawComet)
             .attr('transform', (d, i) =>
-                `translate(${leftEdge(d)}, ${30 + i*COMET_SPACING})`
+                `translate(${leftEdge(d)}, ${30 + i * COMET_SPACING})`
             )
 
     // Repo text is in one <text> element with several <tspan>s
     const text = links.append('text').attr('class', 'name')
             .attr('transform', (d, i) => {
-                return `translate(${leftEdge(d)}, ${25 + i*COMET_SPACING})`
+                return `translate(${leftEdge(d)}, ${25 + i * COMET_SPACING})`
             })
             .text(d => d.name)
     text.append('tspan')
@@ -16596,12 +16600,12 @@ const COMET_SPACING = 25
 };
 
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__homepage__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_main_styl__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_main_styl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__styles_main_styl__);
@@ -16612,5 +16616,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 if (location.pathname === '/') __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__homepage__["a" /* default */])()
 
 
-/***/ }
+/***/ })
 /******/ ]);

@@ -23,7 +23,7 @@
     "eslint": "3.13.0",
     "eslint-config-af": "af/eslint-config-af#b33c1bb",
     "stylus": "0.50.0",
-    "webpack": "2.2.0-rc.0"
+    "webpack": "2.2.0"
   },
   "dependencies": {
     "d3": "4.2.2",
