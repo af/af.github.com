@@ -156,29 +156,28 @@ body > header .location:before {
   margin-left: 20%;
   padding-right: 0 7rem;
 }
-table.posts {
-  margin-top: 1rem;
-  line-height: 1.2;
-}
-table.posts td:first-child {
-  min-width: 5em;
-  vertical-align: top;
-}
-table.posts .titleCell {
-  padding-bottom: 1rem;
-}
-table.posts time {
-  display: block;
-  color: #bbb;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
 .content h1 {
   margin: 1.4rem 0 0.2rem;
   font-size: 2rem;
   line-height: 1;
 }
-.post_list,
+.posts {
+  padding: 0;
+}
+.posts > li {
+  list-style: none;
+}
+.posts h1 {
+  font-weight: 300;
+  margin-bottom: 0;
+  line-height: 1;
+}
+.posts time {
+  display: block;
+  color: #bbb;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
 .post {
   max-width: 35em;
 }

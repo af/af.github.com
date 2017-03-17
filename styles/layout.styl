@@ -60,16 +60,22 @@ body > header
     margin-left: $dimensions.leftColWidth
     padding-right: 0 7rem
 
-table.posts
-    margin-top: 1rem
-    line-height: 1.2
+// Attempt to align all h1s in the content with the left sidebar's h1:
+.content h1
+    margin: 1.4rem 0 0.2rem
+    font-size: 2rem
+    line-height: 1
 
-    td:first-child
-        min-width: 5em
-        vertical-align: top
+.posts
+    padding: 0
 
-    .titleCell
-        padding-bottom: 1rem
+    > li
+        list-style: none
+
+    h1
+        font-weight: 300
+        margin-bottom: 0
+        line-height: 1
 
     time
         display: block
@@ -77,17 +83,10 @@ table.posts
         font-weight: bold
         font-size: 1.1rem
 
-// Attempt to align all h1s in the content with the left sidebar's h1:
-.content h1
-    margin: 1.4rem 0 0.2rem
-    font-size: 2rem
-    line-height: 1
-
-.post_list, .post
-    max-width: 35em
-
 // Blog post article styles
 .post
+    max-width: 35em
+
     header
         time[pubdate]
             display: block
