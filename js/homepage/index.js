@@ -41,7 +41,7 @@ const homepage = function() {
                     .tickSizeOuter(0)
                     .ticks(timeYear)
     select('.timeAxis')
-        .attr('transform', `translate(0, 40)`)
+        .attr('transform', `translate(0, 65)`)
         .attr('class', 'xAxis')
         .call(xAxis)
 

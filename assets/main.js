@@ -16351,7 +16351,7 @@ const homepage = function() {
                     .tickSizeOuter(0)
                     .ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"])
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.timeAxis')
-        .attr('transform', `translate(0, 40)`)
+        .attr('transform', `translate(0, 65)`)
         .attr('class', 'xAxis')
         .call(xAxis)
 

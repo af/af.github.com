@@ -287,11 +287,12 @@ svg.homeChart {
   height: 100%;
 }
 svg.homeChart .xAxis {
-  fill: #ccc;
+  fill: #ddd;
 }
 svg.homeChart .xAxis text {
-  fill: #ccc;
-  font-size: 1.5rem;
+  fill: #ddd;
+  font-size: 1rem;
+  font-weight: bold;
   font-family: 'Klinic Slab', sans-serif;
 }
 svg.homeChart .xAxis path {
@@ -299,7 +300,7 @@ svg.homeChart .xAxis path {
   fill: none;
 }
 svg.homeChart .xAxis line {
-  stroke: #e5e5e5;
+  stroke: #eee;
   stroke-width: 1px;
 }
 svg.homeChart circle {
