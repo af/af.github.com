@@ -5,7 +5,7 @@ import codeChart from './codeChart'
 const WIN_WIDTH = window.innerWidth
 const DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190         // 1.5 or 0.5 years of history
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
-const GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=60'
+const GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=80'
 const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
 
 // Helper for loading jsonp data.
@@ -121,6 +121,7 @@ const homepage = function() {
 
         $section.classed('loading', false)
         const myRepos = data.filter(r => !r.fork)
+                          .filter(r => r.stargazers_count > 1)
                           .filter(r => (new Date(r.pushed_at)) > START_DATE)
                           .sort((r1, r2) => (r1.pushed_at < r2.pushed_at) ? 1 : -1)
                           .slice(0, NUM_REPOS_TO_SHOW)
