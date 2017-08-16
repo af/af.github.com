@@ -5,6 +5,7 @@
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "lint": "eslint js",
+    "prepush": "npm run lint",
     "serve": "jekyll serve --watch",
     "start": "concurrently \"npm run serve\" \"npm run watch\" --names jekyll,webpack -c blue,gray.dim",
     "watch": "webpack -w"
@@ -22,11 +23,12 @@
     "concurrently": "3.5.0",
     "eslint": "3.13.0",
     "eslint-config-af": "af/eslint-config-af#b33c1bb",
-    "stylus": "0.50.0",
+    "husky": "0.14.3",
+    "stylus": "0.54.5",
     "webpack": "3.5.4"
   },
   "dependencies": {
     "d3": "4.2.2",
-    "stylepack": "af/stylepack#webpack2"
+    "stylepack": "0.4.1"
   }
 }
