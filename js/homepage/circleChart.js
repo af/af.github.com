@@ -64,11 +64,11 @@ export default function circleChart(config) {
                 return t.length > MAX_LENGTH ? `${t.slice(0, MAX_LENGTH)}…` : t
             })
             .attr('class', 'tooltipText')
-            .attr('text-anchor', d => toRight(d) ? 'end' : 'start')
+            .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
             .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 20})`)
     tooltips.append('text')
             .attr('class', 'date tooltipText')
-            .attr('text-anchor', d => toRight(d) ? 'end' : 'start')
+            .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
             .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
             .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 35})`)
 }

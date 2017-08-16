@@ -22,7 +22,7 @@
   "devDependencies": {
     "concurrently": "3.5.0",
     "eslint": "3.13.0",
-    "eslint-config-af": "af/eslint-config-af#b33c1bb",
+    "eslint-config-af": "af/eslint-config-af#master",
     "husky": "0.14.3",
     "stylus": "0.54.5",
     "webpack": "3.5.4"

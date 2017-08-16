@@ -1,41 +1,38 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -46,7 +43,7 @@
 /******/ 			});
 /******/ 		}
 /******/ 	};
-
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -55,15 +52,15 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -16304,6 +16301,22 @@ var   y0$3;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__homepage__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_main_styl__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_main_styl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__styles_main_styl__);
+
+
+
+// Quick and dirty "router":
+if (location.pathname === '/') Object(__WEBPACK_IMPORTED_MODULE_0__homepage__["a" /* default */])()
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_d3__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__circleChart__ = __webpack_require__(3);
@@ -16315,7 +16328,7 @@ var   y0$3;
 const WIN_WIDTH = window.innerWidth
 const DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190         // 1.5 or 0.5 years of history
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
-const GITHUB_URL = 'https://api.github.com/users/af/repos?per_page=80'
+const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
 const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
 
 // Helper for loading jsonp data.
@@ -16335,7 +16348,7 @@ const homepage = function() {
     const margin = {top: 20, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
-    const x = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([margin.left, svgWidth - margin.left - margin.right])
+    const x = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([margin.left, svgWidth - margin.left - margin.right])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
     x.fromDateString = function(options = {}) {
@@ -16346,22 +16359,22 @@ const homepage = function() {
     }
 
     // Set up an x axis and put it on the top chart:
-    const xAxis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["axisTop"])(x)
+    const xAxis = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisTop"])(x)
                     .tickSizeInner(-1 * window.innerHeight)
                     .tickSizeOuter(0)
                     .ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"])
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.timeAxis')
+    Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.timeAxis')
         .attr('transform', `translate(0, 65)`)
         .attr('class', 'xAxis')
         .call(xAxis)
 
     // Plot the blogposts that are dumped as window._posts in the homepage template
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
+    Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
         data: window._posts,
         width: svgWidth,
         xScale: x,
         yBaseline: 30,
-        el: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.postChart')
+        el: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.postChart')
                     .append('g').attr('transform', leavePadding),
         radius: d => (5 + Math.sqrt(d.length) / 5),
         groupClass: 'post',
@@ -16372,8 +16385,8 @@ const homepage = function() {
 
     // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, links => {
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.linkChart').classed('loading', false)
-        const linksSvg = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.linkChart')
+        Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.linkChart').classed('loading', false)
+        const linksSvg = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.linkChart')
                             .append('g').attr('transform', leavePadding)
 
         // Divide links into tag group "buckets":
@@ -16400,7 +16413,7 @@ const homepage = function() {
             const tag = tags[j]
             const yBaseline = 4 * radius * (2 * j + 1)
 
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
+            Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
                 data: tagGroups[tag],
                 width: svgWidth,
                 xScale: x,
@@ -16422,20 +16435,20 @@ const homepage = function() {
     })
 
     // Plot Github source repos, using their CORS-enabled public API
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["json"])(GITHUB_URL, (err, data) => {
+    Object(__WEBPACK_IMPORTED_MODULE_0_d3__["json"])(GITHUB_URL, (err, data) => {
         const NUM_REPOS_TO_SHOW = 7
-        const codeSvg = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.codeChart')
+        const codeSvg = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.codeChart')
                             .append('g').attr('transform', leavePadding)
-        const $section = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section.code')
+        const $section = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('section.code')
         if (err) return $section.classed('failed', true)
 
         $section.classed('loading', false)
         const myRepos = data.filter(r => !r.fork)
                           .filter(r => r.stargazers_count > 1)
                           .filter(r => (new Date(r.pushed_at)) > START_DATE)
-                          .sort((r1, r2) => (r1.pushed_at < r2.pushed_at) ? 1 : -1)
+                          .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
                           .slice(0, NUM_REPOS_TO_SHOW)
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__codeChart__["a" /* default */])({
+        Object(__WEBPACK_IMPORTED_MODULE_2__codeChart__["a" /* default */])({
             data: myRepos,
             width: svgWidth,
             xScale: x,
@@ -16444,23 +16457,17 @@ const homepage = function() {
     })
 }
 
-/* harmony default export */ __webpack_exports__["a"] = homepage;
+/* harmony default export */ __webpack_exports__["a"] = (homepage);
 
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = circleChart;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_d3__);
-/* harmony export (immutable) */ __webpack_exports__["a"] = circleChart;
 
 
 const SIM_STEPS = 200
@@ -16487,10 +16494,10 @@ function circleChart(config) {
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
-    const collisionForce = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCollide"])().radius(d => radius(d) + PADDING)
-    const sim = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])(config.data)
-        .force('x', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceX"])(x).strength(1))
-        .force('y', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["forceY"])(yBaseline))
+    const collisionForce = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCollide"])().radius(d => radius(d) + PADDING)
+    const sim = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])(config.data)
+        .force('x', Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceX"])(x).strength(1))
+        .force('y', Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceY"])(yBaseline))
         .force('collide', collisionForce)
         .stop()
     for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
@@ -16513,10 +16520,10 @@ function circleChart(config) {
             .attr('x1', 1)
             .attr('x2', 1)
             .attr('y1', function() {
-                const circle = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])(this.parentElement.firstChild)
+                const circle = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])(this.parentElement.firstChild)
                 return 3 + parseFloat(circle.attr('r'))
             })
-            .attr('y2', function() { return parseFloat(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])(this).attr('y1')) + 40 })
+            .attr('y2', function() { return parseFloat(Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])(this).attr('y1')) + 40 })
 
     const tooltips = links.append('g').attr('class', 'tooltip')
     tooltips.append('text')
@@ -16527,11 +16534,11 @@ function circleChart(config) {
                 return t.length > MAX_LENGTH ? `${t.slice(0, MAX_LENGTH)}…` : t
             })
             .attr('class', 'tooltipText')
-            .attr('text-anchor', d => toRight(d) ? 'end' : 'start')
+            .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
             .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 20})`)
     tooltips.append('text')
             .attr('class', 'date tooltipText')
-            .attr('text-anchor', d => toRight(d) ? 'end' : 'start')
+            .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
             .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
             .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 35})`)
 }
@@ -16545,7 +16552,7 @@ function circleChart(config) {
 const COMET_SPACING = 25
 
 // Convert Github repository API data into a "comet" date chart
-/* harmony default export */ __webpack_exports__["a"] = function({ xScale, data, el }) {
+/* harmony default export */ __webpack_exports__["a"] = (function({ xScale, data, el }) {
     const createdAtX = xScale.fromDateString({ propName: 'created_at' })
     const leftEdge = d => Math.max(0, createdAtX(d))
 
@@ -16598,23 +16605,355 @@ const COMET_SPACING = 25
         .attr('class', 'description')
         .attr('dx', 10)
         .text(d => d.description)
-};
+});
 
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__homepage__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_main_styl__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_main_styl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__styles_main_styl__);
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(6);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(8)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!./../node_modules/css-loader/index.js??ref--0-1!./../node_modules/stylus-loader/index.js!./main.styl", function() {
+			var newContent = require("!!./../node_modules/css-loader/index.js??ref--0-1!./../node_modules/stylus-loader/index.js!./main.styl");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(7)();
+// imports
 
 
+// module
+exports.push([module.i, "* {\n  box-sizing: border-box;\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  position: relative;\n  margin: 0;\n  min-width: 320px;\n  background: #f7f7f7;\n  -webkit-font-smoothing: antialiased;\n}\np {\n  line-height: 1.4;\n  margin: 0 0 1.4em;\n}\na,\na.visited {\n  color: #6fa933;\n  text-decoration: none;\n  transition: color 0.3s;\n}\na:hover,\na.visited:hover {\n  color: #9ad063;\n}\npre {\n  background: #eeeee7;\n  padding: 0.2em;\n  border-radius: 3px;\n}\ncode {\n  background: #eeeee7;\n  padding: 3px;\n  font-size: 1rem;\n}\npre code {\n  display: block;\n  padding: 0.5rem;\n  overflow: auto;\n}\n@font-face {\n  font-family: 'Klinic Slab';\n  src: url(\"/fonts/klinic/KlinicSlabBook.otf\") format('opentype');\n  font-weight: normal;\n  font-style: normal;\n}\n@font-face {\n  font-family: 'Klinic Slab';\n  src: url(\"/fonts/klinic/KlinicSlabBookIt.otf\") format('opentype');\n  font-weight: normal;\n  font-style: italic;\n}\n@font-face {\n  font-family: 'Klinic Slab';\n  src: url(\"/fonts/klinic/KlinicSlabBold.otf\") format('opentype');\n  font-weight: bold;\n  font-style: normal;\n}\n@font-face {\n  font-family: 'Klinic Slab';\n  src: url(\"/fonts/klinic/KlinicSlabBoldIt.otf\") format('opentype');\n  font-weight: bold;\n  font-style: italic;\n}\n@font-face {\n  font-family: 'icons';\n  src: url(\"/fonts/icons.woff\") format('woff');\n  font-weight: normal;\n  font-style: normal;\n}\nbody {\n  font-family: 'Klinic Slab', sans-serif;\n  font-size: 20px;\n  color: #334;\n}\nbody > header .title {\n  display: block;\n  padding: 1rem 0;\n  margin-bottom: 3rem;\n  border: none;\n  background: none;\n  zoom: 1;\n  border: none;\n  box-shadow: none;\n  color: inherit !important;\n  background: #f6f5f2;\n  box-shadow: 0 -1px 7px rgba(0,0,0,0.1) inset;\n}\nbody > header .title:before,\nbody > header .title:after {\n  content: \"\";\n  display: table;\n}\nbody > header .title:after {\n  clear: both;\n}\nbody > header .avatar {\n  float: left;\n  display: inline-block;\n  width: 20%;\n  padding-right: 1rem;\n  text-align: right;\n}\nbody > header .avatar img {\n  border-radius: 50%;\n}\n@media screen and (max-width: 400px) {\n  body > header .avatar img {\n    width: 50px;\n    height: 50px;\n    margin-top: 0.8rem;\n  }\n}\nbody > header h1 {\n  font-size: 2rem;\n  margin: 1rem 0 0;\n  line-height: 0.8;\n}\nbody > header .job,\nbody > header .location {\n  margin-right: 0.5rem;\n  font-size: 1rem;\n  font-style: italic;\n  color: #aa9;\n}\nbody > header .job:last-child,\nbody > header .location:last-child {\n  margin-right: 0;\n}\n@media screen and (max-width: 400px) {\n  body > header .job,\n  body > header .location {\n    font-size: 0.9rem;\n  }\n}\nbody > header .job:before {\n  content: '\\E802';\n  position: relative;\n  color: #aaa;\n  font-family: 'icons';\n  font-style: normal;\n  margin-right: 0.4em;\n}\nbody > header .location:before {\n  content: '\\E801';\n  position: relative;\n  color: #aaa;\n  font-family: 'icons';\n  font-style: normal;\n  margin-right: 0.4em;\n}\n.content {\n  margin-left: 20%;\n  padding-right: 0 7rem;\n}\n.content h1 {\n  margin: 1.4rem 0 0.2rem;\n  font-size: 2rem;\n  line-height: 1;\n}\n.posts {\n  padding: 0;\n}\n.posts > li {\n  list-style: none;\n}\n.posts h1 {\n  font-weight: 300;\n  margin-bottom: 0;\n  line-height: 1;\n}\n.posts time {\n  display: block;\n  color: #bbb;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.post {\n  max-width: 35em;\n}\n.post header time[pubdate] {\n  display: block;\n  margin-bottom: 2rem;\n  font-weight: 600;\n  color: #bba;\n}\n.post h2,\n.post h3,\n.post h4 {\n  margin: 2rem 0 1rem;\n}\n.post h2 {\n  font-size: 1.7rem;\n  font-weight: 300;\n  font-style: italic;\n}\n.post h3,\n.post h4 {\n  font-size: 1rem;\n}\n.post img {\n  max-width: 100%;\n}\n.post footer {\n  margin: 2rem 0;\n  padding: 0.5rem 0 3rem;\n  border-top: 1px solid #bba;\n  font-size: 1rem;\n  color: #997;\n}\n.post footer p {\n  margin: 0;\n}\n.post .latest {\n  margin: 2rem 0 0;\n}\n.post .latest time {\n  display: inline-block;\n  font-weight: bold;\n  opacity: 0.5;\n  min-width: 5em;\n}\n.post .latest > h2 {\n  font-weight: normal;\n  font-size: 1.4em;\n  margin: 0 0 0.3rem;\n  font-style: normal;\n}\n@media screen and (min-width: 800px) {\n  .post .latest > h2 {\n    width: 250px;\n    margin-left: -250px;\n    padding-right: 1rem;\n    text-align: right;\n    float: left;\n    line-height: 0.8;\n  }\n  .post .latest > h2:after {\n    content: ' \\BB';\n  }\n}\n.post .latest .item {\n  line-height: 1.4;\n}\n.post .latest .viewall {\n  display: inline-block;\n  padding: 3px 10px;\n  margin-top: 0.5rem;\n  border: 1px solid currentColor;\n  border-radius: 3px;\n  font-size: 0.9em;\n}\n.post .latest .viewall:hover {\n  color: #fff;\n  background: #6fa933;\n}\n@media screen and (max-width: 800px) {\n  .content {\n    margin-left: 0;\n    padding: 0 1rem;\n  }\n}\nsection.homepage {\n  margin: 2rem 0;\n  position: relative;\n}\nsection.homepage.loading:before {\n  content: 'Loading data...';\n  animation: 1s pulseOpacity alternate infinite;\n  color: #999;\n  position: absolute;\n  width: 100%;\n  margin: 5rem;\n  pointer-events: none;\n  text-align: center;\n  font-style: italic;\n}\nsection.homepage.loading.failed:before {\n  content: \"Sorry, failed to load the data. Refresh and try again?\";\n}\nsvg.homeChart {\n  display: block;\n  width: 100%;\n  height: 100%;\n}\nsvg.homeChart .xAxis {\n  fill: #ddd;\n}\nsvg.homeChart .xAxis text {\n  fill: #ddd;\n  font-size: 1rem;\n  font-weight: bold;\n  font-family: 'Klinic Slab', sans-serif;\n}\nsvg.homeChart .xAxis path {\n  stroke: none;\n  fill: none;\n}\nsvg.homeChart .xAxis line {\n  stroke: #eee;\n  stroke-width: 1px;\n}\nsvg.homeChart circle {\n  transition: fill 0.3s;\n}\nsvg.homeChart circle:hover {\n  animation: 0.5s pulseSize;\n  fill: #000;\n}\n.codeWrapper {\n  transform: translate(0, 40px);\n}\n.postWrapper {\n  transform: translate(0, 300px);\n}\n.linkWrapper {\n  transform: translate(0, 450px);\n}\n.chartTitle {\n  fill: #aaa;\n  transform: translate(2rem, 0);\n  font-weight: 300;\n  font-size: 2rem;\n  font-style: italic;\n}\n.chartTitle tspan {\n  fill: #bbb;\n  font-size: 0.5em;\n  text-decoration: underline;\n}\n.postChart .tooltip,\n.linkChart .tooltip {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateX(-5px);\n  transition: all 0.4s 0.1s;\n}\n.postChart .date,\n.linkChart .date {\n  font-size: 0.8rem;\n}\n.postChart a:hover .tooltip,\n.linkChart a:hover .tooltip {\n  opacity: 1;\n  transform: translateX(0);\n}\n.postChart line,\n.linkChart line {\n  pointer-events: none;\n  transform-origin: top;\n  transform: scaleY(0);\n  transition: all 0.2s;\n  stroke: #000;\n}\n.postChart a:hover line,\n.linkChart a:hover line {\n  transform: scaleY(1);\n}\n.postChart circle,\n.linkChart circle {\n  fill: rgba(85,102,170,0.8);\n}\n.linkChart circle {\n  fill: rgba(220,180,50,0.5);\n}\n.linkChart .linkLabel {\n  font-size: 0.9rem;\n  display: block;\n  fill: #999;\n}\n.codeChart g.repo path {\n  transition: opacity 0.5s;\n  opacity: 0.5;\n  fill: rgba(85,170,102,0.8);\n}\n.codeChart g.repo a {\n  transition: all 0.4s;\n}\n.codeChart g.repo a:hover * {\n  opacity: 1;\n}\n.codeChart g.repo text {\n  fill: #333;\n  font-size: 1rem;\n  opacity: 0;\n  transition: all 0.4s;\n}\n.codeChart g.repo text.name {\n  opacity: 1;\n}\n.codeChart g.repo text tspan.language {\n  fill: #999;\n  font-size: 0.9em;\n}\n.codeChart g.repo text .description {\n  opacity: 0;\n  font-size: 0.8rem;\n}\n.codeChart g.repo:hover .description {\n  opacity: 1;\n}\n.codeChart g.repo rect {\n  fill: transparent;\n}\n@-moz-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-moz-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-webkit-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-o-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n", ""]);
 
-// Quick and dirty "router":
-if (location.pathname === '/') __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__homepage__["a" /* default */])()
+// exports
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function() {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		var result = [];
+		for(var i = 0; i < this.length; i++) {
+			var item = this[i];
+			if(item[2]) {
+				result.push("@media " + item[2] + "{" + item[1] + "}");
+			} else {
+				result.push(item[1]);
+			}
+		}
+		return result.join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+var stylesInDom = {},
+	memoize = function(fn) {
+		var memo;
+		return function () {
+			if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+			return memo;
+		};
+	},
+	isOldIE = memoize(function() {
+		return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+	}),
+	getHeadElement = memoize(function () {
+		return document.head || document.getElementsByTagName("head")[0];
+	}),
+	singletonElement = null,
+	singletonCounter = 0,
+	styleElementsInsertedAtTop = [];
+
+module.exports = function(list, options) {
+	if(typeof DEBUG !== "undefined" && DEBUG) {
+		if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the bottom of <head>.
+	if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+	var styles = listToStyles(list);
+	addStylesToDom(styles, options);
+
+	return function update(newList) {
+		var mayRemove = [];
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+		if(newList) {
+			var newStyles = listToStyles(newList);
+			addStylesToDom(newStyles, options);
+		}
+		for(var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+			if(domStyle.refs === 0) {
+				for(var j = 0; j < domStyle.parts.length; j++)
+					domStyle.parts[j]();
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+}
+
+function addStylesToDom(styles, options) {
+	for(var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+		if(domStyle) {
+			domStyle.refs++;
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles(list) {
+	var styles = [];
+	var newStyles = {};
+	for(var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+		if(!newStyles[id])
+			styles.push(newStyles[id] = {id: id, parts: [part]});
+		else
+			newStyles[id].parts.push(part);
+	}
+	return styles;
+}
+
+function insertStyleElement(options, styleElement) {
+	var head = getHeadElement();
+	var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+	if (options.insertAt === "top") {
+		if(!lastStyleElementInsertedAtTop) {
+			head.insertBefore(styleElement, head.firstChild);
+		} else if(lastStyleElementInsertedAtTop.nextSibling) {
+			head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			head.appendChild(styleElement);
+		}
+		styleElementsInsertedAtTop.push(styleElement);
+	} else if (options.insertAt === "bottom") {
+		head.appendChild(styleElement);
+	} else {
+		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+	}
+}
+
+function removeStyleElement(styleElement) {
+	styleElement.parentNode.removeChild(styleElement);
+	var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+	if(idx >= 0) {
+		styleElementsInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement(options) {
+	var styleElement = document.createElement("style");
+	styleElement.type = "text/css";
+	insertStyleElement(options, styleElement);
+	return styleElement;
+}
+
+function createLinkElement(options) {
+	var linkElement = document.createElement("link");
+	linkElement.rel = "stylesheet";
+	insertStyleElement(options, linkElement);
+	return linkElement;
+}
+
+function addStyle(obj, options) {
+	var styleElement, update, remove;
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+		styleElement = singletonElement || (singletonElement = createStyleElement(options));
+		update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+	} else if(obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function") {
+		styleElement = createLinkElement(options);
+		update = updateLink.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+			if(styleElement.href)
+				URL.revokeObjectURL(styleElement.href);
+		};
+	} else {
+		styleElement = createStyleElement(options);
+		update = applyToTag.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle(newObj) {
+		if(newObj) {
+			if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+				return;
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag(styleElement, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = styleElement.childNodes;
+		if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+		if (childNodes.length) {
+			styleElement.insertBefore(cssNode, childNodes[index]);
+		} else {
+			styleElement.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag(styleElement, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		styleElement.setAttribute("media", media)
+	}
+
+	if(styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = css;
+	} else {
+		while(styleElement.firstChild) {
+			styleElement.removeChild(styleElement.firstChild);
+		}
+		styleElement.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink(linkElement, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	if(sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = linkElement.href;
+
+	linkElement.href = URL.createObjectURL(blob);
+
+	if(oldSrc)
+		URL.revokeObjectURL(oldSrc);
+}
 
 
 /***/ })
