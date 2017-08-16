@@ -2,12 +2,11 @@
   "name": "af.github.com",
   "version": "0.0.0",
   "description": "Silly little personal website",
-  "browser": "./js/main.js",
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "lint": "eslint js",
     "serve": "jekyll serve --watch",
-    "start": "npm run serve & npm run watch",
+    "start": "concurrently \"npm run serve\" \"npm run watch\" --names jekyll,webpack -c blue,gray.dim",
     "watch": "webpack -w"
   },
   "repository": {
@@ -20,10 +19,11 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
+    "concurrently": "3.5.0",
     "eslint": "3.13.0",
     "eslint-config-af": "af/eslint-config-af#b33c1bb",
     "stylus": "0.50.0",
-    "webpack": "2.2.0"
+    "webpack": "3.5.4"
   },
   "dependencies": {
     "d3": "4.2.2",
