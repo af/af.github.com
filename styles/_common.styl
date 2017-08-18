@@ -1,7 +1,8 @@
 $colours = {
-    cta: darken(#8BC84B, 20%),
-    bodyBg: #f7f7f7,
-    codeBg: #eeeee7,
+    cta: rgba(#fff, 1),
+    bodyBg: #52A174,
+    codeBg: rgba(#fff, 0.1)
+    text: white,
 
     sections: {
         code: #5a6,
@@ -15,7 +16,8 @@ $dimensions = {
     gutterWidth: 1rem
 }
 
-$mainFont = 'Klinic Slab', sans-serif
+$mainFont = Roboto, sans-serif
+
 
 *
     box-sizing: border-box
@@ -28,6 +30,8 @@ body
     margin: 0
     min-width: 320px
     background: $colours.bodyBg
+    color: $colours.text
+    font-family: $mainFont
     -webkit-font-smoothing: antialiased
 
 p
@@ -57,3 +61,13 @@ code
         padding: 0.5rem
         overflow: auto
 
+.container
+    max-width: 950px
+    min-width: 300px
+    margin-left: auto
+    margin-right: auto
+    padding: 0 1rem
+
+.siteHeader
+    padding-top: 2rem
+    padding-bottom: 2rem

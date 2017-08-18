@@ -10,7 +10,7 @@ const config = {
     module: {},
     plugins: [],
     resolve: {
-        alias: !isDev && { 'd3': `${__dirname}/node_modules/d3/build/d3.min.js` }
+        alias: isDev ? {} : {d3: `${__dirname}/node_modules/d3/build/d3.min.js`}
     },
 
     performance: {

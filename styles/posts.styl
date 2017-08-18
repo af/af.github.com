@@ -2,70 +2,6 @@
 @require "_common"
 @require "_fonts"
 
-
-// Main site header
-body > header
-    .title
-        display: block
-        padding: 1rem 0
-        margin-bottom: 3rem
-        border: none
-        background: none
-        clearfix()
-        border: none
-        box-shadow: none
-        color: inherit !important
-        background: #f6f5f2
-        box-shadow: 0 -1px 7px rgba(0,0,0, 0.1) inset
-
-    .avatar
-        float: left
-        display: inline-block
-        width: $dimensions.leftColWidth
-        padding-right: $dimensions.gutterWidth
-        text-align: right
-
-        img
-            border-radius: 50%
-
-        @media screen and (max-width: 400px)
-            img
-                width: 50px
-                height: 50px
-                margin-top: 0.8rem
-
-    h1
-        font-size: 2rem
-        margin: 1rem 0 0
-        line-height: 0.8
-
-    .job, .location
-        margin-right: 0.5rem
-        font-size: 1rem
-        font-style: italic
-        color: #aa9
-
-        &:last-child
-            margin-right: 0
-
-        @media screen and (max-width: 400px)
-            font-size: 0.9rem
-
-    .job:before
-        $briefcaseIcon(#aaa)
-    .location:before
-        $locationIcon(#aaa)
-
-.content
-    margin-left: $dimensions.leftColWidth
-    padding-right: 0 7rem
-
-// Attempt to align all h1s in the content with the left sidebar's h1:
-.content h1
-    margin: 1.4rem 0 0.2rem
-    font-size: 2rem
-    line-height: 1
-
 .posts
     padding: 0
 
@@ -79,20 +15,25 @@ body > header
 
     time
         display: block
-        color: #bbb
+        opacity: 0.6
         font-weight: bold
         font-size: 1.1rem
 
 // Blog post article styles
 .post
-    max-width: 35em
+    max-width: 43em
 
     header
         time[pubdate]
             display: block
             margin-bottom: 2rem
             font-weight: 600
-            color: #bba
+            opacity: 0.6
+
+    h1
+        margin: 1.4rem 0 0.2rem
+        font-size: 2rem
+        line-height: 1
 
     h2, h3, h4
         margin: 2rem 0 1rem
@@ -111,7 +52,7 @@ body > header
         padding: 0.5rem 0 3rem
         border-top: 1px solid #bba
         font-size: 1rem
-        color: #997
+        opacity: 0.7
 
         p
             margin: 0
@@ -156,11 +97,3 @@ body > header
             &:hover
                 color: white
                 background: $colours.cta
-
-
-// Mobile content
-@media screen and (max-width: 800px)
-    .content
-        margin-left: 0
-        padding: 0 1rem
-

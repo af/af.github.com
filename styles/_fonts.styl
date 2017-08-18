@@ -1,53 +1,51 @@
-@require "_common"
-
-@font-face
-    font-family: 'Klinic Slab'
-    src:url('/fonts/klinic/KlinicSlabBook.otf') format('opentype')
-    font-weight: normal
-    font-style: normal
-@font-face
-    font-family: 'Klinic Slab'
-    src:url('/fonts/klinic/KlinicSlabBookIt.otf') format('opentype')
-    font-weight: normal
-    font-style: italic
-@font-face
-    font-family: 'Klinic Slab'
-    src:url('/fonts/klinic/KlinicSlabBold.otf') format('opentype')
-    font-weight: bold
-    font-style: normal
-@font-face
-    font-family: 'Klinic Slab'
-    src:url('/fonts/klinic/KlinicSlabBoldIt.otf') format('opentype')
-    font-weight: bold
-    font-style: italic
-
-// Icon font:
-@font-face
-    font-family: 'icons'
-    src:url('/fonts/icons.woff') format('woff')
-    font-weight: normal
-    font-style: normal
-
-includeIcon($char, $color)
-    content: $char
-    position: relative
-    color: $color
-    font-family: 'icons'
-    font-style: normal
-    margin-right: 0.4em
-
-$githubIcon($color='inherit')
-    includeIcon('\e800', $color)
-$pencilIcon($color='inherit')
-    includeIcon('\e803', $color)
-$linkIcon($color='inherit')
-    includeIcon('\e804', $color)
-$briefcaseIcon($color='inherit')
-    includeIcon('\e802', $color)
-$locationIcon($color='inherit')
-    includeIcon('\e801', $color)
-
-body
-    font-family: $mainFont
-    font-size: 20px
-    color: #334
+// @require "_common"
+// 
+// @font-face
+//     font-family: 'Klinic Slab'
+//     src:url('/fonts/klinic/KlinicSlabBook.otf') format('opentype')
+//     font-weight: normal
+//     font-style: normal
+// @font-face
+//     font-family: 'Klinic Slab'
+//     src:url('/fonts/klinic/KlinicSlabBookIt.otf') format('opentype')
+//     font-weight: normal
+//     font-style: italic
+// @font-face
+//     font-family: 'Klinic Slab'
+//     src:url('/fonts/klinic/KlinicSlabBold.otf') format('opentype')
+//     font-weight: bold
+//     font-style: normal
+// @font-face
+//     font-family: 'Klinic Slab'
+//     src:url('/fonts/klinic/KlinicSlabBoldIt.otf') format('opentype')
+//     font-weight: bold
+//     font-style: italic
+// 
+// // Icon font:
+// @font-face
+//     font-family: 'icons'
+//     src:url('/fonts/icons.woff') format('woff')
+//     font-weight: normal
+//     font-style: normal
+// 
+// includeIcon($char, $color)
+//     content: $char
+//     position: relative
+//     color: $color
+//     font-family: 'icons'
+//     font-style: normal
+//     margin-right: 0.4em
+// 
+// $githubIcon($color='inherit')
+//     includeIcon('\e800', $color)
+// $pencilIcon($color='inherit')
+//     includeIcon('\e803', $color)
+// $linkIcon($color='inherit')
+//     includeIcon('\e804', $color)
+// $briefcaseIcon($color='inherit')
+//     includeIcon('\e802', $color)
+// $locationIcon($color='inherit')
+//     includeIcon('\e801', $color)
+// 
+// body
+//     font-family: $mainFont
