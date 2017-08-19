@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="58" height="55" viewBox="0 0 58 55">
+  <defs>
+    <linearGradient id="a" x1="0%" x2="50%" y1="50%" y2="50%">
+      <stop stop-color="#59AE7E" stop-opacity=".7" offset="0%"/>
+      <stop stop-color="#59AE7E" stop-opacity="0" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <polygon fill="#FFFFFF" points="29 26.053 58 26.053 50.75 33.289 29 33.289" opacity=".9"/>
+    <path fill="#FFFFFF" d="M21.75 26.0526316L21.75 18.8157895 29 18.8157895 29 40.5263158 21.75 40.5263158 21.75 33.2894737 0 33.2894737 7.25 26.0526316 21.75 26.0526316zM7.25 11.5789474L21.75 11.5789474 29 18.8157895 0 18.8157895 7.25 11.5789474zM29 40.5263158L21.75 47.7631579 7.25 47.7631579 0 40.5263158 29 40.5263158zM0 33.2894737L0 40.5263158 7.25 40.5263158 7.25 33.2894737 0 33.2894737zM43.5 11.5789474L50.75 11.5789474 58 4.34210526 43.5 4.34210526 39.875 7.96052632 36.25 11.5789474 36.25 55 43.5 47.7631579 43.5 11.5789474z" opacity=".9"/>
+    <rect width="5.8" height="14.474" x="43.5" y="23.158" fill="url(#a)"/>
+    <rect width="5.8" height="14.474" x="29" y="23.158" fill="url(#a)"/>
+    <rect width="5.8" height="14.474" x="7.25" y="23.158" fill="url(#a)"/>
+    <rect width="5.8" height="14.474" x="7.25" y="37.632" fill="url(#a)"/>
+    <rect width="5.875" height="14.661" x="15.938" y="22.367" fill="url(#a)" transform="rotate(179 18.876 29.697)"/>
+    <rect width="5.875" height="14.661" x="15.938" y="36.84" fill="url(#a)" transform="rotate(179 18.876 44.17)"/>
+    <rect width="5.875" height="14.661" x="30.438" y="22.367" fill="url(#a)" transform="rotate(179 33.376 29.697)"/>
+    <rect width="5.85" height="14.598" x="15.964" y="7.924" fill="url(#a)" transform="rotate(179 18.888 15.223)"/>
+    <rect width="5.8" height="14.474" x="43.5" fill="url(#a)"/>
+  </g>
+</svg>

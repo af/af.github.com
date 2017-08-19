@@ -29,22 +29,28 @@ body
     position: relative
     margin: 0
     min-width: 320px
-    background: $colours.bodyBg
+    background: url(/img/ribbon-bg-jumbo.svg) center no-repeat fixed
+    background-color: $colours.bodyBg
+    background-size: 100%
     color: $colours.text
     font-family: $mainFont
+    font-size: 18px
     -webkit-font-smoothing: antialiased
 
 p
-    line-height: 1.4
+    line-height: 1.5
     margin: 0 0 1.4em
 
 a, a.visited
     color: $colours.cta
     text-decoration: none
-    transition: color 0.3s
+    border-bottom: 1px dotted currentColor
+    padding: 0 1px
+    font-weight: 600
+    transition: background 0.2s
 
     &:hover
-        color: lighten($colours.cta, 30%)
+        background: rgba(#fff, 0.1)
 
 pre
     background: $colours.codeBg
@@ -71,3 +77,12 @@ code
 .siteHeader
     padding-top: 2rem
     padding-bottom: 2rem
+
+    .logo
+        border: none
+        background: none
+        display: inline-block
+        transition: transform 0.2s
+
+        &:hover
+            transform: scale(1.1)
