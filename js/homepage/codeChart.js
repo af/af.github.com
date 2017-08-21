@@ -50,6 +50,7 @@ export default function({ xScale, data, el }) {
         .attr('class', 'language')
         .attr('dx', 10)
         .text(d => d.language)
+
     text.append('tspan')
         .attr('class', 'description')
         .attr('dx', 10)

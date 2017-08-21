@@ -3,6 +3,41 @@ layout: base
 title: Aaron Franks
 ---
 
+<p class="hello container">
+    Hi 👋 I’m a software engineer with keen interests in user interfaces,
+    data visualization, and functional programming.
+</p>
+
+<section class="openSource container">
+    <h2 class="sectionHeading">Latest Open Source Projects</h2>
+    <ol class="ossProjects">
+        {% for i in (1..6) %}
+        <li>
+            <div class="projectTidbits"></div>
+            <h3 class="projectTitle">...</h3>
+            <div>...</div>
+        </li>
+        {% endfor %}
+    </ol>
+</section>
+
+<div class="timeline container">
+    <section>
+        <h2 class="sectionHeading">Latest Links</h2>
+    </section>
+
+    <section>
+        <h2 class="sectionHeading">Latest Posts</h2>
+        {% for post in site.posts limit:4 %}
+            <article class="postItem">
+                <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+                <time>{{ post.date | date: "%Y-%m-%dT%H:%M:%S" }}</time>
+            </article>
+        {% endfor %}
+    </section>
+</div>
+
+
 <svg class="homeChart">
     <g class="timeAxis"></g>
 
