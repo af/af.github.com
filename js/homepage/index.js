@@ -1,6 +1,6 @@
 import {axisTop, json, select, scaleTime, timeYear} from 'd3'
 import circleChart from './circleChart'
-import codeChart from './codeChart'
+
 
 const WIN_WIDTH = window.innerWidth
 const DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190         // 1.5 or 0.5 years of history
@@ -113,23 +113,22 @@ const homepage = function() {
 
     // Plot Github source repos, using their CORS-enabled public API
     json(GITHUB_URL, (err, data) => {
-        const NUM_REPOS_TO_SHOW = 7
-        const codeSvg = select('.codeChart')
-                            .append('g').attr('transform', leavePadding)
-        const $section = select('section.code')
-        if (err) return $section.classed('failed', true)
+        const NUM_REPOS_TO_SHOW = 6
 
-        $section.classed('loading', false)
         const myRepos = data.filter(r => !r.fork)
                           .filter(r => r.stargazers_count > 1)
                           .filter(r => (new Date(r.pushed_at)) > START_DATE)
                           .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
                           .slice(0, NUM_REPOS_TO_SHOW)
-        codeChart({
-            data: myRepos,
-            width: svgWidth,
-            xScale: x,
-            el: codeSvg
+
+        const fill = (root, selector, text) => root.querySelector(selector).textContent = text
+        const containers = document.querySelectorAll('.ossProjects > li')
+        containers.forEach((el, idx) => {
+            const {name, description, stargazers_count, html_url} = myRepos[idx]
+            el.querySelector('a').href = html_url  // eslint-disable-line camelcase
+            fill(el, '.projectTitle', name)
+            fill(el, '.projectDesc', description)
+            fill(el, '.projectStars', stargazers_count)
         })
     })
 }

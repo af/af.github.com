@@ -13,9 +13,11 @@ title: Aaron Franks
     <ol class="ossProjects">
         {% for i in (1..6) %}
         <li>
-            <div class="projectTidbits"></div>
+        <a>
+            <div class="projectStars"></div>
             <h3 class="projectTitle">...</h3>
-            <div>...</div>
+            <div class="projectDesc">...</div>
+        </a>
         </li>
         {% endfor %}
     </ol>
@@ -25,6 +27,10 @@ title: Aaron Franks
     <section>
         <h2 class="sectionHeading">Latest Links</h2>
     </section>
+
+    <svg class="timelineChart">
+        <g class="timeAxis"></g>
+    </svg>
 
     <section>
         <h2 class="sectionHeading">Latest Posts</h2>

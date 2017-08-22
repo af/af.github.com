@@ -24,6 +24,7 @@
     font-size: 0.9em
     font-weight: 600
     letter-spacing: 0.06em
+    opacity: 0.8
 
 .ossProjects
     display: flex
@@ -32,21 +33,49 @@
     padding: 0
 
     > li
+        width: 32%
+        margin-bottom: 0.5em
+        list-style: none
+
+    a
+        position: relative
         display: flex
         flex-direction: column
-        justify-content: center
-        height: 80px
-        width: 32%
+        justify-content: space-between
+        height: 90px
         padding: 0.5em
-        margin-bottom: 0.5em
         background: rgba(#fff, 0.1)
+        border: none
         border-radius: 3px
-        list-style: none
+        transition: background 0.2s
+
+        &:hover
+            background: rgba(#fff, 0.18)
 
     .projectTitle
         margin: 0
         font-size: 1rem
 
+    .projectDesc
+        font-size: 0.8em
+        opacity: 0.8
+
+    .projectStars
+        position: absolute
+        top: 0.5em
+        right: @top
+        font-size: 0.8em
+
+        &:before
+            content: '★'
+
+.timeline
+    display: flex
+    justify-content: space-between
+    margin-top: 5rem
+
+    > section
+        width: 32%
 
 .postItem
     margin-bottom: 1em
