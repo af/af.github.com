@@ -15,8 +15,8 @@
         opacity: 0.6
 
 .hello
-    margin-top: 3rem
-    margin-bottom: 3rem
+    margin: 0 auto 5rem
+    max-width: 22em
     font-size: 26px
 
 .sectionHeading
@@ -42,7 +42,7 @@
         display: flex
         flex-direction: column
         justify-content: space-between
-        height: 90px
+        min-height: 90px
         padding: 0.5em
         background: rgba(#fff, 0.1)
         border: none
@@ -86,33 +86,29 @@
         font-size: 0.8em
         opacity: 0.7
 
-svg.homeChart
-    display: block
-    width: 100%
-    height: 100%
+.timeAxis
+    fill: rgba(#fff, 0.3)
 
-    .xAxis
-        fill: #ddd
+    text
+        fill: #fff
+        font-size: 1rem
+        font-weight: bold
+        font-family: $mainFont
 
-        text
-            fill: #ddd
-            font-size: 1rem
-            font-weight: bold
-            font-family: $mainFont
+    // Main vertical timeline axis
+    path
+        stroke: rgba(#fff, 0.2)
+        fill: none
+    line
+        stroke: #fff
+        stroke-width: 1px
 
-        path
-            stroke: none   // Disable long horizontal line
-            fill: none
-        line
-            stroke: #eee
-            stroke-width: 1px
+circle
+    transition: fill 0.3s
 
-    circle
-        transition: fill 0.3s
-
-        &:hover
-            animation: 0.5s pulseSize
-            fill: black
+    &:hover
+        animation: 0.5s pulseSize
+        fill: black
 
 .postChart, .linkChart
     .tooltip

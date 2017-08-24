@@ -7,34 +7,27 @@ const HALF_WIDTH = window.innerWidth / 2
 
 // Simple chart mapping content as circles along a time axis.
 // Config params:
-//  data
-//  el (d3 selection object)
-//  xScale
-//  groupClass
 //  timeProp
 //  urlProp
 //  titleProp
-//  radius (function)
-//  yBaseline
 export default function circleChart(config) {
-    const x = config.xScale.fromDateString({ propName: config.timeProp })
-    const yBaseline = config.yBaseline || 20
-    const radius = config.radius || 5
-    const toRight = d => (x(d) > HALF_WIDTH)
+    const {rootEl, scale, data = [], radius = (() => 5), bubbleClass = ''} = config
+    const t = scale.fromDateString({propName: config.timeProp})
+    const toRight = d => (t(d) > HALF_WIDTH)
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
     const collisionForce = forceCollide().radius(d => radius(d) + PADDING)
-    const sim = forceSimulation(config.data)
-        .force('x', forceX(x).strength(1))
-        .force('y', forceY(yBaseline))
+    const sim = forceSimulation(data)
+        .force('x', forceY(t).strength(1))
+        .force('y', forceX(100))
         .force('collide', collisionForce)
         .stop()
     for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
 
-    const groups = config.el.append('g')
+    const groups = rootEl.append('g')
         .selectAll('g.item')
-        .data(config.data.filter(d => x(d) > 0))
+        .data(data.filter(d => t(d) > 0))
         .enter().append('g')
             .attr('className', 'item')
 
@@ -43,8 +36,8 @@ export default function circleChart(config) {
             .attr('transform', d => `translate(${d.x}, ${d.y})`)
 
     links.append('circle')
-            .attr('r', radius)
-            .attr('fill', 'blue')
+        .attr('className', bubbleClass)
+        .attr('r', radius)
 
     links.append('line')
             .attr('x1', 1)

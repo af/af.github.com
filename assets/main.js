@@ -17007,8 +17007,7 @@ if (location.pathname === '/') Object(__WEBPACK_IMPORTED_MODULE_0__homepage__["a
 
 
 
-const WIN_WIDTH = window.innerWidth
-const DAYS_OF_HISTORY = WIN_WIDTH > 600 ? 548 : 190         // 1.5 or 0.5 years of history
+const DAYS_OF_HISTORY = 550     // ~1.5 years of history
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
 const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
@@ -17025,41 +17024,35 @@ function jsonp(url, callback) {
 
 
 const homepage = function() {
-    const svg = document.querySelector('.homeChart')
-    const svgWidth = parseInt(getComputedStyle(svg).width)
-    const margin = {top: 20, right: 20, left: 30}
+    const svg = document.querySelector('.timelineChart')
+    const {width, height} = getComputedStyle(svg)
+    const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
+    const margin = {top: 50, right: 20, left: 30}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
-    const x = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([margin.left, svgWidth - margin.left - margin.right])
+    const tScale = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([svgHeight, margin.top])
                            .domain([START_DATE, new Date()])
     // Helper scale function to convert an ISO date string to an x pixel value:
-    x.fromDateString = function(options = {}) {
+    tScale.fromDateString = function(options = {}) {
         const offset = options.offset || 0
         const propName = options.propName || 'date'
 
-        return d => offset + Math.floor(x(new Date(d[propName])))
+        return d => offset + Math.floor(tScale(new Date(d[propName])))
     }
 
-    // Set up an x axis and put it on the top chart:
-    const xAxis = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisTop"])(x)
-                    .tickSizeInner(-1 * window.innerHeight)
-                    .tickSizeOuter(0)
-                    .ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"])
+    // Set up an time axis and put it in the middle
+    const timeAxis = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisLeft"])(tScale).tickSize(1).ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"])
     Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.timeAxis')
-        .attr('transform', `translate(0, 65)`)
-        .attr('class', 'xAxis')
-        .call(xAxis)
+        .attr('transform', `translate(${svgWidth / 2},0)`)
+        .call(timeAxis)
 
     // Plot the blogposts that are dumped as window._posts in the homepage template
     Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
         data: window._posts,
-        width: svgWidth,
-        xScale: x,
-        yBaseline: 30,
-        el: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.postChart')
-                    .append('g').attr('transform', leavePadding),
+        scale: tScale,
+        rootEl: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.bubbleRoot').append('g').attr('transform', leavePadding),
         radius: d => (5 + Math.sqrt(d.length) / 5),
-        groupClass: 'post',
+        bubbleClass: 'post',
         timeProp: 'date',
         urlProp: 'url',
         titleProp: 'title'
@@ -17095,22 +17088,21 @@ const homepage = function() {
             const tag = tags[j]
             const yBaseline = 4 * radius * (2 * j + 1)
 
-            Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
-                data: tagGroups[tag],
-                width: svgWidth,
-                xScale: x,
-                yBaseline,
-                // links with the "top" tag appear larger in the chart:
-                radius: d => (d.t.indexOf('top') === -1 ? radius : radius * 1.8),
-                el: linksSvg,
-                groupClass: tag,
-                timeProp: 'dt',
-                urlProp: 'u',
-                titleProp: 'd'
-            })
+            // circleChart({
+            //     data: tagGroups[tag],
+            //     xScale: tScale,
+            //     yBaseline,
+            //     // links with the "top" tag appear larger in the chart:
+            //     radius: d => (d.t.indexOf('top') === -1 ? radius : radius * 1.8),
+            //     el: linksSvg,
+            //     groupClass: tag,
+            //     timeProp: 'dt',
+            //     urlProp: 'u',
+            //     titleProp: 'd'
+            // })
 
             linksSvg.append('text').attr('class', 'linkLabel')
-                .attr('x', x(START_DATE) - margin.left)
+                .attr('x', tScale(START_DATE) - margin.left)
                 .attr('y', yBaseline - radius * 2)
                 .text(tag)
         }
@@ -17118,18 +17110,18 @@ const homepage = function() {
 
     // Plot Github source repos, using their CORS-enabled public API
     Object(__WEBPACK_IMPORTED_MODULE_0_d3__["json"])(GITHUB_URL, (err, data) => {
-        const NUM_REPOS_TO_SHOW = 6
+        if (err) return console.error(err)
+        const containers = document.querySelectorAll('.ossProjects > li')
+        const NUM_REPOS_TO_SHOW = containers.length
 
         const myRepos = data.filter(r => !r.fork)
-                          .filter(r => r.stargazers_count > 1)
-                          .filter(r => (new Date(r.pushed_at)) > START_DATE)
+                          .filter(r => r.stargazers_count > 2)
                           .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
                           .slice(0, NUM_REPOS_TO_SHOW)
 
         const fill = (root, selector, text) => root.querySelector(selector).textContent = text
-        const containers = document.querySelectorAll('.ossProjects > li')
         containers.forEach((el, idx) => {
-            const {name, description, stargazers_count, html_url} = myRepos[idx]
+            const {name, description, stargazers_count, html_url} = myRepos[idx] || {}
             el.querySelector('a').href = html_url  // eslint-disable-line camelcase
             fill(el, '.projectTitle', name)
             fill(el, '.projectDesc', description)
@@ -17158,34 +17150,27 @@ const HALF_WIDTH = window.innerWidth / 2
 
 // Simple chart mapping content as circles along a time axis.
 // Config params:
-//  data
-//  el (d3 selection object)
-//  xScale
-//  groupClass
 //  timeProp
 //  urlProp
 //  titleProp
-//  radius (function)
-//  yBaseline
 function circleChart(config) {
-    const x = config.xScale.fromDateString({ propName: config.timeProp })
-    const yBaseline = config.yBaseline || 20
-    const radius = config.radius || 5
-    const toRight = d => (x(d) > HALF_WIDTH)
+    const {rootEl, scale, data = [], radius = (() => 5), bubbleClass = ''} = config
+    const t = scale.fromDateString({propName: config.timeProp})
+    const toRight = d => (t(d) > HALF_WIDTH)
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
     const collisionForce = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCollide"])().radius(d => radius(d) + PADDING)
-    const sim = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])(config.data)
-        .force('x', Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceX"])(x).strength(1))
-        .force('y', Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceY"])(yBaseline))
+    const sim = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])(data)
+        .force('x', Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceY"])(t).strength(1))
+        .force('y', Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceX"])(100))
         .force('collide', collisionForce)
         .stop()
     for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
 
-    const groups = config.el.append('g')
+    const groups = rootEl.append('g')
         .selectAll('g.item')
-        .data(config.data.filter(d => x(d) > 0))
+        .data(data.filter(d => t(d) > 0))
         .enter().append('g')
             .attr('className', 'item')
 
@@ -17194,8 +17179,8 @@ function circleChart(config) {
             .attr('transform', d => `translate(${d.x}, ${d.y})`)
 
     links.append('circle')
-            .attr('r', radius)
-            .attr('fill', 'blue')
+        .attr('className', bubbleClass)
+        .attr('r', radius)
 
     links.append('line')
             .attr('x1', 1)
@@ -17260,7 +17245,7 @@ exports = module.exports = __webpack_require__(6)();
 
 
 // module
-exports.push([module.i, "* {\n  box-sizing: border-box;\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  position: relative;\n  margin: 0;\n  min-width: 320px;\n  background: url(\"/img/ribbon-bg-jumbo.svg\") center no-repeat fixed;\n  background-color: #52a174;\n  background-size: 100%;\n  color: #fff;\n  font-family: Roboto, sans-serif;\n  font-size: 18px;\n  -webkit-font-smoothing: antialiased;\n}\np {\n  line-height: 1.5;\n  margin: 0 0 1.4em;\n}\na,\na.visited {\n  color: #fff;\n  text-decoration: none;\n  border-bottom: 1px dotted currentColor;\n  padding: 0 1px;\n  font-weight: 600;\n  transition: background 0.2s;\n}\na:hover,\na.visited:hover {\n  background: rgba(255,255,255,0.1);\n}\npre {\n  background: rgba(255,255,255,0.1);\n  padding: 0.2em;\n  border-radius: 3px;\n}\ncode {\n  background: rgba(255,255,255,0.1);\n  padding: 3px;\n  font-size: 1rem;\n}\npre code {\n  display: block;\n  padding: 0.5rem;\n  overflow: auto;\n}\n.container {\n  max-width: 950px;\n  min-width: 300px;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 1rem;\n}\n.siteHeader {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.siteHeader .logo {\n  border: none;\n  background: none;\n  display: inline-block;\n  transition: transform 0.2s;\n}\n.siteHeader .logo:hover {\n  transform: scale(1.1);\n}\n.hello {\n  margin-top: 3rem;\n  margin-bottom: 3rem;\n  font-size: 26px;\n}\n.sectionHeading {\n  text-transform: uppercase;\n  font-size: 0.9em;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  opacity: 0.8;\n}\n.ossProjects {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  padding: 0;\n}\n.ossProjects > li {\n  width: 32%;\n  margin-bottom: 0.5em;\n  list-style: none;\n}\n.ossProjects a {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  height: 90px;\n  padding: 0.5em;\n  background: rgba(255,255,255,0.1);\n  border: none;\n  border-radius: 3px;\n  transition: background 0.2s;\n}\n.ossProjects a:hover {\n  background: rgba(255,255,255,0.18);\n}\n.ossProjects .projectTitle {\n  margin: 0;\n  font-size: 1rem;\n}\n.ossProjects .projectDesc {\n  font-size: 0.8em;\n  opacity: 0.8;\n}\n.ossProjects .projectStars {\n  position: absolute;\n  top: 0.5em;\n  right: 0.5em;\n  font-size: 0.8em;\n}\n.ossProjects .projectStars:before {\n  content: '\\2605';\n}\n.timeline {\n  display: flex;\n  justify-content: space-between;\n  margin-top: 5rem;\n}\n.timeline > section {\n  width: 32%;\n}\n.postItem {\n  margin-bottom: 1em;\n}\n.postItem > h1 {\n  margin: 0;\n}\n.postItem time {\n  font-size: 0.8em;\n  opacity: 0.7;\n}\nsvg.homeChart {\n  display: block;\n  width: 100%;\n  height: 100%;\n}\nsvg.homeChart .xAxis {\n  fill: #ddd;\n}\nsvg.homeChart .xAxis text {\n  fill: #ddd;\n  font-size: 1rem;\n  font-weight: bold;\n  font-family: Roboto, sans-serif;\n}\nsvg.homeChart .xAxis path {\n  stroke: none;\n  fill: none;\n}\nsvg.homeChart .xAxis line {\n  stroke: #eee;\n  stroke-width: 1px;\n}\nsvg.homeChart circle {\n  transition: fill 0.3s;\n}\nsvg.homeChart circle:hover {\n  animation: 0.5s pulseSize;\n  fill: #000;\n}\n.postChart .tooltip,\n.linkChart .tooltip {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateX(-5px);\n  transition: all 0.4s 0.1s;\n}\n.postChart .date,\n.linkChart .date {\n  font-size: 0.8rem;\n}\n.postChart a:hover .tooltip,\n.linkChart a:hover .tooltip {\n  opacity: 1;\n  transform: translateX(0);\n}\n.postChart line,\n.linkChart line {\n  pointer-events: none;\n  transform-origin: top;\n  transform: scaleY(0);\n  transition: all 0.2s;\n  stroke: #000;\n}\n.postChart a:hover line,\n.linkChart a:hover line {\n  transform: scaleY(1);\n}\n.postChart circle,\n.linkChart circle {\n  fill: rgba(85,102,170,0.8);\n}\n.linkChart circle {\n  fill: rgba(220,180,50,0.5);\n}\n.linkChart .linkLabel {\n  font-size: 0.9rem;\n  display: block;\n  fill: #999;\n}\n@-moz-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-moz-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-webkit-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-o-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n.posts {\n  padding: 0;\n}\n.posts > li {\n  list-style: none;\n}\n.posts h1 {\n  font-weight: 300;\n  margin-bottom: 0;\n  line-height: 1;\n}\n.posts time {\n  display: block;\n  opacity: 0.6;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.post {\n  max-width: 43em;\n}\n.post header time[pubdate] {\n  display: block;\n  margin-bottom: 2rem;\n  font-weight: 600;\n  opacity: 0.6;\n}\n.post h1 {\n  margin: 1.4rem 0 0.2rem;\n  font-size: 2rem;\n  line-height: 1;\n}\n.post h2,\n.post h3,\n.post h4 {\n  margin: 2rem 0 1rem;\n}\n.post h2 {\n  font-size: 1.7rem;\n  font-weight: 300;\n  font-style: italic;\n}\n.post h3,\n.post h4 {\n  font-size: 1rem;\n}\n.post img {\n  max-width: 100%;\n}\n.post footer {\n  margin: 2rem 0;\n  padding: 1.5rem 0 3rem;\n  border-top: 1px solid rgba(255,255,255,0.2);\n  font-size: 1rem;\n}\n.post footer p {\n  margin: 0;\n  opacity: 0.9;\n}\n.post .latest {\n  margin: 2rem 0 0;\n}\n.post .latest time {\n  display: inline-block;\n  font-weight: bold;\n  opacity: 0.5;\n  min-width: 5em;\n}\n.post .latest > h2 {\n  font-weight: normal;\n  font-size: 1.4em;\n  margin: 0 0 0.3rem;\n  font-style: normal;\n}\n@media screen and (min-width: 800px) {\n  .post .latest > h2 {\n    width: 250px;\n    margin-left: -250px;\n    padding-right: 1rem;\n    text-align: right;\n    float: left;\n    line-height: 0.8;\n  }\n  .post .latest > h2:after {\n    content: ' \\BB';\n  }\n}\n.post .latest .item {\n  line-height: 1.4;\n}\n.post .latest .viewall {\n  display: inline-block;\n  padding: 3px 10px;\n  margin-top: 0.5rem;\n  border: 1px solid currentColor;\n  border-radius: 3px;\n  font-size: 0.9em;\n}\n.post .latest .viewall:hover {\n  color: #fff;\n  background: #fff;\n}\n", ""]);
+exports.push([module.i, "* {\n  box-sizing: border-box;\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  position: relative;\n  margin: 0;\n  min-width: 320px;\n  background: url(\"/img/ribbon-bg-jumbo.svg\") center no-repeat fixed;\n  background-color: #52a174;\n  background-size: 100%;\n  color: #fff;\n  font-family: Roboto, sans-serif;\n  font-size: 18px;\n  -webkit-font-smoothing: antialiased;\n}\np {\n  line-height: 1.5;\n  margin: 0 0 1.4em;\n}\na,\na.visited {\n  color: #fff;\n  text-decoration: none;\n  border-bottom: 1px dotted currentColor;\n  padding: 0 1px;\n  font-weight: 600;\n  transition: background 0.2s;\n}\na:hover,\na.visited:hover {\n  background: rgba(255,255,255,0.1);\n}\npre {\n  background: rgba(255,255,255,0.1);\n  padding: 0.2em;\n  border-radius: 3px;\n}\ncode {\n  background: rgba(255,255,255,0.1);\n  padding: 3px;\n  font-size: 1rem;\n}\npre code {\n  display: block;\n  padding: 0.5rem;\n  overflow: auto;\n}\n.container {\n  max-width: 950px;\n  min-width: 300px;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 1rem;\n}\n.siteHeader {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.siteHeader .logo {\n  border: none;\n  background: none;\n  display: inline-block;\n  transition: transform 0.2s;\n}\n.siteHeader .logo:hover {\n  transform: scale(1.1);\n}\n.hello {\n  margin: 0 auto 5rem;\n  max-width: 22em;\n  font-size: 26px;\n}\n.sectionHeading {\n  text-transform: uppercase;\n  font-size: 0.9em;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  opacity: 0.8;\n}\n.ossProjects {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  padding: 0;\n}\n.ossProjects > li {\n  width: 32%;\n  margin-bottom: 0.5em;\n  list-style: none;\n}\n.ossProjects a {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  min-height: 90px;\n  padding: 0.5em;\n  background: rgba(255,255,255,0.1);\n  border: none;\n  border-radius: 3px;\n  transition: background 0.2s;\n}\n.ossProjects a:hover {\n  background: rgba(255,255,255,0.18);\n}\n.ossProjects .projectTitle {\n  margin: 0;\n  font-size: 1rem;\n}\n.ossProjects .projectDesc {\n  font-size: 0.8em;\n  opacity: 0.8;\n}\n.ossProjects .projectStars {\n  position: absolute;\n  top: 0.5em;\n  right: 0.5em;\n  font-size: 0.8em;\n}\n.ossProjects .projectStars:before {\n  content: '\\2605';\n}\n.timeline {\n  display: flex;\n  justify-content: space-between;\n  margin-top: 5rem;\n}\n.timeline > section {\n  width: 32%;\n}\n.postItem {\n  margin-bottom: 1em;\n}\n.postItem > h1 {\n  margin: 0;\n}\n.postItem time {\n  font-size: 0.8em;\n  opacity: 0.7;\n}\n.timeAxis {\n  fill: rgba(255,255,255,0.3);\n}\n.timeAxis text {\n  fill: #fff;\n  font-size: 1rem;\n  font-weight: bold;\n  font-family: Roboto, sans-serif;\n}\n.timeAxis path {\n  stroke: rgba(255,255,255,0.2);\n  fill: none;\n}\n.timeAxis line {\n  stroke: #fff;\n  stroke-width: 1px;\n}\ncircle {\n  transition: fill 0.3s;\n}\ncircle:hover {\n  animation: 0.5s pulseSize;\n  fill: #000;\n}\n.postChart .tooltip,\n.linkChart .tooltip {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateX(-5px);\n  transition: all 0.4s 0.1s;\n}\n.postChart .date,\n.linkChart .date {\n  font-size: 0.8rem;\n}\n.postChart a:hover .tooltip,\n.linkChart a:hover .tooltip {\n  opacity: 1;\n  transform: translateX(0);\n}\n.postChart line,\n.linkChart line {\n  pointer-events: none;\n  transform-origin: top;\n  transform: scaleY(0);\n  transition: all 0.2s;\n  stroke: #000;\n}\n.postChart a:hover line,\n.linkChart a:hover line {\n  transform: scaleY(1);\n}\n.postChart circle,\n.linkChart circle {\n  fill: rgba(85,102,170,0.8);\n}\n.linkChart circle {\n  fill: rgba(220,180,50,0.5);\n}\n.linkChart .linkLabel {\n  font-size: 0.9rem;\n  display: block;\n  fill: #999;\n}\n@-moz-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-moz-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-webkit-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-o-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n.posts {\n  padding: 0;\n}\n.posts > li {\n  list-style: none;\n}\n.posts h1 {\n  font-weight: 300;\n  margin-bottom: 0;\n  line-height: 1;\n}\n.posts time {\n  display: block;\n  opacity: 0.6;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.post {\n  max-width: 43em;\n}\n.post header time[pubdate] {\n  display: block;\n  margin-bottom: 2rem;\n  font-weight: 600;\n  opacity: 0.6;\n}\n.post h1 {\n  margin: 1.4rem 0 0.2rem;\n  font-size: 2rem;\n  line-height: 1;\n}\n.post h2,\n.post h3,\n.post h4 {\n  margin: 2rem 0 1rem;\n}\n.post h2 {\n  font-size: 1.7rem;\n  font-weight: 300;\n  font-style: italic;\n}\n.post h3,\n.post h4 {\n  font-size: 1rem;\n}\n.post img {\n  max-width: 100%;\n}\n.post footer {\n  margin: 2rem 0;\n  padding: 1.5rem 0 3rem;\n  border-top: 1px solid rgba(255,255,255,0.2);\n  font-size: 1rem;\n}\n.post footer p {\n  margin: 0;\n  opacity: 0.9;\n}\n.post .latest {\n  margin: 2rem 0 0;\n}\n.post .latest time {\n  display: inline-block;\n  font-weight: bold;\n  opacity: 0.5;\n  min-width: 5em;\n}\n.post .latest > h2 {\n  font-weight: normal;\n  font-size: 1.4em;\n  margin: 0 0 0.3rem;\n  font-style: normal;\n}\n@media screen and (min-width: 800px) {\n  .post .latest > h2 {\n    width: 250px;\n    margin-left: -250px;\n    padding-right: 1rem;\n    text-align: right;\n    float: left;\n    line-height: 0.8;\n  }\n  .post .latest > h2:after {\n    content: ' \\BB';\n  }\n}\n.post .latest .item {\n  line-height: 1.4;\n}\n.post .latest .viewall {\n  display: inline-block;\n  padding: 3px 10px;\n  margin-top: 0.5rem;\n  border: 1px solid currentColor;\n  border-radius: 3px;\n  font-size: 0.9em;\n}\n.post .latest .viewall:hover {\n  color: #fff;\n  background: #fff;\n}\n", ""]);
 
 // exports
 
