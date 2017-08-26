@@ -33,16 +33,23 @@
     padding: 0
 
     > li
-        width: 32%
+        width: 100%
         margin-bottom: 0.5em
         list-style: none
+
+        @media (min-width: $breakpoints.midsize)
+            width: 49%
+
+            > a
+                min-height: 90px
+        @media (min-width: $breakpoints.desktop)
+            width: 32%
 
     a
         position: relative
         display: flex
         flex-direction: column
         justify-content: space-between
-        min-height: 90px
         padding: 0.5em
         background: rgba(#fff, 0.1)
         border: none
@@ -53,7 +60,7 @@
             background: rgba(#fff, 0.18)
 
     .projectTitle
-        margin: 0
+        margin: 0 0 0.2em
         font-size: 1rem
 
     .projectDesc
@@ -71,11 +78,21 @@
 
 .timeline
     display: flex
+    flex-direction: column
     justify-content: space-between
     margin-top: 5rem
 
-    > section
-        width: 32%
+    .timelineChart
+        display: none
+
+    @media (min-width: $breakpoints.midsize)
+        flex-direction: row
+
+        .timelineChart
+            display: block
+
+        > section
+            width: 32%
 
 .postItem
     margin-bottom: 1em

@@ -11,6 +11,11 @@ $colours = {
     }
 }
 
+$breakpoints = {
+    midsize: 500px,
+    desktop: 800px
+}
+
 $dimensions = {
     leftColWidth: 20%,
     gutterWidth: 1rem
@@ -44,13 +49,13 @@ p
 a, a.visited
     color: $colours.cta
     text-decoration: none
-    border-bottom: 1px dotted currentColor
+    border-bottom: 2px solid rgba($colours.text, 0.2)
     padding: 0 1px
     font-weight: 600
-    transition: background 0.2s
+    transition: border-color 0.2s
 
     &:hover
-        background: rgba(#fff, 0.1)
+        border-bottom-color: $colours.text
 
 pre
     background: $colours.codeBg
