@@ -15,8 +15,8 @@ export default function circleChart(config) {
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
     const collisionForce = forceCollide().radius(d => d.radius + PADDING)
     const sim = forceSimulation(data)
-        .force('x', forceY(t).strength(1))
-        .force('y', forceX(100))
+        .force('x', forceX(d => d.initialX))
+        .force('y', forceY(t).strength(1))
         .force('collide', collisionForce)
         .stop()
     for (let i = 0; i < SIM_STEPS; ++i) sim.tick()

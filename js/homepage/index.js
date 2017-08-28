@@ -2,7 +2,7 @@ import {axisLeft, json, select, scaleTime, timeYear} from 'd3'
 import circleChart from './circleChart'
 
 
-const DAYS_OF_HISTORY = 600
+const DAYS_OF_HISTORY = 550
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
 const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
@@ -22,14 +22,14 @@ const homepage = function() {
     const svg = document.querySelector('.timelineChart')
     const {width, height} = getComputedStyle(svg)
     const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
-    const margin = {top: 50, right: 20, left: 30}
+    const margin = {top: 10, right: 0, left: 0, bottom: 60}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
-    const tScale = scaleTime().range([svgHeight, margin.top])
+    const tScale = scaleTime().range([svgHeight - margin.top - margin.bottom, margin.top])
                            .domain([START_DATE, new Date()])
 
     // Set up an time axis and put it in the middle
-    const timeAxis = axisLeft(tScale).tickSize(1).ticks(timeYear)
+    const timeAxis = axisLeft(tScale).tickSize(40).ticks(timeYear)
     select('.timeAxis')
         .attr('transform', `translate(${svgWidth / 2},0)`)
         .call(timeAxis)
@@ -37,6 +37,7 @@ const homepage = function() {
     const forceChartData = window._posts.map(p => ({
         radius: (5 + Math.sqrt(p.length) / 5),
         bubbleClass: 'post',
+        initialX: svgWidth / 2,
         date: p.date,
         url: p.url,
         title: p.title
@@ -49,6 +50,7 @@ const homepage = function() {
         const linkChartData = links.map(l => ({
             radius: 5,
             bubbleClass: 'link',
+            initialX: svgWidth / 2,
             date: l.dt,
             url: l.u,
             title: l.d
