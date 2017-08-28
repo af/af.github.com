@@ -1,4 +1,4 @@
-import {axisLeft, json, select, scaleTime, timeYear} from 'd3'
+import {axisLeft, json, select, scaleTime, timeMonth, timeYear} from 'd3'
 import circleChart from './circleChart'
 
 
@@ -28,11 +28,17 @@ const homepage = function() {
     const tScale = scaleTime().range([svgHeight - margin.top - margin.bottom, margin.top])
                            .domain([START_DATE, new Date()])
 
-    // Set up an time axis and put it in the middle
-    const timeAxis = axisLeft(tScale).tickSize(40).ticks(timeYear)
+    // Set up a time axis and put it in the middle
+    const makeAxis = () => axisLeft(tScale).tickSize(50)
     select('.timeAxis')
         .attr('transform', `translate(${svgWidth / 2},0)`)
-        .call(timeAxis)
+        .call(makeAxis().ticks(timeYear))
+
+    // A separate month axis is also rendered for finer-grained ticks
+    const nonZeroMonths = timeMonth.filter(d => (d.getUTCMonth() !== 0))
+    select('.monthAxis')
+        .attr('transform', `translate(${svgWidth / 2},0)`)
+        .call(makeAxis().ticks(nonZeroMonths))
 
     const forceChartData = window._posts.map(p => ({
         radius: (5 + Math.sqrt(p.length) / 5),
