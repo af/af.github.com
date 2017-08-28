@@ -6,18 +6,14 @@ const HALF_WIDTH = window.innerWidth / 2
 
 
 // Simple chart mapping content as circles along a time axis.
-// Config params:
-//  timeProp
-//  urlProp
-//  titleProp
 export default function circleChart(config) {
-    const {rootEl, scale, data = [], radius = (() => 5), bubbleClass = ''} = config
-    const t = scale.fromDateString({propName: config.timeProp})
+    const {rootEl, scale, data = [], bubbleClass = ''} = config
+    const t = d => Math.floor(scale(new Date(d.date)))
     const toRight = d => (t(d) > HALF_WIDTH)
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
-    const collisionForce = forceCollide().radius(d => radius(d) + PADDING)
+    const collisionForce = forceCollide().radius(d => d.radius + PADDING)
     const sim = forceSimulation(data)
         .force('x', forceY(t).strength(1))
         .force('y', forceX(100))
@@ -32,12 +28,12 @@ export default function circleChart(config) {
             .attr('className', 'item')
 
     const links = groups.append('a')
-            .attr('xlink:href', d => d[config.urlProp])
+            .attr('xlink:href', d => d.url)
             .attr('transform', d => `translate(${d.x}, ${d.y})`)
 
     links.append('circle')
         .attr('className', bubbleClass)
-        .attr('r', radius)
+        .attr('r', d => d.radius)
 
     links.append('line')
             .attr('x1', 1)
@@ -52,16 +48,15 @@ export default function circleChart(config) {
     tooltips.append('text')
             .text(d => {
                 // Manually ellipsis out titles, since we can't really on <text> via css
-                const t = d[config.titleProp]
                 const MAX_LENGTH = 50
-                return t.length > MAX_LENGTH ? `${t.slice(0, MAX_LENGTH)}…` : t
+                return t.length > MAX_LENGTH ? `${d.title.slice(0, MAX_LENGTH)}…` : d.title
             })
             .attr('class', 'tooltipText')
             .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
-            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 20})`)
+            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${d.radius + 20})`)
     tooltips.append('text')
             .attr('class', 'date tooltipText')
             .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
-            .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
-            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 35})`)
+            .text(d => (new Date(d.date)).toISOString().split('T')[0])
+            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${d.radius + 35})`)
 }

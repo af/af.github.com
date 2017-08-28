@@ -85,6 +85,14 @@
     .timelineChart
         display: none
 
+    circle
+        fill: rgba(#fff, 0.4)
+        transition: fill 0.3s
+
+        &:hover
+            animation: 0.5s pulseSize
+            fill: white
+
     @media (min-width: $breakpoints.midsize)
         flex-direction: row
 
@@ -120,14 +128,7 @@
         stroke: #fff
         stroke-width: 1px
 
-circle
-    transition: fill 0.3s
-
-    &:hover
-        animation: 0.5s pulseSize
-        fill: black
-
-.postChart, .linkChart
+.timelineChart
     .tooltip
         opacity: 0
         pointer-events: none
@@ -149,15 +150,3 @@ circle
         stroke: black
     a:hover line
         transform: scaleY(1)
-
-    circle
-        fill: rgba($colours.sections.posts, 0.8)
-
-.linkChart
-    circle
-        fill: rgba($colours.sections.links, 0.5)
-
-    .linkLabel
-        font-size: 0.9rem
-        display: block
-        fill: #999

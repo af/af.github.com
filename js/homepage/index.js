@@ -2,7 +2,7 @@ import {axisLeft, json, select, scaleTime, timeYear} from 'd3'
 import circleChart from './circleChart'
 
 
-const DAYS_OF_HISTORY = 550     // ~1.5 years of history
+const DAYS_OF_HISTORY = 600
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
 const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
@@ -27,13 +27,6 @@ const homepage = function() {
 
     const tScale = scaleTime().range([svgHeight, margin.top])
                            .domain([START_DATE, new Date()])
-    // Helper scale function to convert an ISO date string to an x pixel value:
-    tScale.fromDateString = function(options = {}) {
-        const offset = options.offset || 0
-        const propName = options.propName || 'date'
-
-        return d => offset + Math.floor(tScale(new Date(d[propName])))
-    }
 
     // Set up an time axis and put it in the middle
     const timeAxis = axisLeft(tScale).tickSize(1).ticks(timeYear)
@@ -41,23 +34,31 @@ const homepage = function() {
         .attr('transform', `translate(${svgWidth / 2},0)`)
         .call(timeAxis)
 
-    // Plot the blogposts that are dumped as window._posts in the homepage template
-    circleChart({
-        data: window._posts,
-        scale: tScale,
-        rootEl: select('.bubbleRoot').append('g').attr('transform', leavePadding),
-        radius: d => (5 + Math.sqrt(d.length) / 5),
+    const forceChartData = window._posts.map(p => ({
+        radius: (5 + Math.sqrt(p.length) / 5),
         bubbleClass: 'post',
-        timeProp: 'date',
-        urlProp: 'url',
-        titleProp: 'title'
-    })
+        date: p.date,
+        url: p.url,
+        title: p.title
+    }))
 
     // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, links => {
         select('.linkChart').classed('loading', false)
-        const linksSvg = select('.linkChart')
-                            .append('g').attr('transform', leavePadding)
+
+        const linkChartData = links.map(l => ({
+            radius: 5,
+            bubbleClass: 'link',
+            date: l.dt,
+            url: l.u,
+            title: l.d
+        }))
+
+        circleChart({
+            data: [...forceChartData, ...linkChartData],
+            scale: tScale,
+            rootEl: select('.bubbleRoot').append('g').attr('transform', leavePadding)
+        })
 
         // Divide links into tag group "buckets":
         const tagGroups = {
@@ -76,31 +77,6 @@ const homepage = function() {
                 else if (i === tags.length - 1) tagGroups[t].push(l)   // Push to 'other' if no other matches
             }
         })
-
-        // Plot a row of circles for each tag group
-        const radius = 5
-        for (let j = tags.length - 1; j >= 0; j--) {
-            const tag = tags[j]
-            const yBaseline = 4 * radius * (2 * j + 1)
-
-            // circleChart({
-            //     data: tagGroups[tag],
-            //     xScale: tScale,
-            //     yBaseline,
-            //     // links with the "top" tag appear larger in the chart:
-            //     radius: d => (d.t.indexOf('top') === -1 ? radius : radius * 1.8),
-            //     el: linksSvg,
-            //     groupClass: tag,
-            //     timeProp: 'dt',
-            //     urlProp: 'u',
-            //     titleProp: 'd'
-            // })
-
-            linksSvg.append('text').attr('class', 'linkLabel')
-                .attr('x', tScale(START_DATE) - margin.left)
-                .attr('y', yBaseline - radius * 2)
-                .text(tag)
-        }
     })
 
     // Plot Github source repos, using their CORS-enabled public API

@@ -17007,7 +17007,7 @@ if (location.pathname === '/') Object(__WEBPACK_IMPORTED_MODULE_0__homepage__["a
 
 
 
-const DAYS_OF_HISTORY = 550     // ~1.5 years of history
+const DAYS_OF_HISTORY = 600
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
 const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
@@ -17032,13 +17032,6 @@ const homepage = function() {
 
     const tScale = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([svgHeight, margin.top])
                            .domain([START_DATE, new Date()])
-    // Helper scale function to convert an ISO date string to an x pixel value:
-    tScale.fromDateString = function(options = {}) {
-        const offset = options.offset || 0
-        const propName = options.propName || 'date'
-
-        return d => offset + Math.floor(tScale(new Date(d[propName])))
-    }
 
     // Set up an time axis and put it in the middle
     const timeAxis = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisLeft"])(tScale).tickSize(1).ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"])
@@ -17046,23 +17039,31 @@ const homepage = function() {
         .attr('transform', `translate(${svgWidth / 2},0)`)
         .call(timeAxis)
 
-    // Plot the blogposts that are dumped as window._posts in the homepage template
-    Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
-        data: window._posts,
-        scale: tScale,
-        rootEl: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.bubbleRoot').append('g').attr('transform', leavePadding),
-        radius: d => (5 + Math.sqrt(d.length) / 5),
+    const forceChartData = window._posts.map(p => ({
+        radius: (5 + Math.sqrt(p.length) / 5),
         bubbleClass: 'post',
-        timeProp: 'date',
-        urlProp: 'url',
-        titleProp: 'title'
-    })
+        date: p.date,
+        url: p.url,
+        title: p.title
+    }))
 
     // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, links => {
         Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.linkChart').classed('loading', false)
-        const linksSvg = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.linkChart')
-                            .append('g').attr('transform', leavePadding)
+
+        const linkChartData = links.map(l => ({
+            radius: 5,
+            bubbleClass: 'link',
+            date: l.dt,
+            url: l.u,
+            title: l.d
+        }))
+
+        Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
+            data: [...forceChartData, ...linkChartData],
+            scale: tScale,
+            rootEl: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.bubbleRoot').append('g').attr('transform', leavePadding)
+        })
 
         // Divide links into tag group "buckets":
         const tagGroups = {
@@ -17081,31 +17082,6 @@ const homepage = function() {
                 else if (i === tags.length - 1) tagGroups[t].push(l)   // Push to 'other' if no other matches
             }
         })
-
-        // Plot a row of circles for each tag group
-        const radius = 5
-        for (let j = tags.length - 1; j >= 0; j--) {
-            const tag = tags[j]
-            const yBaseline = 4 * radius * (2 * j + 1)
-
-            // circleChart({
-            //     data: tagGroups[tag],
-            //     xScale: tScale,
-            //     yBaseline,
-            //     // links with the "top" tag appear larger in the chart:
-            //     radius: d => (d.t.indexOf('top') === -1 ? radius : radius * 1.8),
-            //     el: linksSvg,
-            //     groupClass: tag,
-            //     timeProp: 'dt',
-            //     urlProp: 'u',
-            //     titleProp: 'd'
-            // })
-
-            linksSvg.append('text').attr('class', 'linkLabel')
-                .attr('x', tScale(START_DATE) - margin.left)
-                .attr('y', yBaseline - radius * 2)
-                .text(tag)
-        }
     })
 
     // Plot Github source repos, using their CORS-enabled public API
@@ -17149,18 +17125,14 @@ const HALF_WIDTH = window.innerWidth / 2
 
 
 // Simple chart mapping content as circles along a time axis.
-// Config params:
-//  timeProp
-//  urlProp
-//  titleProp
 function circleChart(config) {
-    const {rootEl, scale, data = [], radius = (() => 5), bubbleClass = ''} = config
-    const t = scale.fromDateString({propName: config.timeProp})
+    const {rootEl, scale, data = [], bubbleClass = ''} = config
+    const t = d => Math.floor(scale(new Date(d.date)))
     const toRight = d => (t(d) > HALF_WIDTH)
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
-    const collisionForce = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCollide"])().radius(d => radius(d) + PADDING)
+    const collisionForce = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceCollide"])().radius(d => d.radius + PADDING)
     const sim = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceSimulation"])(data)
         .force('x', Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceY"])(t).strength(1))
         .force('y', Object(__WEBPACK_IMPORTED_MODULE_0_d3__["forceX"])(100))
@@ -17175,12 +17147,12 @@ function circleChart(config) {
             .attr('className', 'item')
 
     const links = groups.append('a')
-            .attr('xlink:href', d => d[config.urlProp])
+            .attr('xlink:href', d => d.url)
             .attr('transform', d => `translate(${d.x}, ${d.y})`)
 
     links.append('circle')
         .attr('className', bubbleClass)
-        .attr('r', radius)
+        .attr('r', d => d.radius)
 
     links.append('line')
             .attr('x1', 1)
@@ -17195,18 +17167,17 @@ function circleChart(config) {
     tooltips.append('text')
             .text(d => {
                 // Manually ellipsis out titles, since we can't really on <text> via css
-                const t = d[config.titleProp]
                 const MAX_LENGTH = 50
-                return t.length > MAX_LENGTH ? `${t.slice(0, MAX_LENGTH)}…` : t
+                return t.length > MAX_LENGTH ? `${d.title.slice(0, MAX_LENGTH)}…` : d.title
             })
             .attr('class', 'tooltipText')
             .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
-            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 20})`)
+            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${d.radius + 20})`)
     tooltips.append('text')
             .attr('class', 'date tooltipText')
             .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
-            .text(d => (new Date(d[config.timeProp])).toISOString().split('T')[0])
-            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${radius(d) + 35})`)
+            .text(d => (new Date(d.date)).toISOString().split('T')[0])
+            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${d.radius + 35})`)
 }
 
 
@@ -17245,7 +17216,7 @@ exports = module.exports = __webpack_require__(6)();
 
 
 // module
-exports.push([module.i, "* {\n  box-sizing: border-box;\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  position: relative;\n  margin: 0;\n  min-width: 320px;\n  background: url(\"/img/ribbon-bg-jumbo.svg\") center no-repeat fixed;\n  background-color: #52a174;\n  background-size: 100%;\n  color: #fff;\n  font-family: Roboto, sans-serif;\n  font-size: 18px;\n  -webkit-font-smoothing: antialiased;\n}\np {\n  line-height: 1.5;\n  margin: 0 0 1.4em;\n}\na,\na.visited {\n  color: #fff;\n  text-decoration: none;\n  border-bottom: 1px dotted currentColor;\n  padding: 0 1px;\n  font-weight: 600;\n  transition: background 0.2s;\n}\na:hover,\na.visited:hover {\n  background: rgba(255,255,255,0.1);\n}\npre {\n  background: rgba(255,255,255,0.1);\n  padding: 0.2em;\n  border-radius: 3px;\n}\ncode {\n  background: rgba(255,255,255,0.1);\n  padding: 3px;\n  font-size: 1rem;\n}\npre code {\n  display: block;\n  padding: 0.5rem;\n  overflow: auto;\n}\n.container {\n  max-width: 950px;\n  min-width: 300px;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 1rem;\n}\n.siteHeader {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.siteHeader .logo {\n  border: none;\n  background: none;\n  display: inline-block;\n  transition: transform 0.2s;\n}\n.siteHeader .logo:hover {\n  transform: scale(1.1);\n}\n.hello {\n  margin: 0 auto 5rem;\n  max-width: 22em;\n  font-size: 26px;\n}\n.sectionHeading {\n  text-transform: uppercase;\n  font-size: 0.9em;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  opacity: 0.8;\n}\n.ossProjects {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  padding: 0;\n}\n.ossProjects > li {\n  width: 32%;\n  margin-bottom: 0.5em;\n  list-style: none;\n}\n.ossProjects a {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  min-height: 90px;\n  padding: 0.5em;\n  background: rgba(255,255,255,0.1);\n  border: none;\n  border-radius: 3px;\n  transition: background 0.2s;\n}\n.ossProjects a:hover {\n  background: rgba(255,255,255,0.18);\n}\n.ossProjects .projectTitle {\n  margin: 0;\n  font-size: 1rem;\n}\n.ossProjects .projectDesc {\n  font-size: 0.8em;\n  opacity: 0.8;\n}\n.ossProjects .projectStars {\n  position: absolute;\n  top: 0.5em;\n  right: 0.5em;\n  font-size: 0.8em;\n}\n.ossProjects .projectStars:before {\n  content: '\\2605';\n}\n.timeline {\n  display: flex;\n  justify-content: space-between;\n  margin-top: 5rem;\n}\n.timeline > section {\n  width: 32%;\n}\n.postItem {\n  margin-bottom: 1em;\n}\n.postItem > h1 {\n  margin: 0;\n}\n.postItem time {\n  font-size: 0.8em;\n  opacity: 0.7;\n}\n.timeAxis {\n  fill: rgba(255,255,255,0.3);\n}\n.timeAxis text {\n  fill: #fff;\n  font-size: 1rem;\n  font-weight: bold;\n  font-family: Roboto, sans-serif;\n}\n.timeAxis path {\n  stroke: rgba(255,255,255,0.2);\n  fill: none;\n}\n.timeAxis line {\n  stroke: #fff;\n  stroke-width: 1px;\n}\ncircle {\n  transition: fill 0.3s;\n}\ncircle:hover {\n  animation: 0.5s pulseSize;\n  fill: #000;\n}\n.postChart .tooltip,\n.linkChart .tooltip {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateX(-5px);\n  transition: all 0.4s 0.1s;\n}\n.postChart .date,\n.linkChart .date {\n  font-size: 0.8rem;\n}\n.postChart a:hover .tooltip,\n.linkChart a:hover .tooltip {\n  opacity: 1;\n  transform: translateX(0);\n}\n.postChart line,\n.linkChart line {\n  pointer-events: none;\n  transform-origin: top;\n  transform: scaleY(0);\n  transition: all 0.2s;\n  stroke: #000;\n}\n.postChart a:hover line,\n.linkChart a:hover line {\n  transform: scaleY(1);\n}\n.postChart circle,\n.linkChart circle {\n  fill: rgba(85,102,170,0.8);\n}\n.linkChart circle {\n  fill: rgba(220,180,50,0.5);\n}\n.linkChart .linkLabel {\n  font-size: 0.9rem;\n  display: block;\n  fill: #999;\n}\n@-moz-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-moz-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-webkit-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-o-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n.posts {\n  padding: 0;\n}\n.posts > li {\n  list-style: none;\n}\n.posts h1 {\n  font-weight: 300;\n  margin-bottom: 0;\n  line-height: 1;\n}\n.posts time {\n  display: block;\n  opacity: 0.6;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.post {\n  max-width: 43em;\n}\n.post header time[pubdate] {\n  display: block;\n  margin-bottom: 2rem;\n  font-weight: 600;\n  opacity: 0.6;\n}\n.post h1 {\n  margin: 1.4rem 0 0.2rem;\n  font-size: 2rem;\n  line-height: 1;\n}\n.post h2,\n.post h3,\n.post h4 {\n  margin: 2rem 0 1rem;\n}\n.post h2 {\n  font-size: 1.7rem;\n  font-weight: 300;\n  font-style: italic;\n}\n.post h3,\n.post h4 {\n  font-size: 1rem;\n}\n.post img {\n  max-width: 100%;\n}\n.post footer {\n  margin: 2rem 0;\n  padding: 1.5rem 0 3rem;\n  border-top: 1px solid rgba(255,255,255,0.2);\n  font-size: 1rem;\n}\n.post footer p {\n  margin: 0;\n  opacity: 0.9;\n}\n.post .latest {\n  margin: 2rem 0 0;\n}\n.post .latest time {\n  display: inline-block;\n  font-weight: bold;\n  opacity: 0.5;\n  min-width: 5em;\n}\n.post .latest > h2 {\n  font-weight: normal;\n  font-size: 1.4em;\n  margin: 0 0 0.3rem;\n  font-style: normal;\n}\n@media screen and (min-width: 800px) {\n  .post .latest > h2 {\n    width: 250px;\n    margin-left: -250px;\n    padding-right: 1rem;\n    text-align: right;\n    float: left;\n    line-height: 0.8;\n  }\n  .post .latest > h2:after {\n    content: ' \\BB';\n  }\n}\n.post .latest .item {\n  line-height: 1.4;\n}\n.post .latest .viewall {\n  display: inline-block;\n  padding: 3px 10px;\n  margin-top: 0.5rem;\n  border: 1px solid currentColor;\n  border-radius: 3px;\n  font-size: 0.9em;\n}\n.post .latest .viewall:hover {\n  color: #fff;\n  background: #fff;\n}\n", ""]);
+exports.push([module.i, "* {\n  box-sizing: border-box;\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  position: relative;\n  margin: 0;\n  min-width: 320px;\n  background: url(\"/img/ribbon-bg-jumbo.svg\") center no-repeat fixed;\n  background-color: #52a174;\n  background-size: 100%;\n  color: #fff;\n  font-family: Roboto, sans-serif;\n  font-size: 18px;\n  -webkit-font-smoothing: antialiased;\n}\np {\n  line-height: 1.5;\n  margin: 0 0 1.4em;\n}\na,\na.visited {\n  color: #fff;\n  text-decoration: none;\n  border-bottom: 2px solid rgba(255,255,255,0.2);\n  padding: 0 1px;\n  font-weight: 600;\n  transition: border-color 0.2s;\n}\na:hover,\na.visited:hover {\n  border-bottom-color: #fff;\n}\npre {\n  background: rgba(255,255,255,0.1);\n  padding: 0.2em;\n  border-radius: 3px;\n}\ncode {\n  background: rgba(255,255,255,0.1);\n  padding: 3px;\n  font-size: 1rem;\n}\npre code {\n  display: block;\n  padding: 0.5rem;\n  overflow: auto;\n}\n.container {\n  max-width: 950px;\n  min-width: 300px;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 1rem;\n}\n.siteHeader {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.siteHeader .logo {\n  border: none;\n  background: none;\n  display: inline-block;\n  transition: transform 0.2s;\n}\n.siteHeader .logo:hover {\n  transform: scale(1.1);\n}\n.hello {\n  margin: 0 auto 5rem;\n  max-width: 22em;\n  font-size: 26px;\n}\n.sectionHeading {\n  text-transform: uppercase;\n  font-size: 0.9em;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  opacity: 0.8;\n}\n.ossProjects {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  padding: 0;\n}\n.ossProjects > li {\n  width: 100%;\n  margin-bottom: 0.5em;\n  list-style: none;\n}\n@media (min-width: 500px) {\n  .ossProjects > li {\n    width: 49%;\n  }\n  .ossProjects > li > a {\n    min-height: 90px;\n  }\n}\n@media (min-width: 800px) {\n  .ossProjects > li {\n    width: 32%;\n  }\n}\n.ossProjects a {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding: 0.5em;\n  background: rgba(255,255,255,0.1);\n  border: none;\n  border-radius: 3px;\n  transition: background 0.2s;\n}\n.ossProjects a:hover {\n  background: rgba(255,255,255,0.18);\n}\n.ossProjects .projectTitle {\n  margin: 0 0 0.2em;\n  font-size: 1rem;\n}\n.ossProjects .projectDesc {\n  font-size: 0.8em;\n  opacity: 0.8;\n}\n.ossProjects .projectStars {\n  position: absolute;\n  top: 0.5em;\n  right: 0.5em;\n  font-size: 0.8em;\n}\n.ossProjects .projectStars:before {\n  content: '\\2605';\n}\n.timeline {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  margin-top: 5rem;\n}\n.timeline .timelineChart {\n  display: none;\n}\n.timeline circle {\n  fill: rgba(255,255,255,0.4);\n  transition: fill 0.3s;\n}\n.timeline circle:hover {\n  animation: 0.5s pulseSize;\n  fill: #fff;\n}\n@media (min-width: 500px) {\n  .timeline {\n    flex-direction: row;\n  }\n  .timeline .timelineChart {\n    display: block;\n  }\n  .timeline > section {\n    width: 32%;\n  }\n}\n.postItem {\n  margin-bottom: 1em;\n}\n.postItem > h1 {\n  margin: 0;\n}\n.postItem time {\n  font-size: 0.8em;\n  opacity: 0.7;\n}\n.timeAxis {\n  fill: rgba(255,255,255,0.3);\n}\n.timeAxis text {\n  fill: #fff;\n  font-size: 1rem;\n  font-weight: bold;\n  font-family: Roboto, sans-serif;\n}\n.timeAxis path {\n  stroke: rgba(255,255,255,0.2);\n  fill: none;\n}\n.timeAxis line {\n  stroke: #fff;\n  stroke-width: 1px;\n}\n.timelineChart .tooltip {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateX(-5px);\n  transition: all 0.4s 0.1s;\n}\n.timelineChart .date {\n  font-size: 0.8rem;\n}\n.timelineChart a:hover .tooltip {\n  opacity: 1;\n  transform: translateX(0);\n}\n.timelineChart line {\n  pointer-events: none;\n  transform-origin: top;\n  transform: scaleY(0);\n  transition: all 0.2s;\n  stroke: #000;\n}\n.timelineChart a:hover line {\n  transform: scaleY(1);\n}\n@-moz-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-moz-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-webkit-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-o-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n.posts {\n  padding: 0;\n}\n.posts > li {\n  list-style: none;\n}\n.posts h1 {\n  font-weight: 300;\n  margin-bottom: 0;\n  line-height: 1;\n}\n.posts time {\n  display: block;\n  opacity: 0.6;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.post {\n  max-width: 43em;\n}\n.post header time[pubdate] {\n  display: block;\n  margin-bottom: 2rem;\n  font-weight: 600;\n  opacity: 0.6;\n}\n.post h1 {\n  margin: 1.4rem 0 0.2rem;\n  font-size: 2rem;\n  line-height: 1;\n}\n.post h2,\n.post h3,\n.post h4 {\n  margin: 2rem 0 1rem;\n}\n.post h2 {\n  font-size: 1.7rem;\n  font-weight: 300;\n  font-style: italic;\n}\n.post h3,\n.post h4 {\n  font-size: 1rem;\n}\n.post img {\n  max-width: 100%;\n}\n.post footer {\n  margin: 2rem 0;\n  padding: 1.5rem 0 3rem;\n  border-top: 1px solid rgba(255,255,255,0.2);\n  font-size: 1rem;\n}\n.post footer p {\n  margin: 0;\n  opacity: 0.9;\n}\n.post .latest {\n  margin: 2rem 0 0;\n}\n.post .latest time {\n  display: inline-block;\n  font-weight: bold;\n  opacity: 0.5;\n  min-width: 5em;\n}\n.post .latest > h2 {\n  font-weight: normal;\n  font-size: 1.4em;\n  margin: 0 0 0.3rem;\n  font-style: normal;\n}\n@media screen and (min-width: 800px) {\n  .post .latest > h2 {\n    width: 250px;\n    margin-left: -250px;\n    padding-right: 1rem;\n    text-align: right;\n    float: left;\n    line-height: 0.8;\n  }\n  .post .latest > h2:after {\n    content: ' \\BB';\n  }\n}\n.post .latest .item {\n  line-height: 1.4;\n}\n.post .latest .viewall {\n  display: inline-block;\n  padding: 3px 10px;\n  margin-top: 0.5rem;\n  border: 1px solid currentColor;\n  border-radius: 3px;\n  font-size: 0.9em;\n}\n.post .latest .viewall:hover {\n  color: #fff;\n  background: #fff;\n}\n", ""]);
 
 // exports
 
