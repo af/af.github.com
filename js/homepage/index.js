@@ -29,7 +29,7 @@ const homepage = function() {
                            .domain([START_DATE, new Date()])
 
     // Set up a time axis and put it in the middle
-    const makeAxis = () => axisLeft(tScale).tickSize(50)
+    const makeAxis = () => axisLeft(tScale).tickSize(70)
     select('.timeAxis')
         .attr('transform', `translate(${svgWidth / 2},0)`)
         .call(makeAxis().ticks(timeYear))
@@ -40,10 +40,10 @@ const homepage = function() {
         .attr('transform', `translate(${svgWidth / 2},0)`)
         .call(makeAxis().ticks(nonZeroMonths))
 
-    const forceChartData = window._posts.map(p => ({
+    const postChartData = window._posts.map(p => ({
         radius: (5 + Math.sqrt(p.length) / 5),
         bubbleClass: 'post',
-        initialX: svgWidth / 2,
+        initialX: svgWidth * 0.7,
         date: p.date,
         url: p.url,
         title: p.title
@@ -69,7 +69,7 @@ const homepage = function() {
         })
 
         circleChart({
-            data: [...forceChartData, ...linkChartData],
+            data: [...postChartData, ...linkChartData],
             scale: tScale,
             rootEl: select('.bubbleRoot').append('g').attr('transform', leavePadding)
         })

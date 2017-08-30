@@ -8,12 +8,6 @@
     70%
         transform: scale(1)
 
-@keyframes pulseOpacity
-    0%
-        opacity: 1
-    100%
-        opacity: 0.6
-
 .hello
     margin: 0 auto 5rem
     max-width: 22em
@@ -25,6 +19,7 @@
     font-weight: 600
     letter-spacing: 0.06em
     opacity: 0.8
+    margin-bottom: 1.5em
 
 .ossProjects
     display: flex
@@ -95,6 +90,8 @@
 
     circle.javascript
         fill: #8FB6C2
+    circle.design
+        fill: #74C2B8
     circle.other
         fill: #79B591
 
@@ -108,13 +105,15 @@
             width: 32%
 
 .postItem
-    margin-bottom: 1em
+    margin-bottom: 1.5em
 
     > h1
-        margin: 0
+        margin: 0 0 0.1em
+    a:not(:hover)
+        border-bottom: none
     time
-        font-size: 0.8em
-        opacity: 0.7
+        font-size: 0.85em
+        opacity: 0.5
 
 .timeAxis
     fill: rgba(#fff, 0.3)

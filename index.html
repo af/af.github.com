@@ -30,7 +30,7 @@ title: Aaron Franks
         <h2 class="sectionHeading">Latest Links</h2>
     </section>
 
-    <svg class="timelineChart" width="300" height="900">
+    <svg class="timelineChart" width="300" height="1000">
         <g class="timeAxis"></g>
         <g class="monthAxis"></g>
         <g class="bubbleRoot"></g>
@@ -41,7 +41,7 @@ title: Aaron Franks
         {% for post in site.posts limit:4 %}
             <article class="postItem">
                 <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-                <time>{{ post.date | date: "%Y-%m-%dT%H:%M:%S" }}</time>
+                <time>{{ post.date | date: "%Y-%m-%d" }}</time>
             </article>
         {% endfor %}
     </section>
