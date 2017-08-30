@@ -7,7 +7,7 @@ const HALF_WIDTH = window.innerWidth / 2
 
 // Simple chart mapping content as circles along a time axis.
 export default function circleChart(config) {
-    const {rootEl, scale, data = [], bubbleClass = ''} = config
+    const {rootEl, scale, data = []} = config
     const t = d => Math.floor(scale(new Date(d.date)))
     const toRight = d => (t(d) > HALF_WIDTH)
 
@@ -25,14 +25,14 @@ export default function circleChart(config) {
         .selectAll('g.item')
         .data(data.filter(d => t(d) > 0))
         .enter().append('g')
-            .attr('className', 'item')
+            .attr('class', 'item')
 
     const links = groups.append('a')
             .attr('xlink:href', d => d.url)
             .attr('transform', d => `translate(${d.x}, ${d.y})`)
 
     links.append('circle')
-        .attr('className', bubbleClass)
+        .attr('class', d => d.bubbleClass)
         .attr('r', d => d.radius)
 
     links.append('line')

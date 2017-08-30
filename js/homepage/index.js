@@ -51,39 +51,27 @@ const homepage = function() {
 
     // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, links => {
-        select('.linkChart').classed('loading', false)
+        // Divide links into tag group "buckets":
+        const tags = ['javascript', 'programming', 'design']
+        const getGroupName = link => tags.find(t => link.t && link.t.includes(t)) || 'other'
 
-        const linkChartData = links.map(l => ({
-            radius: 5,
-            bubbleClass: 'link',
-            initialX: svgWidth / 2,
-            date: l.dt,
-            url: l.u,
-            title: l.d
-        }))
+        const linkChartData = links.map(l => {
+            const group = getGroupName(l)
+            const isTopLink = l.t.includes('top')
+            return {
+                radius: 5 * (isTopLink ? 1.8 : 1),
+                bubbleClass: `link ${group} ${top}`,
+                initialX: svgWidth / 2,
+                date: l.dt,
+                url: l.u,
+                title: l.d
+            }
+        })
 
         circleChart({
             data: [...forceChartData, ...linkChartData],
             scale: tScale,
             rootEl: select('.bubbleRoot').append('g').attr('transform', leavePadding)
-        })
-
-        // Divide links into tag group "buckets":
-        const tagGroups = {
-            javascript: [],
-            programming: [],
-            dataviz: [],
-            design: [],
-            css: [],
-            other: []
-        }
-        const tags = Object.keys(tagGroups)
-        links.forEach(l => {
-            for (let i = 0; i < tags.length; i++) {
-                const t = tags[i]
-                if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l)
-                else if (i === tags.length - 1) tagGroups[t].push(l)   // Push to 'other' if no other matches
-            }
         })
     })
 

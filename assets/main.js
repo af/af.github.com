@@ -17056,39 +17056,27 @@ const homepage = function() {
 
     // Plot saved links from pinboard's JSONP API
     jsonp(LINKS_URL, links => {
-        Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.linkChart').classed('loading', false)
+        // Divide links into tag group "buckets":
+        const tags = ['javascript', 'programming', 'design']
+        const getGroupName = link => tags.find(t => link.t && link.t.includes(t)) || 'other'
 
-        const linkChartData = links.map(l => ({
-            radius: 5,
-            bubbleClass: 'link',
-            initialX: svgWidth / 2,
-            date: l.dt,
-            url: l.u,
-            title: l.d
-        }))
+        const linkChartData = links.map(l => {
+            const group = getGroupName(l)
+            const isTopLink = l.t.includes('top')
+            return {
+                radius: 5 * (isTopLink ? 1.8 : 1),
+                bubbleClass: `link ${group} ${top}`,
+                initialX: svgWidth / 2,
+                date: l.dt,
+                url: l.u,
+                title: l.d
+            }
+        })
 
         Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
             data: [...forceChartData, ...linkChartData],
             scale: tScale,
             rootEl: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.bubbleRoot').append('g').attr('transform', leavePadding)
-        })
-
-        // Divide links into tag group "buckets":
-        const tagGroups = {
-            javascript: [],
-            programming: [],
-            dataviz: [],
-            design: [],
-            css: [],
-            other: []
-        }
-        const tags = Object.keys(tagGroups)
-        links.forEach(l => {
-            for (let i = 0; i < tags.length; i++) {
-                const t = tags[i]
-                if (l.t && l.t.indexOf(t) > -1) return tagGroups[t].push(l)
-                else if (i === tags.length - 1) tagGroups[t].push(l)   // Push to 'other' if no other matches
-            }
         })
     })
 
@@ -17134,7 +17122,7 @@ const HALF_WIDTH = window.innerWidth / 2
 
 // Simple chart mapping content as circles along a time axis.
 function circleChart(config) {
-    const {rootEl, scale, data = [], bubbleClass = ''} = config
+    const {rootEl, scale, data = []} = config
     const t = d => Math.floor(scale(new Date(d.date)))
     const toRight = d => (t(d) > HALF_WIDTH)
 
@@ -17152,14 +17140,14 @@ function circleChart(config) {
         .selectAll('g.item')
         .data(data.filter(d => t(d) > 0))
         .enter().append('g')
-            .attr('className', 'item')
+            .attr('class', 'item')
 
     const links = groups.append('a')
             .attr('xlink:href', d => d.url)
             .attr('transform', d => `translate(${d.x}, ${d.y})`)
 
     links.append('circle')
-        .attr('className', bubbleClass)
+        .attr('class', d => d.bubbleClass)
         .attr('r', d => d.radius)
 
     links.append('line')
@@ -17224,7 +17212,7 @@ exports = module.exports = __webpack_require__(6)();
 
 
 // module
-exports.push([module.i, "* {\n  box-sizing: border-box;\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  position: relative;\n  margin: 0;\n  min-width: 320px;\n  background: url(\"/img/ribbon-bg-jumbo.svg\") center no-repeat fixed;\n  background-color: #52a174;\n  background-size: 100%;\n  color: #fff;\n  font-family: Roboto, sans-serif;\n  font-size: 18px;\n  -webkit-font-smoothing: antialiased;\n}\np {\n  line-height: 1.5;\n  margin: 0 0 1.4em;\n}\na,\na.visited {\n  color: #fff;\n  text-decoration: none;\n  border-bottom: 2px solid rgba(255,255,255,0.2);\n  padding: 0 1px;\n  font-weight: 600;\n  transition: border-color 0.2s;\n}\na:hover,\na.visited:hover {\n  border-bottom-color: #fff;\n}\npre {\n  background: rgba(255,255,255,0.1);\n  padding: 0.2em;\n  border-radius: 3px;\n}\ncode {\n  background: rgba(255,255,255,0.1);\n  padding: 3px;\n  font-size: 1rem;\n}\npre code {\n  display: block;\n  padding: 0.5rem;\n  overflow: auto;\n}\n.container {\n  max-width: 950px;\n  min-width: 300px;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 1rem;\n}\n.siteHeader {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.siteHeader .logo {\n  border: none;\n  background: none;\n  display: inline-block;\n  transition: transform 0.2s;\n}\n.siteHeader .logo:hover {\n  transform: scale(1.1);\n}\n.hello {\n  margin: 0 auto 5rem;\n  max-width: 22em;\n  font-size: 26px;\n}\n.sectionHeading {\n  text-transform: uppercase;\n  font-size: 0.9em;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  opacity: 0.8;\n}\n.ossProjects {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  padding: 0;\n}\n.ossProjects > li {\n  width: 100%;\n  margin-bottom: 0.5em;\n  list-style: none;\n}\n@media (min-width: 500px) {\n  .ossProjects > li {\n    width: 49%;\n  }\n  .ossProjects > li > a {\n    min-height: 90px;\n  }\n}\n@media (min-width: 800px) {\n  .ossProjects > li {\n    width: 32%;\n  }\n}\n.ossProjects a {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding: 0.5em;\n  background: rgba(255,255,255,0.1);\n  border: none;\n  border-radius: 3px;\n  transition: background 0.2s;\n}\n.ossProjects a:hover {\n  background: rgba(255,255,255,0.18);\n}\n.ossProjects .projectTitle {\n  margin: 0 0 0.2em;\n  font-size: 1rem;\n}\n.ossProjects .projectDesc {\n  font-size: 0.8em;\n  opacity: 0.8;\n}\n.ossProjects .projectStars {\n  position: absolute;\n  top: 0.5em;\n  right: 0.5em;\n  font-size: 0.8em;\n}\n.ossProjects .projectStars:before {\n  content: '\\2605';\n}\n.timeline {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  margin-top: 5rem;\n}\n.timeline .timelineChart {\n  display: none;\n}\n.timeline circle {\n  fill: rgba(255,255,255,0.4);\n  transition: fill 0.3s;\n}\n.timeline circle:hover {\n  animation: 0.5s pulseSize;\n  fill: #fff;\n}\n@media (min-width: 500px) {\n  .timeline {\n    flex-direction: row;\n  }\n  .timeline .timelineChart {\n    display: block;\n  }\n  .timeline > section {\n    width: 32%;\n  }\n}\n.postItem {\n  margin-bottom: 1em;\n}\n.postItem > h1 {\n  margin: 0;\n}\n.postItem time {\n  font-size: 0.8em;\n  opacity: 0.7;\n}\n.timeAxis {\n  fill: rgba(255,255,255,0.3);\n}\n.timeAxis text {\n  fill: #fff;\n  font-size: 1rem;\n  font-weight: bold;\n  font-family: Roboto, sans-serif;\n}\n.timeAxis path {\n  stroke: rgba(255,255,255,0.2);\n  fill: none;\n}\n.timeAxis line {\n  stroke: #fff;\n  stroke-width: 1px;\n}\n.monthAxis text {\n  fill: rgba(255,255,255,0.5);\n  font-size: 0.8rem;\n  font-family: Roboto, sans-serif;\n}\n.monthAxis path {\n  stroke: none;\n}\n.timelineChart .tooltip {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateX(-5px);\n  transition: all 0.4s 0.1s;\n}\n.timelineChart .date {\n  font-size: 0.8rem;\n}\n.timelineChart a:hover .tooltip {\n  opacity: 1;\n  transform: translateX(0);\n}\n.timelineChart line {\n  pointer-events: none;\n  transform-origin: top;\n  transform: scaleY(0);\n  transition: all 0.2s;\n  stroke: #000;\n}\n.timelineChart a:hover line {\n  transform: scaleY(1);\n}\n@-moz-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-moz-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-webkit-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-o-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n.posts {\n  padding: 0;\n}\n.posts > li {\n  list-style: none;\n}\n.posts h1 {\n  font-weight: 300;\n  margin-bottom: 0;\n  line-height: 1;\n}\n.posts time {\n  display: block;\n  opacity: 0.6;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.post {\n  max-width: 43em;\n}\n.post header time[pubdate] {\n  display: block;\n  margin-bottom: 2rem;\n  font-weight: 600;\n  opacity: 0.6;\n}\n.post h1 {\n  margin: 1.4rem 0 0.2rem;\n  font-size: 2rem;\n  line-height: 1;\n}\n.post h2,\n.post h3,\n.post h4 {\n  margin: 2rem 0 1rem;\n}\n.post h2 {\n  font-size: 1.7rem;\n  font-weight: 300;\n  font-style: italic;\n}\n.post h3,\n.post h4 {\n  font-size: 1rem;\n}\n.post img {\n  max-width: 100%;\n}\n.post footer {\n  margin: 2rem 0;\n  padding: 1.5rem 0 3rem;\n  border-top: 1px solid rgba(255,255,255,0.2);\n  font-size: 1rem;\n}\n.post footer p {\n  margin: 0;\n  opacity: 0.9;\n}\n.post .latest {\n  margin: 2rem 0 0;\n}\n.post .latest time {\n  display: inline-block;\n  font-weight: bold;\n  opacity: 0.5;\n  min-width: 5em;\n}\n.post .latest > h2 {\n  font-weight: normal;\n  font-size: 1.4em;\n  margin: 0 0 0.3rem;\n  font-style: normal;\n}\n@media screen and (min-width: 800px) {\n  .post .latest > h2 {\n    width: 250px;\n    margin-left: -250px;\n    padding-right: 1rem;\n    text-align: right;\n    float: left;\n    line-height: 0.8;\n  }\n  .post .latest > h2:after {\n    content: ' \\BB';\n  }\n}\n.post .latest .item {\n  line-height: 1.4;\n}\n.post .latest .viewall {\n  display: inline-block;\n  padding: 3px 10px;\n  margin-top: 0.5rem;\n  border: 1px solid currentColor;\n  border-radius: 3px;\n  font-size: 0.9em;\n}\n.post .latest .viewall:hover {\n  color: #fff;\n  background: #fff;\n}\n", ""]);
+exports.push([module.i, "* {\n  box-sizing: border-box;\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  position: relative;\n  margin: 0;\n  min-width: 320px;\n  background: url(\"/img/ribbon-bg-jumbo.svg\") center no-repeat fixed;\n  background-color: #52a174;\n  background-size: 100%;\n  color: #fff;\n  font-family: Roboto, sans-serif;\n  font-size: 18px;\n  -webkit-font-smoothing: antialiased;\n}\np {\n  line-height: 1.5;\n  margin: 0 0 1.4em;\n}\na,\na.visited {\n  color: #fff;\n  text-decoration: none;\n  border-bottom: 2px solid rgba(255,255,255,0.2);\n  padding: 0 1px;\n  font-weight: 600;\n  transition: border-color 0.2s;\n}\na:hover,\na.visited:hover {\n  border-bottom-color: #fff;\n}\npre {\n  background: rgba(255,255,255,0.1);\n  padding: 0.2em;\n  border-radius: 3px;\n}\ncode {\n  background: rgba(255,255,255,0.1);\n  padding: 3px;\n  font-size: 1rem;\n}\npre code {\n  display: block;\n  padding: 0.5rem;\n  overflow: auto;\n}\n.container {\n  max-width: 950px;\n  min-width: 300px;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 1rem;\n}\n.siteHeader {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.siteHeader .logo {\n  border: none;\n  background: none;\n  display: inline-block;\n  transition: transform 0.2s;\n}\n.siteHeader .logo:hover {\n  transform: scale(1.1);\n}\n.hello {\n  margin: 0 auto 5rem;\n  max-width: 22em;\n  font-size: 26px;\n}\n.sectionHeading {\n  text-transform: uppercase;\n  font-size: 0.9em;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  opacity: 0.8;\n}\n.ossProjects {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  padding: 0;\n}\n.ossProjects > li {\n  width: 100%;\n  margin-bottom: 0.5em;\n  list-style: none;\n}\n@media (min-width: 500px) {\n  .ossProjects > li {\n    width: 49%;\n  }\n  .ossProjects > li > a {\n    min-height: 90px;\n  }\n}\n@media (min-width: 800px) {\n  .ossProjects > li {\n    width: 32%;\n  }\n}\n.ossProjects a {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding: 0.5em;\n  background: rgba(255,255,255,0.1);\n  border: none;\n  border-radius: 3px;\n  transition: background 0.2s;\n}\n.ossProjects a:hover {\n  background: rgba(255,255,255,0.18);\n}\n.ossProjects .projectTitle {\n  margin: 0 0 0.2em;\n  font-size: 1rem;\n}\n.ossProjects .projectDesc {\n  font-size: 0.8em;\n  opacity: 0.8;\n}\n.ossProjects .projectStars {\n  position: absolute;\n  top: 0.5em;\n  right: 0.5em;\n  font-size: 0.8em;\n}\n.ossProjects .projectStars:before {\n  content: '\\2605';\n}\n.timeline {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  margin-top: 5rem;\n}\n.timeline .timelineChart {\n  display: none;\n}\n.timeline circle {\n  fill: rgba(255,255,255,0.4);\n  transition: fill 0.3s;\n}\n.timeline circle:hover {\n  animation: 0.5s pulseSize;\n  fill: #fff;\n}\n.timeline circle.javascript {\n  fill: #8fb6c2;\n}\n.timeline circle.other {\n  fill: #79b591;\n}\n@media (min-width: 500px) {\n  .timeline {\n    flex-direction: row;\n  }\n  .timeline .timelineChart {\n    display: block;\n  }\n  .timeline > section {\n    width: 32%;\n  }\n}\n.postItem {\n  margin-bottom: 1em;\n}\n.postItem > h1 {\n  margin: 0;\n}\n.postItem time {\n  font-size: 0.8em;\n  opacity: 0.7;\n}\n.timeAxis {\n  fill: rgba(255,255,255,0.3);\n}\n.timeAxis text {\n  fill: #fff;\n  font-size: 1rem;\n  font-weight: bold;\n  font-family: Roboto, sans-serif;\n}\n.timeAxis path {\n  stroke: rgba(255,255,255,0.2);\n  fill: none;\n}\n.timeAxis line {\n  stroke: #fff;\n  stroke-width: 1px;\n}\n.monthAxis text {\n  fill: rgba(255,255,255,0.5);\n  font-size: 0.8rem;\n  font-family: Roboto, sans-serif;\n}\n.monthAxis path {\n  stroke: none;\n}\n.timelineChart .tooltip {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateX(-5px);\n  transition: all 0.4s 0.1s;\n}\n.timelineChart .date {\n  font-size: 0.8rem;\n}\n.timelineChart a:hover .tooltip {\n  opacity: 1;\n  transform: translateX(0);\n}\n.timelineChart line {\n  pointer-events: none;\n  transform-origin: top;\n  transform: scaleY(0);\n  transition: all 0.2s;\n  stroke: #000;\n}\n.timelineChart a:hover line {\n  transform: scaleY(1);\n}\n@-moz-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-moz-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-webkit-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-o-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n.posts {\n  padding: 0;\n}\n.posts > li {\n  list-style: none;\n}\n.posts h1 {\n  font-weight: 300;\n  margin-bottom: 0;\n  line-height: 1;\n}\n.posts time {\n  display: block;\n  opacity: 0.6;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.post {\n  max-width: 43em;\n}\n.post header time[pubdate] {\n  display: block;\n  margin-bottom: 2rem;\n  font-weight: 600;\n  opacity: 0.6;\n}\n.post h1 {\n  margin: 1.4rem 0 0.2rem;\n  font-size: 2rem;\n  line-height: 1;\n}\n.post h2,\n.post h3,\n.post h4 {\n  margin: 2rem 0 1rem;\n}\n.post h2 {\n  font-size: 1.7rem;\n  font-weight: 300;\n  font-style: italic;\n}\n.post h3,\n.post h4 {\n  font-size: 1rem;\n}\n.post img {\n  max-width: 100%;\n}\n.post footer {\n  margin: 2rem 0;\n  padding: 1.5rem 0 3rem;\n  border-top: 1px solid rgba(255,255,255,0.2);\n  font-size: 1rem;\n}\n.post footer p {\n  margin: 0;\n  opacity: 0.9;\n}\n.post .latest {\n  margin: 2rem 0 0;\n}\n.post .latest time {\n  display: inline-block;\n  font-weight: bold;\n  opacity: 0.5;\n  min-width: 5em;\n}\n.post .latest > h2 {\n  font-weight: normal;\n  font-size: 1.4em;\n  margin: 0 0 0.3rem;\n  font-style: normal;\n}\n@media screen and (min-width: 800px) {\n  .post .latest > h2 {\n    width: 250px;\n    margin-left: -250px;\n    padding-right: 1rem;\n    text-align: right;\n    float: left;\n    line-height: 0.8;\n  }\n  .post .latest > h2:after {\n    content: ' \\BB';\n  }\n}\n.post .latest .item {\n  line-height: 1.4;\n}\n.post .latest .viewall {\n  display: inline-block;\n  padding: 3px 10px;\n  margin-top: 0.5rem;\n  border: 1px solid currentColor;\n  border-radius: 3px;\n  font-size: 0.9em;\n}\n.post .latest .viewall:hover {\n  color: #fff;\n  background: #fff;\n}\n", ""]);
 
 // exports
 
