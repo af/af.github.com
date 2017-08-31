@@ -40,23 +40,25 @@ export default function circleChart(config) {
             .attr('x2', 1)
             .attr('y1', function() {
                 const circle = select(this.parentElement.firstChild)
-                return 3 + parseFloat(circle.attr('r'))
+                return -1 * (parseFloat(circle.attr('r')) + 3)
             })
-            .attr('y2', function() { return parseFloat(select(this).attr('y1')) + 40 })
+            .attr('y2', function() { return parseFloat(select(this).attr('y1')) - 45 })
 
     const tooltips = links.append('g').attr('class', 'tooltip')
     tooltips.append('text')
-            .text(d => {
-                // Manually ellipsis out titles, since we can't really on <text> via css
-                const MAX_LENGTH = 50
-                return t.length > MAX_LENGTH ? `${d.title.slice(0, MAX_LENGTH)}…` : d.title
-            })
-            .attr('class', 'tooltipText')
-            .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
-            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${d.radius + 20})`)
+        .text(d => {
+            // Manually ellipsis out titles, since we can't really on <text> via css
+            const MAX_LENGTH = 50
+            return t.length > MAX_LENGTH
+                ? `${d.title.slice(0, MAX_LENGTH)}…`
+                : d.title
+        })
+        .attr('class', 'tooltipText')
+        .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
+        .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, -${d.radius + 35})`)
     tooltips.append('text')
-            .attr('class', 'date tooltipText')
-            .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
-            .text(d => (new Date(d.date)).toISOString().split('T')[0])
-            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${d.radius + 35})`)
+        .attr('class', 'date tooltipText')
+        .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
+        .text(d => (new Date(d.date)).toISOString().split('T')[0])
+        .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, -${d.radius + 20})`)
 }
