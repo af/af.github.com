@@ -37,6 +37,22 @@ const homepage = function() {
         title: p.title
     }))
 
+    // Render latest links in the sidebar
+    window._linksPromise.then(links => {
+        const container = document.querySelector('.latestLinks')
+        const htmlItems = links.slice(0, 10).map(l => `
+            <article>
+                <h1><a href="${l.u}">${l.d}</a></h1>
+                <blockquote>${l.n}</blockquote>
+                <ul class="tags">
+                    ${l.t.map(t => `<li>${t}</li>`).join('')}
+                </ul>
+                <time>${l.dt.split('T')[0]}</time>
+            </article>
+        `)
+        container.innerHTML = htmlItems.join('')
+    })
+
     // Plot saved links from pinboard's JSONP API
     window._linksPromise.then(links => {
         // Divide links into tag group "buckets":
