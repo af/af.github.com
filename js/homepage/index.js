@@ -5,18 +5,6 @@ import circleChart from './circleChart'
 const DAYS_OF_HISTORY = 550
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
-const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
-
-// Helper for loading jsonp data.
-// The given url should not include the callback function's name (it will be appended)
-function jsonp(url, callback) {
-    const callbackName = `jsonp_cb_${(new Date).getTime()}`
-    const s = document.createElement('script')
-    s.src = url + callbackName
-    document.body.appendChild(s)
-    window[callbackName] = callback
-}
-
 
 const homepage = function() {
     const svg = document.querySelector('.timelineChart')
@@ -50,7 +38,7 @@ const homepage = function() {
     }))
 
     // Plot saved links from pinboard's JSONP API
-    jsonp(LINKS_URL, links => {
+    window._linksPromise.then(links => {
         // Divide links into tag group "buckets":
         const tags = ['javascript', 'programming', 'design']
         const getGroupName = link => tags.find(t => link.t && link.t.includes(t)) || 'other'

@@ -50,6 +50,23 @@ title: Aaron Franks
 <footer>&nbsp;</footer>
 
 <script>
+    // Helper for loading jsonp data.
+    // The given url should not include the callback's name (it will be appended)
+    function jsonp(url, callback) {
+        const callbackName = `jsonp_cb_${(new Date).getTime()}`
+        const s = document.createElement('script')
+        s.src = url + callbackName
+        document.body.appendChild(s)
+        window[callbackName] = callback
+    }
+
+    // Load pinboard links into a Promise. This happens here instead of in the main js bundle
+    // so the data loads quicker
+    const LINKS_URL = 'https://feeds.pinboard.in/json/u:_af?count=400&cb='
+    window._linksPromise = new Promise(function(resolve, reject) {
+        jsonp(LINKS_URL, resolve)
+    })
+
     window._posts = [
     {% for post in site.posts %}
         { date: "{{ post.date | date: "%Y-%m-%dT%H:%M:%S" }}",

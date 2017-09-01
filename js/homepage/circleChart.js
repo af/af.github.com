@@ -1,7 +1,7 @@
 import {forceSimulation, forceX, forceY, forceCollide, select} from 'd3'
 
-const SIM_STEPS = 200
-const PADDING = 0.5
+const SIM_STEPS = 20
+const PADDING = 1
 
 
 // Simple chart mapping content as circles along a time axis.
