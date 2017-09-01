@@ -17027,14 +17027,14 @@ const homepage = function() {
     const svg = document.querySelector('.timelineChart')
     const {width, height} = getComputedStyle(svg)
     const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
-    const margin = {top: 10, right: 0, left: 0, bottom: 60}
+    const margin = {top: 40, right: 0, left: 0, bottom: 60}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
     const tScale = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([svgHeight - margin.top - margin.bottom, margin.top])
                            .domain([START_DATE, new Date()])
 
     // Set up a time axis and put it in the middle
-    const makeAxis = () => Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisLeft"])(tScale).tickSize(50)
+    const makeAxis = () => Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisLeft"])(tScale).tickSize(70)
     Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.timeAxis')
         .attr('transform', `translate(${svgWidth / 2},0)`)
         .call(makeAxis().ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"]))
@@ -17045,10 +17045,10 @@ const homepage = function() {
         .attr('transform', `translate(${svgWidth / 2},0)`)
         .call(makeAxis().ticks(nonZeroMonths))
 
-    const forceChartData = window._posts.map(p => ({
+    const postChartData = window._posts.map(p => ({
         radius: (5 + Math.sqrt(p.length) / 5),
         bubbleClass: 'post',
-        initialX: svgWidth / 2,
+        initialX: svgWidth * 0.7,
         date: p.date,
         url: p.url,
         title: p.title
@@ -17066,7 +17066,7 @@ const homepage = function() {
             return {
                 radius: 5 * (isTopLink ? 1.8 : 1),
                 bubbleClass: `link ${group} ${top}`,
-                initialX: svgWidth / 2,
+                initialX: (group === 'javascript') ? svgWidth * 0.4 : svgWidth / 2,
                 date: l.dt,
                 url: l.u,
                 title: l.d
@@ -17074,7 +17074,7 @@ const homepage = function() {
         })
 
         Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
-            data: [...forceChartData, ...linkChartData],
+            data: [...postChartData, ...linkChartData],
             scale: tScale,
             rootEl: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.bubbleRoot').append('g').attr('transform', leavePadding)
         })
@@ -17117,14 +17117,12 @@ const homepage = function() {
 
 const SIM_STEPS = 200
 const PADDING = 0.5
-const HALF_WIDTH = window.innerWidth / 2
 
 
 // Simple chart mapping content as circles along a time axis.
 function circleChart(config) {
     const {rootEl, scale, data = []} = config
     const t = d => Math.floor(scale(new Date(d.date)))
-    const toRight = d => (t(d) > HALF_WIDTH)
 
     // For force sim beeswarm example, see
     // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
@@ -17150,30 +17148,33 @@ function circleChart(config) {
         .attr('class', d => d.bubbleClass)
         .attr('r', d => d.radius)
 
-    links.append('line')
-            .attr('x1', 1)
-            .attr('x2', 1)
-            .attr('y1', function() {
-                const circle = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])(this.parentElement.firstChild)
-                return 3 + parseFloat(circle.attr('r'))
-            })
-            .attr('y2', function() { return parseFloat(Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])(this).attr('y1')) + 40 })
-
     const tooltips = links.append('g').attr('class', 'tooltip')
     tooltips.append('text')
-            .text(d => {
-                // Manually ellipsis out titles, since we can't really on <text> via css
-                const MAX_LENGTH = 50
-                return t.length > MAX_LENGTH ? `${d.title.slice(0, MAX_LENGTH)}…` : d.title
-            })
-            .attr('class', 'tooltipText')
-            .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
-            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${d.radius + 20})`)
+        .text(d => {
+            // Manually ellipsis out titles, since we can't really on <text> via css
+            const MAX_LENGTH = 60
+            return d.title.length > MAX_LENGTH
+                ? `${d.title.slice(0, MAX_LENGTH)}…`
+                : d.title
+        })
+        .attr('class', 'tooltipText')
+        .attr('text-anchor', 'start')
+        .attr('transform', d => `translate(${-d.x}, -${d.radius + 45})`)
+
     tooltips.append('text')
-            .attr('class', 'date tooltipText')
-            .attr('text-anchor', d => (toRight(d) ? 'end' : 'start'))
-            .text(d => (new Date(d.date)).toISOString().split('T')[0])
-            .attr('transform', d => `translate(${toRight(d) ? -5 : 5}, ${d.radius + 35})`)
+        .attr('class', 'date tooltipText')
+        .attr('text-anchor', 'start')
+        .text(d => (new Date(d.date)).toISOString().split('T')[0])
+        .attr('transform', d => `translate(${-d.x}, -${d.radius + 30})`)
+
+    tooltips.append('polyline')
+        .attr('class', 'tooltipLine')
+        .attr('points', function(d) {
+            const circle = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])(this.parentElement.parentElement.firstChild)
+            const aboveCircle = -1 * (parseFloat(circle.attr('r')) + 3)
+            const topOfLine = aboveCircle - 20
+            return `1,${aboveCircle} 1,${topOfLine} -${d.x},${topOfLine}`
+        })
 }
 
 
@@ -17212,7 +17213,7 @@ exports = module.exports = __webpack_require__(6)();
 
 
 // module
-exports.push([module.i, "* {\n  box-sizing: border-box;\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  position: relative;\n  margin: 0;\n  min-width: 320px;\n  background: url(\"/img/ribbon-bg-jumbo.svg\") center no-repeat fixed;\n  background-color: #52a174;\n  background-size: 100%;\n  color: #fff;\n  font-family: Roboto, sans-serif;\n  font-size: 18px;\n  -webkit-font-smoothing: antialiased;\n}\np {\n  line-height: 1.5;\n  margin: 0 0 1.4em;\n}\na,\na.visited {\n  color: #fff;\n  text-decoration: none;\n  border-bottom: 2px solid rgba(255,255,255,0.2);\n  padding: 0 1px;\n  font-weight: 600;\n  transition: border-color 0.2s;\n}\na:hover,\na.visited:hover {\n  border-bottom-color: #fff;\n}\npre {\n  background: rgba(255,255,255,0.1);\n  padding: 0.2em;\n  border-radius: 3px;\n}\ncode {\n  background: rgba(255,255,255,0.1);\n  padding: 3px;\n  font-size: 1rem;\n}\npre code {\n  display: block;\n  padding: 0.5rem;\n  overflow: auto;\n}\n.container {\n  max-width: 950px;\n  min-width: 300px;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 1rem;\n}\n.siteHeader {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.siteHeader .logo {\n  border: none;\n  background: none;\n  display: inline-block;\n  transition: transform 0.2s;\n}\n.siteHeader .logo:hover {\n  transform: scale(1.1);\n}\n.hello {\n  margin: 0 auto 5rem;\n  max-width: 22em;\n  font-size: 26px;\n}\n.sectionHeading {\n  text-transform: uppercase;\n  font-size: 0.9em;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  opacity: 0.8;\n}\n.ossProjects {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  padding: 0;\n}\n.ossProjects > li {\n  width: 100%;\n  margin-bottom: 0.5em;\n  list-style: none;\n}\n@media (min-width: 500px) {\n  .ossProjects > li {\n    width: 49%;\n  }\n  .ossProjects > li > a {\n    min-height: 90px;\n  }\n}\n@media (min-width: 800px) {\n  .ossProjects > li {\n    width: 32%;\n  }\n}\n.ossProjects a {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding: 0.5em;\n  background: rgba(255,255,255,0.1);\n  border: none;\n  border-radius: 3px;\n  transition: background 0.2s;\n}\n.ossProjects a:hover {\n  background: rgba(255,255,255,0.18);\n}\n.ossProjects .projectTitle {\n  margin: 0 0 0.2em;\n  font-size: 1rem;\n}\n.ossProjects .projectDesc {\n  font-size: 0.8em;\n  opacity: 0.8;\n}\n.ossProjects .projectStars {\n  position: absolute;\n  top: 0.5em;\n  right: 0.5em;\n  font-size: 0.8em;\n}\n.ossProjects .projectStars:before {\n  content: '\\2605';\n}\n.timeline {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  margin-top: 5rem;\n}\n.timeline .timelineChart {\n  display: none;\n}\n.timeline circle {\n  fill: rgba(255,255,255,0.4);\n  transition: fill 0.3s;\n}\n.timeline circle:hover {\n  animation: 0.5s pulseSize;\n  fill: #fff;\n}\n.timeline circle.javascript {\n  fill: #8fb6c2;\n}\n.timeline circle.other {\n  fill: #79b591;\n}\n@media (min-width: 500px) {\n  .timeline {\n    flex-direction: row;\n  }\n  .timeline .timelineChart {\n    display: block;\n  }\n  .timeline > section {\n    width: 32%;\n  }\n}\n.postItem {\n  margin-bottom: 1em;\n}\n.postItem > h1 {\n  margin: 0;\n}\n.postItem time {\n  font-size: 0.8em;\n  opacity: 0.7;\n}\n.timeAxis {\n  fill: rgba(255,255,255,0.3);\n}\n.timeAxis text {\n  fill: #fff;\n  font-size: 1rem;\n  font-weight: bold;\n  font-family: Roboto, sans-serif;\n}\n.timeAxis path {\n  stroke: rgba(255,255,255,0.2);\n  fill: none;\n}\n.timeAxis line {\n  stroke: #fff;\n  stroke-width: 1px;\n}\n.monthAxis text {\n  fill: rgba(255,255,255,0.5);\n  font-size: 0.8rem;\n  font-family: Roboto, sans-serif;\n}\n.monthAxis path {\n  stroke: none;\n}\n.timelineChart .tooltip {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateX(-5px);\n  transition: all 0.4s 0.1s;\n}\n.timelineChart .date {\n  font-size: 0.8rem;\n}\n.timelineChart a:hover .tooltip {\n  opacity: 1;\n  transform: translateX(0);\n}\n.timelineChart line {\n  pointer-events: none;\n  transform-origin: top;\n  transform: scaleY(0);\n  transition: all 0.2s;\n  stroke: #000;\n}\n.timelineChart a:hover line {\n  transform: scaleY(1);\n}\n@-moz-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-moz-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-webkit-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@-o-keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n@keyframes pulseOpacity {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.6;\n  }\n}\n.posts {\n  padding: 0;\n}\n.posts > li {\n  list-style: none;\n}\n.posts h1 {\n  font-weight: 300;\n  margin-bottom: 0;\n  line-height: 1;\n}\n.posts time {\n  display: block;\n  opacity: 0.6;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.post {\n  max-width: 43em;\n}\n.post header time[pubdate] {\n  display: block;\n  margin-bottom: 2rem;\n  font-weight: 600;\n  opacity: 0.6;\n}\n.post h1 {\n  margin: 1.4rem 0 0.2rem;\n  font-size: 2rem;\n  line-height: 1;\n}\n.post h2,\n.post h3,\n.post h4 {\n  margin: 2rem 0 1rem;\n}\n.post h2 {\n  font-size: 1.7rem;\n  font-weight: 300;\n  font-style: italic;\n}\n.post h3,\n.post h4 {\n  font-size: 1rem;\n}\n.post img {\n  max-width: 100%;\n}\n.post footer {\n  margin: 2rem 0;\n  padding: 1.5rem 0 3rem;\n  border-top: 1px solid rgba(255,255,255,0.2);\n  font-size: 1rem;\n}\n.post footer p {\n  margin: 0;\n  opacity: 0.9;\n}\n.post .latest {\n  margin: 2rem 0 0;\n}\n.post .latest time {\n  display: inline-block;\n  font-weight: bold;\n  opacity: 0.5;\n  min-width: 5em;\n}\n.post .latest > h2 {\n  font-weight: normal;\n  font-size: 1.4em;\n  margin: 0 0 0.3rem;\n  font-style: normal;\n}\n@media screen and (min-width: 800px) {\n  .post .latest > h2 {\n    width: 250px;\n    margin-left: -250px;\n    padding-right: 1rem;\n    text-align: right;\n    float: left;\n    line-height: 0.8;\n  }\n  .post .latest > h2:after {\n    content: ' \\BB';\n  }\n}\n.post .latest .item {\n  line-height: 1.4;\n}\n.post .latest .viewall {\n  display: inline-block;\n  padding: 3px 10px;\n  margin-top: 0.5rem;\n  border: 1px solid currentColor;\n  border-radius: 3px;\n  font-size: 0.9em;\n}\n.post .latest .viewall:hover {\n  color: #fff;\n  background: #fff;\n}\n", ""]);
+exports.push([module.i, "* {\n  box-sizing: border-box;\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  position: relative;\n  margin: 0;\n  min-width: 320px;\n  background: url(\"/img/ribbon-bg-jumbo.svg\") center no-repeat fixed;\n  background-color: #52a174;\n  background-size: 100%;\n  color: #fff;\n  font-family: Roboto, sans-serif;\n  font-size: 18px;\n  -webkit-font-smoothing: antialiased;\n}\np {\n  line-height: 1.5;\n  margin: 0 0 1.4em;\n}\na,\na.visited {\n  color: #fff;\n  text-decoration: none;\n  border-bottom: 2px solid rgba(255,255,255,0.2);\n  padding: 0 1px;\n  font-weight: 600;\n  transition: border-color 0.2s;\n}\na:hover,\na.visited:hover {\n  border-bottom-color: #fff;\n}\npre {\n  background: rgba(255,255,255,0.1);\n  padding: 0.2em;\n  border-radius: 3px;\n}\ncode {\n  background: rgba(255,255,255,0.1);\n  padding: 3px;\n  font-size: 1rem;\n}\npre code {\n  display: block;\n  padding: 0.5rem;\n  overflow: auto;\n}\n.container {\n  max-width: 950px;\n  min-width: 300px;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 1rem;\n}\n.siteHeader {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.siteHeader .logo {\n  border: none;\n  background: none;\n  display: inline-block;\n  transition: transform 0.2s;\n}\n.siteHeader .logo:hover {\n  transform: scale(1.1);\n}\n.hello {\n  margin: 0 auto 5rem;\n  max-width: 22em;\n  font-size: 26px;\n}\n.sectionHeading {\n  text-transform: uppercase;\n  font-size: 0.9em;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  opacity: 0.8;\n  margin-bottom: 1.5em;\n}\n.ossProjects {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  padding: 0;\n}\n.ossProjects > li {\n  width: 100%;\n  margin-bottom: 0.5em;\n  list-style: none;\n}\n@media (min-width: 500px) {\n  .ossProjects > li {\n    width: 49%;\n  }\n  .ossProjects > li > a {\n    min-height: 90px;\n  }\n}\n@media (min-width: 800px) {\n  .ossProjects > li {\n    width: 32%;\n  }\n}\n.ossProjects a {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding: 0.5em;\n  background: rgba(255,255,255,0.1);\n  border: none;\n  border-radius: 3px;\n  transition: background 0.2s;\n}\n.ossProjects a:hover {\n  background: rgba(255,255,255,0.18);\n}\n.ossProjects .projectTitle {\n  margin: 0 0 0.2em;\n  font-size: 1rem;\n}\n.ossProjects .projectDesc {\n  font-size: 0.8em;\n  opacity: 0.8;\n}\n.ossProjects .projectStars {\n  position: absolute;\n  top: 0.5em;\n  right: 0.5em;\n  font-size: 0.8em;\n}\n.ossProjects .projectStars:before {\n  content: '\\2605';\n}\n.timeline {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  margin-top: 5rem;\n}\n.timeline .timelineChart {\n  display: none;\n}\n.timeline circle {\n  fill: rgba(255,255,255,0.4);\n  transition: fill 0.3s;\n}\n.timeline circle:hover {\n  animation: 0.5s pulseSize;\n  fill: #fff;\n}\n.timeline circle.javascript {\n  fill: #8fb6c2;\n}\n.timeline circle.design {\n  fill: #74c2b8;\n}\n.timeline circle.other {\n  fill: #79b591;\n}\n@media (min-width: 500px) {\n  .timeline {\n    flex-direction: row;\n  }\n  .timeline .timelineChart {\n    display: block;\n  }\n  .timeline > section {\n    width: 32%;\n  }\n}\n.postItem {\n  margin-bottom: 1.5em;\n}\n.postItem > h1 {\n  margin: 0 0 0.1em;\n}\n.postItem a:not(:hover) {\n  border-bottom: none;\n}\n.postItem time {\n  font-size: 0.85em;\n  opacity: 0.5;\n}\n.timeAxis {\n  fill: rgba(255,255,255,0.3);\n}\n.timeAxis text {\n  fill: #fff;\n  font-size: 1rem;\n  font-weight: bold;\n  font-family: Roboto, sans-serif;\n}\n.timeAxis path {\n  stroke: rgba(255,255,255,0.2);\n  fill: none;\n}\n.timeAxis line {\n  stroke: #fff;\n  stroke-width: 1px;\n}\n.monthAxis text {\n  fill: rgba(255,255,255,0.5);\n  font-size: 0.8rem;\n  font-family: Roboto, sans-serif;\n}\n.monthAxis path {\n  stroke: none;\n}\n.timelineChart {\n  overflow: visible;\n}\n.timelineChart .tooltip {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateX(-5px);\n  transition: all 0.4s 0.1s;\n  fill: #fff;\n}\n.timelineChart .tooltipLine {\n  stroke: rgba(255,255,255,0.7);\n  fill: none;\n}\n.timelineChart .date {\n  font-size: 0.8rem;\n  opacity: 0.7;\n}\n.timelineChart a:hover .tooltip {\n  opacity: 1;\n  transform: translateX(0);\n}\n.timelineChart line {\n  pointer-events: none;\n  transform-origin: top;\n  transform: scaleY(0);\n  transition: all 0.2s;\n  stroke: #fff;\n}\n.timelineChart a:hover line {\n  transform: scaleY(1);\n}\n.timelineChart + section {\n  transition: transform 0.2s;\n}\n.timelineChart:hover + section {\n  opacity: 0.4;\n  transform: translateX(70px);\n}\n@-moz-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@-o-keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n@keyframes pulseSize {\n  0% {\n    transform: scale(1);\n  }\n  30% {\n    transform: scale(1.2);\n  }\n  70% {\n    transform: scale(1);\n  }\n}\n.posts {\n  padding: 0;\n}\n.posts > li {\n  list-style: none;\n}\n.posts h1 {\n  font-weight: 300;\n  margin-bottom: 0;\n  line-height: 1;\n}\n.posts time {\n  display: block;\n  opacity: 0.6;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.post {\n  max-width: 43em;\n}\n.post header time[pubdate] {\n  display: block;\n  margin-bottom: 2rem;\n  font-weight: 600;\n  opacity: 0.6;\n}\n.post h1 {\n  margin: 1.4rem 0 0.2rem;\n  font-size: 2rem;\n  line-height: 1;\n}\n.post h2,\n.post h3,\n.post h4 {\n  margin: 2rem 0 1rem;\n}\n.post h2 {\n  font-size: 1.7rem;\n  font-weight: 300;\n  font-style: italic;\n}\n.post h3,\n.post h4 {\n  font-size: 1rem;\n}\n.post img {\n  max-width: 100%;\n}\n.post footer {\n  margin: 2rem 0;\n  padding: 1.5rem 0 3rem;\n  border-top: 1px solid rgba(255,255,255,0.2);\n  font-size: 1rem;\n}\n.post footer p {\n  margin: 0;\n  opacity: 0.9;\n}\n.post .latest {\n  margin: 2rem 0 0;\n}\n.post .latest time {\n  display: inline-block;\n  font-weight: bold;\n  opacity: 0.5;\n  min-width: 5em;\n}\n.post .latest > h2 {\n  font-weight: normal;\n  font-size: 1.4em;\n  margin: 0 0 0.3rem;\n  font-style: normal;\n}\n@media screen and (min-width: 800px) {\n  .post .latest > h2 {\n    width: 250px;\n    margin-left: -250px;\n    padding-right: 1rem;\n    text-align: right;\n    float: left;\n    line-height: 0.8;\n  }\n  .post .latest > h2:after {\n    content: ' \\BB';\n  }\n}\n.post .latest .item {\n  line-height: 1.4;\n}\n.post .latest .viewall {\n  display: inline-block;\n  padding: 3px 10px;\n  margin-top: 0.5rem;\n  border: 1px solid currentColor;\n  border-radius: 3px;\n  font-size: 0.9em;\n}\n.post .latest .viewall:hover {\n  color: #fff;\n  background: #fff;\n}\n", ""]);
 
 // exports
 

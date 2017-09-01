@@ -22,7 +22,7 @@ const homepage = function() {
     const svg = document.querySelector('.timelineChart')
     const {width, height} = getComputedStyle(svg)
     const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
-    const margin = {top: 10, right: 0, left: 0, bottom: 60}
+    const margin = {top: 40, right: 0, left: 0, bottom: 60}
     const leavePadding = `translate(${margin.left}, ${margin.top})`
 
     const tScale = scaleTime().range([svgHeight - margin.top - margin.bottom, margin.top])
@@ -61,7 +61,7 @@ const homepage = function() {
             return {
                 radius: 5 * (isTopLink ? 1.8 : 1),
                 bubbleClass: `link ${group} ${top}`,
-                initialX: svgWidth / 2,
+                initialX: (group === 'javascript') ? svgWidth * 0.4 : svgWidth / 2,
                 date: l.dt,
                 url: l.u,
                 title: l.d

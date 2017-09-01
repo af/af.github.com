@@ -141,12 +141,18 @@
         stroke: none
 
 .timelineChart
+    overflow: visible
+
     .tooltip
         opacity: 0
         pointer-events: none
         transform: translateX(-5px)
         transition: all 0.4s 0.1s
         fill: white
+
+    .tooltipLine
+        stroke: rgba(#fff, 0.7)
+        fill: none
 
     .date
         font-size: 0.8rem
@@ -164,3 +170,10 @@
         stroke: white
     a:hover line
         transform: scaleY(1)
+
+    & + section
+        transition: transform 0.2s
+
+    &:hover + section
+        opacity: 0.4
+        transform: translateX(70px)
