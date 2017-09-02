@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% feed_meta %}
 
+    {% for domain in page.preconnect_domains %}
+        <link rel="preconnect" href="{{ domain }}" crossorigin />
+    {% endfor %}
+
     {% if page.keywords %}
     <meta name="keywords" content="{{ page.keywords }}" />
     {% else %}
