@@ -17016,7 +17016,7 @@ const homepage = function() {
     const {width, height} = getComputedStyle(svg)
     const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
     const margin = {top: 40, right: 0, left: 0, bottom: 60}
-    const leavePadding = `translate(${margin.left}, ${margin.top})`
+    const leavePadding = `translate(${svgWidth / 2}, ${margin.top})`
 
     const tScale = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([svgHeight - margin.top - margin.bottom, margin.top])
                            .domain([START_DATE, new Date()])
@@ -17024,19 +17024,19 @@ const homepage = function() {
     // Set up a time axis and put it in the middle
     const makeAxis = () => Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisLeft"])(tScale).tickSize(70)
     Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.timeAxis')
-        .attr('transform', `translate(${svgWidth / 2},0)`)
+        .attr('transform', leavePadding)
         .call(makeAxis().ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"]))
 
     // A separate month axis is also rendered for finer-grained ticks
     const nonZeroMonths = __WEBPACK_IMPORTED_MODULE_0_d3__["timeMonth"].filter(d => (d.getUTCMonth() !== 0))
     Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.monthAxis')
-        .attr('transform', `translate(${svgWidth / 2},0)`)
+        .attr('transform', leavePadding)
         .call(makeAxis().ticks(nonZeroMonths))
 
     const postChartData = window._posts.map(p => ({
         radius: (5 + Math.sqrt(p.length) / 5),
         bubbleClass: 'post',
-        initialX: svgWidth * 0.7,
+        initialX: svgWidth * 0.2,
         date: p.date,
         url: p.url,
         title: p.title
@@ -17074,7 +17074,7 @@ const homepage = function() {
             return {
                 radius: 5 * (isTopLink ? 1.8 : 1),
                 bubbleClass: `link ${group} ${top}`,
-                initialX: (group === 'javascript') ? svgWidth * 0.4 : svgWidth / 2,
+                initialX: (group === 'javascript') ? (-0.15 * svgWidth) : 0,
                 date: l.dt,
                 url: l.u,
                 title: l.d
