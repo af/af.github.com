@@ -1,5 +1,13 @@
 @require "_common"
 
+$tagColours = {
+    programming: rgba(#fff, 0.3)
+    javascript: #8FB6C2
+    design: #74C2B8
+    other: rgba(#fff, 0.15)
+}
+
+
 @keyframes pulseSize
     0%
         transform: scale(1)
@@ -81,19 +89,22 @@
         display: none
 
     circle
-        fill: rgba(#fff, 0.4)
+        fill: $tagColours.other
         transition: fill 0.3s
+
+        &.post
+            fill: $tagColours.programming
 
         &:hover
             animation: 0.5s pulseSize
             fill: white
 
-    circle.javascript
-        fill: #8FB6C2
-    circle.design
-        fill: #74C2B8
-    circle.other
-        fill: #79B591
+        &.javascript
+            fill: $tagColours.javascript
+        &.design
+            fill: $tagColours.design
+        &.programming
+            fill: $tagColours.programming
 
     @media (min-width: $breakpoints.midsize)
         flex-direction: row
@@ -109,8 +120,10 @@
 
     > h1
         margin: 0 0 0.1em
+
     a:not(:hover)
         border-bottom: none
+
     time
         font-size: 0.85em
         opacity: 0.5
@@ -147,9 +160,22 @@
 
         > li
             display: inline-block
+        a
+            display: inline-block
             background: rgba(#fff, 0.1)
-            padding: 3px
+            padding: 2px 3px
             margin-right: 3px
+            border-radius: 2px
+
+            &:not(:hover)
+                border-bottom: 1px solid transparent
+
+        .tag-programming
+            background: $tagColours.programming
+        .tag-javascript
+            background: $tagColours.javascript
+        .tag-design
+            background: $tagColours.design
 
 
 .timeAxis
@@ -163,7 +189,7 @@
 
     // Main vertical timeline axis
     path
-        stroke: rgba(#fff, 0.2)
+        stroke: none
         fill: none
     line
         stroke: #fff

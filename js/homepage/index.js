@@ -45,7 +45,11 @@ const homepage = function() {
                 <h1><a href="${l.u}">${l.d}</a></h1>
                 <blockquote>${l.n}</blockquote>
                 <ul class="tags">
-                    ${l.t.map(t => `<li>${t}</li>`).join('')}
+                    ${l.t.map(t => `
+                    <li>
+                        <a class="tag-${t}" href="https://pinboard.in/u:_af/t:${t}">${t}</a>
+                    </li>
+                    `).join('')}
                 </ul>
                 <time>${l.dt.split('T')[0]}</time>
             </article>
