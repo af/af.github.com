@@ -83,13 +83,13 @@ const homepage = function() {
         })
     })
 
-    // Plot Github source repos, using their CORS-enabled public API
-    json(GITHUB_URL, (err, data) => {
+    // Render Github source repos, using their CORS-enabled public API
+    json(GITHUB_URL, (err, repos) => {
         if (err) return console.error(err)
         const containers = document.querySelectorAll('.ossProjects > li')
         const NUM_REPOS_TO_SHOW = containers.length
 
-        const myRepos = data.filter(r => !r.fork)
+        const myRepos = repos.filter(r => !r.fork)
                           .filter(r => r.stargazers_count > 2)
                           .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
                           .slice(0, NUM_REPOS_TO_SHOW)
