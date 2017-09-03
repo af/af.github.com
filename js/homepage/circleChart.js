@@ -33,6 +33,7 @@ export default function circleChart(config) {
         .attr('class', d => d.bubbleClass)
         .attr('r', d => d.radius)
 
+    const TOOLTIP_TEXT_PADDING = 8
     const tooltips = links.append('g').attr('class', 'tooltip')
     tooltips.append('text')
         .text(d => {
@@ -44,20 +45,21 @@ export default function circleChart(config) {
         })
         .attr('class', 'tooltipText')
         .attr('text-anchor', 'start')
-        .attr('transform', d => `translate(${-d.x}, -${d.radius + 45})`)
+        .attr('transform', d => `translate(${TOOLTIP_TEXT_PADDING}, -${d.radius + 35})`)
 
     tooltips.append('text')
         .attr('class', 'date tooltipText')
         .attr('text-anchor', 'start')
         .text(d => (new Date(d.date)).toISOString().split('T')[0])
-        .attr('transform', d => `translate(${-d.x}, -${d.radius + 30})`)
+        .attr('transform', d => `translate(${TOOLTIP_TEXT_PADDING}, -${d.radius + 20})`)
 
-    tooltips.append('polyline')
+    links.append('line')
         .attr('class', 'tooltipLine')
-        .attr('points', function(d) {
-            const circle = select(this.parentElement.parentElement.firstChild)
-            const aboveCircle = -1 * (parseFloat(circle.attr('r')) + 3)
-            const topOfLine = aboveCircle - 20
-            return `1,${aboveCircle} 1,${topOfLine} -${d.x},${topOfLine}`
+        .attr('x1', 1)
+        .attr('x2', 1)
+        .attr('y1', function() {
+            const circle = select(this.parentElement.firstChild)
+            return -1 * (parseFloat(circle.attr('r')) + 3)
         })
+        .attr('y2', function() { return parseFloat(select(this).attr('y1')) - 45 })
 }

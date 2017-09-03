@@ -2,7 +2,7 @@ import {axisLeft, json, select, scaleTime, timeMonth, timeYear} from 'd3'
 import circleChart from './circleChart'
 
 
-const DAYS_OF_HISTORY = 550
+const DAYS_OF_HISTORY = 600
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
 
@@ -18,7 +18,7 @@ const homepage = function() {
 
     // Set up a time axis and put it in the middle
     const makeAxis = () => axisLeft(tScale).tickSize(70)
-    select('.timeAxis')
+    select('.yearAxis')
         .attr('transform', leavePadding)
         .call(makeAxis().ticks(timeYear))
 
