@@ -5,7 +5,7 @@
       <stop stop-color="#59AE7E" stop-opacity="0" offset="100%"/>
     </linearGradient>
   </defs>
-  <g fill="none" fill-rule="evenodd" transform="rotate(-147 615.353 418.715)" opacity=".08">
+  <g fill="none" fill-rule="evenodd" transform="rotate(-147 615.353 418.715)" opacity=".06">
     <path fill="#FFFFFF" d="M435,434.736842 L1470,434.736842 L1905,0.526315789 L435,0.526315789 L217.5,217.631579 L-1.42108547e-14,434.736842 L-2.27373675e-13,1840 L435,1405.78947 L435,434.736842 Z" opacity=".9"/>
     <rect width="348" height="429.474" x="435" y="4.526" fill="url(#a)"/>
   </g>
