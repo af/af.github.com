@@ -19,7 +19,9 @@ const renderRepos = repos => {
     const fill = (root, selector, text) => root.querySelector(selector).textContent = text
     containers.forEach((el, idx) => {
         const {name, description, stargazers_count, html_url} = myRepos[idx] || {}
-        el.querySelector('a').href = html_url  // eslint-disable-line camelcase
+        const link = el.querySelector('a')
+        link.href = html_url  // eslint-disable-line camelcase
+        link.classList.remove('loading')
         fill(el, '.projectTitle', name)
         fill(el, '.projectDesc', description)
         fill(el, '.projectStars', stargazers_count)

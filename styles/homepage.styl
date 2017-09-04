@@ -16,6 +16,11 @@ $tagColours = {
         transform: scale(1.2)
     70%
         transform: scale(1)
+@keyframes pulseOpacity
+    0%
+        opacity: 1
+    100%
+        opacity: 0.4
 
 .hello
     margin: 0 auto 5rem
@@ -27,7 +32,7 @@ $tagColours = {
     font-size: 0.9em
     font-weight: 600
     letter-spacing: 0.06em
-    opacity: 0.8
+    opacity: 0.7
     margin-bottom: 1.5em
 
 .ossProjects
@@ -49,6 +54,9 @@ $tagColours = {
         @media (min-width: $breakpoints.desktop)
             width: 32%
 
+        &:nth-child(odd) a
+            animation-delay: 0.5s
+
     a
         position: relative
         display: flex
@@ -59,6 +67,12 @@ $tagColours = {
         border: none
         border-radius: 3px
         transition: background 0.2s
+
+        &.loading
+            animation: 1s pulseOpacity alternate-reverse infinite
+
+            .projectStars
+                display: none
 
         &:hover
             background: rgba(#fff, 0.18)
