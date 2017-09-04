@@ -1,7 +1,8 @@
 @require "_common"
 
 $tagColours = {
-    programming: rgba(#fff, 0.3)
+    post: rgba(#fff, 0.4)
+    programming: #86BF93
     javascript: #8FB6C2
     design: #74C2B8
     other: rgba(#fff, 0.15)
@@ -93,11 +94,11 @@ $tagColours = {
         transition: fill 0.3s
 
         &.post
-            fill: $tagColours.programming
+            fill: $tagColours.post
 
         &:hover
             animation: 0.5s pulseSize
-            fill: white
+            fill: white !important
 
         &.javascript
             fill: $tagColours.javascript
@@ -163,7 +164,7 @@ $tagColours = {
         a
             display: inline-block
             background: rgba(#fff, 0.1)
-            padding: 2px 3px
+            padding: 2px 5px
             margin-right: 3px
             border-radius: 2px
 
@@ -176,6 +177,12 @@ $tagColours = {
             background: $tagColours.javascript
         .tag-design
             background: $tagColours.design
+        .tag-top
+            border-bottom: 2px solid currentColor
+
+            &:before
+                content: '★ '
+
 
 
 .yearAxis

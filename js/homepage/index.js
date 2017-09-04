@@ -2,7 +2,7 @@ import {axisLeft, json, select, scaleTime, timeMonth, timeYear} from 'd3'
 import circleChart from './circleChart'
 
 
-const DAYS_OF_HISTORY = 600
+const DAYS_OF_HISTORY = 580
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
 
@@ -26,19 +26,23 @@ const renderRepos = repos => {
     })
 }
 
+const tagsToHtml = tags => `
+    <ul class="tags">
+    ${tags.map(t => `
+        <li>
+            <a class="tag-${t}" href="https://pinboard.in/u:_af/t:${t}">${t}</a>
+        </li>
+    `).join('')}
+    </ul>
+`
+
 const renderLinkSidebar = links => {
     const container = document.querySelector('.latestLinks')
     const htmlItems = links.slice(0, 10).map(l => `
         <article>
             <h1><a href="${l.u}">${l.d}</a></h1>
             <blockquote>${l.n}</blockquote>
-            <ul class="tags">
-                ${l.t.map(t => `
-                <li>
-                    <a class="tag-${t}" href="https://pinboard.in/u:_af/t:${t}">${t}</a>
-                </li>
-                `).join('')}
-            </ul>
+            ${tagsToHtml(l.t)}
             <time>${l.dt.split('T')[0]}</time>
         </article>
     `)
@@ -50,14 +54,14 @@ const renderTimeline = svg => {
     if (display === 'none') return  // Don't do expensive rendering on mobile (svg is hidden)
 
     const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
-    const margin = {top: 40, right: 0, left: 0, bottom: 60}
+    const margin = {top: 40, right: 0, left: 0, bottom: 10}
     const leavePadding = `translate(${svgWidth / 2}, ${margin.top})`
 
     const tScale = scaleTime().range([svgHeight - margin.top - margin.bottom, margin.top])
                            .domain([START_DATE, new Date()])
 
     // Set up a time axis and put it in the middle
-    const makeAxis = () => axisLeft(tScale).tickSize(70)
+    const makeAxis = () => axisLeft(tScale).tickSize(90)
     select('.yearAxis')
         .attr('transform', leavePadding)
         .call(makeAxis().ticks(timeYear))
@@ -71,7 +75,7 @@ const renderTimeline = svg => {
     const postChartData = window._posts.map(p => ({
         radius: (5 + Math.sqrt(p.length) / 5),
         bubbleClass: 'post',
-        initialX: svgWidth * 0.2,
+        initialX: svgWidth * 0.4,
         date: p.date,
         url: p.url,
         title: p.title
@@ -80,16 +84,17 @@ const renderTimeline = svg => {
     // Plot saved links from pinboard's JSONP API
     window._linksPromise.then(links => {
         // Divide links into tag group "buckets":
-        const tags = ['javascript', 'programming', 'design']
-        const getGroupName = link => tags.find(t => link.t && link.t.includes(t)) || 'other'
+        const lanes = {javascript: -0.22, programming: -0.05, design: 0.25, other: 0.12}
+        const tags = Object.keys(lanes)
+        const getGroupForLink = link => tags.find(t => link.t && link.t.includes(t)) || 'other'
 
         const linkChartData = links.map(l => {
-            const group = getGroupName(l)
+            const group = getGroupForLink(l)
             const isTopLink = l.t.includes('top')
             return {
                 radius: 5 * (isTopLink ? 1.8 : 1),
                 bubbleClass: `link ${group} ${top}`,
-                initialX: (group === 'javascript') ? (-0.15 * svgWidth) : 0,
+                initialX: svgWidth * lanes[group],
                 date: l.dt,
                 url: l.u,
                 title: l.d
