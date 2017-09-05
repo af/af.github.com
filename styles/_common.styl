@@ -77,6 +77,8 @@ code
     padding: 0 1rem
 
 .siteHeader
+    display: flex
+    justify-content: space-between
     padding-top: 2rem
     padding-bottom: 2rem
 
@@ -88,3 +90,18 @@ code
 
         &:hover
             transform: scale(1.1)
+
+    > nav
+        display: flex
+        align-items: center
+
+        a
+            border-bottom: none
+            padding-left: 2em
+            font-weight: bold
+            font-size: 0.9em
+            text-transform: uppercase
+            opacity: 0.8
+
+            &:hover
+                opacity: 1

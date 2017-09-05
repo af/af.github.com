@@ -2,22 +2,31 @@
 @require "_common"
 @require "_fonts"
 
-.posts
+// /posts page
+.posts-list
     padding: 0
 
     > li
         list-style: none
 
+    article
+        display: flex
+        margin-bottom: 1em
+
     h1
-        font-weight: 300
-        margin-bottom: 0
-        line-height: 1
+        display: inline-block
+        margin: 0
+        font-size: 1.2em
+        line-height: 1.2
+
+    a:not(:hover)
+        border-bottom: none
 
     time
-        display: block
-        opacity: 0.6
-        font-weight: bold
-        font-size: 1.1rem
+        display: inline-block
+        min-width: 6rem
+        opacity: 0.8
+        font-size: 1rem
 
 // Blog post article styles
 .post
