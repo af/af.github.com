@@ -17080,8 +17080,8 @@ const renderTimeline = svg => {
         .call(makeAxis().ticks(nonZeroMonths))
 
     const postChartData = window._posts.map(p => ({
-        radius: (5 + Math.sqrt(p.length) / 5),
-        bubbleClass: 'post',
+        radius: (3 + Math.sqrt(p.length) / 5),
+        bubbleClass: `post`,
         initialX: svgWidth * 0.4,
         date: p.date,
         url: p.url,
@@ -17099,8 +17099,8 @@ const renderTimeline = svg => {
             const group = getGroupForLink(l)
             const isTopLink = l.t.includes('top')
             return {
-                radius: 5 * (isTopLink ? 1.8 : 1),
-                bubbleClass: `link ${group} ${top}`,
+                radius: 6 * (isTopLink ? 1.5 : 1),
+                bubbleClass: `link ${group} ${isTopLink ? 'top' : ''}`,
                 initialX: svgWidth * lanes[group],
                 date: l.dt,
                 url: l.u,
