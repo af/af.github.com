@@ -28,26 +28,29 @@ preconnect_domains:
     </ol>
 </section>
 
+<section class="blogPosts container">
+    <h2 class="sectionHeading">(Infrequent) Blog Posts</h2>
+    {% for post in site.posts limit:4 %}
+        <article class="postItem">
+            <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+            <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+        </article>
+    {% endfor %}
+</section>
+
 <div class="timeline container">
+    <div>
+        <h2 class="sectionHeading">Links from around the web</h2>
+
+        <svg class="timelineChart" width="400" height="1400">
+            <g class="yearAxis"></g>
+            <g class="monthAxis"></g>
+            <g class="bubbleRoot"></g>
+        </svg>
+    </div>
+
     <section>
-        <h2 class="sectionHeading">Latest Links</h2>
         <div class="latestLinks"></div>
-    </section>
-
-    <svg class="timelineChart" width="300" height="1400">
-        <g class="yearAxis"></g>
-        <g class="monthAxis"></g>
-        <g class="bubbleRoot"></g>
-    </svg>
-
-    <section>
-        <h2 class="sectionHeading">Latest Posts</h2>
-        {% for post in site.posts limit:4 %}
-            <article class="postItem">
-                <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-                <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-            </article>
-        {% endfor %}
     </section>
 </div>
 
@@ -59,15 +62,6 @@ preconnect_domains:
     window._linksPromise = new Promise((resolve, reject) => {
         window.linksCb = (links => resolve(links))
     })
-
-    window._posts = [
-    {% for post in site.posts %}
-        { date: "{{ post.date | date: "%Y-%m-%dT%H:%M:%S" }}",
-          title: {{ post.title | jsonify }},
-          url: "{{ post.url }}", length: {{ post.content | size }}
-        },
-    {% endfor %}
-    ];
 </script>
 
 <script src="https://feeds.pinboard.in/json/u:_af?count=400&cb=linksCb"></script>

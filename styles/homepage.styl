@@ -23,7 +23,7 @@ $tagColours = {
         opacity: 0.4
 
 .hello
-    margin: 0 auto 5rem
+    margin: 2rem auto 5rem
     max-width: 22em
     font-size: 26px
 
@@ -34,6 +34,27 @@ $tagColours = {
     letter-spacing: 0.06em
     opacity: 0.7
     margin-bottom: 1.5em
+
+.blogPosts
+    margin-top: 5rem
+    margin-bottom: 5rem
+
+    .postItem
+        display: flex
+        align-items: baseline
+        margin-bottom: 1em
+
+        > h1
+            margin: 0
+            flex: 1
+
+        a:not(:hover)
+            border-bottom: none
+
+        time
+            margin-right: 1em
+            font-size: 0.85em
+            opacity: 0.5
 
 .ossProjects
     display: flex
@@ -98,7 +119,9 @@ $tagColours = {
     display: flex
     flex-direction: column
     justify-content: space-between
-    margin-top: 5rem
+
+    .sectionHeading
+        margin: 0
 
     .timelineChart
         display: none
@@ -128,20 +151,10 @@ $tagColours = {
             display: block
 
         > section
-            width: 32%
+            width: 46%
 
-.postItem
-    margin-bottom: 1.5em
-
-    > h1
-        margin: 0 0 0.1em
-
-    a:not(:hover)
-        border-bottom: none
-
-    time
-        font-size: 0.85em
-        opacity: 0.5
+.latestLinks
+    margin-top: 2rem
 
 .latestLinks > article
     margin-bottom: 2rem
@@ -182,6 +195,7 @@ $tagColours = {
             padding: 2px 5px
             margin-right: 3px
             border-radius: 2px
+            text-shadow: 0 0 2px rgba(#000, 0.2)
 
             &:not(:hover)
                 border-bottom: 1px solid transparent
@@ -197,7 +211,6 @@ $tagColours = {
 
             &:before
                 content: '★ '
-
 
 
 .yearAxis

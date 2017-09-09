@@ -56,14 +56,14 @@ const renderTimeline = svg => {
     if (display === 'none') return  // Don't do expensive rendering on mobile (svg is hidden)
 
     const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
-    const margin = {top: 40, right: 0, left: 0, bottom: 10}
+    const margin = {top: 20, right: 0, left: 0, bottom: 10}
     const leavePadding = `translate(${svgWidth / 2}, ${margin.top})`
 
     const tScale = scaleTime().range([svgHeight - margin.top - margin.bottom, margin.top])
                            .domain([START_DATE, new Date()])
 
     // Set up a time axis and put it in the middle
-    const makeAxis = () => axisLeft(tScale).tickSize(90)
+    const makeAxis = () => axisLeft(tScale).tickSize(180)
     select('.yearAxis')
         .attr('transform', leavePadding)
         .call(makeAxis().ticks(timeYear))
@@ -73,15 +73,6 @@ const renderTimeline = svg => {
     select('.monthAxis')
         .attr('transform', leavePadding)
         .call(makeAxis().ticks(nonZeroMonths))
-
-    const postChartData = window._posts.map(p => ({
-        radius: (3 + Math.sqrt(p.length) / 5),
-        bubbleClass: `post`,
-        initialX: svgWidth * 0.4,
-        date: p.date,
-        url: p.url,
-        title: p.title
-    }))
 
     // Plot saved links from pinboard's JSONP API
     window._linksPromise.then(links => {
@@ -104,7 +95,7 @@ const renderTimeline = svg => {
         })
 
         circleChart({
-            data: [...postChartData, ...linkChartData],
+            data: linkChartData,
             scale: tScale,
             rootEl: select('.bubbleRoot').append('g').attr('transform', leavePadding)
         })
