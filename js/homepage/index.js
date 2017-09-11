@@ -1,10 +1,12 @@
-import {axisLeft, json, select, scaleTime, timeMonth, timeYear} from 'd3'
+import {axisLeft, axisTop, json, select, scaleOrdinal, scaleTime, timeMonth, timeYear} from 'd3'
 import circleChart from './circleChart'
 
 
 const DAYS_OF_HISTORY = 580
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
+const CATEGORY_LANES = {javascript: -0.3, programming: -0.1, design: 0.3, other: 0.1}
+const TAGS = Object.keys(CATEGORY_LANES)
 
 
 const renderRepos = repos => {
@@ -56,11 +58,24 @@ const renderTimeline = svg => {
     if (display === 'none') return  // Don't do expensive rendering on mobile (svg is hidden)
 
     const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
-    const margin = {top: 20, right: 0, left: 0, bottom: 10}
+    const margin = {top: 30, right: 0, left: 0, bottom: 10}
     const leavePadding = `translate(${svgWidth / 2}, ${margin.top})`
 
     const tScale = scaleTime().range([svgHeight - margin.top - margin.bottom, margin.top])
                            .domain([START_DATE, new Date()])
+
+    // Set up an axis above the chart with category labels
+    const ordScale = scaleOrdinal()
+                        .domain(Object.keys(CATEGORY_LANES))
+                        .range(Object.values(CATEGORY_LANES).map(v => v * svgWidth))
+    const catAxis = select('.categoryAxis')
+    catAxis
+        .attr('transform', leavePadding)
+        .call(axisTop(ordScale))
+    catAxis.selectAll('text')
+        .attr('transform', 'rotate(-20) translate(40)')
+        .data(Object.keys(CATEGORY_LANES))
+        .attr('class', d => d)
 
     // Set up a time axis and put it in the middle
     const makeAxis = () => axisLeft(tScale).tickSize(120)
@@ -77,9 +92,7 @@ const renderTimeline = svg => {
     // Plot saved links from pinboard's JSONP API
     window._linksPromise.then(links => {
         // Divide links into tag group "buckets":
-        const lanes = {javascript: -0.3, programming: -0.1, design: 0.3, other: 0.1}
-        const tags = Object.keys(lanes)
-        const getGroupForLink = link => tags.find(t => link.t && link.t.includes(t)) || 'other'
+        const getGroupForLink = link => TAGS.find(t => link.t && link.t.includes(t)) || 'other'
 
         const linkChartData = links.map(l => {
             const group = getGroupForLink(l)
@@ -87,7 +100,7 @@ const renderTimeline = svg => {
             return {
                 radius: 6 * (isTopLink ? 1.5 : 1),
                 bubbleClass: `link ${group} ${isTopLink ? 'top' : ''}`,
-                initialX: svgWidth * lanes[group],
+                initialX: svgWidth * CATEGORY_LANES[group],
                 date: l.dt,
                 url: l.u,
                 title: l.d
