@@ -101,6 +101,8 @@ if (location.pathname === '/') Object(__WEBPACK_IMPORTED_MODULE_0__homepage__["a
 const DAYS_OF_HISTORY = 580
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
+const CATEGORY_LANES = {javascript: -0.3, programming: -0.1, design: 0.3, other: 0.1}
+const TAGS = Object.keys(CATEGORY_LANES)
 
 
 const renderRepos = repos => {
@@ -152,14 +154,27 @@ const renderTimeline = svg => {
     if (display === 'none') return  // Don't do expensive rendering on mobile (svg is hidden)
 
     const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
-    const margin = {top: 40, right: 0, left: 0, bottom: 10}
+    const margin = {top: 30, right: 0, left: 0, bottom: 10}
     const leavePadding = `translate(${svgWidth / 2}, ${margin.top})`
 
     const tScale = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleTime"])().range([svgHeight - margin.top - margin.bottom, margin.top])
                            .domain([START_DATE, new Date()])
 
+    // Set up an axis above the chart with category labels
+    const ordScale = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["scaleOrdinal"])()
+                        .domain(Object.keys(CATEGORY_LANES))
+                        .range(Object.values(CATEGORY_LANES).map(v => v * svgWidth))
+    const catAxis = Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.categoryAxis')
+    catAxis
+        .attr('transform', leavePadding)
+        .call(Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisTop"])(ordScale))
+    catAxis.selectAll('text')
+        .attr('transform', 'rotate(-20) translate(40)')
+        .data(Object.keys(CATEGORY_LANES))
+        .attr('class', d => d)
+
     // Set up a time axis and put it in the middle
-    const makeAxis = () => Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisLeft"])(tScale).tickSize(90)
+    const makeAxis = () => Object(__WEBPACK_IMPORTED_MODULE_0_d3__["axisLeft"])(tScale).tickSize(120)
     Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.yearAxis')
         .attr('transform', leavePadding)
         .call(makeAxis().ticks(__WEBPACK_IMPORTED_MODULE_0_d3__["timeYear"]))
@@ -170,21 +185,10 @@ const renderTimeline = svg => {
         .attr('transform', leavePadding)
         .call(makeAxis().ticks(nonZeroMonths))
 
-    const postChartData = window._posts.map(p => ({
-        radius: (3 + Math.sqrt(p.length) / 5),
-        bubbleClass: `post`,
-        initialX: svgWidth * 0.4,
-        date: p.date,
-        url: p.url,
-        title: p.title
-    }))
-
     // Plot saved links from pinboard's JSONP API
     window._linksPromise.then(links => {
         // Divide links into tag group "buckets":
-        const lanes = {javascript: -0.22, programming: -0.05, design: 0.25, other: 0.12}
-        const tags = Object.keys(lanes)
-        const getGroupForLink = link => tags.find(t => link.t && link.t.includes(t)) || 'other'
+        const getGroupForLink = link => TAGS.find(t => link.t && link.t.includes(t)) || 'other'
 
         const linkChartData = links.map(l => {
             const group = getGroupForLink(l)
@@ -192,7 +196,7 @@ const renderTimeline = svg => {
             return {
                 radius: 6 * (isTopLink ? 1.5 : 1),
                 bubbleClass: `link ${group} ${isTopLink ? 'top' : ''}`,
-                initialX: svgWidth * lanes[group],
+                initialX: svgWidth * CATEGORY_LANES[group],
                 date: l.dt,
                 url: l.u,
                 title: l.d
@@ -200,7 +204,7 @@ const renderTimeline = svg => {
         })
 
         Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
-            data: [...postChartData, ...linkChartData],
+            data: linkChartData,
             scale: tScale,
             rootEl: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.bubbleRoot').append('g').attr('transform', leavePadding)
         })
