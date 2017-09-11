@@ -3,15 +3,16 @@ layout: base
 ---
 
 <div class="container">
-<article class="post">
-    <header>
-        <h1>{{ page.title }}</h1>
-        <time pubdate datetime="{{page.date}}">Posted on {{page.date | date: "%Y-%m-%d"}}</time>
-    </header>
+    <article class="post">
+        <header>
+            <h1>{{ page.title }}</h1>
+            <time pubdate datetime="{{page.date}}">Posted on {{page.date | date: "%Y-%m-%d"}}</time>
+        </header>
 
-    {{ content }}
+        {{ content }}
+    </article>
 
-    <footer>
+    <footer class="postFooter">
         <p>Thanks for reading. If you made it this far, you might want to
             <a href="/atom.xml">subscribe for future posts</a>
         </p>
@@ -22,7 +23,11 @@ layout: base
         </p>
 
         <section class="latest">
-            <h2 class="sectionHeading">Latest posts</h2>
+            <header class="sectionHeading">
+                <h2>Latest Posts</h2>
+                <a href="/posts" class="more">More Posts</a>
+            </header>
+
             {% for post in site.posts limit:3 %}
                 <div class="item">
                     <time>{{ post.date | date: "%Y-%m-%d" }}</time>
@@ -31,5 +36,4 @@ layout: base
             {% endfor %}
         </section>
     </footer>
-</article>
 </div>

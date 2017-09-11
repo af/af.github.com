@@ -14,7 +14,11 @@ preconnect_domains:
 </div>
 
 <section class="openSource container">
-    <h2 class="sectionHeading">Latest Open Source Projects</h2>
+    <header class="sectionHeading">
+        <h2>Latest Open Source Projects</h2>
+        <a href="https://github.com/af" class="more">More on Github</a>
+    </header>
+
     <ol class="ossProjects">
         {% for i in (1..6) %}
         <li>
@@ -29,19 +33,26 @@ preconnect_domains:
 </section>
 
 <section class="blogPosts container">
-    <h2 class="sectionHeading">(Infrequent) Blog Posts</h2>
+    <header class="sectionHeading">
+        <h2>(Infrequent) Blog Posts</h2>
+        <a href="/posts" class="more">More Posts</a>
+    </header>
+
     {% for post in site.posts limit:4 %}
         <article class="postItem">
             <time>{{ post.date | date: "%Y-%m-%d" }}</time>
             <div>
-              <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-              <div class="readTime">{{ post.content | size | divided_by: 1500 }} minute read</div>
+                <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+                <div class="readTime">{{ post.content | size | divided_by: 1500 }} minute read</div>
             </div>
         </article>
     {% endfor %}
 </section>
 
-<h2 class="sectionHeading linksHeading container">Links from around the web</h2>
+<header class="sectionHeading linksHeading container">
+    <h2>Links from around the web</h2>
+    <a href="https://pinboard.in/u:_af" class="more">More on Pinboard</a>
+</header>
 <div class="timeline container">
     <svg class="timelineChart" width="350" height="1400">
         <g class="categoryAxis"></g>
