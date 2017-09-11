@@ -63,7 +63,7 @@ const renderTimeline = svg => {
                            .domain([START_DATE, new Date()])
 
     // Set up a time axis and put it in the middle
-    const makeAxis = () => axisLeft(tScale).tickSize(180)
+    const makeAxis = () => axisLeft(tScale).tickSize(120)
     select('.yearAxis')
         .attr('transform', leavePadding)
         .call(makeAxis().ticks(timeYear))
@@ -77,7 +77,7 @@ const renderTimeline = svg => {
     // Plot saved links from pinboard's JSONP API
     window._linksPromise.then(links => {
         // Divide links into tag group "buckets":
-        const lanes = {javascript: -0.22, programming: -0.05, design: 0.25, other: 0.12}
+        const lanes = {javascript: -0.3, programming: -0.1, design: 0.3, other: 0.1}
         const tags = Object.keys(lanes)
         const getGroupForLink = link => tags.find(t => link.t && link.t.includes(t)) || 'other'
 
