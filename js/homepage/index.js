@@ -73,7 +73,6 @@ const renderTimeline = svg => {
         .attr('transform', leavePadding)
         .call(axisTop(ordScale))
     catAxis.selectAll('text')
-        .attr('transform', 'rotate(-20) translate(40)')
         .data(Object.keys(CATEGORY_LANES))
         .attr('class', d => d)
 
