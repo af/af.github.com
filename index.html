@@ -33,7 +33,10 @@ preconnect_domains:
     {% for post in site.posts limit:4 %}
         <article class="postItem">
             <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-            <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+            <div>
+              <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+              <div class="readTime">{{ post.content | size | divided_by: 1500 }} minute read</div>
+            </div>
         </article>
     {% endfor %}
 </section>
