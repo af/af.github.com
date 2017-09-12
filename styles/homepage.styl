@@ -256,11 +256,10 @@ $tagColours = {
         transform: scaleY(1)
 
     & + section
-        transition: transform 0.2s, opacity 0.2s
+        transition: opacity 0.2s 0.1s
 
-    &:hover + section
+    &.tooltipActive + section
         opacity: 0.3
-        transform: translateX(70px)
 
 .categoryAxis
     .domain, line

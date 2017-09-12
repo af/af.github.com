@@ -109,7 +109,8 @@ const renderTimeline = svg => {
         circleChart({
             data: linkChartData,
             scale: tScale,
-            rootEl: select('.bubbleRoot').append('g').attr('transform', leavePadding)
+            svgEl: svg,
+            rootSelection: select('.bubbleRoot').append('g').attr('transform', leavePadding)
         })
     })
 }

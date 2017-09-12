@@ -5,8 +5,7 @@ const PADDING = 1
 
 
 // Simple chart mapping content as circles along a time axis.
-export default function circleChart(config) {
-    const {rootEl, scale, data = []} = config
+export default function circleChart({svgEl, rootSelection, scale, data = []}) {
     const t = d => Math.floor(scale(new Date(d.date)))
 
     // For force sim beeswarm example, see
@@ -19,7 +18,7 @@ export default function circleChart(config) {
         .stop()
     for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
 
-    const groups = rootEl.append('g')
+    const groups = rootSelection.append('g')
         .selectAll('g.item')
         .data(data.filter(d => t(d) > 0))
         .enter().append('g')
@@ -28,6 +27,8 @@ export default function circleChart(config) {
     const links = groups.append('a')
             .attr('xlink:href', d => d.url)
             .attr('transform', d => `translate(${d.x}, ${d.y})`)
+            .on('mouseover', _ => svgEl.classList.add('tooltipActive'))
+            .on('mouseout', _ => svgEl.classList.remove('tooltipActive'))
 
     links.append('circle')
         .attr('class', d => d.bubbleClass)
