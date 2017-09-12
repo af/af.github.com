@@ -205,7 +205,8 @@ const renderTimeline = svg => {
         Object(__WEBPACK_IMPORTED_MODULE_1__circleChart__["a" /* default */])({
             data: linkChartData,
             scale: tScale,
-            rootEl: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.bubbleRoot').append('g').attr('transform', leavePadding)
+            svgEl: svg,
+            rootSelection: Object(__WEBPACK_IMPORTED_MODULE_0_d3__["select"])('.bubbleRoot').append('g').attr('transform', leavePadding)
         })
     })
 }
@@ -243,8 +244,7 @@ const PADDING = 1
 
 
 // Simple chart mapping content as circles along a time axis.
-function circleChart(config) {
-    const {rootEl, scale, data = []} = config
+function circleChart({svgEl, rootSelection, scale, data = []}) {
     const t = d => Math.floor(scale(new Date(d.date)))
 
     // For force sim beeswarm example, see
@@ -257,7 +257,7 @@ function circleChart(config) {
         .stop()
     for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
 
-    const groups = rootEl.append('g')
+    const groups = rootSelection.append('g')
         .selectAll('g.item')
         .data(data.filter(d => t(d) > 0))
         .enter().append('g')
@@ -266,6 +266,8 @@ function circleChart(config) {
     const links = groups.append('a')
             .attr('xlink:href', d => d.url)
             .attr('transform', d => `translate(${d.x}, ${d.y})`)
+            .on('mouseover', _ => svgEl.classList.add('tooltipActive'))
+            .on('mouseout', _ => svgEl.classList.remove('tooltipActive'))
 
     links.append('circle')
         .attr('class', d => d.bubbleClass)
