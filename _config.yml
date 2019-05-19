@@ -1,7 +1,7 @@
 permalink:  /posts/:title/
 markdown: kramdown
 extensions: [fenced_code_blocks]
-gems:
+plugins:
     - jekyll-seo-tag
     - jekyll-feed
 author: Aaron Franks

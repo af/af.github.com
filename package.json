@@ -6,7 +6,7 @@
     "build": "NODE_ENV=production webpack",
     "lint": "eslint js",
     "prepush": "npm run lint",
-    "serve": "jekyll serve --watch",
+    "serve": "bundle exec jekyll serve",
     "start": "concurrently \"npm run serve\" \"npm run watch\" --names jekyll,webpack -c blue,gray.dim",
     "watch": "webpack -w"
   },
