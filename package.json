@@ -29,6 +29,6 @@
   },
   "dependencies": {
     "d3": "4.10.0",
-    "stylepack": "0.5.0"
+    "stylepack": "0.5.3"
   }
 }
