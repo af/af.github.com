@@ -1,6 +1,8 @@
 const webpack = require('webpack')
 const stylepack = require('stylepack')
 const isDev = (process.env.NODE_ENV !== 'production')
+const TerserPlugin = require('terser-webpack-plugin')
+
 
 const config = {
     entry: './js/main.js',
@@ -11,6 +13,9 @@ const config = {
     plugins: [],
     resolve: {
         alias: isDev ? {} : {d3: `${__dirname}/node_modules/d3/build/d3.min.js`}
+    },
+    optimization: {
+        minimizer: isDev ? [] : [new TerserPlugin()],
     },
 
     performance: {
