@@ -1,0 +1,124 @@
+@require "_common"
+
+*
+    box-sizing: border-box
+
+html, body
+    height: 100%
+
+body
+    position: relative
+    margin: 0
+    min-width: 320px
+    background: url(/img/ribbon-bg-jumbo.svg) center no-repeat fixed
+    background-color: $colours.bodyBg
+    background-size: 100%
+    color: $colours.text
+    font-family: $mainFont
+    font-size: 18px
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+p
+    line-height: 1.5
+    margin: 0 0 1.4em
+li
+    line-height: 1.5
+    margin: 0 0 0.5em
+
+a, a.visited
+    color: $colours.cta
+    text-decoration: none
+    border-bottom: 1px solid rgba($colours.text, 0.5)
+    padding: 0 1px
+    transition: border-color 0.2s
+    text-shadow: 0 0 2px rgba(0,0,0,0.15)
+
+    &:hover
+        border-bottom-color: $colours.text
+
+pre
+    padding: 0.2em
+
+code
+    background: $colours.codeBg
+    padding: 2px 5px
+    border-radius: 3px
+    font-size: 1rem
+
+    pre &
+        display: block
+        padding: 1rem
+        border-radius: 0.5rem
+        overflow: auto
+
+blockquote
+    font-style: italic
+    margin-left: 0
+    padding-left: 1em
+    border-left: 5px solid rgba(#fff, 0.3)
+    opacity: 0.8
+
+.container
+    max-width: 1040px
+    min-width: 300px
+    margin-left: auto
+    margin-right: auto
+    padding: 0 1rem
+
+.siteHeader
+    display: flex
+    justify-content: space-between
+    padding-top: 2rem
+    padding-bottom: 2rem
+
+    .logo
+        border: none
+        background: none
+        display: inline-block
+        transition: transform 0.2s
+
+        &:hover
+            transform: scale(1.1)
+
+    > nav
+        display: flex
+        align-items: center
+
+        a
+            border-bottom: none
+            padding-left: 2em
+            font-weight: bold
+            font-size: 0.9em
+            text-transform: uppercase
+            opacity: 0.8
+
+            &:hover
+                opacity: 1
+
+.sectionHeading
+    display: flex
+    justify-content: space-between
+    align-items: baseline
+    text-transform: uppercase
+    letter-spacing: 0.06em
+    margin-bottom: 1em
+
+    h2
+        flex: 1
+        margin: 0
+        margin-right: 1em
+        font-size: 0.9rem
+        font-weight: 600
+        opacity: 0.7
+
+    .more
+        font-size: 0.8rem
+
+        &:after
+            content: ' ›'
+            font-size: 1.5em
+
+
+
+

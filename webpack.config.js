@@ -1,33 +1,39 @@
-const webpack = require('webpack')
-const stylepack = require('stylepack')
+const path = require('path')
 const isDev = (process.env.NODE_ENV !== 'production')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
 
 const config = {
+    mode: isDev ? 'development' : 'production',
     entry: './js/main.js',
     output: {
-        filename: 'assets/main.js'
+        filename: 'main.js',
+        path: path.resolve(__dirname, 'assets')
     },
-    module: {},
-    plugins: [],
-    resolve: {
-        alias: isDev ? {} : {d3: `${__dirname}/node_modules/d3/build/d3.min.js`}
+    module: {
+        rules: [{
+            test: /\.styl$/,
+            use: [
+                {
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {
+                        hmr: process.env.NODE_ENV === 'development',
+                    },
+                },
+                'css-loader', 'stylus-loader'
+            ]
+        }]
     },
+    plugins: [
+        new MiniCssExtractPlugin({filename: '[name].css', chunkFilename: '[id].css'}),
+    ],
     optimization: {
         minimizer: isDev ? [] : [new TerserPlugin()],
     },
-
     performance: {
         hints: isDev ? false : 'warning'
     }
 }
 
-// Unfortunately can't enable uglify because it doesn't support ES6 yet :(
-// if (!isDev) config.plugins.push(new webpack.optimize.UglifyJsPlugin())
-
-module.exports = stylepack({
-    webpack,
-    cssModules: false,
-    extractTo: !isDev && 'assets/main.css'
-})(config)
+module.exports = config
