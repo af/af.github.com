@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Silly little personal website",
   "scripts": {
+    "analyze": "ANALYZE_BUNDLE=1 NODE_ENV=production webpack",
     "build": "NODE_ENV=production webpack",
     "lint": "eslint js",
     "prepush": "npm run lint",
@@ -30,6 +31,7 @@
     "stylus-loader": "3.0.2",
     "terser-webpack-plugin": "1.3.0",
     "webpack": "4.34.0",
+    "webpack-bundle-analyzer": "3.3.2",
     "webpack-cli": "3.3.4"
   },
   "dependencies": {
