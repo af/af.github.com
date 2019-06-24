@@ -1,4 +1,8 @@
-import {axisLeft, axisTop, json, select, scaleOrdinal, scaleTime, timeMonth, timeYear} from 'd3'
+import {axisLeft, axisTop} from 'd3-axis'
+import {scaleOrdinal, scaleTime} from 'd3-scale'
+import {timeMonth, timeYear} from 'd3-time'
+import {select} from 'd3-selection'
+import {json} from 'd3-fetch'
 import circleChart from './circleChart'
 
 
@@ -14,9 +18,9 @@ const renderRepos = repos => {
     const NUM_REPOS_TO_SHOW = containers.length
 
     const myRepos = repos.filter(r => !r.fork)
-                      .filter(r => r.stargazers_count > 2)
-                      .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
-                      .slice(0, NUM_REPOS_TO_SHOW)
+        .filter(r => r.stargazers_count > 2)
+        .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
+        .slice(0, NUM_REPOS_TO_SHOW)
 
     const fill = (root, selector, text) => root.querySelector(selector).textContent = text
     containers.forEach((el, idx) => {
@@ -62,12 +66,12 @@ const renderTimeline = svg => {
     const leavePadding = `translate(${svgWidth / 2}, ${margin.top})`
 
     const tScale = scaleTime().range([svgHeight - margin.top - margin.bottom, margin.top])
-                           .domain([START_DATE, new Date()])
+        .domain([START_DATE, new Date()])
 
     // Set up an axis above the chart with category labels
     const ordScale = scaleOrdinal()
-                        .domain(Object.keys(CATEGORY_LANES))
-                        .range(Object.values(CATEGORY_LANES).map(v => v * svgWidth))
+        .domain(Object.keys(CATEGORY_LANES))
+        .range(Object.values(CATEGORY_LANES).map(v => v * svgWidth))
     const catAxis = select('.categoryAxis')
     catAxis
         .attr('transform', leavePadding)
@@ -121,11 +125,9 @@ const homepageMain = () => {
     window._linksPromise.then(renderLinkSidebar)
 
     // Render Github source repos, using their CORS-enabled public API
-    json(GITHUB_URL, (err, repos) => {
-        err
-            ? console.error(err)
-            : renderRepos(repos)
-    })
+    json(GITHUB_URL)
+        .then(renderRepos)
+        .catch(err => console.log(`Couldn't fetch github repos: ${err.message}`))
 
     renderTimeline(document.querySelector('.timelineChart'))
 }

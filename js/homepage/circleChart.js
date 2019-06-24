@@ -1,4 +1,5 @@
-import {forceSimulation, forceX, forceY, forceCollide, select} from 'd3'
+import {forceSimulation, forceX, forceY, forceCollide} from 'd3-force'
+import {select} from 'd3-selection'
 
 const SIM_STEPS = 20
 const PADDING = 1
@@ -22,13 +23,13 @@ export default function circleChart({svgEl, rootSelection, scale, data = []}) {
         .selectAll('g.item')
         .data(data.filter(d => t(d) > 0))
         .enter().append('g')
-            .attr('class', 'item')
+        .attr('class', 'item')
 
     const links = groups.append('a')
-            .attr('xlink:href', d => d.url)
-            .attr('transform', d => `translate(${d.x}, ${d.y})`)
-            .on('mouseover', _ => svgEl.classList.add('tooltipActive'))
-            .on('mouseout', _ => svgEl.classList.remove('tooltipActive'))
+        .attr('xlink:href', d => d.url)
+        .attr('transform', d => `translate(${d.x}, ${d.y})`)
+        .on('mouseover', _ => svgEl.classList.add('tooltipActive'))
+        .on('mouseout', _ => svgEl.classList.remove('tooltipActive'))
 
     links.append('circle')
         .attr('class', d => d.bubbleClass)
