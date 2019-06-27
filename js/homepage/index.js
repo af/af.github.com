@@ -24,6 +24,8 @@ const renderRepos = repos => {
 
     const fill = (root, selector, text) => root.querySelector(selector).textContent = text
     containers.forEach((el, idx) => {
+        // overeager camel-case error here
+        // eslint-disable-next-line
         const {name, description, stargazers_count, html_url} = myRepos[idx] || {}
         const link = el.querySelector('a')
         link.href = html_url  // eslint-disable-line camelcase
