@@ -1,8 +1,7 @@
 * {
   box-sizing: border-box;
 }
-html,
-body {
+html {
   height: 100%;
 }
 body {
@@ -15,6 +14,7 @@ body {
   color: #fff;
   font-family: Roboto, system-ui, sans-serif;
   font-size: 18px;
+  min-height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -69,7 +69,14 @@ blockquote {
   padding: 0 1rem;
 }
 .siteHeader {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: linear-gradient(#32905b 50%, transparent);
+}
+.siteHeader .container {
   display: flex;
+  flex: 1;
   justify-content: space-between;
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -83,11 +90,11 @@ blockquote {
 .siteHeader .logo:hover {
   transform: scale(1.1);
 }
-.siteHeader > nav {
+.siteHeader nav {
   display: flex;
   align-items: center;
 }
-.siteHeader > nav a {
+.siteHeader nav a {
   border-bottom: none;
   padding-left: 2em;
   font-weight: bold;
@@ -95,7 +102,7 @@ blockquote {
   text-transform: uppercase;
   opacity: 0.8;
 }
-.siteHeader > nav a:hover {
+.siteHeader nav a:hover {
   opacity: 1;
 }
 .sectionHeading {

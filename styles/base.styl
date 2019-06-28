@@ -3,7 +3,7 @@
 *
     box-sizing: border-box
 
-html, body
+html
     height: 100%
 
 body
@@ -16,6 +16,7 @@ body
     color: $colours.text
     font-family: $mainFont
     font-size: 18px
+    min-height: 100%
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
 
@@ -67,10 +68,17 @@ blockquote
     padding: 0 1rem
 
 .siteHeader
-    display: flex
-    justify-content: space-between
-    padding-top: 2rem
-    padding-bottom: 2rem
+    position: sticky
+    top: 0
+    z-index: 3
+    background: linear-gradient($colours.bodyBg 50%, transparent)
+
+    .container
+        display: flex
+        flex: 1
+        justify-content: space-between
+        padding-top: 2rem
+        padding-bottom: 2rem
 
     .logo
         border: none
@@ -81,7 +89,7 @@ blockquote
         &:hover
             transform: scale(1.1)
 
-    > nav
+    nav
         display: flex
         align-items: center
 
