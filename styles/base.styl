@@ -68,10 +68,11 @@ blockquote
     padding: 0 1rem
 
 .siteHeader
+    position: -webkit-sticky
     position: sticky
     top: 0
     z-index: 3
-    background: linear-gradient($colours.bodyBg 50%, transparent)
+    background: linear-gradient($colours.bodyBg 50%, rgba($colours.bodyBg, 0))
 
     .container
         display: flex
