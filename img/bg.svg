@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="768" height="1024" viewBox="0 0 768 1024">
+  <defs>
+    <rect id="bg-shape-a" width="768" height="1024" x="0" y=".8"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(0 -.8)">
+    <mask id="bg-shape-b" fill="#fff">
+      <use xlink:href="#bg-shape-a"/>
+    </mask>
+    <polygon points="-35.7 314.9 439.6 1231.6 779.2 1244.1 769 1024.8 0 83.5" mask="url(#bg-shape-b)"/>
+    <polygon points="-133 -41.8 668.3 1148.8 1007.9 1161.4 997.7 942 0 -133" mask="url(#bg-shape-b)"/>
+    <polygon points="-88.8 280.8 345.3 1325.8 684.9 1338.4 674.7 1119 -35.7 132.9" mask="url(#bg-shape-b)"/>
+  </g>
+</svg>

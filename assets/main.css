@@ -8,8 +8,8 @@ body {
   position: relative;
   margin: 0;
   min-width: 320px;
-  background: url("/img/ribbon-bg-jumbo.svg") center no-repeat fixed;
-  background-color: #32905b;
+  background: url("/img/bg.svg") center no-repeat fixed;
+  background-color: #2a2a35;
   background-size: 100%;
   color: #fff;
   font-family: Roboto, system-ui, sans-serif;
@@ -28,16 +28,16 @@ li {
 }
 a,
 a.visited {
-  color: #fff;
+  color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,0.5);
+  border-bottom: 3px solid #7b6ced;
   padding: 0 1px;
-  transition: border-color 0.2s;
+  transition: color 0.2s;
   text-shadow: 0 0 2px rgba(0,0,0,0.15);
 }
 a:hover,
 a.visited:hover {
-  border-bottom-color: #fff;
+  color: #7b6ced;
 }
 pre {
   padding: 0.2em;
@@ -73,7 +73,7 @@ blockquote {
   position: sticky;
   top: 0;
   z-index: 3;
-  background: linear-gradient(#32905b 50%, rgba(50,144,91,0));
+  background: linear-gradient(#2a2a35 50%, rgba(42,42,53,0));
 }
 .siteHeader .container {
   display: flex;
@@ -86,10 +86,6 @@ blockquote {
   border: none;
   background: none;
   display: inline-block;
-  transition: transform 0.2s;
-}
-.siteHeader .logo:hover {
-  transform: scale(1.1);
 }
 .siteHeader nav {
   display: flex;
@@ -115,6 +111,7 @@ blockquote {
   margin-bottom: 1em;
 }
 .sectionHeading h2 {
+  color: #d4d2ef;
   flex: 1;
   margin: 0;
   margin-right: 1em;
@@ -245,13 +242,13 @@ blockquote {
   fill: #fff !important;
 }
 .timeline circle.javascript {
-  fill: #8fb6c2;
+  fill: #2e60b4;
 }
 .timeline circle.design {
-  fill: #74c2b8;
+  fill: #3c9064;
 }
 .timeline circle.programming {
-  fill: #86bf93;
+  fill: #4739ad;
 }
 @media (min-width: 500px) {
   .timeline {
@@ -308,19 +305,18 @@ blockquote {
   padding: 2px 5px;
   margin-right: 3px;
   border-radius: 2px;
-  text-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 .latestLinks > article .tags a:not(:hover) {
   border-bottom: 1px solid transparent;
 }
 .latestLinks > article .tags .tag-programming {
-  background: #86bf93;
+  background: #4739ad;
 }
 .latestLinks > article .tags .tag-javascript {
-  background: #8fb6c2;
+  background: #2e60b4;
 }
 .latestLinks > article .tags .tag-design {
-  background: #74c2b8;
+  background: #3c9064;
 }
 .latestLinks > article .tags .tag-top {
   border-bottom: 2px solid currentColor;
@@ -394,16 +390,16 @@ blockquote {
   transform: rotate(-10deg);
 }
 .categoryAxis text.javascript {
-  fill: #b1ccd4;
+  fill: #618dd7;
 }
 .categoryAxis text.design {
-  fill: #9ed4cd;
+  fill: #68c092;
 }
 .categoryAxis text.other {
   fill: rgba(255,255,255,0.5);
 }
 .categoryAxis text.programming {
-  fill: #aad2b3;
+  fill: #786cce;
 }
 @-moz-keyframes pulseSize {
   0% {
@@ -501,19 +497,19 @@ blockquote {
   border-bottom: none;
 }
 .posts-list time {
+  color: #d4d2ef;
   display: inline-block;
   min-width: 6rem;
-  opacity: 0.8;
   font-size: 1rem;
 }
 .post {
   max-width: 43rem;
 }
 .post header time[pubdate] {
+  color: #d4d2ef;
   display: block;
   margin-bottom: 2rem;
   font-weight: 600;
-  opacity: 0.6;
 }
 .post h1 {
   margin: 1.4rem 0 0.2rem;
@@ -526,6 +522,7 @@ blockquote {
   margin: 2rem 0 1rem;
 }
 .post h2 {
+  color: #d4d2ef;
   font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
