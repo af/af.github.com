@@ -1,13 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="768" height="1024" viewBox="0 0 768 1024">
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="1024" viewBox="0 0 768 1024">
   <defs>
-    <rect id="bg-shape-a" width="768" height="1024" x="0" y=".8"/>
+    <linearGradient id="bg-shape-a" x1="32.7%" x2="79.3%" y1="-24.1%" y2="114.4%">
+      <stop offset="0%" stop-color="#FFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#FFF"/>
+    </linearGradient>
+    <linearGradient id="bg-shape-b" x1="35.5%" x2="74.6%" y1="-24.1%" y2="114.4%">
+      <stop offset="0%" stop-color="#FFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#FFF"/>
+    </linearGradient>
+    <linearGradient id="bg-shape-c" x1="37%" x2="72%" y1="-24.1%" y2="114.4%">
+      <stop offset="0%" stop-color="#FFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#FFF"/>
+    </linearGradient>
   </defs>
-  <g fill="none" fill-rule="evenodd" transform="translate(0 -.8)">
-    <mask id="bg-shape-b" fill="#fff">
-      <use xlink:href="#bg-shape-a"/>
-    </mask>
-    <polygon points="-35.7 314.9 439.6 1231.6 779.2 1244.1 769 1024.8 0 83.5" mask="url(#bg-shape-b)"/>
-    <polygon points="-133 -41.8 668.3 1148.8 1007.9 1161.4 997.7 942 0 -133" mask="url(#bg-shape-b)"/>
-    <polygon points="-88.8 280.8 345.3 1325.8 684.9 1338.4 674.7 1119 -35.7 132.9" mask="url(#bg-shape-b)"/>
+  <g fill="none" fill-rule="evenodd" opacity=".1" transform="translate(0 -2.8)">
+    <polygon fill="url(#bg-shape-a)" points="1 388.8 355.7 1026.8 769 1026.8 0 85.5" opacity=".5"/>
+    <polygon fill="url(#bg-shape-b)" points="0 157.8 577.5 1027 768 1026.8 768 706.1 140 0 0 0" opacity=".5"/>
+    <polygon fill="url(#bg-shape-c)" points="0 473.4 246 1026.8 600 1026.8 0 179.8" opacity=".5"/>
   </g>
 </svg>

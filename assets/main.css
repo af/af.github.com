@@ -7,9 +7,9 @@ html {
 body {
   position: relative;
   margin: 0;
-  min-width: 320px;
-  background: url("/img/bg.svg") center no-repeat fixed;
-  background-color: #2a2a35;
+  min-width: 321px;
+  background: url("/img/bg.svg") center no-repeat fixed, linear-gradient(#282834 100px, #0f0e18) fixed;
+  background-color: #282834;
   background-size: 100%;
   color: #fff;
   font-family: Roboto, system-ui, sans-serif;
@@ -30,14 +30,13 @@ a,
 a.visited {
   color: inherit;
   text-decoration: none;
-  border-bottom: 3px solid #7b6ced;
+  border-bottom: 2px solid #8d84ee;
   padding: 0 1px;
-  transition: color 0.2s;
-  text-shadow: 0 0 2px rgba(0,0,0,0.15);
+  transition: color 0.1s;
 }
 a:hover,
 a.visited:hover {
-  color: #7b6ced;
+  color: #8d84ee;
 }
 pre {
   padding: 0.2em;
@@ -67,13 +66,6 @@ blockquote {
   margin-left: auto;
   margin-right: auto;
   padding: 0 1rem;
-}
-.siteHeader {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 3;
-  background: linear-gradient(#2a2a35 50%, rgba(42,42,53,0));
 }
 .siteHeader .container {
   display: flex;
@@ -111,7 +103,7 @@ blockquote {
   margin-bottom: 1em;
 }
 .sectionHeading h2 {
-  color: #d4d2ef;
+  color: #b7b5e3;
   flex: 1;
   margin: 0;
   margin-right: 1em;
@@ -129,7 +121,7 @@ blockquote {
 .hello {
   margin: 2rem auto 5rem;
   max-width: 22em;
-  font-size: 26px;
+  font-size: 22px;
 }
 .blogPosts {
   margin-top: 5rem;
@@ -143,12 +135,14 @@ blockquote {
 .blogPosts .postItem h1 {
   margin: 0;
   flex: 1;
+  font-size: inherit;
+  margin-bottom: 0.3em;
 }
-.blogPosts .postItem a:not(:hover) {
+.blogPosts .postItem a {
   border-bottom: none;
 }
 .blogPosts .postItem .readTime {
-  font-size: 0.8em;
+  font-size: 0.75em;
   font-weight: 600;
   opacity: 0.5;
 }
@@ -174,7 +168,7 @@ blockquote {
     width: 49%;
   }
   .ossProjects > li > a {
-    min-height: 90px;
+    min-height: 100px;
   }
 }
 @media (min-width: 800px) {
@@ -190,11 +184,12 @@ blockquote {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0.5em;
-  background: rgba(255,255,255,0.1);
+  padding: 0.8em;
+  color: inherit;
+  background: #3d3c4b;
   border: none;
   border-radius: 3px;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 .ossProjects a.loading {
   animation: 1s pulseOpacity alternate-reverse infinite;
@@ -203,7 +198,8 @@ blockquote {
   display: none;
 }
 .ossProjects a:hover {
-  background: rgba(255,255,255,0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 15px rgba(0,0,0,0.3);
 }
 .ossProjects .projectTitle {
   margin: 0 0 0.2em;
@@ -215,8 +211,8 @@ blockquote {
 }
 .ossProjects .projectStars {
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  top: 0.8em;
+  right: 0.8em;
   font-size: 0.8em;
 }
 .ossProjects .projectStars:before {
@@ -242,13 +238,13 @@ blockquote {
   fill: #fff !important;
 }
 .timeline circle.javascript {
-  fill: #2e60b4;
+  fill: #4678b9;
 }
 .timeline circle.design {
-  fill: #3c9064;
+  fill: #559175;
 }
 .timeline circle.programming {
-  fill: #4739ad;
+  fill: #5a51bb;
 }
 @media (min-width: 500px) {
   .timeline {
@@ -300,23 +296,25 @@ blockquote {
   margin: 0;
 }
 .latestLinks > article .tags a {
+  border: none;
+  color: inherit;
   display: inline-block;
   background: rgba(255,255,255,0.1);
   padding: 2px 5px;
   margin-right: 3px;
   border-radius: 2px;
 }
-.latestLinks > article .tags a:not(:hover) {
-  border-bottom: 1px solid transparent;
+.latestLinks > article .tags a:hover {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 .latestLinks > article .tags .tag-programming {
-  background: #4739ad;
+  background: #5a51bb;
 }
 .latestLinks > article .tags .tag-javascript {
-  background: #2e60b4;
+  background: #4678b9;
 }
 .latestLinks > article .tags .tag-design {
-  background: #3c9064;
+  background: #559175;
 }
 .latestLinks > article .tags .tag-top {
   border-bottom: 2px solid currentColor;
@@ -390,16 +388,16 @@ blockquote {
   transform: rotate(-10deg);
 }
 .categoryAxis text.javascript {
-  fill: #618dd7;
+  fill: #7da1ce;
 }
 .categoryAxis text.design {
-  fill: #68c092;
+  fill: #83b79f;
 }
 .categoryAxis text.other {
   fill: rgba(255,255,255,0.5);
 }
 .categoryAxis text.programming {
-  fill: #786cce;
+  fill: #8b85cf;
 }
 @-moz-keyframes pulseSize {
   0% {
@@ -497,7 +495,7 @@ blockquote {
   border-bottom: none;
 }
 .posts-list time {
-  color: #d4d2ef;
+  color: #b7b5e3;
   display: inline-block;
   min-width: 6rem;
   font-size: 1rem;
@@ -506,14 +504,15 @@ blockquote {
   max-width: 43rem;
 }
 .post header time[pubdate] {
-  color: #d4d2ef;
+  color: #b7b5e3;
   display: block;
+  font-size: 0.9em;
   margin-bottom: 2rem;
   font-weight: 600;
 }
 .post h1 {
-  margin: 1.4rem 0 0.2rem;
-  font-size: 2rem;
+  margin: 1.4rem 0 0.4rem;
+  font-size: 1.6rem;
   line-height: 1;
 }
 .post h2,
@@ -522,8 +521,8 @@ blockquote {
   margin: 2rem 0 1rem;
 }
 .post h2 {
-  color: #d4d2ef;
-  font-size: 1.1rem;
+  color: #b7b5e3;
+  font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 0.07em;
   margin-top: 3em;
