@@ -10,13 +10,16 @@ body {
   min-width: 321px;
   background: url("/img/bg.svg") center no-repeat fixed, linear-gradient(#282834 100px, #0f0e18) fixed;
   background-color: #282834;
-  background-size: 100%;
+  background-size: cover;
   color: #fff;
   font-family: Roboto, system-ui, sans-serif;
   font-size: 18px;
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+h1 {
+  font-size: 1.4em;
 }
 p {
   line-height: 1.5;
@@ -42,7 +45,7 @@ pre {
   padding: 0.2em;
 }
 code {
-  background: rgba(0,0,0,0.07);
+  background: rgba(0,0,0,0.15);
   padding: 2px 5px;
   border-radius: 3px;
   font-size: 1rem;
@@ -71,8 +74,8 @@ blockquote {
   display: flex;
   flex: 1;
   justify-content: space-between;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
 }
 .siteHeader .logo {
   border: none;
@@ -89,7 +92,6 @@ blockquote {
   font-weight: bold;
   font-size: 0.9em;
   text-transform: uppercase;
-  opacity: 0.8;
 }
 .siteHeader nav a:hover {
   opacity: 1;
@@ -103,7 +105,7 @@ blockquote {
   margin-bottom: 1em;
 }
 .sectionHeading h2 {
-  color: #b7b5e3;
+  color: #bcbade;
   flex: 1;
   margin: 0;
   margin-right: 1em;
@@ -118,6 +120,31 @@ blockquote {
   content: ' ›';
   font-size: 1.5em;
 }
+.postListItem {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 1em;
+}
+.postListItem h1 {
+  margin: 0;
+  flex: 1;
+  font-size: inherit;
+  margin-bottom: 0.2em;
+}
+.postListItem a {
+  border-bottom: none;
+}
+.postListItem .readTime {
+  font-size: 0.75em;
+  font-weight: 600;
+  opacity: 0.5;
+}
+.postListItem time {
+  flex: 5.5em 0 0;
+  margin-right: 1em;
+  font-size: 0.85em;
+  opacity: 0.5;
+}
 .hello {
   margin: 2rem auto 5rem;
   max-width: 22em;
@@ -126,31 +153,6 @@ blockquote {
 .blogPosts {
   margin-top: 5rem;
   margin-bottom: 5rem;
-}
-.blogPosts .postItem {
-  display: flex;
-  align-items: baseline;
-  margin-bottom: 1em;
-}
-.blogPosts .postItem h1 {
-  margin: 0;
-  flex: 1;
-  font-size: inherit;
-  margin-bottom: 0.3em;
-}
-.blogPosts .postItem a {
-  border-bottom: none;
-}
-.blogPosts .postItem .readTime {
-  font-size: 0.75em;
-  font-weight: 600;
-  opacity: 0.5;
-}
-.blogPosts .postItem time {
-  flex: 5.5em 0 0;
-  margin-right: 1em;
-  font-size: 0.85em;
-  opacity: 0.5;
 }
 .ossProjects {
   display: flex;
@@ -198,6 +200,7 @@ blockquote {
   display: none;
 }
 .ossProjects a:hover {
+  filter: brightness(1.3);
   transform: translateY(-2px);
   box-shadow: 0 2px 15px rgba(0,0,0,0.3);
 }
@@ -475,36 +478,11 @@ blockquote {
     opacity: 0.4;
   }
 }
-.posts-list {
-  padding: 0;
-}
-.posts-list > li {
-  list-style: none;
-}
-.posts-list article {
-  display: flex;
-  margin-bottom: 1em;
-}
-.posts-list h1 {
-  display: inline-block;
-  margin: 0;
-  font-size: 1.2em;
-  line-height: 1.2;
-}
-.posts-list a:not(:hover) {
-  border-bottom: none;
-}
-.posts-list time {
-  color: #b7b5e3;
-  display: inline-block;
-  min-width: 6rem;
-  font-size: 1rem;
-}
 .post {
-  max-width: 43rem;
+  max-width: 45rem;
 }
 .post header time[pubdate] {
-  color: #b7b5e3;
+  color: #bcbade;
   display: block;
   font-size: 0.9em;
   margin-bottom: 2rem;
@@ -521,7 +499,7 @@ blockquote {
   margin: 2rem 0 1rem;
 }
 .post h2 {
-  color: #b7b5e3;
+  color: #bcbade;
   font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -535,7 +513,7 @@ blockquote {
   max-width: 100%;
 }
 .postFooter {
-  max-width: 43rem;
+  max-width: 45rem;
   margin: 2rem 0;
   padding: 1.5rem 0 3rem;
   border-top: 1px solid rgba(255,255,255,0.2);
