@@ -22,6 +22,9 @@ body
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
 
+h1
+    font-size: 1.4em
+
 p
     line-height: 1.5
     margin: 0 0 1.4em
@@ -73,8 +76,8 @@ blockquote
         display: flex
         flex: 1
         justify-content: space-between
-        padding-top: 2rem
-        padding-bottom: 2rem
+        padding-top: 1.5rem
+        padding-bottom: 3rem
 
     .logo
         border: none
@@ -91,7 +94,6 @@ blockquote
             font-weight: bold
             font-size: 0.9em
             text-transform: uppercase
-            opacity: 0.8
 
             &:hover
                 opacity: 1
@@ -120,6 +122,27 @@ blockquote
             content: ' ›'
             font-size: 1.5em
 
+.postListItem
+    display: flex
+    align-items: baseline
+    margin-bottom: 1em
 
+    h1
+        margin: 0
+        flex: 1
+        font-size: inherit
+        margin-bottom: 0.2em
 
+    a
+        border-bottom: none
 
+    .readTime
+        font-size: 0.75em
+        font-weight: 600
+        opacity: 0.5
+
+    time
+        flex: 5.5em 0 0
+        margin-right: 1em
+        font-size: 0.85em
+        opacity: 0.5

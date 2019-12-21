@@ -4,16 +4,16 @@ title: All Posts
 ---
 
 <div class="container post_list">
-    <h1>All Posts</h1>
+    <h1>Blog posts</h1>
 
-    <ol class="posts-list">
+    <p>
+        It appears you are interested in the back catalog for some reason.
+        The following are all of the things I've written for this little site.
+    </p>
+
+    <ol class="container">
     {% for post in site.posts %}
-        <li>
-        <article>
-            <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-            <h1 class="titleCell"><a href="{{ post.url }}">{{ post.title }}</a></h1>
-        </article>
-        </li>
+        {% include post_list_item.html %}
     {% endfor %}
     </ol>
 </div>
