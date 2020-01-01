@@ -11,7 +11,7 @@ body {
   background: url("/img/bg.svg") center no-repeat fixed, linear-gradient(#282834 100px, #0f0e18) fixed;
   background-color: #282834;
   background-size: cover;
-  color: #fff;
+  color: #d8d9e2;
   font-family: Roboto, system-ui, sans-serif;
   font-size: 18px;
   min-height: 100%;
@@ -20,10 +20,12 @@ body {
 }
 h1 {
   font-size: 1.4em;
+  color: #fff;
 }
 p {
   line-height: 1.5;
   margin: 0 0 1.4em;
+  max-width: 45em;
 }
 li {
   line-height: 1.5;
@@ -31,7 +33,7 @@ li {
 }
 a,
 a.visited {
-  color: inherit;
+  color: #fff;
   text-decoration: none;
   border-bottom: 2px solid #8d84ee;
   padding: 0 1px;
@@ -105,7 +107,7 @@ blockquote {
   margin-bottom: 1em;
 }
 .sectionHeading h2 {
-  color: #bcbade;
+  color: #aeacdc;
   flex: 1;
   margin: 0;
   margin-right: 1em;
@@ -482,7 +484,7 @@ blockquote {
   max-width: 45rem;
 }
 .post header time[pubdate] {
-  color: #bcbade;
+  color: #aeacdc;
   display: block;
   font-size: 0.9em;
   margin-bottom: 2rem;
@@ -499,7 +501,7 @@ blockquote {
   margin: 2rem 0 1rem;
 }
 .post h2 {
-  color: #bcbade;
+  color: #aeacdc;
   font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 0.07em;
