@@ -2,18 +2,15 @@ import {axisLeft, axisTop} from 'd3-axis'
 import {scaleOrdinal, scaleTime} from 'd3-scale'
 import {timeMonth, timeYear} from 'd3-time'
 import {select} from 'd3-selection'
-import {json} from 'd3-fetch'
 import circleChart from './circleChart'
-
 
 const DAYS_OF_HISTORY = 580
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
-const GITHUB_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=20'
-const CATEGORY_LANES = {javascript: -0.3, programming: -0.1, design: 0.3, other: 0.1}
+const CATEGORY_LANES = {typescript: -0.3, programming: -0.1, design: 0.3, other: 0.1}
 const TAGS = Object.keys(CATEGORY_LANES)
 
-
-const renderRepos = repos => {
+const renderRepos = response => {
+    const repos = response.data
     const containers = document.querySelectorAll('.ossProjects > li')
     const NUM_REPOS_TO_SHOW = containers.length
 
@@ -59,7 +56,7 @@ const renderLinkSidebar = links => {
     container.innerHTML = htmlItems.join('')
 }
 
-const renderTimeline = svg => {
+const renderTimeline = async (svg) => {
     const {width, height, display} = getComputedStyle(svg)
     if (display === 'none') return  // Don't do expensive rendering on mobile (svg is hidden)
 
@@ -95,41 +92,39 @@ const renderTimeline = svg => {
         .call(makeAxis().ticks(nonZeroMonths))
 
     // Plot saved links from pinboard's JSONP API
-    window._linksPromise.then(links => {
-        // Divide links into tag group "buckets":
-        const getGroupForLink = link => TAGS.find(t => link.t && link.t.includes(t)) || 'other'
+    const links = await window._linksPromise
+    // Divide links into tag group "buckets":
+    const getGroupForLink = link => TAGS.find(t => link.t && link.t.includes(t)) || 'other'
 
-        const linkChartData = links.map(l => {
-            const group = getGroupForLink(l)
-            const isTopLink = l.t.includes('top')
-            return {
-                radius: 6 * (isTopLink ? 1.5 : 1),
-                bubbleClass: `link ${group} ${isTopLink ? 'top' : ''}`,
-                initialX: svgWidth * CATEGORY_LANES[group],
-                date: l.dt,
-                url: l.u,
-                title: l.d
-            }
-        })
+    const linkChartData = links.map(l => {
+        const group = getGroupForLink(l)
+        const isTopLink = l.t.includes('top')
+        return {
+            radius: 6 * (isTopLink ? 1.5 : 1),
+            bubbleClass: `link ${group} ${isTopLink ? 'top' : ''}`,
+            initialX: svgWidth * CATEGORY_LANES[group],
+            date: l.dt,
+            url: l.u,
+            title: l.d
+        }
+    })
 
-        circleChart({
-            data: linkChartData,
-            scale: tScale,
-            svgEl: svg,
-            rootSelection: select('.bubbleRoot').append('g').attr('transform', leavePadding)
-        })
+    circleChart({
+        data: linkChartData,
+        scale: tScale,
+        svgEl: svg,
+        rootSelection: select('.bubbleRoot').append('g').attr('transform', leavePadding)
     })
 }
 
 
-const homepageMain = () => {
+const homepageMain = async () => {
     // Render latest links from pinboard
-    window._linksPromise.then(renderLinkSidebar)
+    const links = await window._linksPromise
+    renderLinkSidebar(links)
 
-    // Render Github source repos, using their CORS-enabled public API
-    json(GITHUB_URL)
-        .then(renderRepos)
-        .catch(err => console.log(`Couldn't fetch github repos: ${err.message}`))
+    const repos = await window._reposPromise
+    renderRepos(repos)
 
     renderTimeline(document.querySelector('.timelineChart'))
 }

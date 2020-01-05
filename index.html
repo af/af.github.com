@@ -8,7 +8,7 @@ preconnect_domains:
 
 <div class="container">
 <p class="hello">
-    Hi 👋 I’m a software engineer with keen interests in user interfaces,
+    Hi 👋 I’m a software engineer with interests in user interfaces,
     data visualization, and functional programming.
 </p>
 </div>
@@ -63,11 +63,14 @@ preconnect_domains:
 <footer>&nbsp;</footer>
 
 <script>
-    // Load pinboard links into a Promise. This happens here instead of in the main js bundle
-    // so the data loads quicker
+    // Load pinboard links and GH repos (via their jsonp callback) into Promises
     window._linksPromise = new Promise((resolve, reject) => {
         window.linksCb = (links => resolve(links))
     })
+    window._reposPromise = new Promise((resolve, reject) => {
+        window.reposCb = (repos => resolve(repos))
+    })
 </script>
 
+<script src="https://api.github.com/users/af/repos?sort=updated&per_page=10&callback=reposCb"></script>
 <script src="https://feeds.pinboard.in/json/u:_af?count=400&cb=linksCb"></script>
