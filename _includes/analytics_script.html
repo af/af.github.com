@@ -1,3 +1,4 @@
+<script>
 (function() {
     if (location.hostname === 'localhost') return;
     var isAuthor = window.localStorage && window.localStorage.getItem('isAuthor');
@@ -11,4 +12,4 @@
     ga('set', 'dimension1', isAuthor ? 'author' : 'viewer');
     ga('send', 'pageview');
 }());
-
+</script>
