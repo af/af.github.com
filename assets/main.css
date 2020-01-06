@@ -242,7 +242,7 @@ blockquote {
   animation: 0.5s pulseSize;
   fill: #fff !important;
 }
-.timeline circle.javascript {
+.timeline circle.typescript {
   fill: #4678b9;
 }
 .timeline circle.design {
@@ -315,7 +315,7 @@ blockquote {
 .latestLinks > article .tags .tag-programming {
   background: #5a51bb;
 }
-.latestLinks > article .tags .tag-javascript {
+.latestLinks > article .tags .tag-typescript {
   background: #4678b9;
 }
 .latestLinks > article .tags .tag-design {
@@ -392,7 +392,7 @@ blockquote {
   filter: drop-shadow(0 0 3px rgba(0,0,0,0.1));
   transform: rotate(-10deg);
 }
-.categoryAxis text.javascript {
+.categoryAxis text.typescript {
   fill: #7da1ce;
 }
 .categoryAxis text.design {

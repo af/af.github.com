@@ -6,7 +6,7 @@ import circleChart from './circleChart'
 
 const DAYS_OF_HISTORY = 580
 const START_DATE = new Date(new Date() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
-const CATEGORY_LANES = {typescript: -0.3, programming: -0.1, design: 0.3, other: 0.1}
+const CATEGORY_LANES = {typescript: -0.3, programming: -0.1, design: 0.1, other: 0.3}
 const TAGS = Object.keys(CATEGORY_LANES)
 
 const renderRepos = response => {

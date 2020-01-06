@@ -2,7 +2,7 @@ import {forceSimulation, forceX, forceY, forceCollide} from 'd3-force'
 import {select} from 'd3-selection'
 
 const SIM_STEPS = 20
-const PADDING = 1
+const PADDING = 0.8
 
 
 // Simple chart mapping content as circles along a time axis.
@@ -17,7 +17,7 @@ export default function circleChart({svgEl, rootSelection, scale, data = []}) {
         .force('y', forceY(t).strength(1))
         .force('collide', collisionForce)
         .stop()
-    for (let i = 0; i < SIM_STEPS; ++i) sim.tick()
+    for (let i = 0; i < SIM_STEPS; i++) sim.tick()
 
     const groups = rootSelection.append('g')
         .selectAll('g.item')
