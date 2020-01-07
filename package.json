@@ -6,8 +6,7 @@
     "analyze": "ANALYZE_BUNDLE=1 NODE_ENV=production webpack",
     "build": "NODE_ENV=production webpack",
     "lint": "eslint js",
-    "serve": "bundle exec jekyll serve",
-    "start": "concurrently \"npm run serve\" \"npm run watch\" --names jekyll,webpack -c blue,gray.dim",
+    "start": "concurrently \"eleventy --serve\" \"npm run watch\" --names jekyll,webpack -c blue,gray.dim",
     "watch": "webpack -w"
   },
   "repository": {
@@ -20,6 +19,9 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
+    "@11ty/eleventy": "0.9.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "3.0.1",
+    "@11ty/eleventy-plugin-rss": "1.0.7",
     "concurrently": "5.0.2",
     "css-loader": "3.4.0",
     "eslint": "6.8.0",

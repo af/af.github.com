@@ -5,7 +5,7 @@
     <link href="/assets/main.css" rel="stylesheet" type="text/css">
     <link href="/img/favicon.png" type="image/png" rel="shortcut icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% feed_meta %}
+    <!-- FIXME: RSS link (formerly feed_meta in jekyll)-->
 
     {% for domain in page.preconnect_domains %}
         <link rel="preconnect" href="{{ domain }}" crossorigin />
@@ -17,7 +17,7 @@
     <meta name="keywords" content="Aaron Franks, programming, software, Victoria" />
     {% endif %}
 
-    {% seo %}
+    <!-- FIXME: replace jekyll seo tag -->
 </head>
 <body>
     <header class="siteHeader">

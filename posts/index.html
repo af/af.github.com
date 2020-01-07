@@ -12,8 +12,8 @@ title: All Posts
     </p>
 
     <ol class="container">
-    {% for post in site.posts %}
-        {% include post_list_item.html %}
+    {% for post in collections.posts %}
+        {% include post_list_item.html post=post %}
     {% endfor %}
     </ol>
 </div>

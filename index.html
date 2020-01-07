@@ -38,8 +38,8 @@ preconnect_domains:
         <a href="/posts" class="more">More Posts</a>
     </header>
 
-    {% for post in site.posts limit:4 %}
-        {% include post_list_item.html %}
+    {% for post in collections.posts limit:4 %}
+        {% include post_list_item.html post=post %}
     {% endfor %}
 </section>
 
