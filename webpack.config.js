@@ -35,7 +35,8 @@ const config = {
     },
     performance: {
         hints: isDev ? false : 'warning'
-    }
+    },
+    stats: 'minimal',
 }
 
 if (ANALYZE_BUNDLE) config.plugins.push(new BundleAnalyzerPlugin())

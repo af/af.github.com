@@ -1,10 +1,10 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight")
 const pluginRss = require("@11ty/eleventy-plugin-rss")
 
+// TODO: blog post urls
 // TODO: estimated read time
 // TODO: rss feed
 // TODO: replace jekyll seo tag
-// TODO: integrate asset generation, remove concurrently
 // TODO: migrate _config.yml
 // TODO: figure out bundling & netlify deployment
 

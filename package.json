@@ -6,7 +6,7 @@
     "analyze": "ANALYZE_BUNDLE=1 NODE_ENV=production webpack",
     "build": "NODE_ENV=production webpack",
     "lint": "eslint js",
-    "start": "concurrently \"eleventy --serve\" \"npm run watch\" --names jekyll,webpack -c blue,gray.dim",
+    "start": "concurrently \"eleventy --serve\" \"npm run watch\" --names 11ty,wbpk -c blue,gray.dim",
     "watch": "webpack -w"
   },
   "repository": {
