@@ -1,8 +1,6 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight")
 const pluginRss = require("@11ty/eleventy-plugin-rss")
 
-// TODO: blog post urls
-// TODO: estimated read time
 // TODO: rss feed
 // TODO: replace jekyll seo tag
 // TODO: migrate _config.yml
@@ -16,7 +14,7 @@ module.exports = (eleventyConfig) => {
 
   eleventyConfig.addCollection('posts', collection => {
     const posts = collection.getFilteredByGlob('_posts/*.md')
-    posts.reverse()
+    posts.reverse()     // Newest posts at the top
     return posts
   })
 

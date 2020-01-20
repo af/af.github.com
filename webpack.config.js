@@ -11,7 +11,7 @@ const config = {
     entry: './js/main.js',
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, 'assets')
+        path: path.resolve(__dirname, '_site', 'assets')
     },
     module: {
         rules: [{

@@ -31,7 +31,7 @@ layout: base
             {% for post in collections.posts limit:3 %}
                 <div class="item">
                     <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-                    <a href="{{ post.url }}">{{ post.title }}</a>
+                    <a href="{{ post.url }}">{{ post.data.title }}</a>
                 </div>
             {% endfor %}
         </section>
