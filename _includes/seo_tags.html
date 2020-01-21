@@ -1,0 +1,9 @@
+<meta name="author" content="{{ site.author }}" />
+{% if post.templateContent %}
+    <title>{{ post.data.title }} | {{ site.title }}</title>
+    <meta name="description" content="{{ post.templateContent | truncatewords: 100 }}" />
+    <link rel="canonical" href="{{ site.url }}{{ post.url }}" />
+    <meta property="article:published_time" content="{{ post.date | date: "%Y-%m-%dT00:00:00Z" }}" />
+{% else %}
+    <meta name="description" content="{{ site.description }}" />
+{% endif %}
