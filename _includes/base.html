@@ -5,7 +5,7 @@
     <link href="/assets/main.css" rel="stylesheet" type="text/css">
     <link href="/img/favicon.png" type="image/png" rel="shortcut icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- FIXME: RSS link (formerly feed_meta in jekyll)-->
+    <link type="application/atom+xml" rel="alternate" href="{{ site.url}}/atom.xml" title="{{ site.title }}" />
 
     {% for domain in page.preconnect_domains %}
         <link rel="preconnect" href="{{ domain }}" crossorigin />
