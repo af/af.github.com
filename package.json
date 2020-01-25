@@ -4,10 +4,12 @@
   "description": "Silly little personal website",
   "scripts": {
     "analyze": "ANALYZE_BUNDLE=1 NODE_ENV=production webpack",
-    "build": "NODE_ENV=production webpack",
+    "build": "eleventy && NODE_ENV=production webpack",
+    "deploy": "yarn build && netlify deploy",
+    "deploy-prod": "netlify deploy --prod",
     "lint": "eslint js",
-    "start": "concurrently \"eleventy --serve\" \"npm run watch\" --names 11ty,wbpk -c blue,gray.dim",
-    "watch": "webpack -w"
+    "start": "concurrently \"eleventy --quiet --serve\" \"webpack -w\" --names 11ty,wbpk -c blue,gray.dim",
+    "watch": "yarn start"
   },
   "repository": {
     "type": "git",
@@ -40,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint"
+      "pre-push": "yarn lint"
     }
   }
 }
