@@ -2,9 +2,6 @@ const moment = require('moment')
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight")
 const pluginRss = require("@11ty/eleventy-plugin-rss")
 
-// TODO: replace jekyll seo tag
-// TODO: figure out bundling & netlify deployment
-
 module.exports = (eleventyConfig) => {
   eleventyConfig.addPlugin(syntaxHighlight)
   eleventyConfig.addPlugin(pluginRss)
@@ -21,6 +18,15 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addPassthroughCopy("demos/**/*.js");
 
   eleventyConfig.addFilter('date', (date, format) => {
-    return moment(date).format(format);
+    return moment(date).format(format)
+  });
+
+  eleventyConfig.addFilter('log', (thing) => {
+    return console.log(thing)
+  });
+
+  eleventyConfig.addFilter('readTimeMinutes', (chars) => {
+    if (!chars || !chars.length) return ''
+    return Math.floor(chars.length / 1200)
   });
 }

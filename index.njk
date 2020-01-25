@@ -3,6 +3,10 @@ title: Aaron Franks
 preconnect_domains:
   - https://feeds.pinboard.in
   - https://api.github.com
+pagination:
+  data: collections.posts
+  size: 4
+  alias: latestPosts
 ---
 
 {% extends "base.njk" %}
@@ -40,7 +44,7 @@ preconnect_domains:
         <a href="/posts" class="more">More Posts</a>
     </header>
 
-    {% for post in collections.posts | slice(4) %}
+    {% for post in latestPosts %}
         {% include "post_list_item.njk" %}
     {% endfor %}
 </section>

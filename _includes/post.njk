@@ -1,11 +1,14 @@
 {% extends "base.njk" %}
 
+{% set metaTitle = title %}
+{% set metaDescription = content | truncate(400) | striptags %}
+
 {% block content %}
 <div class="container">
     <article class="post">
         <header>
             <h1>{{ title }}</h1>
-            <time pubdate datetime="{{page.date}}">Posted on {{page.date | date("%Y-%m-%d")}}</time>
+            <time pubdate datetime="{{page.date}}">Posted on {{page.date | date("YYYY-MM-DD")}}</time>
         </header>
 
         {{ content | safe }}
@@ -27,9 +30,9 @@
                 <a href="/posts" class="more">More Posts</a>
             </header>
 
-            {% for post in collections.posts | slice(3) %}
+            {% for post in collections.posts %}
                 <div class="item">
-                    <time>{{ post.date | date("%Y-%m-%d") }}</time>
+                    <time>{{ post.date | date("YYYY-MM-DD") }}</time>
                     <a href="{{ post.url }}">{{ post.data.title }}</a>
                 </div>
             {% endfor %}

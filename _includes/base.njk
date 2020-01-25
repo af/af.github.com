@@ -17,7 +17,10 @@
     <meta name="keywords" content="Aaron Franks, programming, software, Victoria" />
     {% endif %}
 
-    {% include "seo_tags.njk" %}
+    <meta name="author" content="{{ site.author }}" />
+    <title>{{ metaTitle }} | {{ site.title }}</title>
+    <meta name="description" content="{{ metaDescription }}">
+    <meta property="article:published_time" content="{{ post.date | date("YYYY-MM-DDTHH:mm:ssZ") }}" />
 </head>
 <body>
     <header class="siteHeader">

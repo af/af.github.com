@@ -1,5 +1,9 @@
 ---
 title: All Posts
+pagination:
+  data: collections.posts
+  size: 100
+  alias: latestPosts
 ---
 
 {% extends "base.njk" %}
@@ -14,7 +18,7 @@ title: All Posts
     </p>
 
     <ol class="container">
-    {% for post in collections.posts %}
+    {% for post in latestPosts %}
         {% include "post_list_item.njk" %}
     {% endfor %}
     </ol>
