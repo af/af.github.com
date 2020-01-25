@@ -1,5 +1,5 @@
 <article class="postListItem">
-    <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+    <time>{{ post.date | date("%Y-%m-%d") }}</time>
     <div>
         <h1><a href="{{ post.url }}">{{ post.data.title }}</a></h1>
         <div class="readTime">{{ post.templateContent | size | divided_by: 1200 | round }} minute read</div>

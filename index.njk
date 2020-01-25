@@ -1,11 +1,13 @@
 ---
-layout: base
 title: Aaron Franks
 preconnect_domains:
   - https://feeds.pinboard.in
   - https://api.github.com
 ---
 
+{% extends "base.njk" %}
+
+{% block content %}
 <div class="container">
 <p class="hello">
     Hi 👋 I’m a software engineer with interests in user interfaces,
@@ -20,7 +22,7 @@ preconnect_domains:
     </header>
 
     <ol class="ossProjects">
-        {% for i in (1..6) %}
+        {% for i in range(0, 6) %}
         <li>
         <a class="loading">
             <div class="projectStars"></div>
@@ -38,8 +40,8 @@ preconnect_domains:
         <a href="/posts" class="more">More Posts</a>
     </header>
 
-    {% for post in collections.posts limit:4 %}
-        {% include post_list_item.html post=post %}
+    {% for post in collections.posts | slice(4) %}
+        {% include "post_list_item.njk" %}
     {% endfor %}
 </section>
 
@@ -74,3 +76,4 @@ preconnect_domains:
 
 <script src="https://api.github.com/users/af/repos?sort=updated&per_page=10&callback=reposCb"></script>
 <script src="https://feeds.pinboard.in/json/u:_af?count=400&cb=linksCb"></script>
+{% endblock %}

@@ -1,8 +1,10 @@
 ---
-layout: base
 title: All Posts
 ---
 
+{% extends "base.njk" %}
+
+{% block content %}
 <div class="container post_list">
     <h1>Blog posts</h1>
 
@@ -13,7 +15,8 @@ title: All Posts
 
     <ol class="container">
     {% for post in collections.posts %}
-        {% include post_list_item.html post=post %}
+        {% include "post_list_item.njk" %}
     {% endfor %}
     </ol>
 </div>
+{% endblock %}

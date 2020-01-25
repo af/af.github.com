@@ -1,3 +1,4 @@
+const moment = require('moment')
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight")
 const pluginRss = require("@11ty/eleventy-plugin-rss")
 
@@ -18,4 +19,8 @@ module.exports = (eleventyConfig) => {
 
   eleventyConfig.addCollection('demos', coll => coll.getFilteredByGlob('demos/*.html'))
   eleventyConfig.addPassthroughCopy("demos/**/*.js");
+
+  eleventyConfig.addFilter('date', (date, format) => {
+    return moment(date).format(format);
+  });
 }

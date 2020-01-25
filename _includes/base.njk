@@ -17,7 +17,7 @@
     <meta name="keywords" content="Aaron Franks, programming, software, Victoria" />
     {% endif %}
 
-    {% include seo_tags.html %}
+    {% include "seo_tags.njk" %}
 </head>
 <body>
     <header class="siteHeader">
@@ -33,9 +33,11 @@
     </div>
     </header>
 
-    {{ content }}
+    {% block content %}
+        {{ content }}
+    {% endblock %}
 
     <script src="/assets/main.js"></script>
-    {% include analytics_script.html %}
+    {% include "analytics_script.njk" %}
 </body>
 </html>
