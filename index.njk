@@ -1,5 +1,4 @@
 ---
-title: Aaron Franks
 preconnect_domains:
   - https://feeds.pinboard.in
   - https://api.github.com
@@ -10,6 +9,10 @@ pagination:
 ---
 
 {% extends "base.njk" %}
+
+{% block title %}
+  {{ site.title }} | {{ site.metaTitle }}
+{% endblock %}
 
 {% block content %}
 <div class="container">

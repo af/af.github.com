@@ -18,7 +18,9 @@
     {% endif %}
 
     <meta name="author" content="{{ site.author }}" />
-    <title>{{ metaTitle }} | {{ site.title }}</title>
+    <title>
+        {% block title %}{{ title }} | {{ site.title }}{% endblock %}
+    </title>
     <meta name="description" content="{{ metaDescription }}">
     <meta property="article:published_time" content="{{ post.date | date("YYYY-MM-DDTHH:mm:ssZ") }}" />
 </head>
