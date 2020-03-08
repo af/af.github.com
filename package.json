@@ -6,7 +6,7 @@
     "analyze": "ANALYZE_BUNDLE=1 NODE_ENV=production webpack",
     "build": "eleventy && NODE_ENV=production webpack",
     "deploy": "yarn build && netlify deploy",
-    "deploy-prod": "netlify deploy --prod",
+    "deploy-prod": "yarn build && netlify deploy --prod",
     "lint": "eslint js",
     "start": "concurrently \"eleventy --quiet --serve\" \"webpack -w\" --names 11ty,wbpk -c blue,gray.dim",
     "watch": "yarn start"
