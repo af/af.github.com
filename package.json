@@ -4,7 +4,7 @@
   "description": "Silly little personal website",
   "scripts": {
     "analyze": "ANALYZE_BUNDLE=1 NODE_ENV=production webpack",
-    "build": "eleventy && NODE_ENV=production webpack",
+    "build": "rm -rf _site/* && eleventy && NODE_ENV=production webpack",
     "deploy": "yarn build && netlify deploy",
     "deploy-prod": "yarn build && netlify deploy --prod",
     "lint": "eslint js",
