@@ -21,24 +21,24 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
-    "@11ty/eleventy": "0.9.0",
+    "@11ty/eleventy": "0.10.0",
     "@11ty/eleventy-plugin-rss": "1.0.7",
     "@11ty/eleventy-plugin-syntaxhighlight": "3.0.1",
-    "concurrently": "5.0.2",
+    "concurrently": "5.1.0",
     "css-loader": "3.4.0",
     "eslint": "6.8.0",
     "eslint-config-af": "af/eslint-config-af#master",
-    "husky": "3.1.0",
+    "husky": "4.2.5",
     "mini-css-extract-plugin": "0.9.0",
     "stylus": "0.54.7",
     "stylus-loader": "3.0.2",
-    "terser-webpack-plugin": "2.3.1",
-    "webpack": "4.41.5",
-    "webpack-bundle-analyzer": "3.6.0",
-    "webpack-cli": "3.3.10"
+    "terser-webpack-plugin": "2.3.5",
+    "webpack": "4.42.1",
+    "webpack-bundle-analyzer": "3.6.1",
+    "webpack-cli": "3.3.11"
   },
   "dependencies": {
-    "d3": "5.15.0",
+    "d3": "5.15.1",
     "moment": "2.24.0"
   },
   "husky": {
