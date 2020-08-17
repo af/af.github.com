@@ -43,7 +43,11 @@
     </header>
 
     {% block content %}
-        {{ content }}
+        {% if isRawHtmlPage %}
+            {{ content | safe }}
+        {% else %}
+            {{ content }}
+        {% endif %}
     {% endblock %}
 
     <script src="/assets/main.js"></script>
