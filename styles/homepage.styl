@@ -167,19 +167,29 @@ circle-prefix($color) {
             margin: 0.5rem 0
             padding: 1em 1.5em
             background: rgba(#fff, 0.06)
-            border-radius: 3px
 
         &:not(:empty):before
+            background: $colours.cardBg
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3)
             content: ''
-            background: #48465f url(/img/monogram.svg) center no-repeat
-            background-size: 15px
-            filter: drop-shadow(0 2px 3px rgba(#000, 0.3))
+            transform: skew(-20deg, 0)
             display: block
-            width: 30px
-            height: 30px
+            width: 10px
+            height: 25px
             position: absolute
-            top: 0
-            left: -25px
+            top: -5px
+            left: -10px
+        &:not(:empty):after
+            background: $colours.cardBg
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3)
+            content: ''
+            transform: skew(-20deg, 0)
+            display: block
+            width: 10px
+            height: 25px
+            position: absolute
+            top: -5px
+            left: 5px
 
     .tags
         font-size: 0.7em
