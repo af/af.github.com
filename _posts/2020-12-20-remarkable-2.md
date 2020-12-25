@@ -28,10 +28,10 @@ be purchasing it for.
 
 As an e-reader, the RM2 is more of a mixed bag. The e-ink screen is gentle on the eyes, and the
 10.3” screen is a near-perfect size for the technical books (nicely formatted PDFs) that I've been
-accumulating over the years. The refresh rate is good enough (though noticeable), and it's great to
+accumulating over the years. The refresh rate is good enough, though noticeable, and it's great to
 have all of the same annotation tools for books that are available for notetaking. The flip side is
 that the reading software is inexcusably limited. There's no way to see a list of pages with annotations,
-bookmark a page for later (!), follow pdf links, or jump to a page by number. It's mindboggling
+bookmark a page for later (!), or follow pdf links. It's mindboggling
 that after several years of developing the reMarkable software, these features are absent, but they
 update the software semi-regularly so I hold out hopes that they might get added later.
 
@@ -67,9 +67,9 @@ I would dearly miss it if something happened to it.
   aggressive use, I think the nibs would each likely last over two months.
 
 * reMarkable also has a Chrome extension that lets you send articles to the device via their cloud
-  service. It's pretty limited (images never make the journey to the tablet in my experience), but reading
-  long form content is _so much better_ on the RM2 vs a laptop that I find myself using it
-  frequently.
+  service. It's pretty limited (images don't make the journey to the tablet if you use the default
+  epub document export), but reading long form content is _so much better_ on the RM2 vs a laptop
+  that I find myself using it frequently.
 
 * If you're interested in the reMarkable, you really need to check out the [reviews from
   My Deep Guide](https://www.youtube.com/playlist?list=PLsSI9-gaSSmiXwb7Vjk5Vb-nB41UTnrXd) on Youtube.
