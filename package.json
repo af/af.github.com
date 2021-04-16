@@ -21,10 +21,10 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
-    "@11ty/eleventy": "0.11.1",
-    "@11ty/eleventy-plugin-rss": "1.1.0",
-    "@11ty/eleventy-plugin-syntaxhighlight": "3.0.6",
-    "concurrently": "5.3.0",
+    "@11ty/eleventy": "0.12.1",
+    "@11ty/eleventy-plugin-rss": "1.1.1",
+    "@11ty/eleventy-plugin-syntaxhighlight": "3.1.0",
+    "concurrently": "6.0.2",
     "css-loader": "3.4.0",
     "eslint": "6.8.0",
     "eslint-config-af": "af/eslint-config-af#master",
