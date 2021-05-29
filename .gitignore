@@ -1,4 +1,5 @@
 _site
+out
 node_modules
 
 # Local Netlify folder

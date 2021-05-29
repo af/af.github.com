@@ -1,5 +1,0 @@
-{
-  "layout": "post",
-  "outputPath": "_site/posts/{{ page.fileSlug }}/index.html",
-  "permalink": "posts/{{ page.fileSlug }}/"
-}

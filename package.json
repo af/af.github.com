@@ -3,12 +3,11 @@
   "version": "0.0.0",
   "description": "Silly little personal website",
   "scripts": {
-    "analyze": "ANALYZE_BUNDLE=1 NODE_ENV=production webpack",
-    "build": "rm -rf _site/* && eleventy && NODE_ENV=production webpack",
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start",
     "deploy": "yarn build && netlify deploy",
     "deploy-prod": "yarn build && netlify deploy --prod",
-    "lint": "eslint js",
-    "start": "concurrently \"eleventy --quiet --serve\" \"webpack -w\" --names 11ty,wbpk -c blue,gray.dim",
     "watch": "yarn start"
   },
   "repository": {
@@ -21,25 +20,20 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
-    "@11ty/eleventy": "0.12.1",
-    "@11ty/eleventy-plugin-rss": "1.1.1",
-    "@11ty/eleventy-plugin-syntaxhighlight": "3.1.0",
-    "concurrently": "6.0.2",
-    "css-loader": "3.4.0",
-    "eslint": "6.8.0",
-    "eslint-config-af": "af/eslint-config-af#master",
+    "@types/react": "17.0.8",
+    "gray-matter": "4.0.3",
     "husky": "4.2.5",
-    "mini-css-extract-plugin": "0.9.0",
-    "stylus": "0.54.7",
-    "stylus-loader": "3.0.2",
-    "terser-webpack-plugin": "2.3.5",
-    "webpack": "4.42.1",
-    "webpack-bundle-analyzer": "3.6.1",
-    "webpack-cli": "3.3.11"
+    "next": "10.2.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "remark": "13.0.0",
+    "remark-html": "13.0.1",
+    "stylelint": "13.13.1",
+    "stylelint-config-standard": "22.0.0",
+    "typescript": "4.3.2"
   },
   "dependencies": {
-    "d3": "5.15.1",
-    "moment": "2.29.1"
+    "d3": "5.15.1"
   },
   "husky": {
     "hooks": {

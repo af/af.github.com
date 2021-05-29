@@ -1,0 +1,31 @@
+.main {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.logo {
+  border: none;
+  background: none;
+  display: inline-block;
+}
+
+.main nav {
+  display: flex;
+  align-items: center;
+}
+
+.main nav a {
+  border-bottom: none;
+  padding-left: 2em;
+  display: flex;
+  font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.main nav a:hover {
+  opacity: 1;
+}

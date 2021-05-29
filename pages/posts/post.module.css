@@ -1,0 +1,40 @@
+/* consider moving over stuff from
+* https://github.com/vercel/next.js/blob/canary/examples/blog-starter/components/markdown-styles.module.css
+*/
+
+.main {
+  max-width: 45em;
+}
+
+.main header time[pubdate] {
+  color: var(--color-subhead);
+  display: block;
+  font-size: 0.9em;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.main h1 {
+  margin: 1.4rem 0 0.4rem;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.main h2,
+.main h3,
+.main h4 {
+  font-size: 1rem;
+  margin: 2rem 0 1rem;
+}
+
+.main h2 {
+  color: var(--color-subhead);
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-top: 3em;
+}
+
+.main img {
+  max-width: 100%;
+}
