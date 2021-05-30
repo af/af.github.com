@@ -15,61 +15,6 @@ pagination:
 {% endblock %}
 
 {% block content %}
-<div class="container">
-<p class="hello">
-    Hi 👋 I’m a software engineer with interests in user interfaces,
-    data visualization, and functional programming.
-</p>
-</div>
-
-<section class="openSource container">
-    <header class="sectionHeading">
-        <h2>Latest Open Source Projects</h2>
-        <a href="https://github.com/af" class="more">More on Github</a>
-    </header>
-
-    <ol class="ossProjects">
-        {% for i in range(0, 6) %}
-        <li>
-        <a class="loading">
-            <div class="projectStars"></div>
-            <h3 class="projectTitle">...</h3>
-            <div class="projectDesc">...</div>
-        </a>
-        </li>
-        {% endfor %}
-    </ol>
-</section>
-
-<section class="blogPosts container">
-    <header class="sectionHeading">
-        <h2>(Infrequent) Blog Posts</h2>
-        <a href="/posts" class="more">More Posts</a>
-    </header>
-
-    {% for post in latestPosts %}
-        {% include "post_list_item.njk" %}
-    {% endfor %}
-</section>
-
-<header class="sectionHeading linksHeading container">
-    <h2>Links from around the web</h2>
-    <a href="https://pinboard.in/u:_af" class="more">More on Pinboard</a>
-</header>
-<div class="timeline container">
-    <svg class="timelineChart" width="350" height="1400">
-        <g class="categoryAxis"></g>
-        <g class="yearAxis"></g>
-        <g class="monthAxis"></g>
-        <g class="bubbleRoot"></g>
-    </svg>
-
-    <section>
-        <div class="latestLinks"></div>
-    </section>
-</div>
-
-<footer>&nbsp;</footer>
 
 <script>
     // Load pinboard links and GH repos (via their jsonp callback) into Promises

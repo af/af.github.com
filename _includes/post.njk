@@ -14,31 +14,5 @@
         {{ content | safe }}
     </article>
 
-    <footer class="postFooter">
-        <p>Thanks for reading. If you made it this far, you might want to
-            <a href="/atom.xml">subscribe for future posts</a>
-        </p>
-
-        <p>
-            Feedback? Please file an issue or
-            <a href="https://www.github.com/af/af.github.com">send a pull request</a>
-        </p>
-
-        <section class="latest">
-            <header class="sectionHeading">
-                <h2>Latest Posts</h2>
-                <a href="/posts" class="more">More Posts</a>
-            </header>
-
-            {% for post in collections.posts %}
-                {% if loop.index < 4 %}
-                <div class="item">
-                    <time>{{ post.date | date("YYYY-MM-DD") }}</time>
-                    <a href="{{ post.url }}">{{ post.data.title }}</a>
-                </div>
-                {% endif %}
-            {% endfor %}
-        </section>
-    </footer>
 </div>
 {% endblock %}

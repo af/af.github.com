@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import Head from 'next/head'
+import Header from '../../components/Header'
 import Layout from '../../components/Layout'
+import PostFooter from '../../components/PostFooter';
 import { getPostBySlug, getAllPosts, markdownToHtml } from '../../lib/api'
 import styles from './post.module.css'
 
-export default function Post({ post, morePosts, preview }) {
+export default function Post({ post, latestPosts, preview }) {
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
@@ -17,6 +19,7 @@ export default function Post({ post, morePosts, preview }) {
           <div>Loading…</div>
         ) : (
           <>
+            <Header />
             <article className="container">
               <Head>
                 <title>
@@ -32,6 +35,7 @@ export default function Post({ post, morePosts, preview }) {
                 className={styles.markdown}
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
+              <PostFooter post={post} latestPosts={latestPosts} />
             </article>
           </>
         )}
@@ -41,6 +45,7 @@ export default function Post({ post, morePosts, preview }) {
 }
 
 export async function getStaticProps({ params }) {
+  const posts = getAllPosts()
   const post = getPostBySlug(params.slug)
   const content = await markdownToHtml(post.content || '')
 
@@ -50,6 +55,7 @@ export async function getStaticProps({ params }) {
         ...post,
         content,
       },
+      latestPosts: posts.slice(0, 3),
     },
   }
 }
