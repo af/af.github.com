@@ -1,34 +1,29 @@
-import Head from 'next/head'
+import Head from "next/head";
 
-import { getAllPosts } from '../lib/api'
-import Layout from '../components/Layout'
+import { getAllPosts } from '../lib/api';
+import Layout from '../components/Layout';
+import styles from './Homepage.module.css'
 
 export default function Index({ allPosts }) {
-  // const heroPost = allPosts[0]
-  // const morePosts = allPosts.slice(1)
   return (
     <>
       <Layout>
         <Head>
-          <title>TODO site title</title>
+          <title>TODO min site title</title>
         </Head>
+        <div className={styles.hello}>
+          why hello there
+        </div>
         <div>
-          {allPosts.map(p => <div>{p.title}</div>)}
+          <a href="/posts">view all posts</a>
         </div>
       </Layout>
     </>
-  )
+  );
 }
 
 export async function getStaticProps() {
-  const allPosts = getAllPosts([
-    'title',
-    'date',
-    'slug',
-    'excerpt',
-  ])
-
   return {
-    props: { allPosts },
-  }
+    props: { allPosts: getAllPosts() },
+  };
 }

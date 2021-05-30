@@ -6,45 +6,52 @@ import html from "remark-html";
 
 // TODO: partial type
 type PostItem = {
-  date: string;
   content: string;
+  date: string;
   slug: string;
+  url: string;
 };
 
 const postsDirectory = join(process.cwd(), "_posts");
 
-export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory);
+// mapping of url cleaned slugs to full file slugs
+// FIXME: need to restart server to refresh this
+let postLookup: Record<string, PostItem> = {};
+
+const markdownFileRegex = /(\d{4}-\d{2}-\d{2})-(.+)/
+
+const init = () => {
+  const rawSlugs = fs.readdirSync(postsDirectory)
+  postLookup = rawSlugs.reduce((acc, fsSlug) => {
+    const slugWithoutExt = fsSlug.replace(/\.md$/, "");
+
+    const [_full, date, urlSlug] = markdownFileRegex.exec(slugWithoutExt)
+
+    const fullPath = join(postsDirectory, fsSlug);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data, content } = matter(fileContents);
+
+    const postObj = {
+      ...data,
+      slug: urlSlug,
+      url: `/posts/${urlSlug}`,
+      content,
+      date,
+    };
+    return { ...acc, [urlSlug]: postObj }
+  }, {})
 }
 
-// FIXME: clean up and use this
-// const markdownFileRegex = /(\d{4}-\d{2}-\d{2})-(.+)/
-// const [_full, date, textSlug] = markdownFileRegex.exec(realSlug)
+init()
 
-export function getPostBySlug(slug): PostItem {
-  // TODO: strip date prefix from slug, eg '2020-12-20-remarkable-2'
-  const realSlug = slug.replace(/\.md$/, "");
-
-  const fullPath = join(postsDirectory, `${realSlug}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
-
-  return {
-    ...data,
-    slug: realSlug,
-    content,
-    // FIXME: get from slug
-    date: '2020-01-01'
-  };
+export function getPostBySlug(slug: string): PostItem {
+  return postLookup[slug]
 }
 
 export function getAllPosts() {
-  const slugs = getPostSlugs();
-  const posts = slugs
-    .map(getPostBySlug)
+  const posts = Object.values(postLookup)
     // sort posts by date in descending order
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
-  // console.log('POSTS', posts, 'WAT')
   return posts;
 }
 

@@ -91,15 +91,15 @@ blockquote {
   opacity: 0.8;
 }
 
-/*
-:global(.container) {
-    max-width: 1040px;
-    min-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 1rem;
+.container {
+  max-width: 1040px;
+  min-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
 }
 
+/*
 .sectionHeading
     display: flex
     justify-content: space-between
@@ -149,4 +149,3 @@ blockquote {
         font-size: 0.85em
         opacity: 0.5
 */
-

@@ -1,6 +1,7 @@
 _site
 out
 node_modules
+.next
 
 # Local Netlify folder
 .netlify

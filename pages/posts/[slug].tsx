@@ -17,7 +17,7 @@ export default function Post({ post, morePosts, preview }) {
           <div>Loading…</div>
         ) : (
           <>
-            <article className="mb-32">
+            <article className="container">
               <Head>
                 <title>
                   {post.title} | TODO:site name
@@ -41,14 +41,7 @@ export default function Post({ post, morePosts, preview }) {
 }
 
 export async function getStaticProps({ params }) {
-  const post = getPostBySlug(params.slug, [
-    'title',
-    'date',
-    'slug',
-    'author',
-    'content',
-    'coverImage',
-  ])
+  const post = getPostBySlug(params.slug)
   const content = await markdownToHtml(post.content || '')
 
   return {
@@ -62,7 +55,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts(['slug'])
+  const posts = getAllPosts()
 
   return {
     paths: posts.map((post) => {
