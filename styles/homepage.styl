@@ -35,68 +35,6 @@ circle-prefix($color) {
     margin-top: 5rem
     margin-bottom: 5rem
 
-.ossProjects
-    display: flex
-    flex-wrap: wrap
-    justify-content: space-between
-    padding: 0
-
-    > li
-        width: 100%
-        margin-bottom: 0.5em
-        list-style: none
-
-        @media (min-width: $breakpoints.midsize)
-            width: 49%
-
-            > a
-                min-height: 100px
-        @media (min-width: $breakpoints.desktop)
-            width: 32%
-
-        &:nth-child(odd) a
-            animation-delay: 0.5s
-
-    a
-        position: relative
-        display: flex
-        flex-direction: column
-        justify-content: space-between
-        padding: 0.8em
-        color: inherit
-        background: $colours.cardBg
-        border: none
-        border-radius: 3px
-        transition: all 0.2s
-
-        &.loading
-            animation: 1s pulseOpacity alternate-reverse infinite
-
-            .projectStars
-                display: none
-
-        &:hover
-            filter: brightness(1.3)
-            transform: translateY(-2px)
-            box-shadow: 0 2px 15px rgba(0,0,0,0.3)
-
-    .projectTitle
-        margin: 0 0 0.2em
-        font-size: 1rem
-
-    .projectDesc
-        font-size: 0.8em
-        opacity: 0.8
-
-    .projectStars
-        position: absolute
-        top: 0.8em
-        right: @top
-        font-size: 0.8em
-
-        &:before
-            content: '★'
-
 .timeline
     display: flex
     flex-direction: column

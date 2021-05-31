@@ -1,8 +1,8 @@
 import Head from "next/head";
 
 import { getAllPosts } from "../lib/api";
-import Header from "../components/Header";
 import Layout from "../components/Layout";
+import OpenSourceCard from "../components/OpenSourceCard";
 import PostListItem from "../components/PostListItem";
 import styles from "./Homepage.module.css";
 
@@ -15,8 +15,6 @@ export default function Index({ allPosts }) {
           <title>TODO min site title</title>
         </Head>
 
-        <Header />
-
         <div className="container">
           <p className={styles.hello}>
             Hi 👋 I’m a software engineer with interests in user interfaces,
@@ -27,20 +25,14 @@ export default function Index({ allPosts }) {
         <section className="openSource container">
           <header className={styles.sectionHeading}>
             <h2>Latest Open Source Projects</h2>
-            <a href="https://github.com/af" className="more">
+            <a href="https://github.com/af" className={styles.moreLink}>
               More on Github
             </a>
           </header>
 
-          <ol className="ossProjects">
+          <ol className={styles.openSource}>
             {[1, 2, 3, 4, 5, 6].map((x) => (
-              <li key={x}>
-                <a className="loading">
-                  <div className="projectStars"></div>
-                  <h3 className="projectTitle">...</h3>
-                  <div className="projectDesc">...</div>
-                </a>
-              </li>
+              <OpenSourceCard key={x} />
             ))}
           </ol>
         </section>
@@ -48,19 +40,19 @@ export default function Index({ allPosts }) {
         <section className="blogPosts container">
           <header className={styles.sectionHeading}>
             <h2>(Infrequent) Blog Posts</h2>
-            <a href="/posts" className="more">
+            <a href="/posts" className={styles.moreLink}>
               More Posts
             </a>
           </header>
 
           {latestPosts.map((p) => (
-            <PostListItem post={p} />
+            <PostListItem post={p} key={p.title} />
           ))}
         </section>
 
         <header className={`${styles.sectionHeading} container`}>
           <h2>Links from around the web</h2>
-          <a href="https://pinboard.in/u:_af" className="more">
+          <a href="https://pinboard.in/u:_af" className={styles.moreLink}>
             More on Pinboard
           </a>
         </header>

@@ -17,7 +17,7 @@ const PostListItem = ({ post }) => (
       <h1>
         <a href={post.url}>{post.title}</a>
       </h1>
-      <div className="readTime">
+      <div className={styles.readTime}>
         {approximateReadTime(post.content)} minute read
       </div>
     </div>

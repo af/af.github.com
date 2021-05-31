@@ -22,7 +22,7 @@
 }
 
 .postListItem time {
-  flex: 5.5em 0 0;
+  flex: 0 0 6em;
   margin-right: 1em;
   font-size: 0.85em;
   opacity: 0.5;

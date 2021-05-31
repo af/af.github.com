@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import Head from 'next/head'
-import Header from '../../components/Header'
 import Layout from '../../components/Layout'
 import PostFooter from '../../components/PostFooter';
 import { getPostBySlug, getAllPosts, markdownToHtml } from '../../lib/api'
@@ -19,7 +18,6 @@ export default function Post({ post, latestPosts, preview }) {
           <div>Loading…</div>
         ) : (
           <>
-            <Header />
             <article className="container">
               <Head>
                 <title>
@@ -27,10 +25,10 @@ export default function Post({ post, latestPosts, preview }) {
                 </title>
               </Head>
 
-              <div>
+              <header>
                 <h1>{post.title}</h1>
-                <div>{post.date}</div>
-              </div>
+                <time dateTime={post.date}>Posted on {post.date}</time>
+              </header>
               <div
                 className={styles.markdown}
                 dangerouslySetInnerHTML={{ __html: post.content }}
