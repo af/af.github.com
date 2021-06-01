@@ -5,18 +5,19 @@ import remark from "remark";
 import html from "remark-html";
 
 // TODO: partial type
-type PostItem = {
-  content: string;
-  date: string;
-  slug: string;
-  url: string;
+export type Post = {
+  content: string,
+  date: string,
+  slug: string,
+  title: string,
+  url: string,
 };
 
 const postsDirectory = join(process.cwd(), "_posts");
 
 // mapping of url cleaned slugs to full file slugs
 // FIXME: need to restart server to refresh this
-let postLookup: Record<string, PostItem> = {};
+let postLookup: Record<string, Post> = {};
 
 const markdownFileRegex = /(\d{4}-\d{2}-\d{2})-(.+)/
 
@@ -25,7 +26,8 @@ const init = () => {
   postLookup = rawSlugs.reduce((acc, fsSlug) => {
     const slugWithoutExt = fsSlug.replace(/\.md$/, "");
 
-    const [_full, date, urlSlug] = markdownFileRegex.exec(slugWithoutExt)
+    const [_full, date, urlSlug] = markdownFileRegex.exec(slugWithoutExt) ?? []
+    if (!_full) return acc
 
     const fullPath = join(postsDirectory, fsSlug);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -44,7 +46,7 @@ const init = () => {
 
 init()
 
-export function getPostBySlug(slug: string): PostItem {
+export function getPostBySlug(slug: string): Post {
   return postLookup[slug]
 }
 

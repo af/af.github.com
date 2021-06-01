@@ -33,9 +33,11 @@
   animation-delay: 0.5s;
 }
 
+/*
 .main a.loading {
   animation: 1s pulseOpacity alternate-reverse infinite;
 }
+*/
 
 .stars {
   position: absolute;
@@ -51,7 +53,7 @@ a.loading .stars {
 .loading .stars:hover {
   filter: brightness(1.3);
   transform: translateY(-2px);
-  box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
 }
 
 .title {

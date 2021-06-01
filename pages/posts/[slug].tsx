@@ -3,10 +3,15 @@ import ErrorPage from 'next/error'
 import Head from 'next/head'
 import Layout from '../../components/Layout'
 import PostFooter from '../../components/PostFooter';
-import { getPostBySlug, getAllPosts, markdownToHtml } from '../../lib/api'
+import { getPostBySlug, getAllPosts, markdownToHtml, Post } from '../../lib/api'
 import styles from './post.module.css'
 
-export default function Post({ post, latestPosts }) {
+type Props = {
+  post: Post,
+  latestPosts: Array<Post>
+}
+
+export default function PostPage({ post, latestPosts }: Props) {
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
@@ -42,7 +47,7 @@ export default function Post({ post, latestPosts }) {
   )
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: any) {
   const posts = getAllPosts()
   const post = getPostBySlug(params.slug)
   const content = await markdownToHtml(post.content || '')

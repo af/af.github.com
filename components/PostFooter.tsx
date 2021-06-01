@@ -1,7 +1,13 @@
 import React from "react";
 import styles from "./PostFooter.module.css";
+import type { Post } from '../lib/api'
 
-const PostFooter = ({ post, latestPosts }) => (
+type Props = {
+  post: Post,
+  latestPosts: Array<Post>,
+}
+
+const PostFooter = ({ post, latestPosts }: Props) => (
   <footer className={styles.main}>
     <p>
       Thanks for reading. If you made it this far, you might want to

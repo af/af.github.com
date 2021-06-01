@@ -1,16 +1,21 @@
 import React from "react";
 import styles from "./PostListItem.module.css";
+import type { Post } from '../lib/api'
+
+type Props = {
+  post: Post
+}
 
 // FIXME
 //post.date | date("YYYY-MM-DD")
-const formatDate = (date) => date;
+const formatDate = (date: any) => date;
 
 const approximateReadTime = (chars: string) => {
   if (!chars || !chars.length) return "";
   return Math.floor(chars.length / 1200);
 };
 
-const PostListItem = ({ post }) => (
+const PostListItem = ({ post }: Props) => (
   <article className={styles.postListItem}>
     <time>{formatDate(post.date)}</time>
     <div>

@@ -5,8 +5,13 @@ import Layout from "../components/Layout";
 import OpenSourceCard from "../components/OpenSourceCard";
 import PostListItem from "../components/PostListItem";
 import styles from "./Homepage.module.css";
+import type { Post } from '../lib/api'
 
-export default function Index({ allPosts }) {
+type Props = {
+  allPosts: Array<Post>
+}
+
+export default function Index({ allPosts }: Props) {
   const latestPosts = allPosts.slice(0, 3);
   return (
     <>
