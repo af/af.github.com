@@ -2,19 +2,25 @@ import Head from "next/head";
 
 import { getAllPosts } from "../../lib/api";
 import Layout from "../../components/Layout";
+import PostListItem from "../../components/PostListItem";
 
-export default function Index({ allPosts }) {
+type Props = {
+  allPosts: Array<any>;
+};
+
+export default function Index({ allPosts }: Props) {
   return (
     <>
       <Layout>
         <Head>
-          <title>TODO site title</title>
+          <title>All Posts</title>
         </Head>
         <div className="container">
+          <h1>All Posts</h1>
+          <p>For some unknown reason, I occasionally publish sloppy, mid-length essays on the internet.
+          You can find them all here:</p>
           {allPosts.map((p) => (
-            <div key={p.slug}>
-              <a href={p.url}>{p.title}</a>
-            </div>
+            <PostListItem post={p} key={p.slug} />
           ))}
         </div>
       </Layout>
@@ -22,8 +28,6 @@ export default function Index({ allPosts }) {
   );
 }
 
-export async function getStaticProps() {
-  return {
-    props: { allPosts: getAllPosts() },
-  };
-}
+export const getStaticProps = () => ({
+  props: { allPosts: getAllPosts() },
+});

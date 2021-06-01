@@ -6,7 +6,7 @@ import PostFooter from '../../components/PostFooter';
 import { getPostBySlug, getAllPosts, markdownToHtml } from '../../lib/api'
 import styles from './post.module.css'
 
-export default function Post({ post, latestPosts, preview }) {
+export default function Post({ post, latestPosts }) {
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
