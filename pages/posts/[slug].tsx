@@ -31,14 +31,14 @@ export default function PostPage({ post, latestPosts }: Props) {
               </Head>
 
               <header>
-                <h1>{post.title}</h1>
-                <time dateTime={post.date}>Posted on {post.date}</time>
+                <h1 className={styles.title}>{post.title}</h1>
+                <time className={styles.timestamp} dateTime={post.date}>Posted on {post.date}</time>
               </header>
               <div
-                className={styles.markdown}
+                className={styles.content}
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
-              <PostFooter post={post} latestPosts={latestPosts} />
+              <PostFooter latestPosts={latestPosts} />
             </article>
           </>
         )}

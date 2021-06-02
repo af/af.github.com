@@ -1,8 +1,10 @@
-.main {
-  max-width: 45em;
+.title {
+  margin: 1.4rem 0 0.4rem;
+  font-size: 1.6rem;
+  line-height: 1;
 }
 
-.main header time[pubdate] {
+.timestamp {
   color: var(--color-subhead);
   display: block;
   font-size: 0.9em;
@@ -10,20 +12,14 @@
   font-weight: 600;
 }
 
-.main h1 {
-  margin: 1.4rem 0 0.4rem;
-  font-size: 1.6rem;
-  line-height: 1;
-}
-
-.main h2,
-.main h3,
-.main h4 {
+.content h2,
+.content h3,
+.content h4 {
   font-size: 1rem;
   margin: 2rem 0 1rem;
 }
 
-.main h2 {
+.content h2 {
   color: var(--color-subhead);
   font-size: 0.9em;
   text-transform: uppercase;
@@ -31,6 +27,6 @@
   margin-top: 3em;
 }
 
-.main img {
+.content img {
   max-width: 100%;
 }

@@ -1,37 +1,38 @@
 import React from "react";
 import styles from "./PostFooter.module.css";
-import type { Post } from '../lib/api'
+import PostListItem from "./PostListItem";
+import type { Post } from "../lib/api";
 
 type Props = {
-  post: Post,
-  latestPosts: Array<Post>,
-}
+  latestPosts: Array<Post>;
+};
 
-const PostFooter = ({ post, latestPosts }: Props) => (
+const PostFooter = ({ latestPosts }: Props) => (
   <footer className={styles.main}>
-    <p>
-      Thanks for reading. If you made it this far, you might want to
-      <a href="/atom.xml">subscribe for future posts</a>
-    </p>
+    <div className={styles.feedback}>
+      <p>
+        Thanks for reading. If you made it this far, you might want to{" "}
+        <a href="/atom.xml">subscribe for future posts</a>
+      </p>
 
-    <p>
-      Feedback? Please file an issue or
-      <a href="https://www.github.com/af/af.github.com">send a pull request</a>
-    </p>
+      <p>
+        Feedback? Please file an issue or{" "}
+        <a href="https://www.github.com/af/af.github.com">
+          send a pull request
+        </a>
+      </p>
+    </div>
 
     <section className={styles.latest}>
-      <header className="sectionHeading">
+      <header className={styles.sectionHeading}>
         <h2>Latest Posts</h2>
-        <a href="/posts" className="more">
+        <a href="/posts" className={styles.moreLink}>
           More Posts
         </a>
       </header>
 
       {latestPosts.map((p) => (
-        <div className={styles.post} key={p.url}>
-          <time>{post.date}</time>
-          <a href={post.url}>{post.title}</a>
-        </div>
+        <PostListItem post={p} key={p.url} />
       ))}
     </section>
   </footer>
