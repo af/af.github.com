@@ -1,6 +1,9 @@
 .main {
   width: 100%;
   list-style: none;
+
+  /* Using this property as hack to reference the global keyframes name */
+  --pulse-name: pulse-opacity;
 }
 
 /* TODO: migrate to grid instead */
@@ -33,11 +36,9 @@
   animation-delay: 0.5s;
 }
 
-/*
-.main a.loading {
-  animation: 1s pulseOpacity alternate-reverse infinite;
+.loading {
+  animation: 1s var(--pulse-name) alternate-reverse infinite;
 }
-*/
 
 .stars {
   position: absolute;

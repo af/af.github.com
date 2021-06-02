@@ -13,6 +13,11 @@
   --gutterWidth: 1rem;
 }
 
+@keyframes pulse-opacity {
+  0% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
 * {
   box-sizing: border-box;
 }
