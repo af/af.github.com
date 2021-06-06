@@ -74,7 +74,7 @@
   margin: 0;
 }
 
-.tags a {
+.main .tags a {
   border: none;
   color: inherit;
   display: inline-block;
@@ -89,16 +89,34 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* TODO
-.tag-programming:before
-    circle-prefix($tagColours.programming)
-.tag-typescript:before
-    circle-prefix($tagColours.typescript)
-.tag-design:before
-    circle-prefix($tagColours.design)
-.tag-top
-    border-bottom: 2px solid currentColor
+.tag-programming::before,
+.tag-typescript::before,
+.tag-design::before {
+  content: '';
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
 
-    &:before
-        content: '★ '
-*/
+.tag-programming::before {
+  background: var(--tag-programming);
+}
+
+.tag-typescript::before {
+  background: var(--tag-typescript);
+}
+
+.tag-design::before {
+  background: var(--tag-design);
+}
+
+.tag-top {
+  border-bottom: 2px solid currentColor;
+}
+
+.tag-top::before {
+  content: '★ ';
+}

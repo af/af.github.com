@@ -17,7 +17,7 @@ const SidebarLinks = ({ links }: Props) => {
         {l.t.map((tag: string) => (
           <li>
             <a
-              className={`tag-${tag}`}
+              className={styles[`tag-${tag}`]}
               href={`https://pinboard.in/u:_af/t:${tag}`}
             >
               {tag}
