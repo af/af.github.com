@@ -8,6 +8,7 @@ import html from "remark-html";
 export type Post = {
   content: string,
   date: string,
+  keywords?: string,
   slug: string,
   title: string,
   url: string,

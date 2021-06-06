@@ -1,0 +1,104 @@
+.main {
+  margin-top: 2rem;
+}
+
+.item {
+  margin-bottom: 2rem;
+}
+
+.main a:not(:hover) {
+  border-bottom: none;
+}
+
+.main h1 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.main time {
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+
+.main blockquote {
+  margin: 0;
+  border-left: 0;
+  opacity: 1;
+  position: relative;
+}
+
+.main blockquote:not(:empty) {
+  display: inline-block;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 0.5rem 0;
+  padding: 1em 1.5em;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.main blockquote:not(:empty)::before {
+  background: var(--color-cardBg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  content: '';
+  transform: skew(-20deg, 0);
+  display: block;
+  width: 10px;
+  height: 25px;
+  position: absolute;
+  top: -5px;
+  left: -10px;
+}
+
+.main blockquote:not(:empty)::after {
+  background: var(--color-cardBg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  content: '';
+  transform: skew(-20deg, 0);
+  display: block;
+  width: 10px;
+  height: 25px;
+  position: absolute;
+  top: -5px;
+  left: 5px;
+}
+
+.tags {
+  font-size: 0.7em;
+  list-style-type: none;
+  padding: 0;
+  margin: 0.3em 0;
+}
+
+.tags > li {
+  display: inline-block;
+  margin: 0;
+}
+
+.tags a {
+  border: none;
+  color: inherit;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  margin-right: 3px;
+  border-radius: 2px;
+}
+
+.tags a:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* TODO
+.tag-programming:before
+    circle-prefix($tagColours.programming)
+.tag-typescript:before
+    circle-prefix($tagColours.typescript)
+.tag-design:before
+    circle-prefix($tagColours.design)
+.tag-top
+    border-bottom: 2px solid currentColor
+
+    &:before
+        content: '★ '
+*/

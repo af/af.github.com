@@ -1,3 +1,6 @@
+/* TODO move to a proper module eventually */
+@import '../components/Timeline.css';
+
 :root {
   --color-cta: #8d84ee;
   --color-cardBg: #3d3c4b;

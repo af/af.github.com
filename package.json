@@ -21,6 +21,7 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
+    "@types/d3": "6.7.0",
     "@types/react": "17.0.8",
     "gray-matter": "4.0.3",
     "husky": "4.2.5",

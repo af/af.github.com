@@ -39,3 +39,23 @@
   justify-content: space-between;
   padding: 0;
 }
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+@media (min-width: 500px) {
+  .timeline {
+    flex-direction: row;
+  }
+
+  .timeline > svg {
+    display: block;
+  }
+
+  .timeline > section {
+    width: 50%;
+  }
+}

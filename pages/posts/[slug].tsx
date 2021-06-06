@@ -1,20 +1,25 @@
-import { useRouter } from 'next/router'
-import ErrorPage from 'next/error'
-import Head from 'next/head'
-import Layout from '../../components/Layout'
-import PostFooter from '../../components/PostFooter';
-import { getPostBySlug, getAllPosts, markdownToHtml, Post } from '../../lib/api'
-import styles from './post.module.css'
+import { useRouter } from "next/router";
+import ErrorPage from "next/error";
+import Head from "next/head";
+import Layout from "../../components/Layout";
+import PostFooter from "../../components/PostFooter";
+import {
+  getPostBySlug,
+  getAllPosts,
+  markdownToHtml,
+  Post,
+} from "../../lib/api";
+import styles from "./post.module.css";
 
 type Props = {
-  post: Post,
-  latestPosts: Array<Post>
-}
+  post: Post;
+  latestPosts: Array<Post>;
+};
 
 export default function PostPage({ post, latestPosts }: Props) {
-  const router = useRouter()
+  const router = useRouter();
   if (!router.isFallback && !post?.slug) {
-    return <ErrorPage statusCode={404} />
+    return <ErrorPage statusCode={404} />;
   }
   return (
     <Layout>
@@ -25,14 +30,18 @@ export default function PostPage({ post, latestPosts }: Props) {
           <>
             <article className="container">
               <Head>
-                <title>
-                  {post.title} | TODO:site name
-                </title>
+                <title>{post.title} | TODO:site name</title>
+                {post.keywords ? (
+                  <meta name="keywords" content={post.keywords} />
+                ) : null}
+                <meta property="article:published_time" content={post.date} />
               </Head>
 
               <header>
                 <h1 className={styles.title}>{post.title}</h1>
-                <time className={styles.timestamp} dateTime={post.date}>Posted on {post.date}</time>
+                <time className={styles.timestamp} dateTime={post.date}>
+                  Posted on {post.date}
+                </time>
               </header>
               <div
                 className={styles.content}
@@ -44,13 +53,13 @@ export default function PostPage({ post, latestPosts }: Props) {
         )}
       </>
     </Layout>
-  )
+  );
 }
 
 export async function getStaticProps({ params }: any) {
-  const posts = getAllPosts()
-  const post = getPostBySlug(params.slug)
-  const content = await markdownToHtml(post.content || '')
+  const posts = getAllPosts();
+  const post = getPostBySlug(params.slug);
+  const content = await markdownToHtml(post.content || "");
 
   return {
     props: {
@@ -60,11 +69,11 @@ export async function getStaticProps({ params }: any) {
       },
       latestPosts: posts.slice(0, 3),
     },
-  }
+  };
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts()
+  const posts = getAllPosts();
 
   return {
     paths: posts.map((post) => {
@@ -72,8 +81,8 @@ export async function getStaticPaths() {
         params: {
           slug: post.slug,
         },
-      }
+      };
     }),
     fallback: false,
-  }
+  };
 }

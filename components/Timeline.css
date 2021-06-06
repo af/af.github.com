@@ -1,0 +1,128 @@
+:root {
+  --tag-programming: #5a51bb;
+  --tag-typescript: #4678b9;
+  --tag-design: #559175;
+  --tag-other: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes pulseSize {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.2); }
+  70% { transform: scale(1); }
+}
+
+.timelineChart {
+  overflow: visible;
+}
+
+.timelineChart circle {
+  fill: var(--tag-other);
+  transition: fill 0.3s;
+}
+
+.timelineChart circle:hover {
+  animation: 0.5s pulseSize;
+  fill: white !important;
+}
+
+.timelineChart circle.typescript {
+  fill: var(--tag-typescript);
+}
+
+.timelineChart circle.design {
+  fill: var(--tag-design);
+}
+
+.timelineChart circle.programming {
+  fill: var(--tag-programming);
+}
+
+.yearAxis text {
+  fill: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: system-ui, sans-serif;
+}
+
+.yearAxis path,
+.yearAxis line {
+  stroke: none;
+  fill: none;
+}
+
+.monthAxis text {
+  fill: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  font-family: system-ui, sans-serif;
+}
+
+.monthAxis path,
+.monthAxis line {
+  stroke: none;
+}
+
+.timelineChart .tooltip {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-5px);
+  transition: all 0.4s 0.1s;
+  fill: white;
+}
+
+.timelineChart .date {
+  font-size: 0.8rem;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.timelineChart a:hover .tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timelineChart .tooltipLine {
+  stroke: white;
+  pointer-events: none;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: all 0.2s;
+}
+
+.timelineChart a:hover .tooltipLine {
+  transform: scaleY(1);
+}
+
+.timelineChart + section {
+  transition: opacity 0.2s 0.1s;
+}
+
+.timelineChart.tooltipActive + section {
+  opacity: 0.3;
+}
+
+.categoryAxis .domain,
+.categoryAxis line {
+  stroke: none;
+}
+
+.categoryAxis text {
+  font-size: 0.8rem;
+  font-family: system-ui, sans-serif;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.1));
+  transform: rotate(-10deg);
+}
+
+/*
+.categoryAxis text.typescript {
+  fill: lighten($tagColours.typescript, 30%)
+}
+.categoryAxis text.design {
+  fill: lighten($tagColours.design, 30%)
+}
+.categoryAxis text.other {
+  fill: rgba(#fff, 0.5)
+}
+.categoryAxis text.programming {
+  fill: lighten($tagColours.programming, 30%)
+}
+*/
