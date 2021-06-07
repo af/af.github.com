@@ -8,16 +8,30 @@ import PostListItem from "../components/PostListItem";
 import SidebarLinks from "../components/SidebarLinks";
 import LinksTimeline from "../components/Timeline";
 import styles from "./Homepage.module.css";
+import type { GitHubRepo } from '../components/types';
 
 type Props = {
   allPosts: Array<Post>;
 };
 
+const NUM_REPOS_TO_SHOW = 6;
+const filterRepos = (repos: Array<GitHubRepo>) => repos
+  .filter((r) => !r.fork)
+  .filter((r) => r.stargazers_count > 2)
+  .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
+  .slice(0, NUM_REPOS_TO_SHOW);
+
 export default function Homepage({ allPosts }: Props) {
   const [links, setLinks] = useState([]);
+  const [repos, setRepos] = useState<Array<GitHubRepo>>([1, 2, 3, 4, 5, 6]);
   useEffect(() => {
     // @ts-expect-error global hackery
     window._linksPromise.then((links) => setLinks(links));
+    // @ts-expect-error more global hackery
+    window._reposPromise.then((ghResponse) => {
+      const repos = filterRepos(ghResponse?.data ?? []);
+      setRepos(repos);
+    });
   }, []);
 
   const latestPosts = allPosts.slice(0, 3);
@@ -48,8 +62,11 @@ export default function Homepage({ allPosts }: Props) {
           </header>
 
           <ol className={styles.openSource}>
-            {[1, 2, 3, 4, 5, 6].map((x) => (
-              <OpenSourceCard key={x} />
+            {repos.map((repo, idx) => (
+              <OpenSourceCard
+                key={idx}
+                repo={repo.name ? repo : undefined}
+              />
             ))}
           </ol>
         </section>

@@ -4,13 +4,7 @@ import { scaleOrdinal, scaleTime } from "d3-scale";
 import { timeMonth, timeYear } from "d3-time";
 import { select } from "d3-selection";
 import beeswarm from "./Beeswarm";
-
-type PinboardLink = {
-  dt: string;
-  u: string;
-  d: string;
-  t: Array<string>;
-};
+import type { PinboardLink } from './types'
 
 type Props = {
   links?: Array<PinboardLink>
