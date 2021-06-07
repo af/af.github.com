@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
-import Head from "next/head";
 import Layout from "../../components/Layout";
+import SiteMeta from "../../components/SiteMeta";
 import PostFooter from "../../components/PostFooter";
 import {
   getPostBySlug,
@@ -29,13 +29,9 @@ export default function PostPage({ post, latestPosts }: Props) {
         ) : (
           <>
             <article className="container">
-              <Head>
-                <title>{post.title} | TODO:site name</title>
-                {post.keywords ? (
-                  <meta name="keywords" content={post.keywords} />
-                ) : null}
+              <SiteMeta title={post.title} keywords={post.keywords}>
                 <meta property="article:published_time" content={post.date} />
-              </Head>
+              </SiteMeta>
 
               <header>
                 <h1 className={styles.title}>{post.title}</h1>
@@ -74,15 +70,12 @@ export async function getStaticProps({ params }: any) {
 
 export async function getStaticPaths() {
   const posts = getAllPosts();
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
 
   return {
-    paths: posts.map((post) => {
-      return {
-        params: {
-          slug: post.slug,
-        },
-      };
-    }),
+    paths,
     fallback: false,
   };
 }

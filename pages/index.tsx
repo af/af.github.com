@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
 
 import { getAllPosts, Post } from "../lib/api";
 import Layout from "../components/Layout";
+import SiteMeta from "../components/SiteMeta";
 import OpenSourceCard from "../components/OpenSourceCard";
 import PostListItem from "../components/PostListItem";
 import SidebarLinks from "../components/SidebarLinks";
@@ -38,13 +38,10 @@ export default function Homepage({ allPosts }: Props) {
   return (
     <>
       <Layout>
-        <Head>
-          <title>TODO min site title</title>
-          <meta
-            name="keywords"
-            content="Aaron Franks, programming, software, Victoria"
-          />
-        </Head>
+        <SiteMeta>
+          <link rel="preconnect" href="https://feeds.pinboard.in" crossOrigin="anonymous" />
+          <link rel="preconnect" href="https://api.github.com" crossOrigin="anonymous" />
+        </SiteMeta>
 
         <div className="container">
           <p className={styles.hello}>

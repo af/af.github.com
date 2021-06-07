@@ -2,6 +2,7 @@ import Head from "next/head";
 
 import { getAllPosts } from "../../lib/api";
 import Layout from "../../components/Layout";
+import SiteMeta from "../../components/SiteMeta"
 import PostListItem from "../../components/PostListItem";
 
 type Props = {
@@ -12,9 +13,7 @@ export default function Index({ allPosts }: Props) {
   return (
     <>
       <Layout>
-        <Head>
-          <title>All Posts</title>
-        </Head>
+        <SiteMeta title="All Posts" />
         <div className="container">
           <h1>All Posts</h1>
           <p>For some unknown reason, I occasionally publish sloppy, mid-length essays on the internet.

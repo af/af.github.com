@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Head from "next/head";
+import React from "react";
 import Layout from "../components/Layout";
+import SiteMeta from "../components/SiteMeta";
 
 export default function FourOhFour() {
   return (
     <Layout>
-      <Head>
-        <title>Page not found</title>
-      </Head>
+      <SiteMeta title="404" />
 
       <div className="container">
         <h1>Oops, couldn't find that page.</h1>
