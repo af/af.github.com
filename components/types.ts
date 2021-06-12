@@ -1,7 +1,8 @@
 export type PinboardLink = {
-  dt: string;
-  u: string;
-  d: string;
+  dt: string; // timestamp
+  u: string;  // url
+  d: string;  // title
+  n: string;  // comment
   t: Array<string>;
 };
 

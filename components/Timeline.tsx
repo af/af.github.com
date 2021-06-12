@@ -24,7 +24,7 @@ const CATEGORY_LANES = {
 const TAGS = Object.keys(CATEGORY_LANES);
 
 const renderTimeline = async (
-  svg: SVGElement,
+  svg: SVGSVGElement,
   links: Array<PinboardLink>
 ) => {
   const { width, height, display } = getComputedStyle(svg);
@@ -43,6 +43,7 @@ const renderTimeline = async (
     .domain(Object.keys(CATEGORY_LANES))
     .range(Object.values(CATEGORY_LANES).map((v) => v * svgWidth));
   const catAxis = select(".categoryAxis");
+  // @ts-ignore
   catAxis.attr("transform", leavePadding).call(axisTop(ordScale));
   catAxis
     .selectAll("text")
@@ -53,13 +54,13 @@ const renderTimeline = async (
   const makeAxis = () => axisLeft(tScale).tickSize(120);
   select(".yearAxis")
     .attr("transform", leavePadding)
-    .call(makeAxis().ticks(timeYear));
+    .call(makeAxis().ticks(timeYear) as any);
 
   // A separate month axis is also rendered for finer-grained ticks
   const nonZeroMonths = timeMonth.filter((d) => d.getUTCMonth() !== 0);
   select(".monthAxis")
     .attr("transform", leavePadding)
-    .call(makeAxis().ticks(nonZeroMonths));
+    .call(makeAxis().ticks(nonZeroMonths) as any);
 
   // Divide links into tag group "buckets":
   const getGroupForLink = (link: PinboardLink) =>
@@ -89,7 +90,7 @@ const renderTimeline = async (
 };
 
 const LinksTimeline = ({ links }: Props) => {
-  const timelineRef = useRef<SVGElement | null>(null);
+  const timelineRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
     if (!timelineRef || !links) return;

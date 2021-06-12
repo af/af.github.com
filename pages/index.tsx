@@ -23,7 +23,7 @@ const filterRepos = (repos: Array<GitHubRepo>) => repos
 
 export default function Homepage({ allPosts }: Props) {
   const [links, setLinks] = useState([]);
-  const [repos, setRepos] = useState<Array<GitHubRepo>>([1, 2, 3, 4, 5, 6]);
+  const [repos, setRepos] = useState<Array<GitHubRepo | undefined>>(Array(6));
   useEffect(() => {
     // @ts-expect-error global hackery
     window._linksPromise.then((links) => setLinks(links));
@@ -62,7 +62,7 @@ export default function Homepage({ allPosts }: Props) {
             {repos.map((repo, idx) => (
               <OpenSourceCard
                 key={idx}
-                repo={repo.name ? repo : undefined}
+                repo={repo?.name ? repo : undefined}
               />
             ))}
           </ol>

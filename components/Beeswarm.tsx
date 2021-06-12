@@ -1,4 +1,4 @@
-import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
+import { forceSimulation, forceX, forceY, forceCollide, SimulationNodeDatum } from "d3-force";
 import { select } from "d3-selection";
 
 type Datum = {
@@ -27,15 +27,15 @@ export default function circleChart({
   scale,
   data = [],
 }: CircleChartParams) {
-  const t = (d: Datum) => Math.floor(scale(new Date(d.date)));
+  const t = (d: Datum & SimulationNodeDatum) => Math.floor(scale(new Date(d.date)));
 
   // For force sim beeswarm example, see
   // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
-  const collisionForce = forceCollide<Datum>().radius((d) => d.radius + PADDING);
-  const sim = forceSimulation(data)
+  const collisionForce = forceCollide<Datum & SimulationNodeDatum>().radius((d) => d.radius + PADDING);
+  const sim = forceSimulation(data as Array<Datum & SimulationNodeDatum>)
     .force(
       "x",
-      forceX((d: Datum) => d.initialX)
+      forceX((d: SimulationNodeDatum & Datum) => d.initialX)
     )
     .force("y", forceY(t).strength(1))
     .force("collide", collisionForce)
@@ -53,7 +53,7 @@ export default function circleChart({
   const links = groups
     .append("a")
     .attr("xlink:href", (d: Datum) => d.url)
-    .attr("transform", (d: Datum) => `translate(${d.x}, ${d.y})`)
+    .attr("transform", (d: Datum & SimulationNodeDatum) => `translate(${d.x}, ${d.y})`)
     .on("mouseover", () => svgEl.classList.add("tooltipActive"))
     .on("mouseout", () => svgEl.classList.remove("tooltipActive"));
 
@@ -96,10 +96,12 @@ export default function circleChart({
     .attr("x1", 1)
     .attr("x2", 1)
     .attr("y1", function () {
+      // @ts-ignore
       const circle = select(this.parentElement.firstChild);
       return -1 * (parseFloat(circle.attr("r")) + 3);
     })
     .attr("y2", function () {
+      // @ts-ignore
       return parseFloat(select(this).attr("y1")) - 45;
     });
 }

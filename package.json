@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "lint": "echo 'todo'",
+    "lint": "tsc",
     "start": "next start",
     "deploy": "yarn build && netlify deploy",
     "deploy-prod": "yarn build && netlify deploy --prod",
