@@ -1,6 +1,6 @@
-import React from "react";
-import Layout from "../components/Layout";
-import SiteMeta from "../components/SiteMeta";
+import React from 'react'
+import Layout from '../components/Layout'
+import SiteMeta from '../components/SiteMeta'
 
 export default function FourOhFour() {
   return (
@@ -12,5 +12,5 @@ export default function FourOhFour() {
         That was a 404. It's probably your fault.
       </div>
     </Layout>
-  );
+  )
 }

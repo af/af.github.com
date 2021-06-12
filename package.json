@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
+    "format": "prettier --write lib pages components",
     "lint": "tsc",
     "start": "next start",
     "deploy": "yarn build && netlify deploy",
@@ -41,5 +42,13 @@
     "hooks": {
       "pre-push": "yarn lint"
     }
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 110
   }
 }

@@ -28,7 +28,7 @@ export async function renderFeedItem(post: BlogPost) {
       <id>${post.url}</id>
       <content type="html">${content}</content>
     </entry>
-  `;
+  `
 }
 
 export async function renderFeed(posts: Array<BlogPost>) {

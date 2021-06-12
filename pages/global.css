@@ -17,8 +17,12 @@
 }
 
 @keyframes pulse-opacity {
-  0% { opacity: 1; }
-  100% { opacity: 0.4; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
 }
 
 * {

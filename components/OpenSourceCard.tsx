@@ -1,10 +1,10 @@
-import React from "react";
-import styles from "./OpenSourceCard.module.css";
-import type { GitHubRepo } from "./types";
+import React from 'react'
+import styles from './OpenSourceCard.module.css'
+import type { GitHubRepo } from './types'
 
 type Props = {
-  repo?: GitHubRepo;
-};
+  repo?: GitHubRepo
+}
 
 export default function OpenSourceCard({ repo }: Props) {
   if (!repo) {
@@ -16,7 +16,7 @@ export default function OpenSourceCard({ repo }: Props) {
           <div className={styles.description}>...</div>
         </a>
       </li>
-    );
+    )
   }
 
   return (
@@ -27,5 +27,5 @@ export default function OpenSourceCard({ repo }: Props) {
         <div className={styles.description}>{repo.description}</div>
       </a>
     </li>
-  );
+  )
 }

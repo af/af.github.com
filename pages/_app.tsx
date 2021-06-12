@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 import './global.css'
 
 type Props = {
-  Component: React.ComponentType,
+  Component: React.ComponentType
   pageProps: any
 }
 

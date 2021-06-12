@@ -1,40 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
-import { getAllPosts } from "../lib/api";
-import Layout from "../components/Layout";
-import SiteMeta from "../components/SiteMeta";
-import OpenSourceCard from "../components/OpenSourceCard";
-import PostListItem from "../components/PostListItem";
-import SidebarLinks from "../components/SidebarLinks";
-import LinksTimeline from "../components/Timeline";
-import styles from "./Homepage.module.css";
-import type { GitHubRepo, BlogPost } from '../components/types';
+import { getAllPosts } from '../lib/api'
+import Layout from '../components/Layout'
+import SiteMeta from '../components/SiteMeta'
+import OpenSourceCard from '../components/OpenSourceCard'
+import PostListItem from '../components/PostListItem'
+import SidebarLinks from '../components/SidebarLinks'
+import LinksTimeline from '../components/Timeline'
+import styles from './Homepage.module.css'
+import type { GitHubRepo, BlogPost } from '../components/types'
 
 type Props = {
-  allPosts: Array<BlogPost>;
-};
+  allPosts: Array<BlogPost>
+}
 
-const NUM_REPOS_TO_SHOW = 6;
-const filterRepos = (repos: Array<GitHubRepo>) => repos
-  .filter((r) => !r.fork)
-  .filter((r) => r.stargazers_count > 2)
-  .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
-  .slice(0, NUM_REPOS_TO_SHOW);
+const NUM_REPOS_TO_SHOW = 6
+const filterRepos = (repos: Array<GitHubRepo>) =>
+  repos
+    .filter(r => !r.fork)
+    .filter(r => r.stargazers_count > 2)
+    .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
+    .slice(0, NUM_REPOS_TO_SHOW)
 
 export default function Homepage({ allPosts }: Props) {
-  const [links, setLinks] = useState([]);
-  const [repos, setRepos] = useState<Array<GitHubRepo | undefined>>(Array(6));
+  const [links, setLinks] = useState([])
+  const [repos, setRepos] = useState<Array<GitHubRepo | undefined>>(Array(6))
   useEffect(() => {
     // @ts-expect-error global hackery
-    window._linksPromise.then((links) => setLinks(links));
+    window._linksPromise.then(links => setLinks(links))
     // @ts-expect-error more global hackery
-    window._reposPromise.then((ghResponse) => {
-      const repos = filterRepos(ghResponse?.data ?? []);
-      setRepos(repos);
-    });
-  }, []);
+    window._reposPromise.then(ghResponse => {
+      const repos = filterRepos(ghResponse?.data ?? [])
+      setRepos(repos)
+    })
+  }, [])
 
-  const latestPosts = allPosts.slice(0, 3);
+  const latestPosts = allPosts.slice(0, 3)
   return (
     <>
       <Layout>
@@ -45,8 +46,8 @@ export default function Homepage({ allPosts }: Props) {
 
         <div className="container">
           <p className={styles.hello}>
-            Hi 👋 I’m a software engineer with interests in user interfaces,
-            data visualization, and functional programming.
+            Hi 👋 I’m a software engineer with interests in user interfaces, data visualization, and
+            functional programming.
           </p>
         </div>
 
@@ -60,10 +61,7 @@ export default function Homepage({ allPosts }: Props) {
 
           <ol className={styles.openSource}>
             {repos.map((repo, idx) => (
-              <OpenSourceCard
-                key={idx}
-                repo={repo?.name ? repo : undefined}
-              />
+              <OpenSourceCard key={idx} repo={repo?.name ? repo : undefined} />
             ))}
           </ol>
         </section>
@@ -76,7 +74,7 @@ export default function Homepage({ allPosts }: Props) {
             </a>
           </header>
 
-          {latestPosts.map((p) => (
+          {latestPosts.map(p => (
             <PostListItem post={p} key={p.title} />
           ))}
         </section>
@@ -115,11 +113,11 @@ export default function Homepage({ allPosts }: Props) {
         }}
       />
     </>
-  );
+  )
 }
 
 export async function getStaticProps() {
   return {
     props: { allPosts: getAllPosts() },
-  };
+  }
 }
