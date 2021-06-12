@@ -1,8 +1,7 @@
 // see https://gist.github.com/riccardobevilacqua/d3820b80718517448d8ad6c8151fc9ac
 // FIXME: clean up and finish this feed implementation to match https://aaronfranks.com/atom.xml
 import { markdownToHtml } from './api'
-
-type PostType = any;
+import type { BlogPost } from '../components/types'
 
 const renderPreamble = () => `
   <feed xmlns="http://www.w3.org/2005/Atom">
@@ -18,7 +17,7 @@ const renderPreamble = () => `
   </author>
 `
 
-export async function renderFeedItem(post: PostType) {
+export async function renderFeedItem(post: BlogPost) {
   const content = await markdownToHtml(post.content || '')
 
   return `
@@ -32,9 +31,11 @@ export async function renderFeedItem(post: PostType) {
   `;
 }
 
-export async function renderFeed(posts: PostType) {
+export async function renderFeed(posts: Array<BlogPost>) {
+  const renderedItems = await Promise.all(posts.map(renderFeedItem))
+
   return `
     ${renderPreamble()}
-    ${posts.map(renderFeedItem).join('\n')}
+    ${renderedItems.join('\n')}
   `
 }

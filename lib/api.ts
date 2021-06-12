@@ -3,22 +3,13 @@ import { join } from "path";
 import matter from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
-
-// TODO: partial type
-export type Post = {
-  content: string,
-  date: string,
-  keywords?: string,
-  slug: string,
-  title: string,
-  url: string,
-};
+import type { BlogPost } from '../components/types'
 
 const postsDirectory = join(process.cwd(), "_posts");
 
 // mapping of url cleaned slugs to full file slugs
 // FIXME: need to restart server to refresh this
-let postLookup: Record<string, Post> = {};
+let postLookup: Record<string, BlogPost> = {};
 
 const markdownFileRegex = /(\d{4}-\d{2}-\d{2})-(.+)/
 
@@ -47,7 +38,7 @@ const init = () => {
 
 init()
 
-export function getPostBySlug(slug: string): Post {
+export function getPostBySlug(slug: string): BlogPost {
   return postLookup[slug]
 }
 

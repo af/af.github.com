@@ -3,5 +3,8 @@ out
 node_modules
 .next
 
+# Generated at build time
+public/atom.xml
+
 # Local Netlify folder
 .netlify

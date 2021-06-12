@@ -3,17 +3,17 @@ import ErrorPage from "next/error";
 import Layout from "../../components/Layout";
 import SiteMeta from "../../components/SiteMeta";
 import PostFooter from "../../components/PostFooter";
+import type { BlogPost } from '../../components/types'
 import {
   getPostBySlug,
   getAllPosts,
   markdownToHtml,
-  Post,
 } from "../../lib/api";
 import styles from "./post.module.css";
 
 type Props = {
-  post: Post;
-  latestPosts: Array<Post>;
+  post: BlogPost;
+  latestPosts: Array<BlogPost>;
 };
 
 export default function PostPage({ post, latestPosts }: Props) {

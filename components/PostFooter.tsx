@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./PostFooter.module.css";
 import PostListItem from "./PostListItem";
-import type { Post } from "../lib/api";
+import type { BlogPost } from "./types";
 
 type Props = {
-  latestPosts: Array<Post>;
+  latestPosts: Array<BlogPost>;
 };
 
 const PostFooter = ({ latestPosts }: Props) => (

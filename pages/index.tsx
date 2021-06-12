@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { getAllPosts, Post } from "../lib/api";
+import { getAllPosts } from "../lib/api";
 import Layout from "../components/Layout";
 import SiteMeta from "../components/SiteMeta";
 import OpenSourceCard from "../components/OpenSourceCard";
@@ -8,10 +8,10 @@ import PostListItem from "../components/PostListItem";
 import SidebarLinks from "../components/SidebarLinks";
 import LinksTimeline from "../components/Timeline";
 import styles from "./Homepage.module.css";
-import type { GitHubRepo } from '../components/types';
+import type { GitHubRepo, BlogPost } from '../components/types';
 
 type Props = {
-  allPosts: Array<Post>;
+  allPosts: Array<BlogPost>;
 };
 
 const NUM_REPOS_TO_SHOW = 6;

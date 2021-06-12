@@ -14,3 +14,12 @@ export type GitHubRepo = {
   html_url: string;
   pushed_at: string;
 };
+
+export type BlogPost = {
+  content: string,
+  date: string,
+  keywords?: string,
+  slug: string,
+  title: string,
+  url: string,
+};

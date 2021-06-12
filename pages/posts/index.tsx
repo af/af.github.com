@@ -4,12 +4,13 @@ import { renderFeed } from "../../lib/feed";
 import Layout from "../../components/Layout";
 import SiteMeta from "../../components/SiteMeta";
 import PostListItem from "../../components/PostListItem";
+import type { BlogPost } from "../../components/types";
 
 type Props = {
-  allPosts: Array<any>;
+  allPosts: Array<BlogPost>;
 };
 
-export default function Index({ allPosts }: Props) {
+const PostList = ({ allPosts }: Props) => {
   return (
     <>
       <Layout>
@@ -31,12 +32,15 @@ export default function Index({ allPosts }: Props) {
 
 export const getStaticProps = async () => {
   const allPosts = getAllPosts()
-  const atomContents = await renderFeed(allPosts)
 
-  console.log('WRITING', allPosts.length)
-  fs.writeFileSync('../../public/atom.xml', atomContents)
+  // Write an Atom feed xml file into out/public
+  // Seems fragile, but works for now
+  const atomContents = await renderFeed(allPosts)
+  fs.writeFileSync('./public/atom.xml', atomContents)
 
   return {
     props: { allPosts },
   };
 };
+
+export default PostList

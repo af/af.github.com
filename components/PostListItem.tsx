@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./PostListItem.module.css";
-import type { Post } from '../lib/api'
+import type { BlogPost } from './types'
 
 type Props = {
-  post: Post
+  post: BlogPost
 }
 
 // FIXME
