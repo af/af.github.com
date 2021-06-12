@@ -1,16 +1,15 @@
-// see https://gist.github.com/riccardobevilacqua/d3820b80718517448d8ad6c8151fc9ac
-// FIXME: clean up and finish this feed implementation to match https://aaronfranks.com/atom.xml
 import { markdownToHtml } from './api'
 import type { BlogPost } from '../components/types'
 
+const SITE = 'https://aaronfranks.com/'
+
 const renderPreamble = () => `
-  <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Aaron Franks</title>
   <subtitle>Area man rambles about programming</subtitle>
-  <link href="https://aaronfranks.com/atom.xml" rel="self"/>
-  <link href="https://aaronfranks.com/"/>
+  <link href="${SITE}/atom.xml" rel="self"/>
+  <link href="${SITE}"/>
   <updated>2021-01-24T08:00:00Z</updated>
-  <id>https://aaronfranks.com/</id>
+  <id>${SITE}</id>
   <author>
   <name>Aaron Franks</name>
   <email/>
@@ -26,7 +25,7 @@ export async function renderFeedItem(post: BlogPost) {
       <link href="${post.url}" />
       <updated>${new Date(post.date).toUTCString()}</updated>
       <id>${post.url}</id>
-      <content type="html">${content}</content>
+      <content type="html"><![CDATA[${content}]]></content>
     </entry>
   `
 }
@@ -34,8 +33,9 @@ export async function renderFeedItem(post: BlogPost) {
 export async function renderFeed(posts: Array<BlogPost>) {
   const renderedItems = await Promise.all(posts.map(renderFeedItem))
 
-  return `
-    ${renderPreamble()}
-    ${renderedItems.join('\n')}
-  `
+  return `<?xml version="1.0" encoding="utf-8"?>
+    <feed xmlns="http://www.w3.org/2005/Atom" xml:base="${SITE}">
+      ${renderPreamble()}
+      ${renderedItems.join('\n')}
+    </feed>`
 }
