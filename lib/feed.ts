@@ -23,7 +23,7 @@ export async function renderFeedItem(post: BlogPost) {
   return `
     <entry>
       <title>${post.title}</title>
-      <link href=${post.url}/>
+      <link href="${post.url}" />
       <updated>${new Date(post.date).toUTCString()}</updated>
       <id>${post.url}</id>
       <content type="html">${content}</content>
