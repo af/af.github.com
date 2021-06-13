@@ -42,13 +42,13 @@
 
 .timeline {
   display: flex;
-  flex-direction: column;
+  flex-flow: column-reverse;
   justify-content: space-around;
 }
 
 @media (min-width: 500px) {
   .timeline {
-    flex-direction: row;
+    flex-flow: row;
   }
 
   .timeline > svg {

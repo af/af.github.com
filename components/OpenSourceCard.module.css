@@ -8,7 +8,6 @@
   --pulse-name: pulse-opacity;
 }
 
-/* TODO: migrate to grid instead */
 @media (min-width: 500px) {
   .main {
     width: 49%;
@@ -33,6 +32,12 @@
   border: none;
   border-radius: 3px;
   transition: all 0.2s;
+}
+
+.main a:hover {
+  filter: brightness(1.3);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 15px rgb(0 0 0 / 30%);
 }
 
 .main:nth-child(odd) a {

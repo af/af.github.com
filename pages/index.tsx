@@ -107,7 +107,7 @@ export default function Homepage({ allPosts }: Props) {
           window.reposCb = (repos => resolve(repos))
       })
       </script>
-      <script src="https://feeds.pinboard.in/json/u:_af?count=400&cb=linksCb"></script>
+      <script src="https://feeds.pinboard.in/json/u:_af?count=150&cb=linksCb"></script>
       <script src="https://api.github.com/users/af/repos?sort=updated&per_page=15&callback=reposCb"></script>
       `,
         }}

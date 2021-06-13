@@ -20,6 +20,7 @@
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0.4;
   }
@@ -37,7 +38,7 @@ body {
   position: relative;
   margin: 0;
   min-width: 321px;
-  background: linear-gradient(to bottom, var(--color-bodyTopBg) 100px, var(--color-bodyBottomBg)) fixed;
+  background: url("/img/bg.svg") center no-repeat fixed, linear-gradient(to bottom, var(--color-bodyTopBg) 60px, var(--color-bodyBottomBg)) fixed;
   background-color: var(--color-bodyTopBg);
   background-size: cover;
   color: var(--color-text);
