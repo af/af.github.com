@@ -42,11 +42,19 @@ body {
   background-color: var(--color-bodyTopBg);
   background-size: cover;
   color: var(--color-text);
+  display: flex;
+  flex-direction: column;
   font-family: system-ui, sans-serif;
   font-size: 18px;
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 h1 {
@@ -110,4 +118,5 @@ blockquote {
   margin-left: auto;
   margin-right: auto;
   padding: 0 1rem;
+  width: 100%;
 }
