@@ -8,7 +8,6 @@ type Props = {
   children?: React.ReactNode
 }
 
-// TODO: read from env var?
 const DEFAULT_TITLE = 'Area man rambles about programming'
 const DEFAULT_KEYWORDS = 'Aaron Franks, programming, software, Victoria'
 const AUTHOR = 'Aaron Franks'

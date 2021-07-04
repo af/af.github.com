@@ -1,7 +1,7 @@
-import envalid from 'envalid'
+import { cleanEnv, str } from 'envalid'
 
-const env = envalid.cleanEnv(process.env, {
-  CLOUDFLARE_ANALYTICS_BEACON: envalid.str({ default: '' }),
+const env = cleanEnv(process.env, {
+  CLOUDFLARE_ANALYTICS_BEACON: str({ default: '' }),
 })
 
 export default env
