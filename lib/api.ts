@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
-import remark from 'remark'
+import { remark } from 'remark'
 import html from 'remark-html'
 import type { BlogPost } from '../components/types'
 

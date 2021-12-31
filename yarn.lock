@@ -3640,10 +3640,10 @@ regenerator-runtime@^0.13.4:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
   integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
 
-remark-html@15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/remark-html/-/remark-html-15.0.0.tgz#9e5b8abefa82f232c995e611906c0ab6690c2d96"
-  integrity sha512-Fsk04zueun0u3aM3dbwfVDRTOeEco0H4Dc3hWyv7XKra8smQQJEqnD0sFhQVe9v1KxYvzVcJ6ioXtuLux2SvJA==
+remark-html@15.0.1:
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/remark-html/-/remark-html-15.0.1.tgz#199cc78656d857834de0304c4b54a773f3272078"
+  integrity sha512-7ta5UPRqj8nP0GhGMYUAghZ/DRno7dgq7alcW90A7+9pgJsXzGJlFgwF8HOP1b1tMgT3WwbeANN+CaTimMfyNQ==
   dependencies:
     "@types/mdast" "^3.0.0"
     hast-util-sanitize "^4.0.0"
@@ -3683,10 +3683,10 @@ remark-stringify@^9.0.0:
   dependencies:
     mdast-util-to-markdown "^0.6.0"
 
-remark@14.0.1:
-  version "14.0.1"
-  resolved "https://registry.yarnpkg.com/remark/-/remark-14.0.1.tgz#a97280d4f2a3010a7d81e6c292a310dcd5554d80"
-  integrity sha512-7zLG3u8EUjOGuaAS9gUNJPD2j+SqDqAFHv2g6WMpE5CU9rZ6e3IKDM12KHZ3x+YNje+NMAuN55yx8S5msGSx7Q==
+remark@14.0.2:
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/remark/-/remark-14.0.2.tgz#4a1833f7441a5c29e44b37bb1843fb820797b40f"
+  integrity sha512-A3ARm2V4BgiRXaUo5K0dRvJ1lbogrbXnhkJRmD0yw092/Yl0kOCZt1k9ZeElEwkZsWGsMumz6qL5MfNJH9nOBA==
   dependencies:
     "@types/mdast" "^3.0.0"
     remark-parse "^10.0.0"
