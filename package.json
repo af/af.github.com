@@ -7,10 +7,7 @@
     "build": "next build && next export",
     "format": "prettier --write lib pages components",
     "lint": "tsc && stylelint '{pages,components}/**/*.css'",
-    "start": "next dev",
-    "deploy": "yarn build && netlify deploy",
-    "deploy-prod": "yarn build && netlify deploy --prod",
-    "watch": "yarn start"
+    "start": "next dev"
   },
   "repository": {
     "type": "git",

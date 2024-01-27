@@ -5,6 +5,3 @@ node_modules
 
 # Generated at build time
 public/atom.xml
-
-# Local Netlify folder
-.netlify
