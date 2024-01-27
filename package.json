@@ -23,17 +23,18 @@
   },
   "devDependencies": {
     "@types/d3": "6.7.0",
-    "@types/react": "17.0.9",
+    "@types/node": "20.11.8",
+    "@types/react": "18.2.48",
     "gray-matter": "4.0.3",
     "husky": "4.2.5",
-    "next": "12.0.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "next": "14.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "remark": "14.0.2",
     "remark-html": "15.0.1",
-    "stylelint": "13.13.1",
-    "stylelint-config-standard": "22.0.0",
-    "typescript": "4.4.4"
+    "stylelint": "16.2.0",
+    "stylelint-config-standard": "36.0.0",
+    "typescript": "5.3.3"
   },
   "dependencies": {
     "d3": "5.15.1"
