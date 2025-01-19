@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "format": "prettier --write lib pages components",
-    "lint": "tsc && stylelint '{pages,components}/**/*.css'",
+    "lint": "tsc && biome lint --diagnostic-level=error pages components",
     "start": "next dev"
   },
   "repository": {
@@ -19,11 +18,11 @@
     "url": "https://github.com/af/af.github.com/issues"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/d3": "6.7.0",
     "@types/node": "20.11.8",
     "@types/react": "18.2.48",
     "gray-matter": "4.0.3",
-    "husky": "4.2.5",
     "next": "14.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -35,18 +34,5 @@
   },
   "dependencies": {
     "d3": "5.15.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn lint"
-    }
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true,
-    "printWidth": 110
   }
 }
