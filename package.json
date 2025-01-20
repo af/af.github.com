@@ -4,7 +4,7 @@
   "description": "Silly little personal website",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "lint": "tsc && biome lint --diagnostic-level=error pages components",
     "start": "next dev"
   },
