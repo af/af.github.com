@@ -8,6 +8,9 @@
     "lint": "tsc && biome lint --diagnostic-level=error pages components",
     "start": "next dev"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/af/af.github.com.git"
