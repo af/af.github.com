@@ -8,6 +8,7 @@
     "lint": "tsc && biome lint --diagnostic-level=error pages components",
     "start": "next dev"
   },
+  "packageManager": "yarn@1.22.22",
   "engines": {
     "node": ">=18"
   },
