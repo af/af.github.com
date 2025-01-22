@@ -13,12 +13,11 @@ const DEFAULT_KEYWORDS = 'Aaron Franks, programming, software, Victoria'
 const AUTHOR = 'Aaron Franks'
 
 const SiteMeta = ({ title, description, keywords, children }: Props) => {
+  const fullTitle = `${title ?? DEFAULT_TITLE} | ${AUTHOR}`
   return (
     <Head>
       <meta charSet="utf-8" />
-      <title>
-        {title ?? DEFAULT_TITLE} | {AUTHOR}
-      </title>
+      <title>{fullTitle}</title>
       <meta name="keywords" content={keywords ?? DEFAULT_KEYWORDS} />
       <meta name="author" content={AUTHOR} />
       {description && <meta name="description" content={description} />}
