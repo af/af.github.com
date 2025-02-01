@@ -1,5 +1,5 @@
 /* TODO move to a proper module eventually */
-@import '../components/Timeline.css';
+@import "../components/Timeline.css";
 
 :root {
   --color-cta: #8d84ee;
@@ -38,7 +38,8 @@ body {
   position: relative;
   margin: 0;
   min-width: 321px;
-  background: url("/img/bg.svg") center no-repeat fixed, linear-gradient(to bottom, var(--color-bodyTopBg) 60px, var(--color-bodyBottomBg)) fixed;
+  background: url("/img/bg.svg") center no-repeat fixed,
+    linear-gradient(to bottom, var(--color-bodyTopBg) 60px, var(--color-bodyBottomBg)) fixed;
   background-color: var(--color-bodyTopBg);
   background-size: cover;
   color: var(--color-text);
@@ -119,4 +120,20 @@ blockquote {
   margin-right: auto;
   padding: 0 1rem;
   width: 100%;
+}
+
+@media print {
+  body {
+    margin: 0;
+    color: #000;
+    background-color: #fff;
+  }
+
+  a {
+    color: #448;
+  }
+
+  img[alt="AF"] {
+    filter: invert(1);
+  }
 }
