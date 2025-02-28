@@ -17,8 +17,8 @@ type Props = {
 const NUM_REPOS_TO_SHOW = 6
 const filterRepos = (repos: Array<GitHubRepo>) =>
   repos
-    .filter(r => !r.fork)
-    .filter(r => r.stargazers_count > 2)
+    .filter((r) => !r.fork)
+    .filter((r) => r.stargazers_count > 2)
     .sort((r1, r2) => (r1.pushed_at < r2.pushed_at ? 1 : -1))
     .slice(0, NUM_REPOS_TO_SHOW)
 
@@ -26,13 +26,16 @@ export default function Homepage({ allPosts }: Props) {
   const [links, setLinks] = useState([])
   const [repos, setRepos] = useState<Array<GitHubRepo | undefined>>(Array(6))
   useEffect(() => {
-    // @ts-expect-error global hackery
-    window._linksPromise.then(links => setLinks(links))
-    // @ts-expect-error more global hackery
-    window._reposPromise.then(ghResponse => {
-      const repos = filterRepos(ghResponse?.data ?? [])
-      setRepos(repos)
-    })
+    fetch('/links')
+      .then((res) => res.json())
+      .then((links) => setLinks(links))
+
+    fetch('/repos')
+      .then((res) => res.json())
+      .then((allRepos) => {
+        const repos = filterRepos(allRepos ?? [])
+        setRepos(repos)
+      })
   }, [])
 
   const latestPosts = allPosts.slice(0, 3)
@@ -40,8 +43,8 @@ export default function Homepage({ allPosts }: Props) {
     <>
       <Layout>
         <SiteMeta>
-          <link rel="preconnect" href="https://feeds.pinboard.in" crossOrigin="anonymous" />
-          <link rel="preconnect" href="https://api.github.com" crossOrigin="anonymous" />
+          <link rel="prefetch" href="/links" crossOrigin="anonymous" />
+          <link rel="prefetch" href="/repos" crossOrigin="anonymous" />
         </SiteMeta>
 
         <div className="container">
@@ -74,7 +77,7 @@ export default function Homepage({ allPosts }: Props) {
             </a>
           </header>
 
-          {latestPosts.map(p => (
+          {latestPosts.map((p) => (
             <PostListItem post={p} key={p.title} />
           ))}
         </section>
@@ -92,26 +95,6 @@ export default function Homepage({ allPosts }: Props) {
 
         <footer>&nbsp;</footer>
       </Layout>
-
-      {/*
-      Load pinboard links and GH repos (via their jsonp callback) into Promises
-      */}
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `
-      <script>
-      window._linksPromise = new Promise((resolve, reject) => {
-          window.linksCb = (links => resolve(links))
-      })
-      window._reposPromise = new Promise((resolve, reject) => {
-          window.reposCb = (repos => resolve(repos))
-      })
-      </script>
-      <script src="https://feeds.pinboard.in/json/u:_af?count=150&cb=linksCb"></script>
-      <script src="https://api.github.com/users/af/repos?sort=updated&per_page=15&callback=reposCb"></script>
-      `,
-        }}
-      />
     </>
   )
 }
