@@ -26,11 +26,12 @@ export default function Homepage({ allPosts }: Props) {
   const [links, setLinks] = useState([])
   const [repos, setRepos] = useState<Array<GitHubRepo | undefined>>(Array(6))
   useEffect(() => {
-    fetch('/links')
+    // Load cached 3rd party data from Cloudflare worker
+    fetch('/cache?src=links')
       .then((res) => res.json())
       .then((links) => setLinks(links))
 
-    fetch('/repos')
+    fetch('/cache?src=repos')
       .then((res) => res.json())
       .then((allRepos) => {
         const repos = filterRepos(allRepos ?? [])
@@ -43,8 +44,8 @@ export default function Homepage({ allPosts }: Props) {
     <>
       <Layout>
         <SiteMeta>
-          <link rel="prefetch" href="/links" crossOrigin="anonymous" />
-          <link rel="prefetch" href="/repos" crossOrigin="anonymous" />
+          <link rel="preload" as="fetch" href="/cache?src=links" crossOrigin="anonymous" />
+          <link rel="preload" as="fetch" href="/cache?src=repos" crossOrigin="anonymous" />
         </SiteMeta>
 
         <div className="container">
