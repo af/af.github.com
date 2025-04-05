@@ -4,16 +4,19 @@ published: true
 title: Short and punchy
 ---
 
-A lamentable formula has taken root in the world of nonfiction writing. Every chapter begins with
-a drawn-out story, before the author eventually circles back to reveal its central lesson. 
+An unfortunate pattern pervades the world of nonfiction books. Every chapter begins with
+a drawn-out story, before the author eventually circles back to reveal its central lesson.
 
-This formula pads what could often be a blog post into a 200+ page tome. Instead of reading it in
-an afternoon, it might take you weeks (if you finish it at all).
+This formula pads a dozen pages of useful information into a 200+ page slog. Instead of reading the
+book in an afternoon, it might take you weeks to work through (if you finish it at all).
 
-We should celebrate those books that eschew this blueprint, delivering a clear and forceful message
+I don't know if the root cause is the author's [quest for status](https://borretti.me/article/non-fiction-has-bad-incentives),
+the publisher enforcing their prescribed formula, or something else. Either way, the reader loses.
+
+We should celebrate the books that eschew this blueprint, delivering a clear and forceful message
 while staying concise and considerate of the reader's time.
 
-Below are a few of my favourite "short and punchy" authors and books.
+Below are some of my favourite “short and punchy” authors and books.
 
 Derek Sivers:
 
