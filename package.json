@@ -27,7 +27,7 @@
     "@types/node": "20.11.8",
     "@types/react": "18.2.48",
     "gray-matter": "4.0.3",
-    "next": "14.2.21",
+    "next": "14.2.30",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "remark": "14.0.2",
