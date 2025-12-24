@@ -1,4 +1,4 @@
-const PINBOARD_URL = 'https://feeds.pinboard.in/json/u:_af?count=100&cb=linksCb'
+const PINBOARD_URL = 'https://feeds.pinboard.in/json/u:_af?count=150&cb=linksCb'
 const GH_URL = 'https://api.github.com/users/af/repos?sort=updated&per_page=15'
 
 const TTL = 60 * 60 * 12 // 12 hours (data changes infrequently)
