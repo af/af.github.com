@@ -26,11 +26,13 @@ export default function circleChart({ svgEl, rootSelection, scale, data = [] }: 
 
   // For force sim beeswarm example, see
   // http://bl.ocks.org/mbostock/6526445e2b44303eebf21da3b6627320
-  const collisionForce = forceCollide<Datum & SimulationNodeDatum>().radius(d => d.radius + PADDING)
+  const collisionForce = forceCollide<Datum & SimulationNodeDatum>().radius(
+    (d) => d.radius + PADDING,
+  )
   const sim = forceSimulation(data as Array<Datum & SimulationNodeDatum>)
     .force(
       'x',
-      forceX((d: SimulationNodeDatum & Datum) => d.initialX)
+      forceX((d: SimulationNodeDatum & Datum) => d.initialX),
     )
     .force('y', forceY(t).strength(1))
     .force('collide', collisionForce)
@@ -40,7 +42,7 @@ export default function circleChart({ svgEl, rootSelection, scale, data = [] }: 
   const groups = rootSelection
     .append('g')
     .selectAll('g.item')
-    .data(data.filter(d => t(d) > 0))
+    .data(data.filter((d) => t(d) > 0))
     .enter()
     .append('g')
     .attr('class', 'item')
@@ -82,12 +84,12 @@ export default function circleChart({ svgEl, rootSelection, scale, data = [] }: 
     .attr('class', 'tooltipLine')
     .attr('x1', 1)
     .attr('x2', 1)
-    .attr('y1', function () {
+    .attr('y1', function() {
       // @ts-ignore
       const circle = select(this.parentElement.firstChild)
       return -1 * (parseFloat(circle.attr('r')) + 3)
     })
-    .attr('y2', function () {
+    .attr('y2', function() {
       // @ts-ignore
       return parseFloat(select(this).attr('y1')) - 45
     })
