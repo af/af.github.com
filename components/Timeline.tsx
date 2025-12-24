@@ -10,7 +10,7 @@ type Props = {
   links?: Array<PinboardLink>
 }
 
-const DAYS_OF_HISTORY = 580
+const DAYS_OF_HISTORY = 365
 const START_DATE = new Date(new Date().getTime() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 
 const CATEGORY_LANES = {
@@ -36,14 +36,14 @@ const renderTimeline = async (svg: SVGSVGElement, links: Array<PinboardLink>) =>
   // Set up an axis above the chart with category labels
   const ordScale = scaleOrdinal()
     .domain(Object.keys(CATEGORY_LANES))
-    .range(Object.values(CATEGORY_LANES).map(v => v * svgWidth))
+    .range(Object.values(CATEGORY_LANES).map((v) => v * svgWidth))
   const catAxis = select('.categoryAxis')
   // @ts-ignore
   catAxis.attr('transform', leavePadding).call(axisTop(ordScale))
   catAxis
     .selectAll('text')
     .data(Object.keys(CATEGORY_LANES))
-    .attr('class', d => d)
+    .attr('class', (d) => d)
 
   // Set up a time axis and put it in the middle
   const makeAxis = () => axisLeft(tScale).tickSize(120)
@@ -52,13 +52,14 @@ const renderTimeline = async (svg: SVGSVGElement, links: Array<PinboardLink>) =>
     .call(makeAxis().ticks(timeYear) as any)
 
   // A separate month axis is also rendered for finer-grained ticks
-  const nonZeroMonths = timeMonth.filter(d => d.getUTCMonth() !== 0)
+  const nonZeroMonths = timeMonth.filter((d) => d.getUTCMonth() !== 0)
   select('.monthAxis')
     .attr('transform', leavePadding)
     .call(makeAxis().ticks(nonZeroMonths) as any)
 
   // Divide links into tag group "buckets":
-  const getGroupForLink = (link: PinboardLink) => TAGS.find(t => link.t && link.t.includes(t)) || 'other'
+  const getGroupForLink = (link: PinboardLink) =>
+    TAGS.find((t) => link.t && link.t.includes(t)) || 'other'
 
   const linkChartData = links.map((l: PinboardLink) => {
     const group = getGroupForLink(l)
