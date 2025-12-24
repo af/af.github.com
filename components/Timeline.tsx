@@ -3,6 +3,7 @@ import { axisLeft, axisTop } from 'd3-axis'
 import { scaleOrdinal, scaleTime } from 'd3-scale'
 import { timeMonth, timeYear } from 'd3-time'
 import { select } from 'd3-selection'
+
 import beeswarm from './Beeswarm'
 import type { PinboardLink } from './types'
 
@@ -11,7 +12,7 @@ type Props = {
 }
 
 const DAYS_OF_HISTORY = 365
-const START_DATE = new Date(new Date().getTime() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
+const START_DATE = new Date(Date.now() - DAYS_OF_HISTORY * 24 * 3600 * 1000)
 
 const CATEGORY_LANES = {
   typescript: -0.3,
@@ -25,7 +26,7 @@ const renderTimeline = async (svg: SVGSVGElement, links: Array<PinboardLink>) =>
   const { width, height, display } = getComputedStyle(svg)
   if (display === 'none') return // Don't do expensive rendering on mobile (svg is hidden)
 
-  const [svgWidth, svgHeight] = [parseInt(width), parseInt(height)]
+  const [svgWidth, svgHeight] = [parseInt(width, 10), parseInt(height, 10)]
   const margin = { top: 30, right: 0, left: 0, bottom: 10 }
   const leavePadding = `translate(${svgWidth / 2}, ${margin.top})`
 
@@ -58,8 +59,7 @@ const renderTimeline = async (svg: SVGSVGElement, links: Array<PinboardLink>) =>
     .call(makeAxis().ticks(nonZeroMonths) as any)
 
   // Divide links into tag group "buckets":
-  const getGroupForLink = (link: PinboardLink) =>
-    TAGS.find((t) => link.t && link.t.includes(t)) || 'other'
+  const getGroupForLink = (link: PinboardLink) => TAGS.find((t) => link?.t?.includes(t)) || 'other'
 
   const linkChartData = links.map((l: PinboardLink) => {
     const group = getGroupForLink(l)
@@ -86,12 +86,13 @@ const LinksTimeline = ({ links }: Props) => {
   const timelineRef = useRef<SVGSVGElement | null>(null)
 
   useEffect(() => {
-    if (!timelineRef || !links) return
-    renderTimeline(timelineRef.current!, links)
+    if (!timelineRef.current || !links) return
+    renderTimeline(timelineRef.current, links)
   }, [links])
 
   return (
-    <svg ref={timelineRef} className="timelineChart" width="350" height="1400">
+    <svg ref={timelineRef} className="timelineChart" width="350" height="1000">
+      <title>Links Timeline</title>
       <g className="categoryAxis"></g>
       <g className="yearAxis"></g>
       <g className="monthAxis"></g>
