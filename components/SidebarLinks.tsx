@@ -6,9 +6,12 @@ type Props = {
   links: Array<PinboardLink>
 }
 
+// Picked to roughly match the vertical height of the beeswarm chart
+const LINK_COUNT = 7
+
 const SidebarLinks = ({ links }: Props) => {
-  const latestLinks = links.slice(0, 10)
-  const contents = latestLinks.map(l => (
+  const latestLinks = links.slice(0, LINK_COUNT)
+  const contents = latestLinks.map((l) => (
     <article className={styles.item} key={l.u}>
       <h1>
         <a href={l.u}>{l.d}</a>
