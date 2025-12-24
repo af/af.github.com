@@ -43,8 +43,8 @@ body {
   position: relative;
   margin: 0;
   min-width: 321px;
-  background: url("/img/bg.svg") center no-repeat fixed,
-    linear-gradient(to bottom, var(--color-bodyTopBg) 60px, var(--color-bodyBottomBg)) fixed;
+  background: linear-gradient(to bottom, var(--color-bodyTopBg) 60px, var(--color-bodyBottomBg))
+    fixed;
   background-color: var(--color-bodyTopBg);
   background-size: cover;
   color: var(--color-text);
@@ -55,6 +55,28 @@ body {
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* experimenting via
+* https://css-tricks.com/bringing-back-parallax-with-scroll-driven-css-animations/ 
+*
+* TODO: move svg to inside body and animate individual rays
+* */
+@keyframes parallax {
+  from {
+    background-position: bottom 0px center;
+  }
+
+  to {
+    transform: scale(1.45);
+    background-position: bottom -400px center;
+  }
+}
+
+#__next {
+  background: url("/img/bg.svg") center no-repeat fixed;
+  animation: parallax linear;
+  animation-timeline: scroll();
 }
 
 #__next {

@@ -27,16 +27,16 @@ export default function Homepage({ allPosts }: Props) {
   const [repos, setRepos] = useState<Array<GitHubRepo | undefined>>(Array(6))
   useEffect(() => {
     // Load cached 3rd party data from Cloudflare worker
-    fetch('/cache?src=links')
-      .then((res) => res.json())
-      .then((links) => setLinks(links))
-
-    fetch('/cache?src=repos')
-      .then((res) => res.json())
-      .then((allRepos) => {
-        const repos = filterRepos(allRepos ?? [])
-        setRepos(repos)
-      })
+    // fetch('/cache?src=links')
+    //   .then((res) => res.json())
+    //   .then((links) => setLinks(links))
+    //
+    // fetch('/cache?src=repos')
+    //   .then((res) => res.json())
+    //   .then((allRepos) => {
+    //     const repos = filterRepos(allRepos ?? [])
+    //     setRepos(repos)
+    //   })
   }, [])
 
   const latestPosts = allPosts.slice(0, 3)
