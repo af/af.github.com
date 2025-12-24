@@ -16,6 +16,11 @@
   --gutterWidth: 1rem;
 }
 
+/* default cross-fade during page transitions */
+@view-transition {
+  navigation: auto;
+}
+
 @keyframes pulse-opacity {
   0% {
     opacity: 1;
